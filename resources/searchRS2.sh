@@ -1,40 +1,40 @@
 #!/bin/bash
 
-#Parámetros esperados: "-58.57338|-34.61575|20|02|10|11|11|2020|12|11|2020|13|11|2020|3" el gmt tiene que llegar invertido
+#Parámetros esperados: "-58.57338|-34.61575|0|20|02|10|11|11|2020|12|11|2020|13|11|2020|-3" el gmt tiene que llegar invertido
 #Explicación de parámetros: "longitud|latitud|grado|minuto|segundo|dia 1|mes 1|año 1|dia 2|mes 2|año 2|día 3|mes 3|año 3|gmt"
 
-echo "Iniciando busqueda de grado de revolución solar..."
-
+#echo "Iniciando busqueda de grado de revolución solar..."
 
 LON=$(echo $1 | cut -f1 -d'|')
 LAT=$(echo $1 | cut -f2 -d'|')
-GRADOSOL=$(echo $1 | cut -f3 -d'|')
-MINUTOSOL=$(echo $1 | cut -f4 -d'|')
-SEGUNDOSOL=$(echo $1 | cut -f5 -d'|')
+ATL=$(echo $1 | cut -f3 -d'|')
+GRADOSOL=$(echo $1 | cut -f4 -d'|')
+MINUTOSOL=$(echo $1 | cut -f5 -d'|')
+SEGUNDOSOL=$(echo $1 | cut -f6 -d'|')
 
 #Primer día
-PDIA=$(echo $1 | cut -f6 -d'|')
-PMES=$(echo $1 | cut -f7 -d'|')
-PANIO=$(echo $1 | cut -f8 -d'|')
+PDIA=$(echo $1 | cut -f7 -d'|')
+PMES=$(echo $1 | cut -f8 -d'|')
+PANIO=$(echo $1 | cut -f9 -d'|')
 
 #Segundo día
-SDIA=$(echo $1 | cut -f9 -d'|')
-SMES=$(echo $1 | cut -f10 -d'|')
-SANIO=$(echo $1 | cut -f11 -d'|')
+SDIA=$(echo $1 | cut -f10 -d'|')
+SMES=$(echo $1 | cut -f11 -d'|')
+SANIO=$(echo $1 | cut -f12 -d'|')
 
 #Tercer día
-TDIA=$(echo $1 | cut -f12 -d'|')
-TMES=$(echo $1 | cut -f13 -d'|')
-TANIO=$(echo $1 | cut -f14 -d'|')
+TDIA=$(echo $1 | cut -f13 -d'|')
+TMES=$(echo $1 | cut -f14 -d'|')
+TANIO=$(echo $1 | cut -f15 -d'|')
 
 #GMT (Astrolog lo toma invertido)
-GMT=$(echo $1 | cut -f15 -d'|')
+GMT=$(echo $1 | cut -f16 -d'|')
 
-echo "Buscando grado del sol °"$GRADOSOL" '"$MINUTOSOL" ''"$SEGUNDOSOL
-echo "Longitud: "$LON" Latitud:"$LAT
-echo "Fecha 1: "$PDIA"/"$PMES"/"$PANIO
-echo "Fecha 2: "$SDIA"/"$SMES"/"$SANIO
-echo "Fecha 3: "$TDIA"/"$TMES"/"$TANIO
+#echo "Buscando grado del sol °"$GRADOSOL" '"$MINUTOSOL" ''"$SEGUNDOSOL
+#echo "Longitud: "$LON" Latitud:"$LAT
+#echo "Fecha 1: "$PDIA"/"$PMES"/"$PANIO
+#echo "Fecha 2: "$SDIA"/"$SMES"/"$SANIO
+#echo "Fecha 3: "$TDIA"/"$TMES"/"$TANIO
 
 FDIA=""
 FMES=""
@@ -91,7 +91,7 @@ function is(){
 
     GRADODETECTADO="${grado// /}"
     MINUTODETECTADO="${minuto// /}"
-    SEGUNDODETECTADO="${segundo// /}"
+    SEGUNDODETECTADO=${segundo// /}
     SIGNODETECTADO="$signo"
 
     #echo "GRADODETECTADO: "$GRADODETECTADO
@@ -101,10 +101,9 @@ function is(){
 
     #echo "EEE#####################---->p6:["$p6"]"
     #echo "EEE#####################---->p5: "$p5
-    if [[ $GRADODETECTADO =~ "$GRADOSOL" && $MINUTODETECTADO =~ "$MINUTOSOL" ]]; then
-    #if [[ $GRADODETECTADO =~ "$GRADOSOL" && $MINUTODETECTADO =~ "$MINUTOSOL" && $SEGUNDODETECTADO =~ "$SEGUNDOSOL" ]]; then
-        echo "EN GRADOSOL: "$GRADODETECTADO" MINUTOSOL: "$MINUTODETECTADO" SEGUNDOSOL: "$SEGUNDODETECTADO
-        #echo "$GRADODETECTADO"
+    #if [[ $GRADODETECTADO =~ "$GRADOSOL" && $MINUTODETECTADO =~ "$MINUTOSOL" ]]; then
+    if [[ $GRADODETECTADO =~ "$GRADOSOL" && $MINUTODETECTADO =~ "$MINUTOSOL" && (( $SEGUNDODETECTADO -ge $SEGUNDOSOL)) ]]; then
+        echo "=" #$GRADODETECTADO" MINUTOSOL: "$MINUTODETECTADO" SEGUNDOSOL: "$SEGUNDODETECTADO
     fi
     done
 echo ""
@@ -138,24 +137,24 @@ getGMS(){
             else
                 horasComp=$hora':'$min
             fi
-            #echo $horasComp
-            #/home/ns/astrolog/astrolog -qa 2 1 2020 $horasComp 0 0.0 0.0
-            #datos=$(/home/ns/nsp/uda/astromes/astrolog/astrolog -qa $2 $1 $3 $horasComp $GMT $LON $LAT>&1)
+
             #datos=$(swetest -p0 -j2442584.4583333335 -geopos-69.61535,-35.47857,1420 -head -fZ>&1)
             jd=$(python3 /home/ns/nsp/uda/astrologica/resources/jday2.py $1 $2 $3 $hora $min >&1)
-            datos=$(swetest -p0 -j$jd -geopos$LON,$LAT,0 -head -fZ >&1)
+
+            datos=$(swetest -p0 -j$jd -geopos$LON,$LAT,$ALT -topo$LON,$LAT,$ALT -head -fZ >&1)
+
             #echo "$datos"
             GD=$(is "$datos") # Grado Detectado
-            #echo "GD=$GD"
+            echo "$GD"
             if [[ $GD != "" ]]; then
-                echo "$FDIA $FMES $FANIO $horasComp"
-                #break
+                echo "$FDIA $FMES $FANIO $hora $min"
+                break
             fi
         done
-        #if [[ $GD != "" ]]; then
+        if [[ $GD != "" ]]; then
             #echo "$FDIA $FMES $FANIO $horasComp"
-            #break
-        #fi
+            break
+        fi
     done
     echo ""
 }
@@ -164,31 +163,45 @@ getGMS(){
 #echo "$datos"
 #exit();
 
-#getGMS 11 11 2020
-#getGMS 12 11 2020
+#prueba=$(getGMS 11 11 2020)
+#pru|-34.61575|20|10|12|11|11|2020|12|11|2020|13|11|2020|3"eba=$(getGMS 12 11 2020)
+#res1=$(echo $prueba | cut -f2 -d'=')
+#echo "$res1"
 #exit;
+
+momento=""
 
 DD1=$(getGMS $PDIA $PMES $PANIO) #Detectando día 1
 if [[ $DD1 != "" ]]; then
-    echo "Finalizado en día 1."
-    echo "DD1=$DD1"
+    #echo "Finalizado en día 1."
+    res1=$(echo $DD1 | cut -f2 -d'=')
+    #echo "$res1"
+    momento="$res1"
 else
-    echo "Día 1 sin coincidencia."
+    #echo "Día 1 sin coincidencia."
     DD2=$(getGMS $SDIA $SMES $SANIO) #Detectando día 2
     if [[ $DD2 != "" ]]; then
-        echo "Finalizado en día 2."
-        echo "DD2=$DD2"
+        #echo "Finalizado en día 2."
+        res1=$(echo $DD2 | cut -f2 -d'=')
+        #echo "$res1"
+        momento="$res1"
     else
-        echo "Día 2 sin coincidencia."
+        #echo "Día 2 sin coincidencia."
         DD3=$(getGMS $TDIA $TMES $TANIO) #Detectando día 3
         if [[ $DD3 != "" ]]; then
-            echo "Finalizado en día 3."
-            echo "DD3=$DD3"
+            #echo "Finalizado en día 3."
+            #echo "DD3=$DD3"
+            res1=$(echo $DD3 | cut -f2 -d'=')
+            #echo "$res1"
+            momento="$res1"
         else
-            echo "Día 3 sin coincidencia."
+            echo "null"
         fi
     fi
 fi
+#echo "[$momento"
+horaFinal=$(python3 /home/ns/nsp/uda/astrologica/resources/setGmtHour.py $momento $GMT >&1)
+echo "$horaFinal"
 
 
 
