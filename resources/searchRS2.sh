@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Parámetros esperados: "-58.57338|-34.61575|0|20|02|10|11|11|2020|12|11|2020|13|11|2020|-3" el gmt tiene que llegar invertido
-#Explicación de parámetros: "longitud|latitud|grado|minuto|segundo|dia 1|mes 1|año 1|dia 2|mes 2|año 2|día 3|mes 3|año 3|gmt"
+#Explicación de parámetros: "longitud|latitud|altitud|grado|minuto|segundo|dia 1|mes 1|año 1|dia 2|mes 2|año 2|día 3|mes 3|año 3|gmt"
 
 #echo "Iniciando busqueda de grado de revolución solar..."
 

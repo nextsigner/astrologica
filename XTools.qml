@@ -33,7 +33,7 @@ Rectangle {
                 }
             }
             Button{
-                visible: app.uSon.indexOf('asc_')===0||app.uSon.indexOf('mc_')===0||app.uSon.indexOf('sol_')===0
+                visible: app.uSon.indexOf('asc_')===0||app.uSon.indexOf('mc_')===0||app.uSon.indexOf('sun_')===0
                 text: 'S'
                 width: app.fs*0.6
                 height: app.fs*0.6
@@ -43,6 +43,9 @@ Rectangle {
                     }
                     if(app.uSon.indexOf('mc_')===0){
                         app.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uMcDegree-1)
+                    }
+                    if(app.uSon.indexOf('sun_')===0){
+                        app.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.currentGradoSolar-1)
                     }
                 }
             }

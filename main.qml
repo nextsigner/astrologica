@@ -4,6 +4,8 @@ import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
 
+import unik.UnikQProcess 1.0
+
 ApplicationWindow {
     id: app
     visible: true
@@ -14,6 +16,14 @@ ApplicationWindow {
     property int fs: width*0.03
     property string url
     property int mod: 0
+
+    property string currentNom: ''
+    property string currentFecha: ''
+    property int currentGradoSolar: -1
+    property int currentMinutoSolar: -1
+    property int currentSegundoSolar: -1
+    property real currentLon: 0.0
+    property real currentLat: 0.0
 
     property bool lock: false
     property string uSon: ''
@@ -387,6 +397,9 @@ ApplicationWindow {
                 id: xFormZS
                 visible: false
             }
+            XFormRS{
+                id: xFormRS
+            }
         }
         XTools{
             id: xTools
@@ -430,14 +443,14 @@ ApplicationWindow {
                     }else{
                         xAsp.columns=1
                         //if(xAsp.children[i].c1===c||xAsp.children[i].c2===c){
-//                        if(xAsp.children[i].c2===c){
-//                            xAsp.children[i].opacity=1.0
-//                            xAsp.children[i].visible=true
-//                            //xAsp.height=app.fs*2
-//                        }else{
-                            xAsp.children[i].opacity=0.5
-                            xAsp.children[i].visible=false
-                            //xAsp.height=app.fs*0.9
+                        //                        if(xAsp.children[i].c2===c){
+                        //                            xAsp.children[i].opacity=1.0
+                        //                            xAsp.children[i].visible=true
+                        //                            //xAsp.height=app.fs*2
+                        //                        }else{
+                        xAsp.children[i].opacity=0.5
+                        xAsp.children[i].visible=false
+                        //xAsp.height=app.fs*0.9
                         //}
                     }
                 }
@@ -557,6 +570,22 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+r'
+        onActivated: {
+            if(!xFormRS.visible){
+                xFormRS.alNom=app.currentNom
+                xFormRS.alFecha=app.currentFecha
+                xFormRS.grado=app.currentGradoSolar
+                xFormRS.minuto=app.currentMinutoSolar
+                xFormRS.segundo=app.currentSegundoSolar
+
+                xFormRS.lon=app.currentLon
+                xFormRS.lat=app.currentLat
+            }
+            xFormRS.visible=!xFormZS.visible
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+o'
         onActivated: {
             //img.y+=4
@@ -587,6 +616,14 @@ ApplicationWindow {
         }
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
+
+    GetCmdData{
+        id: getCmdData
+        onGms: {
+            console.log('Grado completo: °'+g+' \''+m+'\'\''+s)
+        }
+    }
+
     Component.onCompleted: {
         if(apps.url!==''){
             load(apps.url)
@@ -731,13 +768,39 @@ ApplicationWindow {
         let vlon=jsonData.params.lon
         let vlat=jsonData.params.lat
         let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        let edad=' <b>Edad:</b> '+getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
+        let edad=''
+        let numEdad=getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
         let stringEdad=edad.indexOf('NaN')<0?edad:''
         let textData=''
-            +'<b>'+nom+'</b>'
-            +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
-            +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-            +'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+        if(parseInt(numEdad)>0){
+            edad=' <b>Edad:</b> '+numEdad
+            textData=''
+                    +'<b>'+nom+'</b>'
+                    +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+                    +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+                    +'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+        }else{
+            textData=''
+                    +' <p><b>Revolución Solar</b></p> '
+                    +'<b>'+nom+'</b>'
+                    +'<p style="font-size:20px;"><b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs </p>'
+            //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+            //+'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+
+        }
+
+        //Seteando datos globales de mapa energético
+        getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
+        app.currentNom=nom
+        app.currentFecha=vd+'/'+vm+'/'+va
+        app.currentGradoSolar=jsonData.psc.sun.g
+        app.currentMinutoSolar=jsonData.psc.sun.m
+        app.currentLon=vlon
+        app.currentLat=vlat
+        //app.currentSegundoSolar=jsonData.pc.sun.s
+
+
+
         xNombre.nom=textData
         //xAreaInteractiva.loadData()
         //xAreaInteractivaZoom.loadData()
@@ -745,5 +808,10 @@ ApplicationWindow {
         xAsp.load(jsonData)
         //tLoadData.restart()
     }
-
+    function runCmd(){
+        let c='import unik.UnikQProcess 1.0\n'
+        +'UnikQProcess{\n'
+        +'  '
+            +'}\n'
+    }
 }
