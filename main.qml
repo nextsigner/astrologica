@@ -17,6 +17,7 @@ ApplicationWindow {
     property string url
     property int mod: 0
 
+    property date currentDate
     property string currentNom: ''
     property string currentFecha: ''
     property int currentGradoSolar: -1
@@ -37,6 +38,16 @@ ApplicationWindow {
     property int uAscDegree: -1
     property int uMcDegree: -1
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
+
+    onCurrentDateChanged: {
+        let a=currentDate.getFullYear()
+        let m=currentDate.getMonth()+1
+        let d=currentDate.getDate()
+        let h=currentDate.getHours()
+        let min=currentDate.getMinutes()
+        xState.currentDateString=d+'/'+m+'/'+a+' '+h+':'+min
+    }
+
     Settings{
         id: apps
         property string url: ''
@@ -270,6 +281,17 @@ ApplicationWindow {
                 }
 
             }
+            SignCircle{
+                id:signArc
+                width: app.fs*14
+                height: width
+                anchors.centerIn: infoCentral
+                showBorder: true
+
+                //opacity: 0.5
+                //rotation: -45
+                //anchors.fill: parent
+            }
         }
 
         //        XCentralCircle{
@@ -393,6 +415,10 @@ ApplicationWindow {
         }
         XNombre{
             id: xNombre
+            XState{
+                id: xState
+                anchors.left: parent.right
+            }
             XFormZS{
                 id: xFormZS
                 visible: false
@@ -790,6 +816,8 @@ ApplicationWindow {
         }
 
         //Seteando datos globales de mapa energético
+        app.currentDate= new Date(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+
         getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
         app.currentNom=nom
         app.currentFecha=vd+'/'+vm+'/'+va
@@ -810,8 +838,8 @@ ApplicationWindow {
     }
     function runCmd(){
         let c='import unik.UnikQProcess 1.0\n'
-        +'UnikQProcess{\n'
-        +'  '
+            +'UnikQProcess{\n'
+            +'  '
             +'}\n'
     }
 }

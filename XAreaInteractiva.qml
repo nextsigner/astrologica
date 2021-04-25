@@ -511,6 +511,7 @@ Rectangle {
         let info3='<b style="font-size:'+fs2+'px;">°'+g+'\''+m+' Casa I</b>'
         let comp=scAsc
         let obj=comp.createObject(rueda, {rotation: -90, info1:info1,  info2:info2, info3:info3, son: ''+c+'_'+s+'_I'})
+        signArc.rotation=-90+g
     }
     function addSCMc(c, s, g, m, j){
         app.uMcDegree=g
