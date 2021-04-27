@@ -1,6 +1,7 @@
 import QtQuick 2.12
 import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.0
+import QtQuick.Window 2.0
 import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
 
@@ -282,7 +283,7 @@ ApplicationWindow {
 
             }
             SignCircle{
-                id:signArc
+                id:signCircle
                 width: app.fs*14
                 height: width
                 anchors.centerIn: infoCentral
@@ -630,7 +631,9 @@ ApplicationWindow {
         onActivated: {
             if(xSabianos.visible){
                 xSabianos.zoomDown()
+                return
             }
+            signCircle.subir()
         }
     }
     Shortcut{
@@ -638,9 +641,13 @@ ApplicationWindow {
         onActivated: {
             if(xSabianos.visible){
                 xSabianos.zoomUp()
+                return
             }
+            signCircle.bajar()
         }
     }
+
+
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
 
     GetCmdData{

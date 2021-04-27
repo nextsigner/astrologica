@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: r
+    property int f: 0
     property bool v: false
     property bool showBorder: false
     MouseArea {
@@ -11,39 +12,24 @@ Item {
         property int m:0
         property date uDate//: app.currentDate
         property int f: 0
+        property int uY: 0
         onWheel: {
-            if (wheel.modifiers & Qt.ControlModifier) {
-
-                if(!uDate)uDate=app.currentDate
-                let g=wheel.angleDelta.y / 120
-                r.rotation=r.rotation-g
-                let currentDate=app.currentDate
-                let grado=0
-                if(g>0){
-                    currentDate.setMinutes(currentDate.getMinutes() - 1)
-                    grado=-1
-                    if(f>4){
-                        f=0
-                    }else{
-                        f++
-                    }
-                }else{
-                    currentDate.setMinutes(currentDate.getMinutes() + 1)
-                    grado=1
-                }
-                let cuatroMinEnMs=60*4*1000
-                if(uDate.getTime()-cuatroMinEnMs>=currentDate.getTime() && uDate.getTime()+cuatroMinEnMs<=currentDate.getTime()){
-                    r.rotation=r.rotation-grado
-                    uDate=currentDate
-                }
-                let newDate=currentDate
-                app.currentDate=newDate
+            //if (wheel.modifiers & Qt.ControlModifier) {
+            //let g=wheel.angleDelta.y / 120
+            console.log('GGGG:'+uY)
+            if(wheel.angleDelta.y===120){
+                rotar(0)
+            }else{
+                rotar(1)
             }
+            uY=wheel.angleDelta.y
+            //}
         }
     }
     Item{
         id: xSignArcs
         anchors.fill: r
+        rotation: 90
         visible: r.v
         Rectangle{
             anchors.fill: xSignArcs
@@ -69,7 +55,7 @@ Item {
             SignArc{
                 width: r.width
                 height: width
-
+                
                 n: index===0?2:(index===1?10:6)
                 c:1
                 gr: r.rotation
@@ -98,5 +84,58 @@ Item {
                 rotation: index*(360/3)-90
             }
         }
+    }
+    Text {
+        id: t1
+        text: "F:"+r.f
+        font.pixelSize: app.fs*3
+        color: 'red'
+        anchors.horizontalCenter: xSignArcs.horizontalCenter
+        rotation: 90
+        visible: false
+    }
+    property int sent: -1
+    function subir(){
+        rotar(1)
+    }
+    function bajar(){
+        rotar(0)
+    }
+    property int uF: 0
+    function rotar(s){
+        let grado=0
+        let currentDate=app.currentDate
+        if(s===0){
+            currentDate.setMinutes(currentDate.getMinutes() + 1)
+            grado=-1
+            if(r.f>2){
+                r.f=0
+            }else{
+                r.f++
+            }
+            uF--
+        }else{
+            currentDate.setMinutes(currentDate.getMinutes() - 1)
+            grado=1
+            if(r.f<1){
+                r.f=3
+            }else{
+                r.f--
+            }
+            uF++
+        }
+        if(r.f===0&grado===-1){
+            if(s===0){
+                r.rotation=r.rotation+1
+            }
+        }
+        if(r.f===3&grado===1){
+            if(s===1){
+                r.rotation=r.rotation-1
+            }
+        }
+        //let newDate=currentDate
+        app.currentDate=currentDate//newDate
+        //r.uF=r.f
     }
 }
