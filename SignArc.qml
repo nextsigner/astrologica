@@ -39,11 +39,12 @@ Item {
     }
 
     Rectangle{
-        width: r.width
+        width: r.width//-((r.w-xImg.width)/2)
         height: 8
         anchors.centerIn: r
         color: 'transparent'//'blue'
         rotation: 15
+        antialiasing: true
         Rectangle{
             id: xImg
             width: r.w
@@ -52,6 +53,7 @@ Item {
             color: 'transparent'
             anchors.verticalCenter: parent.verticalCenter
             rotation: 0-r.rotation-15-r.gr-90
+            antialiasing: true
             property bool resaltado: false
 
             MouseArea{
@@ -60,18 +62,14 @@ Item {
             }
             Image {
                 id: iconoSigno
-                source: "./resources/imgs/signos/"+parseInt(r.n - 1)+".png"
+                source: "./resources/imgs/signos/"+parseInt(r.n - 1)+".svg"
                 width: !parent.resaltado?parent.width:parent.width*2
                 height: width
                 anchors.centerIn: parent
+                antialiasing: true
                 Behavior on width{
                     NumberAnimation{duration: 250}
                 }
-            }
-            ColorOverlay {
-                anchors.fill: iconoSigno
-                source: iconoSigno
-                color: 'black'
                 Rectangle{
                     width: parent.width*1.1
                     height: width
@@ -86,6 +84,13 @@ Item {
                     }
                 }
             }
+            /*ColorOverlay {
+                anchors.fill: iconoSigno
+                anchors.centerIn: parent
+                source: iconoSigno
+                color: 'black'
+
+            }*/
         }
     }
 }
