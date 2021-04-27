@@ -7,7 +7,7 @@ Item {
     property int n: -1
     property int w: app.fs
     property int c: 0
-    property var colors: ['red', '#DFB508', '#09F4E2', '#0D9FD6']
+    property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
     Rectangle{
         anchors.fill: r
@@ -60,37 +60,50 @@ Item {
                 anchors.fill: parent
                 onClicked: parent.resaltado=!parent.resaltado
             }
-            Image {
-                id: iconoSigno
-                source: "./resources/imgs/signos/"+parseInt(r.n - 1)+".svg"
-                width: !parent.resaltado?parent.width:parent.width*2
+            Rectangle{
+                width: xImg.width*3
                 height: width
+                radius: width*0.5
+                border.width: 4
+                border.color: r.colors[r.c]
                 anchors.centerIn: parent
-                antialiasing: true
-                Behavior on width{
-                    NumberAnimation{duration: 250}
+                z: parent.z-1
+                opacity: xImg.resaltado?1.0:0.0
+                Behavior on opacity{
+                    NumberAnimation{duration: 350}
                 }
                 Rectangle{
-                    width: parent.width*1.1
-                    height: width
+                    anchors.fill: parent
+                    color: colors[c]
                     radius: width*0.5
-                    border.width: 4
-                    border.color: r.colors[r.c]
-                    anchors.centerIn: parent
-                    z: parent.z-1
-                    opacity: parent.parent.resaltado?1.0:0.0
-                    Behavior on opacity{
-                        NumberAnimation{duration: 250}
+                    opacity: 0.35
+                }
+            }
+            Column{
+                anchors.centerIn: parent
+                Text {
+                    text: '<b>'+app.signos[r.n - 1]+'</b>'
+                    font.pixelSize: r.w*0.5
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    visible: xImg.resaltado
+                    opacity: xImg.resaltado?1.0:0.0
+                    Behavior on width{
+                        NumberAnimation{duration: 350}
+                    }
+                }
+                Image {
+                    id: iconoSigno
+                    source: "./resources/imgs/signos/"+parseInt(r.n - 1)+".svg"
+                    property int w: xImg.width*0.75
+                    width: !xImg.resaltado?w:w*2
+                    height: width
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    antialiasing: true
+                    Behavior on width{
+                        NumberAnimation{duration: 350}
                     }
                 }
             }
-            /*ColorOverlay {
-                anchors.fill: iconoSigno
-                anchors.centerIn: parent
-                source: iconoSigno
-                color: 'black'
-
-            }*/
         }
     }
 }
