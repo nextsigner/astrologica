@@ -288,10 +288,16 @@ ApplicationWindow {
                 height: width
                 anchors.centerIn: infoCentral
                 showBorder: true
-
-                //opacity: 0.5
-                //rotation: -45
-                //anchors.fill: parent
+            }
+            HomeCircle{
+                id:homeCircle
+                width: signCircle.width-app.fs*2
+                height: width
+                anchors.centerIn: infoCentral
+                showBorder: true
+                rotation: -90
+                visible: false
+                //rotation: signCircle.rotation
             }
         }
 
@@ -841,6 +847,7 @@ ApplicationWindow {
         //xAreaInteractivaZoom.loadData()
         tLoadData.restart()
         xAsp.load(jsonData)
+        homeCircle.load(jsonData)
         //tLoadData.restart()
     }
     function runCmd(){
