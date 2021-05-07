@@ -30,8 +30,6 @@ Item {
     Item{
         id: xHomeArcs
         anchors.fill: r
-        //rotation: 90
-        visible: r.v
         Rectangle{
             anchors.fill: xHomeArcs
             color: 'transparent'

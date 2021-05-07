@@ -282,23 +282,35 @@ ApplicationWindow {
                 }
 
             }
-            HomeCircle{
-                id:homeCircle
-                width: signCircle.width+app.fs
+            Item{
+                id: xAI
+                width: parent.width*10
                 height: width
                 anchors.centerIn: infoCentral
-                showBorder: true
-                rotation: -90
-                w: app.fs*3
+                Rectangle{
+                    width: parent.width*10
+                    height: width
+                    color: 'black'
+                    visible: signCircle.v
+                }
+                HomeCircle{
+                    id:homeCircle
+                    width: signCircle.width+app.fs
+                    height: width
+                    anchors.centerIn: signCircle
+                    showBorder: true
+                    rotation: -90
+                    w: app.fs*3
+                    visible: signCircle.v
+                }
+                SignCircle{
+                    id:signCircle
+                    width: app.fs*12
+                    height: width
+                    anchors.centerIn: parent
+                    showBorder: true
+                }
             }
-            SignCircle{
-                id:signCircle
-                width: app.fs*12
-                height: width
-                anchors.centerIn: infoCentral
-                showBorder: true
-            }
-
         }
 
         //        XCentralCircle{
