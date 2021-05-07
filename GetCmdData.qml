@@ -10,7 +10,7 @@ Item {
         property string currentLat: ''
         property string currentAlt: ''
         onLogDataChanged:{
-            console.log('GMT:'+logData)
+            //console.log('GMT:'+logData)
             //Debería retornar este formato 1981-11-12 15:30:00
             let scorr1=(''+logData).replace(/    /g,' ').replace(/   /g,' ').replace(/  /g,' ')
             let m0=scorr1.split(' ')
@@ -35,7 +35,7 @@ Item {
         property string currentLat: ''
         property string currentAlt: ''
         onLogDataChanged:{
-            console.log('JD:'+logData)
+            //console.log('JD:'+logData)
             uqpGMS.getGMS(logData)
         }
         function getJd(dia, mes, anio, hora, minuto, lon, lat, alt){
@@ -48,9 +48,9 @@ Item {
     UnikQProcess{
         id: uqpGMS
         onLogDataChanged:{
-            console.log('GMS:'+logData)
+            //console.log('GMS:'+logData)
             let scorr1=(''+logData).replace(/    /g,' ').replace(/   /g,' ').replace(/  /g,' ')
-            console.log('GMS2:'+scorr1)
+            //console.log('GMS2:'+scorr1)
             let m0=scorr1.split('\'')
             let m1=m0[0].split(' ')
             let m2=m0[1].split('.')

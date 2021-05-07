@@ -328,25 +328,6 @@ ApplicationWindow {
                     xFlecha.y=mouseY
                 }
             }
-            Item{
-                id: xFlecha
-                width: imgFlecha.width
-                height: 2
-                opacity: visible?1.0:0.0
-                Behavior on opacity{NumberAnimation{duration: 250}}
-                Behavior on x{
-                    NumberAnimation{duration:750;easing.type: Easing.InOutCubic}
-                }
-                Behavior on y{
-                    NumberAnimation{duration:750;easing.type: Easing.InOutCubic}
-                }
-                Image{
-                    id: imgFlecha
-                    source: 'flecha.png'
-                    width: app.fs
-                    fillMode: Image.PreserveAspectFit
-                }
-            }
         }
         Item{
             id: xImg2
@@ -466,7 +447,7 @@ ApplicationWindow {
                         let m0=(''+asp['asp'+i].p).toLowerCase().replace('N.', 'n').replace('S.', 's').replace('N.', 'n').replace('.', '').split('-')
                         let comp=Qt.createComponent('XAsp.qml')
                         let obj=comp.createObject(xAsp, {c1:m0[0], c2:m0[1], asp: asp['asp'+i].t})
-                        console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
+                        //console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
                     }
                 }
             }

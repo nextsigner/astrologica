@@ -381,7 +381,7 @@ Rectangle {
         clearRueda()
         let fn=apps.url.replace('cap_', '').replace('.png', '')
         let jsonFileName=fn+'.json'//'/home/ns/temp-screenshots/'+ms+'.json'
-        console.log('FileName SC: '+jsonFileName)
+        //console.log('FileName SC: '+jsonFileName)
         let jsonFileData=unik.getFile(jsonFileName)
         //console.log(jsonFileData)
         let jsonData=JSON.parse(jsonFileData)

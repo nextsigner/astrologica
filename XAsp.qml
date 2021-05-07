@@ -37,7 +37,6 @@ Rectangle {
                     source: iconoPlaneta
                     color: 'white'
                 }
-
             }
         }
     }
@@ -70,7 +69,7 @@ Rectangle {
         id: iconAsp
         width: app.fs*0.75
         height: width
-        source: "./resources/imgs/"+r.tipo+".svg"
+        //source: "./resources/imgs/"+r.tipo+".svg"
         anchors.centerIn: r
     }
     Component.onCompleted: {

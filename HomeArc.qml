@@ -26,11 +26,9 @@ Item {
         color: 'transparent'
         anchors.centerIn: r
         Rectangle{
-            //width: r.width/2+app.fs*0.5
             width: app.fs+app.fs*0.15
             height: 4
             color: r.colors[r.c]
-            anchors.centerIn: r
             Rectangle{
                 width: app.fs*0.75
                 height: width
@@ -74,6 +72,11 @@ Item {
             ctx.strokeStyle = r.colors[r.c];
             ctx.stroke();
         }
+        function clear_canvas() {
+            var ctx = getContext("2d");
+            ctx.reset();
+            canvas.requestPaint();
+        }
     }
     Canvas {
         id:canvas2
@@ -89,6 +92,11 @@ Item {
             ctx.lineWidth = app.fs*0.1;
             ctx.strokeStyle = r.colors[r.c];
             ctx.stroke();
+        }
+        function clear_canvas() {
+            var ctx = getContext("2d");
+            ctx.reset();
+            canvas2.requestPaint();
         }
     }
     Rectangle{
@@ -127,5 +135,34 @@ Item {
         onTriggered: {
             canvas.opacity=canvas.opacity===1.0?0.65:1.0
         }
+    }
+    function refresh(){
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas.update()
+
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
+        canvas2.update()
+        return
+        var ctx = canvas.getContext('2d');
+        var x = canvas.width*0.5;
+        var y = canvas.height*0.5;
+        var radius = canvas.width*0.5-r.w*0.5;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
+        ctx.lineWidth = r.w;
+        ctx.strokeStyle = r.colors[r.c];
+        ctx.stroke();
+
+        ctx = canvas2.getContext('2d');
+        x = canvas2.width*0.5+app.fs*0.1;
+        y = canvas2.height*0.5//-app.fs;
+        radius = canvas2.width*0.5//-r.w*0.5;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
+        ctx.lineWidth = app.fs*0.1;
+        ctx.strokeStyle = r.colors[r.c];
+        ctx.stroke();
     }
 }

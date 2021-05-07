@@ -78,7 +78,14 @@ Item {
         //x: 300
         visible: false
     }
+    Component.onCompleted: {
+        let comp=Qt.createComponent("HomeArc.qml")
+        let obj=comp.createObject(xArcs, {width: r.width, height:r.width, w: r.w, n:0+1, c: 0, gr:0, wg:5, rotation:90})
+    //setHousesArcs()
+    }
+
     function load(jsonData) {
+        //setHousesArcs()
         let resta=0
         let nh=0
         let o1//=jsonData.pc.h1
@@ -89,7 +96,7 @@ Item {
         let p2//=indexSign2*30+o2.g
         //xArcs.children[nh].wg=p2-p1
         //resta+=xArcs.children[nh].wg
-
+         //return
         for(var i=0;i<12;i++){
             nh=i
             let h=xArcs.children[i]
@@ -118,69 +125,32 @@ Item {
             h.wg=p2-p1
             resta+=xArcs.children[nh].wg
         }
-
-        /*nh=1
-        let h=xArcs.children[nh]
-        o1=jsonData.pc['h'+parseInt(nh + 1)]
-        o2=jsonData.pc['h'+parseInt(nh + 2)]
-        indexSign1=app.objSignsNames.indexOf(o1.s)
-        p1=indexSign1*30+o1.g
-        indexSign2=app.objSignsNames.indexOf(o2.s)
-        p2=indexSign2*30+o2.g
-        //h.rotation=90-xArcs.children[nh-1].wg
-        h.rotation=90-resta
-        h.wg=p2-p1
-        resta+=xArcs.children[nh].wg
-
-        nh=2
-        h=xArcs.children[nh]
-        o1=jsonData.pc.h3
-        o2=jsonData.pc.h4
-        indexSign1=app.objSignsNames.indexOf(o1.s)
-        p1=indexSign1*30+o1.g
-        indexSign2=app.objSignsNames.indexOf(o2.s)
-        p2=indexSign2*30+o2.g
-        //h.rotation=90-xArcs.children[nh-1].wg-xArcs.children[nh-2].wg
-        h.rotation=90-resta
-        h.wg=p2-p1
-        resta+=xArcs.children[nh].wg
-
-        nh=3
-        h=xArcs.children[nh]
-        o1=jsonData.pc.h4
-        o2=jsonData.pc.h5
-        indexSign1=app.objSignsNames.indexOf(o1.s)
-        p1=indexSign1*30+o1.g
-        indexSign2=app.objSignsNames.indexOf(o2.s)
-        p2=indexSign2*30+o2.g
-        //h.rotation=90-xArcs.children[nh-1].wg-xArcs.children[nh-2].wg-xArcs.children[nh-3].wg
-        h.rotation=90-resta
-        h.wg=p2-p1
-        resta+=xArcs.children[nh].wg
-
-        nh=4
-        h=xArcs.children[nh]
-        o1=jsonData.pc.h5
-        o2=jsonData.pc.h6
-        indexSign1=app.objSignsNames.indexOf(o1.s)
-        p1=indexSign1*30+o1.g
-        indexSign2=app.objSignsNames.indexOf(o2.s)
-        p2=indexSign2*30+o2.g
-        //h.rotation=90-xArcs.children[nh-1].wg-xArcs.children[nh-2].wg-xArcs.children[nh-3].wg-xArcs.children[nh-4].wg
-        h.rotation=90-resta
-        h.wg=p2-p1
-        resta+=xArcs.children[nh].wg
-
-        h=xArcs.children[4]
-        o1=jsonData.pc.h5
-        o2=jsonData.pc.h6
-        indexSign1=app.objSignsNames.indexOf(o1.s)
-        p1=indexSign1*30+o1.g
-        indexSign2=app.objSignsNames.indexOf(o2.s)
-        p2=indexSign2*30+o2.g
-        h.rotation=90-xArcs.children[0].wg-xArcs.children[1].wg-xArcs.children[2].wg-xArcs.children[3].wg
-        h.wg=p2-p1*/
-
-
+    }
+    function refresh(){
+        //setHousesArcs()
+        for(var i=0;i<12;i++){
+            xArcs.children[i].refresh()
+        }
+    }
+    function setHousesArcs(){
+        /*for(var i=0;i<xArcs.children.length;i++){
+            xArcs.children[i].destroy(1)
+        }
+        for(i=0;i<12;i++){
+            /*let c ='import QtQuick 2.0\n'
+                +'HomeArc{\n'
+            //+'objectName: 'HomeArc'+index
+                +'width: r.width\n'
+                +'height: width\n'
+                +'w:r.w\n'
+                +'n: index+1\n'
+                +'c: index\n'
+                +'gr: 0\n'
+                +'wg:5\n'
+                +'rotation: 90\n'
+                +'}\n'
+            let comp=Qt.createComponent("HomeArc.qml")
+            let obj=comp.createObject(xArcs, {width: r.width, height:r.width, w: r.w, n:i+1, c: i, gr:0, wg:5, rotation:90})
+        }*/
     }
 }
