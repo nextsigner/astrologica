@@ -58,6 +58,7 @@ Item {
             Repeater{
                 model: 12
                 HomeArc{
+                    objectName: 'HomeArc'+index
                     width: r.width
                     height: width
                     w:r.w
@@ -89,15 +90,24 @@ Item {
         //xArcs.children[nh].wg=p2-p1
         //resta+=xArcs.children[nh].wg
 
-        for(var i=0;i<xArcs.children.length;i++){
+        for(var i=0;i<12;i++){
             nh=i
-            let h=xArcs.children[nh]
+            let h=xArcs.children[i]
+            //console.log('HomeArc: '+h.objectName)
+            let sh1=''
+            let sh2=''
             if(i===11){
-                o1=jsonData.pc['h'+parseInt(nh + 1)]
-                o2=jsonData.pc['h1']
+                sh1='h'+parseInt(nh + 1)
+                sh2='h1'
+                //console.log('Ob1: '+sh1+ ' '+sh2)
+                o1=jsonData.pc[sh1]
+                o2=jsonData.pc[sh2]
             }else{
-                o1=jsonData.pc['h'+parseInt(nh + 1)]
-                o2=jsonData.pc['h'+parseInt(nh + 2)]
+                sh1='h'+parseInt(nh + 1)
+                sh2='h'+parseInt(nh + 2)
+                //console.log('Ob2: '+sh1+ ' '+sh2)
+                o1=jsonData.pc[sh1]
+                o2=jsonData.pc[sh2]
             }
             indexSign1=app.objSignsNames.indexOf(o1.s)
             p1=indexSign1*30+o1.g
