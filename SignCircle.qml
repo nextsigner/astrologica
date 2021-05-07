@@ -29,7 +29,7 @@ Item {
     Item{
         id: xSignArcs
         anchors.fill: r
-        rotation: 90
+        //rotation: 90
         visible: r.v
         Rectangle{
             anchors.fill: xSignArcs
@@ -47,7 +47,7 @@ Item {
                 n: index===0?1:(index===1?9:5)
                 c:0
                 gr: r.rotation
-                rotation: index*(360/3)
+                rotation: index*(360/3)-30
             }
         }
         Repeater{
@@ -59,7 +59,7 @@ Item {
                 n: index===0?2:(index===1?10:6)
                 c:1
                 gr: r.rotation
-                rotation: index*(360/3)-30
+                rotation: index*(360/3)-60
             }
         }
         Repeater{
@@ -70,7 +70,7 @@ Item {
                 n: index===0?3:(index===1?11:7)
                 c:2
                 gr: r.rotation
-                rotation: index*(360/3)-60
+                rotation: index*(360/3)-90
             }
         }
         Repeater{
@@ -81,7 +81,7 @@ Item {
                 n: index===0?4:(index===1?12:8)
                 c:3
                 gr: r.rotation
-                rotation: index*(360/3)-90
+                rotation: index*(360/3)-120
             }
         }
     }

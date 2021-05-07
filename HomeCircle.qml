@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: r
+    property int w: 20
     property int f: 0
     property bool v: false
     property bool showBorder: false
@@ -61,6 +62,7 @@ Item {
                 HomeArc{
                     width: r.width
                     height: width
+                    w:r.w
                     n: index+1
                     c: index
                     gr: 0

@@ -52,7 +52,7 @@ Item {
             //border.width: 1
             color: 'transparent'
             anchors.verticalCenter: parent.verticalCenter
-            rotation: 0-r.rotation-15-r.gr-90
+            rotation: 0-r.rotation-15-r.gr//-90
             antialiasing: true
             property bool resaltado: false
 

@@ -20,16 +20,22 @@ Item {
     }
     Rectangle{
         id: ejeV
-        width: r.width+app.fs*4
+        width: r.width+app.fs
         height: 4
-        color: 'yellow'
+        color: 'transparent'
         anchors.centerIn: r
         Rectangle{
-            width: app.fs*0.5
-            height: width
-            radius: width*0.5
-            color: parent.color
-            anchors.verticalCenter: parent.verticalCenter
+            width: r.width/2
+            height: 4
+            color: r.colors[r.c]
+            anchors.centerIn: r
+            Rectangle{
+                width: app.fs*0.5
+                height: width
+                radius: width*0.5
+                color: parent.color
+                anchors.verticalCenter: parent.verticalCenter
+            }
         }
     }
     Canvas {

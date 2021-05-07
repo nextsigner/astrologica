@@ -282,23 +282,23 @@ ApplicationWindow {
                 }
 
             }
-            SignCircle{
-                id:signCircle
-                width: app.fs*14
-                height: width
-                anchors.centerIn: infoCentral
-                showBorder: true
-            }
             HomeCircle{
                 id:homeCircle
-                width: signCircle.width-app.fs*2
+                width: signCircle.width+app.fs
                 height: width
                 anchors.centerIn: infoCentral
                 showBorder: true
                 rotation: -90
-                //visible: false
-                //rotation: signCircle.rotation
+                w: app.fs*3
             }
+            SignCircle{
+                id:signCircle
+                width: app.fs*12
+                height: width
+                anchors.centerIn: infoCentral
+                showBorder: true
+            }
+
         }
 
         //        XCentralCircle{
