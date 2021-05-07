@@ -296,7 +296,7 @@ ApplicationWindow {
                 anchors.centerIn: infoCentral
                 showBorder: true
                 rotation: -90
-                visible: false
+                //visible: false
                 //rotation: signCircle.rotation
             }
         }

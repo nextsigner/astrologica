@@ -40,7 +40,7 @@ Item {
             visible: r.showBorder
         }
         Rectangle{
-           id: ejeV
+            id: ejeV
             width: r.width+app.fs*4
             height: 4
             color: 'red'
@@ -53,25 +53,21 @@ Item {
                 anchors.verticalCenter: parent.verticalCenter
             }
         }
-        HomeArc{
-            id: h1
-            width: r.width
-            height: width
-            n: 1
-            c: 0
-            gr: 0
-            wg:5
-            rotation: 90
-        }
-        HomeArc{
-            id: h2
-            width: r.width
-            height: width
-            n: 1
-            c: 1
-            gr: 0
-            wg:5
-            rotation: 90
+        Item{
+            id:xArcs
+            anchors.fill: parent
+            Repeater{
+                model: 12
+                HomeArc{
+                    width: r.width
+                    height: width
+                    n: index+1
+                    c: index
+                    gr: 0
+                    wg:5
+                    rotation: 90
+                }
+            }
         }
     }
     Text{
@@ -82,24 +78,99 @@ Item {
         visible: false
     }
     function load(jsonData) {
-        /*let indexSign1=app.objSignsNames.indexOf(jsonData.pc.h1.s)
-        console.log("is1:"+indexSign1)
-        let p1=indexSign1*30+jsonData.pc.h1.g
-        console.log("p1:"+p1)
-        let indexSign2=app.objSignsNames.indexOf(jsonData.pc.h2.s)
-        let p2=indexSign2*30+jsonData.pc.h2.g
-        console.log("is2:"+indexSign2)
-        console.log("p2:"+p2)
-        h1.wg=p2-p1
-        console.log("h1.wg:"+h1.wg)
+        let resta=0
+        let nh=0
+        let o1//=jsonData.pc.h1
+        let o2//=jsonData.pc.h2
+        let indexSign1//=app.objSignsNames.indexOf(o1.s)
+        let p1//=indexSign1*30+o1.g
+        let indexSign2//=app.objSignsNames.indexOf(o2.s)
+        let p2//=indexSign2*30+o2.g
+        //xArcs.children[nh].wg=p2-p1
+        //resta+=xArcs.children[nh].wg
 
-        let gh1=p2-p1
-        //h2.rotation=90+p2
-        indexSign1=app.objSignsNames.indexOf(jsonData.pc.h2.s)
-        p1=indexSign1*30+jsonData.pc.h2.g
-        indexSign2=app.objSignsNames.indexOf(jsonData.pc.h3.s)
-        p2=indexSign2*30+jsonData.pc.h3.g
-        h2.rotation=h1.rotation+p2-p1
-        h2.wg=p2-p1*/
+        for(var i=0;i<xArcs.children.length;i++){
+            nh=i
+            let h=xArcs.children[nh]
+            if(i===11){
+                o1=jsonData.pc['h'+parseInt(nh + 1)]
+                o2=jsonData.pc['h1']
+            }else{
+                o1=jsonData.pc['h'+parseInt(nh + 1)]
+                o2=jsonData.pc['h'+parseInt(nh + 2)]
+            }
+            indexSign1=app.objSignsNames.indexOf(o1.s)
+            p1=indexSign1*30+o1.g
+            indexSign2=app.objSignsNames.indexOf(o2.s)
+            p2=indexSign2*30+o2.g
+            h.rotation=90-resta
+
+            h.wg=p2-p1
+            resta+=xArcs.children[nh].wg
+        }
+
+        /*nh=1
+        let h=xArcs.children[nh]
+        o1=jsonData.pc['h'+parseInt(nh + 1)]
+        o2=jsonData.pc['h'+parseInt(nh + 2)]
+        indexSign1=app.objSignsNames.indexOf(o1.s)
+        p1=indexSign1*30+o1.g
+        indexSign2=app.objSignsNames.indexOf(o2.s)
+        p2=indexSign2*30+o2.g
+        //h.rotation=90-xArcs.children[nh-1].wg
+        h.rotation=90-resta
+        h.wg=p2-p1
+        resta+=xArcs.children[nh].wg
+
+        nh=2
+        h=xArcs.children[nh]
+        o1=jsonData.pc.h3
+        o2=jsonData.pc.h4
+        indexSign1=app.objSignsNames.indexOf(o1.s)
+        p1=indexSign1*30+o1.g
+        indexSign2=app.objSignsNames.indexOf(o2.s)
+        p2=indexSign2*30+o2.g
+        //h.rotation=90-xArcs.children[nh-1].wg-xArcs.children[nh-2].wg
+        h.rotation=90-resta
+        h.wg=p2-p1
+        resta+=xArcs.children[nh].wg
+
+        nh=3
+        h=xArcs.children[nh]
+        o1=jsonData.pc.h4
+        o2=jsonData.pc.h5
+        indexSign1=app.objSignsNames.indexOf(o1.s)
+        p1=indexSign1*30+o1.g
+        indexSign2=app.objSignsNames.indexOf(o2.s)
+        p2=indexSign2*30+o2.g
+        //h.rotation=90-xArcs.children[nh-1].wg-xArcs.children[nh-2].wg-xArcs.children[nh-3].wg
+        h.rotation=90-resta
+        h.wg=p2-p1
+        resta+=xArcs.children[nh].wg
+
+        nh=4
+        h=xArcs.children[nh]
+        o1=jsonData.pc.h5
+        o2=jsonData.pc.h6
+        indexSign1=app.objSignsNames.indexOf(o1.s)
+        p1=indexSign1*30+o1.g
+        indexSign2=app.objSignsNames.indexOf(o2.s)
+        p2=indexSign2*30+o2.g
+        //h.rotation=90-xArcs.children[nh-1].wg-xArcs.children[nh-2].wg-xArcs.children[nh-3].wg-xArcs.children[nh-4].wg
+        h.rotation=90-resta
+        h.wg=p2-p1
+        resta+=xArcs.children[nh].wg
+
+        h=xArcs.children[4]
+        o1=jsonData.pc.h5
+        o2=jsonData.pc.h6
+        indexSign1=app.objSignsNames.indexOf(o1.s)
+        p1=indexSign1*30+o1.g
+        indexSign2=app.objSignsNames.indexOf(o2.s)
+        p2=indexSign2*30+o2.g
+        h.rotation=90-xArcs.children[0].wg-xArcs.children[1].wg-xArcs.children[2].wg-xArcs.children[3].wg
+        h.wg=p2-p1*/
+
+
     }
 }
