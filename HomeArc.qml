@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.12
 
 Item {
     id: r
-    property int wg: 0
+    property real wg: 0.0
     property int gr: 0
     property int n: -1
     property int w: app.fs*2.3
@@ -11,6 +11,12 @@ Item {
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
     property bool selected: false
+    onRotationChanged: {
+        canvas.clear_canvas()
+        canvas.requestPaint()
+        canvas2.clear_canvas()
+        canvas2.requestPaint()
+    }
     Rectangle{
         anchors.fill: r
         color: 'transparent'
@@ -63,6 +69,7 @@ Item {
         opacity: 0.65//r.selected?1.0:0.5
         onPaint:{
             var ctx = canvas.getContext('2d');
+            ctx.reset();
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
             var radius = canvas.width*0.5-r.w*0.5;
@@ -84,6 +91,7 @@ Item {
         height: width
         onPaint:{
             var ctx = canvas2.getContext('2d');
+            ctx.reset();
             var x = canvas2.width*0.5+app.fs*0.1;
             var y = canvas2.height*0.5//-app.fs;
             var radius = canvas2.width*0.5//-r.w*0.5;

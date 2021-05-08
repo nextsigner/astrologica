@@ -777,13 +777,9 @@ ApplicationWindow {
         return edad
     }
     function load(file){
-        console.log('Salida: '+file)
-        //app.url=file//'/home/ns/temp-screenshots/'+get(count-1, 'fileName')
+        //console.log('Salida: '+file)
         apps.url=file
         console.log('Count apps.url='+apps.url)
-        tReload.start()
-        //img.source=app.url
-        //img2.source=app.url
         let fn=apps.url.replace('cap_', '').replace('.png', '')
         let jsonFileName=fn+'.json'//'/home/ns/temp-screenshots/'+ms+'.json'
         //console.log('FileName: '+jsonFileName)
@@ -839,9 +835,9 @@ ApplicationWindow {
         //xAreaInteractiva.loadData()
         //xAreaInteractivaZoom.loadData()
         tLoadData.restart()
+        tReload.restart()
         xAsp.load(jsonData)
         homeCircle.load(jsonData)
-        //tLoadData.restart()
     }
     function runCmd(){
         let c='import unik.UnikQProcess 1.0\n'

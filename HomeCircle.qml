@@ -6,6 +6,9 @@ Item {
     property int f: 0
     property bool v: false
     property bool showBorder: false
+    Behavior on rotation{
+        NumberAnimation{duration:2000;easing.type: Easing.InOutElastic}
+    }
     MouseArea {
         id: maw
         anchors.fill: parent
@@ -86,7 +89,7 @@ Item {
 
     function load(jsonData) {
         //setHousesArcs()
-        let resta=0
+        let resta=0.000000
         let nh=0
         let o1//=jsonData.pc.h1
         let o2//=jsonData.pc.h2
@@ -119,11 +122,11 @@ Item {
             indexSign1=app.objSignsNames.indexOf(o1.s)
             p1=indexSign1*30+o1.g
             indexSign2=app.objSignsNames.indexOf(o2.s)
-            p2=indexSign2*30+o2.g
-            h.rotation=90-resta
-
-            h.wg=p2-p1
-            resta+=xArcs.children[nh].wg
+            p2=0.0000+indexSign2*30+o2.g+(o2.m/60)
+            h.wg=p2-p1+(o1.m/60)
+            h.rotation=90-resta-(o1.m/60)
+            console.log('wg: '+h.wg+' rot: '+h.rotation)
+            resta+=xArcs.children[nh].wg-(o1.m/60)-(o2.m/60)
         }
     }
     function refresh(){
