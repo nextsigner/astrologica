@@ -41,20 +41,6 @@ Item {
             radius: width*0.5
             visible: r.showBorder
         }
-        Rectangle{
-            id: ejeV
-            width: r.width+app.fs*4
-            height: 4
-            color: 'red'
-            anchors.centerIn: parent
-            Rectangle{
-                width: app.fs*0.5
-                height: width
-                radius: width*0.5
-                color: parent.color
-                anchors.verticalCenter: parent.verticalCenter
-            }
-        }
         Item{
             id:xArcs
             anchors.fill: parent
@@ -128,32 +114,5 @@ Item {
             console.log('wg: '+h.wg+' rot: '+h.rotation)
             resta+=xArcs.children[nh].wg-(o1.m/60)-(o2.m/60)
         }
-    }
-    function refresh(){
-        //setHousesArcs()
-        for(var i=0;i<12;i++){
-            xArcs.children[i].refresh()
-        }
-    }
-    function setHousesArcs(){
-        /*for(var i=0;i<xArcs.children.length;i++){
-            xArcs.children[i].destroy(1)
-        }
-        for(i=0;i<12;i++){
-            /*let c ='import QtQuick 2.0\n'
-                +'HomeArc{\n'
-            //+'objectName: 'HomeArc'+index
-                +'width: r.width\n'
-                +'height: width\n'
-                +'w:r.w\n'
-                +'n: index+1\n'
-                +'c: index\n'
-                +'gr: 0\n'
-                +'wg:5\n'
-                +'rotation: 90\n'
-                +'}\n'
-            let comp=Qt.createComponent("HomeArc.qml")
-            let obj=comp.createObject(xArcs, {width: r.width, height:r.width, w: r.w, n:i+1, c: i, gr:0, wg:5, rotation:90})
-        }*/
     }
 }

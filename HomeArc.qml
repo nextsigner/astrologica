@@ -152,25 +152,5 @@ Item {
         canvas2.clear_canvas()
         canvas2.requestPaint()
         canvas2.update()
-        return
-        var ctx = canvas.getContext('2d');
-        var x = canvas.width*0.5;
-        var y = canvas.height*0.5;
-        var radius = canvas.width*0.5-r.w*0.5;
-        ctx.beginPath();
-        ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
-        ctx.lineWidth = r.w;
-        ctx.strokeStyle = r.colors[r.c];
-        ctx.stroke();
-
-        ctx = canvas2.getContext('2d');
-        x = canvas2.width*0.5+app.fs*0.1;
-        y = canvas2.height*0.5//-app.fs;
-        radius = canvas2.width*0.5//-r.w*0.5;
-        ctx.beginPath();
-        ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
-        ctx.lineWidth = app.fs*0.1;
-        ctx.strokeStyle = r.colors[r.c];
-        ctx.stroke();
     }
 }
