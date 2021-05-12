@@ -649,7 +649,7 @@ ApplicationWindow {
 
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
 
-    GetCmdData{
+    Swe{
         id: getCmdData
         onGms: {
             console.log('Grado completo: °'+g+' \''+m+'\'\''+s)
