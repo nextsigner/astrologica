@@ -24,11 +24,39 @@ def getIndexSign(grado):
 
     return index
 
+
+#Para la Conjunción un orbe de 8 grados.
+#Para la Oposición un orbe de 8 grados.
+#Para el Trígono un orbe de 8 grados.
+#Para la Cuadratura, un orbe de 7 grados.
+#Para el Sextil, un orbe de 6 grados.
 def getAsp(g1, g2):
-    asp=-1
+    asp=-1 # -1 = no hay aspectos. 0 = oposición. 1 = cuadratura
     difDeg=swe.difdegn(g1, g2)
-    if difDeg < 10.00:
+    if difDeg < 180.00 + 8 and difDeg > 180.00 - 8:
         asp=0
+    difDeg=swe.difdegn(g2, g1)
+    if difDeg < 180.00 + 8 and difDeg > 180.00 - 8:
+        asp=0
+
+    difDeg=swe.difdegn(g1, g2)
+    if difDeg < 90.00 + 7 and difDeg > 90.00 - 7:
+        asp=1
+    difDeg=swe.difdegn(g2, g1)
+    if difDeg < 90.00 + 7 and difDeg > 90.00 - 7:
+        asp=1
+
+    difDeg=swe.difdegn(g1, g2)
+    if difDeg < 120.00 + 8 and difDeg > 120.00 - 8:
+            asp=2
+    if difDeg < 240.00 + 8 and difDeg > 240.00 - 8:
+         asp=2
+    difDeg=swe.difdegn(g2, g1)
+    if difDeg < 120.00 + 8 and difDeg > 120.00 - 8:
+            asp=2
+    if difDeg < 240.00 + 8 and difDeg > 240.00 - 8:
+        asp=2
+
     return asp
 
 
@@ -133,7 +161,6 @@ jsonBodies='"pc":{\n'
 index=0
 for i in np:
     pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-    tuplaPosBodies+=tuple([pos[0][0]])
     #print(pos)
     gObj=float(pos[0][0])
     if index == 11:
@@ -148,6 +175,7 @@ for i in np:
         print('Grado de Nodo Sur: '+str(gNS))
         gObj=gNS
 
+    tuplaPosBodies+=tuple([gObj])
     indexSign=getIndexSign(gObj)
     td=decdeg2dms(gObj)
     gdeg=int(td[0])
@@ -197,12 +225,14 @@ index=0
 for i in tuplaPosBodies:
     print('i:' + str(i))
     for num in range(15):
-        #print('Comp: ' + str(np[index][0]) + ' con ' + str(np[tuplaArr[index][num]][0]))
+        print('Comp: ' + str(np[index][0]) + ' con ' + str(np[tuplaArr[index][num]][0]))
         g1=float(tuplaPosBodies[index])
         g2=float(tuplaPosBodies[tuplaArr[index][num]])
-        #print('g1: '+str(g1) + ' g2: ' + str(g2))
+        print('g1: '+str(g1) + ' g2: ' + str(g2))
         asp=getAsp(g1, g2)
-        #print(asp)
+        print('Dif 1: '+str(swe.difdegn(g1, g2)))
+        print('Dif 2: '+str(swe.difdegn(g2, g1)))
+        print(asp)
         #print('Comp:' + np[index][0] + ' con '
     index = index + 1
 
@@ -230,8 +260,8 @@ for i in h[0]:
         jsonHouses+='}\n'
     numHouse = numHouse + 1
 
-print(jsonBodies)
-print(jsonHouses)
+#print(jsonBodies)
+#print(jsonHouses)
 
 #mp=swe.deg_midp(0.0, 90.0)
 #print('MP: '+str(mp))
