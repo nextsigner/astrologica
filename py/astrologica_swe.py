@@ -24,6 +24,13 @@ def getIndexSign(grado):
 
     return index
 
+def getAsp(g1, g2):
+    asp=-1
+    difDeg=swe.difdegn(g1, g2)
+    if difDeg < 10.00:
+        asp=0
+    return asp
+
 
 dia = sys.argv[1]
 mes = sys.argv[2]
@@ -58,23 +65,27 @@ GMSLat=decdeg2dms(float(lat))
 GMSLon=decdeg2dms(float(lon))
 
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
-cmd1='~/astrolog/astrolog -qa '+str(int(mes))+' '+str(int(dia))+' '+anio+' '+hora+':'+min+' ' + str(gmtNum) + ''+ gmtCar +' ' +str(int(GMSLon[0])) + ':' +str(int(GMSLon[1])) + '' + lonCar + ' ' +str(int(GMSLat[0])) + ':' +str(int(GMSLat[1])) + '' + latCar + ''
-print(cmd1)
+
+#Astrolog
+#Consulta normal ./astrolog -qa 6 20 1975 23:00 3W 69W57 35S47
+#Consultar Aspectos ./astrolog -qa 6 20 1975 23:00 3W 69W57 35S47 -a -A 4
+
+cmd1='~/astrolog/astrolog -qa '+str(int(mes))+' '+str(int(dia))+' '+anio+' '+hora+':'+min+' ' + str(gmtNum) + ''+ gmtCar +' ' +str(int(GMSLon[0])) + ':' +str(int(GMSLon[1])) + '' + lonCar + ' ' +str(int(GMSLat[0])) + ':' +str(int(GMSLat[1])) + '' + latCar + '  -a -A 4'
+#print(cmd1)
 
 s1 = run(cmd1, shell=True, stdout=PIPE, universal_newlines=True)
 
 s2=str(s1.stdout).split(sep="\n")
 
 index=0
-#for i in s2:
-    #print('------------------>' + str(s2[index]))
-    #index= index + 1
+for i in s2:
+    print('------------------>' + str(s2[index]))
+    index= index + 1
     #if index > 15:
         #break
 
 
 
-#./astrolog -qa 6 20 1975 23:00 3W 69W57 35S47 -a -A 4
 
 getIndexSign
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
@@ -101,26 +112,44 @@ jd1 = swe.julday(int(anio),int(mes),int(dia), int(hora))
 #print(jd1)
 
 
-#La oblicuidad de calcula con ipl = SE_ECL_NUT = -1 en SWE pero en swisseph ECL_NUT = -1
+#Este falla, dá el Sol porque falta averiguar el flag
 posAsc=swe.calc(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-print(posAsc)
+#print(posAsc)
 
 
 np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
 
+#La oblicuidad de calcula con ipl = SE_ECL_NUT = -1 en SWE pero en swisseph ECL_NUT = -1
 posObli=swe.calc(jd1, -1, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
 oblicuidad=posObli[0][0]
-print('Oblicuidad: ' + str(posObli[0][0]))
+#print('Oblicuidad: ' + str(posObli[0][0]))
 
+#Se calculan casas previamente para calcular en cada cuerpo con swe.house_pos(...)
 h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
 
+#Comienza JSON Bodies
+tuplaPosBodies=()
 jsonBodies='"pc":{\n'
 index=0
 for i in np:
     pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-    print(pos)
-    indexSign=getIndexSign(float(pos[0][0]))
-    td=decdeg2dms(float(pos[0][0]))
+    tuplaPosBodies+=tuple([pos[0][0]])
+    #print(pos)
+    gObj=float(pos[0][0])
+    if index == 11:
+        gNN=float(tuplaPosBodies[index - 1])
+        if gNN < 180:
+            gNS= 360.00 - gNN
+        else:
+            gNS=gNN - 180.00
+
+        print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
+        print('Grado de Nodo Norte: '+str(gNN))
+        print('Grado de Nodo Sur: '+str(gNS))
+        gObj=gNS
+
+    indexSign=getIndexSign(gObj)
+    td=decdeg2dms(gObj)
     gdeg=int(td[0])
     mdeg=int(td[1])
     sdeg=int(td[2])
@@ -128,29 +157,60 @@ for i in np:
     jsonBodies+='"c' + str(index) +'": {\n'
     jsonBodies+='   "nom":"' + str(np[index][0]) + '"\n'
     jsonBodies+='   "is":' + str(indexSign)+', \n'
-    jsonBodies+='   "gdec":' + str(pos[0][0])+',\n'
+    jsonBodies+='   "gdec":' + str(gObj)+',\n'
     jsonBodies+='   "gdeg":' + str(gdeg)+',\n'
     jsonBodies+='   "rsgdeg":' + str(rsgdeg)+',\n'
     jsonBodies+='   "mdeg":' + str(mdeg)+',\n'
-    jsonBodies+='   "sdeg":' + str(sdeg)+'\n'
+    jsonBodies+='   "sdeg":' + str(sdeg)+',\n'
+    posHouse=swe.house_pos(h[0][9],float(lat), oblicuidad, gObj, 0.0, bytes("P", encoding = "utf-8"))
+
+
+
+    jsonBodies+='   "ih":' + str(int(posHouse))+',\n'
+    jsonBodies+='   "dh":' + str(posHouse)+'\n'
     jsonBodies+='   }\n'
-    #Args: float armc, float geolat, float obliquity, float objlon, float objlat=0.0, char hsys='P'
-    #posHouse=swe.house_pos(float(h[0][9]),-35.47857, float(oblicuidad), 0.0, 0.0, bytes("P", encoding = "utf-8")
-    posHouse=swe.house_pos(h[0][9],float(lat), oblicuidad, pos[0][0], 0.0, bytes("P", encoding = "utf-8"))
-    print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
     index=index + 1
 
 jsonBodies+='}'
-print(jsonBodies)
+
+#print(tuplaPosBodies)
+tuplaArr=(())
+arr1=(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+arr2=(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
+arr3=(0,1,3,4,5,6,7,8,9,10,11,12,13,14,15)
+arr4=(0,1,2,4,5,6,7,8,9,10,11,12,13,14,15)
+arr5=(0,1,2,3,5,6,7,8,9,10,11,12,13,14,15)
+arr6=(0,1,2,3,4,6,7,8,9,10,11,12,13,14,15)
+arr7=(0,1,2,3,4,5,7,8,9,10,11,12,13,14,15)
+arr8=(0,1,2,3,4,5,6,8,9,10,11,12,13,14,15)
+arr9=(0,1,2,3,4,5,6,7,9,10,11,12,13,14,15)
+arr10=(0,1,2,3,4,5,6,7,8,10,11,12,13,14,15)
+arr11=(0,1,2,3,4,5,6,7,8,9,11,12,13,14,15)
+arr12=(0,1,2,3,4,5,6,7,8,9,10,12,13,14,15)
+arr13=(0,1,2,3,4,5,6,7,8,9,10,11,13,14,15)
+arr14=(0,1,2,3,4,5,6,7,8,9,10,11,12,14,15)
+arr15=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,15)
+arr16=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
+tuplaArr=((arr1),(arr2),(arr3),(arr4),(arr5),(arr6),(arr7),(arr8),(arr9),(arr10),(arr11),(arr12),(arr13),(arr14),(arr15),(arr16))
+#print(tuplaArr)
+index=0
+for i in tuplaPosBodies:
+    print('i:' + str(i))
+    for num in range(15):
+        #print('Comp: ' + str(np[index][0]) + ' con ' + str(np[tuplaArr[index][num]][0]))
+        g1=float(tuplaPosBodies[index])
+        g2=float(tuplaPosBodies[tuplaArr[index][num]])
+        #print('g1: '+str(g1) + ' g2: ' + str(g2))
+        asp=getAsp(g1, g2)
+        #print(asp)
+        #print('Comp:' + np[index][0] + ' con '
+    index = index + 1
 
 
-
-
+#Comienza JSON Houses
 jsonHouses='"ph":{\n'
 numHouse=1
-print('ARMC:' + str(h[0][9]))
-
-
+#print('ARMC:' + str(h[0][9]))
 
 for i in h[0]:
     td=decdeg2dms(i)
@@ -170,8 +230,12 @@ for i in h[0]:
         jsonHouses+='}\n'
     numHouse = numHouse + 1
 
+print(jsonBodies)
 print(jsonHouses)
 
-
+#mp=swe.deg_midp(0.0, 90.0)
+#print('MP: '+str(mp))
+#difDeg=swe.difdegn(0.00, 180.00)
+#print('difDeg: '+str(difDeg))
 
 
