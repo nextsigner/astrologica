@@ -77,8 +77,12 @@ for i in s2:
 #./astrolog -qa 6 20 1975 23:00 3W 69W57 35S47 -a -A 4
 
 getIndexSign
-d = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
-horaLocal = d - datetime.timedelta(hours=int(gmt))
+horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
+
+jd = swe.julday(int(anio),int(mes),int(dia), int(hora))
+#print(jd)
+
+horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
 #print(horaLocal)
 
 dia=horaLocal.strftime('%d')
@@ -91,12 +95,10 @@ min=horaLocal.strftime('%M')
 
 
 swe.set_ephe_path('/usr/share/libswe/ephe')
-help(swe)
+#help(swe)
 
 jd1 = swe.julday(int(anio),int(mes),int(dia), int(hora))
 #print(jd1)
-jd = swe.julday(int(anio),int(mes),int(dia), int(hora))
-#print(jd)
 
 
 #La oblicuidad de calcula con ipl = SE_ECL_NUT = -1 en SWE pero en swisseph ECL_NUT = -1
@@ -138,7 +140,7 @@ for i in np:
     index=index + 1
 
 jsonBodies+='}'
-#print(jsonBodies)
+print(jsonBodies)
 
 
 
@@ -167,8 +169,7 @@ for i in h[0]:
         jsonHouses+='}\n'
     numHouse = numHouse + 1
 
-#print(jsonHouses)
-#print(getIndexSign(89.9))
+print(jsonHouses)
 
 
 
