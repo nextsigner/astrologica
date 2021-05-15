@@ -65,12 +65,12 @@ s1 = run(cmd1, shell=True, stdout=PIPE, universal_newlines=True)
 
 s2=str(s1.stdout).split(sep="\n")
 
-index=3
-for i in s2:
+index=0
+#for i in s2:
     #print('------------------>' + str(s2[index]))
-    index= index + 1
-    if index > 15:
-        break
+    #index= index + 1
+    #if index > 15:
+        #break
 
 
 
@@ -112,12 +112,13 @@ posObli=swe.calc(jd1, -1, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
 oblicuidad=posObli[0][0]
 print('Oblicuidad: ' + str(posObli[0][0]))
 
-h=swe.houses(jd1, -35.47857, -69.61535, bytes("P", encoding = "utf-8"))
+h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
 
 jsonBodies='"pc":{\n'
 index=0
 for i in np:
     pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+    print(pos)
     indexSign=getIndexSign(float(pos[0][0]))
     td=decdeg2dms(float(pos[0][0]))
     gdeg=int(td[0])
@@ -135,7 +136,7 @@ for i in np:
     jsonBodies+='   }\n'
     #Args: float armc, float geolat, float obliquity, float objlon, float objlat=0.0, char hsys='P'
     #posHouse=swe.house_pos(float(h[0][9]),-35.47857, float(oblicuidad), 0.0, 0.0, bytes("P", encoding = "utf-8")
-    posHouse=swe.house_pos(h[0][9],-35.47857, oblicuidad, pos[0][0], 0.0, bytes("P", encoding = "utf-8"))
+    posHouse=swe.house_pos(h[0][9],float(lat), oblicuidad, pos[0][0], 0.0, bytes("P", encoding = "utf-8"))
     print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
     index=index + 1
 
