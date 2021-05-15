@@ -91,12 +91,26 @@ min=horaLocal.strftime('%M')
 
 
 swe.set_ephe_path('/usr/share/libswe/ephe')
+help(swe)
+
 jd1 = swe.julday(int(anio),int(mes),int(dia), int(hora))
 #print(jd1)
 jd = swe.julday(int(anio),int(mes),int(dia), int(hora))
 #print(jd)
 
+
+#La oblicuidad de calcula con ipl = SE_ECL_NUT = -1 en SWE pero en swisseph ECL_NUT = -1
+posAsc=swe.calc(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+print(posAsc)
+
+
 np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
+
+posObli=swe.calc(jd1, -1, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+oblicuidad=posObli[0][0]
+print('Oblicuidad: ' + str(posObli[0][0]))
+
+h=swe.houses(jd1, -35.47857, -69.61535, bytes("P", encoding = "utf-8"))
 
 jsonBodies='"pc":{\n'
 index=0
@@ -117,14 +131,24 @@ for i in np:
     jsonBodies+='   "mdeg":' + str(mdeg)+',\n'
     jsonBodies+='   "sdeg":' + str(sdeg)+'\n'
     jsonBodies+='   }\n'
+    #Args: float armc, float geolat, float obliquity, float objlon, float objlat=0.0, char hsys='P'
+    #posHouse=swe.house_pos(float(h[0][9]),-35.47857, float(oblicuidad), 0.0, 0.0, bytes("P", encoding = "utf-8")
+    posHouse=swe.house_pos(h[0][9],-35.47857, oblicuidad, pos[0][0], 0.0, bytes("P", encoding = "utf-8"))
+    print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
     index=index + 1
 
 jsonBodies+='}'
-print(jsonBodies)
+#print(jsonBodies)
+
+
+
 
 jsonHouses='"ph":{\n'
 numHouse=1
-h=swe.houses(jd1, -35.47857, -69.61535, bytes("P", encoding = "utf-8"))
+print('ARMC:' + str(h[0][9]))
+
+
+
 for i in h[0]:
     td=decdeg2dms(i)
     gdeg=int(td[0])
@@ -147,4 +171,5 @@ for i in h[0]:
 #print(getIndexSign(89.9))
 
 
-#help(swe)
+
+
