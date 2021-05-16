@@ -271,14 +271,16 @@ for i in h[0]:
     jsonHouses+='   "mdeg":' + str(mdeg)+',\n'
     jsonHouses+='   "sdeg":' + str(sdeg)+'\n'
     if numHouse != 12:
-        jsonHouses+='"},\n'
+        jsonHouses+='},\n'
     else:
         jsonHouses+='}\n'
     numHouse = numHouse + 1
 
-json+='      ' + jsonBodies + '\n'
-#json+='      ' + jsonHouses + ',\n'
-#json+='      ' + jsonAspets
+jsonHouses+='}'
+
+json+='      ' + jsonBodies + ',\n'
+json+='      ' + jsonHouses + ',\n'
+json+='      ' + jsonAspets
 json+='}\n'
 
 #print(jsonBodies)
