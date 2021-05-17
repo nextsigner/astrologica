@@ -18,6 +18,9 @@ ApplicationWindow {
     property string url
     property int mod: 0
 
+    property string fileData: ''
+    property string currentData: ''
+
     property date currentDate
     property string currentNom: ''
     property string currentFecha: ''
@@ -282,34 +285,12 @@ ApplicationWindow {
                 }
 
             }
-            Item{
-                id: xAI
+            SweGraphic{
+                id: sweg
                 width: parent.width*10
                 height: width
                 anchors.centerIn: infoCentral
-                Rectangle{
-                    width: parent.width*10
-                    height: width
-                    color: 'black'
-                    visible: signCircle.v
-                }
-                HomeCircle{
-                    id:homeCircle
-                    width: signCircle.width+app.fs
-                    height: width
-                    anchors.centerIn: signCircle
-                    showBorder: true
-                    rotation: -90
-                    w: app.fs*3
-                    visible: signCircle.v
-                }
-                SignCircle{
-                    id:signCircle
-                    width: app.fs*12
-                    height: width
-                    anchors.centerIn: parent
-                    showBorder: true
-                }
+
             }
         }
 
@@ -509,6 +490,7 @@ ApplicationWindow {
             }
         }
         XSabianos{id: xSabianos}
+        PanelFileLoader{id: panelFileLoader}
     }
     Shortcut{
         sequence: 'Ctrl+Down'
@@ -589,6 +571,13 @@ ApplicationWindow {
             xAreaInteractiva.acercarAlBorde()
         }
     }
+
+    Shortcut{
+        sequence: 'Ctrl+f'
+        onActivated: {
+            panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'
+        }
+    }
     Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
@@ -604,7 +593,6 @@ ApplicationWindow {
                 xFormRS.grado=app.currentGradoSolar
                 xFormRS.minuto=app.currentMinutoSolar
                 xFormRS.segundo=app.currentSegundoSolar
-
                 xFormRS.lon=app.currentLon
                 xFormRS.lat=app.currentLat
             }
@@ -648,17 +636,10 @@ ApplicationWindow {
 
 
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
-
-    Swe{
-        id: getCmdData
-        onGms: {
-            console.log('Grado completo: °'+g+' \''+m+'\'\''+s)
-        }
-    }
-
     Component.onCompleted: {
         if(apps.url!==''){
-            load(apps.url)
+            console.log('Cargando al iniciar: '+apps.url)
+            loadJson(apps.url)
         }
     }
     function showIW(){
@@ -844,5 +825,67 @@ ApplicationWindow {
             +'UnikQProcess{\n'
             +'  '
             +'}\n'
+    }
+
+    //Astrologica
+    function loadJson(file){
+        apps.url=file
+        let fn=apps.url
+        let jsonFileName=fn
+        let jsonFileData=unik.getFile(jsonFileName)
+        //console.log(jsonFileData)
+        let jsonData=JSON.parse(jsonFileData)
+        let nom=jsonData.params.n.replace(/_/g, ' ')
+        let vd=jsonData.params.d
+        let vm=jsonData.params.m
+        let va=jsonData.params.a
+        let vh=jsonData.params.h
+        let vmin=jsonData.params.min
+        let vgmt=jsonData.params.gmt
+        let vlon=jsonData.params.lon
+        let vlat=jsonData.params.lat
+        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+        let edad=''
+        let numEdad=getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
+        let stringEdad=edad.indexOf('NaN')<0?edad:''
+        let textData=''
+        if(parseInt(numEdad)>0){
+            edad=' <b>Edad:</b> '+numEdad
+            textData=''
+                    +'<b>'+nom+'</b>'
+                    +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
+                    +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+                    +'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+        }else{
+            textData=''
+                    +' <p><b>Revolución Solar</b></p> '
+                    +'<b>'+nom+'</b>'
+                    +'<p style="font-size:20px;"><b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs </p>'
+            //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
+            //+'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+
+        }
+
+        //Seteando datos globales de mapa energético
+        app.currentDate= new Date(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+
+        //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
+        app.currentNom=nom
+        app.currentFecha=vd+'/'+vm+'/'+va
+        //app.currentGradoSolar=jsonData.psc.sun.g
+        //app.currentMinutoSolar=jsonData.psc.sun.m
+        app.currentLon=vlon
+        app.currentLat=vlat
+        //app.currentSegundoSolar=jsonData.pc.sun.s
+
+
+
+        xNombre.nom=textData
+        //xAreaInteractiva.loadData()
+        //xAreaInteractivaZoom.loadData()
+        //tLoadData.restart()
+        //tReload.restart()
+        //xAsp.load(jsonData)
+        sweg.load(jsonData)
     }
 }
