@@ -38,8 +38,8 @@ Item {
             Rectangle{
                 width: app.fs*0.75
                 height: width
-                radius: width*0.5
-                color: parent.color
+                //radius: width*0.5
+                color: 'transparent'//parent.color
                 anchors.verticalCenter: parent.verticalCenter
                 MouseArea{
                     anchors.fill: parent
@@ -50,6 +50,49 @@ Item {
                             r.selected=!r.selected
                         }
                         canvas.opacity=r.selected?1.0:0.65
+                    }
+                }
+                Image {
+                    id: img
+                    source: "./resources/imgs/casa.svg"
+                    width: parent.width*1.6
+                    height: width
+                    anchors.centerIn: parent
+                    rotation: 90-r.rotation-parent.rotation
+                    //visible: false
+                }
+                ColorOverlay {
+                    id: co1
+                    anchors.fill: img
+                    source: img
+                    color: "#ffffff"
+                    rotation: img.rotation
+                }
+                ColorOverlay {
+                    id: co
+                    anchors.fill: img
+                    source: img
+                    color: r.colors[r.c]//"#ffffff"
+                    rotation: img.rotation
+                    SequentialAnimation{
+                        running: true
+                        loops: Animation.Infinite
+                        PropertyAnimation {
+                            target: co
+                            properties: "opacity"
+                            from: 0.0
+                            to: 1.0
+                        }
+
+                        PauseAnimation {
+                            duration: 500
+                        }
+                        PropertyAnimation {
+                            target: co
+                            properties: "opacity"
+                            from: 1.0
+                            to: 0.0
+                        }
                     }
                 }
                 Text{

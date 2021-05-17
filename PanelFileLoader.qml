@@ -70,6 +70,10 @@ Rectangle {
                 color: 'white'
                 focus: true
                 anchors.centerIn: parent
+                Keys.onReturnPressed: {
+                    app.loadJson(lm.get(lv.currentIndex).fileName)
+                    r.state='hide'
+                }
                 onTextChanged: {
                     updateList()
                 }

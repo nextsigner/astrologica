@@ -5,6 +5,18 @@ Item {
     property int f: 0
     property bool v: false
     property bool showBorder: false
+    Behavior on width {
+        NumberAnimation{
+            duration: 350
+            easing.type: Easing.InOutQuad
+        }
+    }
+//    Behavior on rotation {
+//        NumberAnimation{
+//            duration: 3000
+//            easing.type: Easing.InOutQuad
+//        }
+//    }
     MouseArea {
         id: maw
         anchors.fill: parent

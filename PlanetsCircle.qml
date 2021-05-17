@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Item{
     id: r
+    property bool expand: false
     property var cAs: r
     property int fs: app.fs*0.75
 
@@ -52,19 +53,21 @@ Item{
         xConfirmSearchVideoBy.visible=true
     }
     function loadJson(json){
+        r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
 
         jo=json.pc.c0
         xSol.rotation=signCircle.rotation-jo.gdeg
         o={}
-        o.p=objSigns[objSignsNames.indexOf(jo.is)]
+        o.p=objSigns[jo.is]
         o.ns=objSignsNames.indexOf(jo.is)
         o.g=jo.gdeg
         o.m=jo.mdeg
         o.h=jo.h
         xSol.objData=o
-        objSigns[objSignsNames.indexOf(jo.is)]++
+        objSigns[jo.is]++
+        //objSigns[objSignsNames.indexOf(jo.is)]++
 
         jo=json.pc.c1
         xLuna.rotation=signCircle.rotation-jo.gdeg

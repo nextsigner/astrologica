@@ -68,8 +68,8 @@ Item {
         visible: false
     }
     Component.onCompleted: {
-        let comp=Qt.createComponent("HomeArc.qml")
-        let obj=comp.createObject(xArcs, {width: r.width, height:r.width, w: r.w, n:0+1, c: 0, gr:0, wg:5, rotation:90})
+        //let comp=Qt.createComponent("HomeArc.qml")
+        //let obj=comp.createObject(xArcs, {width: r.width, height:r.width, w: r.w, n:0+1, c: 0, gr:0, wg:5, rotation:90})
     //setHousesArcs()
     }
     function loadHouses(jsonData) {
@@ -115,6 +115,8 @@ Item {
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
         }
     }
+
+    /*
     function load(jsonData) {
         //setHousesArcs()
         let resta=0.000000
@@ -157,4 +159,5 @@ Item {
             resta+=xArcs.children[nh].wg-(o1.m/60)-(o2.m/60)
         }
     }
+    */
 }

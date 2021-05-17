@@ -1,8 +1,8 @@
 import QtQuick 2.0
-
+import QtGraphicalEffects 1.0
 Item{
     id: r
-    width: parent.width-(r.fs*2*objData.p)
+    width: planetsCircle.expand?parent.width-(r.fs*2*objData.p):parent.width-(r.fs*0.5*objData.p)
     height: 1
     anchors.centerIn: parent
     property string astro
@@ -14,6 +14,12 @@ Item{
     property int m: -1
     property int numAstro: -1
 
+    Behavior on width {
+        NumberAnimation{
+            duration: 350
+            easing.type: Easing.InOutQuad
+        }
+    }
     Behavior on rotation {
         NumberAnimation{
             duration: 3000
@@ -22,7 +28,7 @@ Item{
     }
 
     Item{
-        width: r.fs
+        width: r.fs*0.85
         height: width
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
@@ -70,6 +76,33 @@ Item{
             anchors.centerIn: parent
             rotation: 0-parent.parent.rotation
         }
+        ColorOverlay {
+            id: co
+                anchors.fill: img
+                source: img
+                color: "#ffffff"
+                rotation: img.rotation
+                SequentialAnimation{
+                    running: true
+                    loops: Animation.Infinite
+                    PropertyAnimation {
+                        target: co
+                        properties: "opacity"
+                        from: 0.0
+                        to: 1.0
+                    }
+
+                    PauseAnimation {
+                        duration: 500
+                    }
+                    PropertyAnimation {
+                        target: co
+                        properties: "opacity"
+                        from: 1.0
+                        to: 0.0
+                    }
+                }
+            }
     }
     //    Text{
     //        font.pixelSize: 20

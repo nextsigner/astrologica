@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id: r
     property bool v: false
+    property alias expand: planetsCircle.expand
     Rectangle{
         width: parent.width*10
         height: width
@@ -11,17 +12,17 @@ Item {
     }
     HomeCircle{
         id:housesCircle
-        width: signCircle.width+app.fs
+        width: signCircle.width+app.fs*0.2
         height: width
         anchors.centerIn: signCircle
         showBorder: true
         rotation: -90
-        w: app.fs*3
+        w: app.fs*6
         visible: r.v
     }
     SignCircle{
         id:signCircle
-        width: app.fs*12
+        width: planetsCircle.expand?app.fs*14:app.fs*12
         height: width
         anchors.centerIn: parent
         showBorder: true
