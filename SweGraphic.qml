@@ -27,6 +27,14 @@ Item {
         showBorder: true
         v:r.v
     }
+    PlanetsCircle{
+        id:planetsCircle
+        width: signCircle.width-app.fs*2
+        height: width
+        anchors.centerIn: parent
+        //showBorder: true
+        //v:r.v
+    }
     function load(jsonData){
         console.log('Ejecutando SweGraphic.load()...')
         let vd=jsonData.params.d
@@ -59,6 +67,7 @@ Item {
         let j=JSON.parse(scorrJson)
         signCircle.rotation=j.ph.h1.gdec
         housesCircle.loadHouses(j)
+        planetsCircle.loadJson(j)
         r.v=true
     }
 }

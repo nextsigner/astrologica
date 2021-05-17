@@ -111,7 +111,7 @@ Item {
             p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
             h.wg=p2-p1+(o1.mdeg/60)
             h.rotation=90-resta-(o1.mdeg/60)
-            console.log('wg: '+h.wg+' rot: '+h.rotation)
+            //console.log('wg: '+h.wg+' rot: '+h.rotation)
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
         }
     }
