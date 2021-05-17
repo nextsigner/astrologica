@@ -16,7 +16,7 @@ Item {
         onWheel: {
             //if (wheel.modifiers & Qt.ControlModifier) {
             //let g=wheel.angleDelta.y / 120
-            console.log('GGGG:'+uY)
+            //console.log('GGGG:'+uY)
             if(wheel.angleDelta.y===120){
                 rotar(0)
             }else{
@@ -30,7 +30,7 @@ Item {
         id: xSignArcs
         anchors.fill: r
         //rotation: 90
-        visible: r.v
+        //visible: r.v
         Rectangle{
             anchors.fill: xSignArcs
             color: 'transparent'

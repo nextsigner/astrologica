@@ -1,5 +1,6 @@
 import swisseph as swe
 import datetime
+import json
 import sys
 import os
 from subprocess import run, PIPE
@@ -155,7 +156,7 @@ oblicuidad=posObli[0][0]
 h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
 
 
-json='{\n'
+jsonString='{'
 
 #Comienza JSON Bodies
 tuplaPosBodies=()
@@ -239,8 +240,8 @@ for i in tuplaPosBodies:
             jsonAspets+='"asp' +str(index) + '": {' if (indexAsp==0) else  ',"asp' +str(index) + '": {'
             #jsonAspets+='"asp' +str(index) + '": {'
             jsonAspets+=stringActual
-            jsonAspets+='"c1":' + str(np[index][0]) + ', '
-            jsonAspets+='"c2":' + str(np[num][0]) + ', '
+            jsonAspets+='"c1":"' + str(np[index][0]) + '", '
+            jsonAspets+='"c2":"' + str(np[num][0]) + '", '
             jsonAspets+='"ia":' + str(asp) + ''
             jsonAspets+='}'
             indexAsp = indexAsp +1
@@ -250,11 +251,11 @@ for i in tuplaPosBodies:
         #print('Comp:' + np[index][0] + ' con '
     index = index + 1
 
-jsonAspets+='}\n'
+jsonAspets+='}'
 #print(jsonAspets)
 #print('Cantidad de Aspectos: '+str(indexAsp))
 #Comienza JSON Houses
-jsonHouses='"ph":{\n'
+jsonHouses='"ph":{'
 numHouse=1
 #print('ARMC:' + str(h[0][9]))
 
@@ -264,29 +265,35 @@ for i in h[0]:
     mdeg=int(td[1])
     sdeg=int(td[2])
     index=getIndexSign(float(i))
-    jsonHouses+='"h' + str(numHouse) + '": {\n'
-    jsonHouses+='   "is":' + str(index)+', \n'
-    jsonHouses+='   "gdec":' + str(i)+',\n'
-    jsonHouses+='   "gdeg":' + str(gdeg)+',\n'
-    jsonHouses+='   "mdeg":' + str(mdeg)+',\n'
-    jsonHouses+='   "sdeg":' + str(sdeg)+'\n'
+    rsgdeg=gdeg - ( index * 30 )
+    jsonHouses+='"h' + str(numHouse) + '": {'
+    jsonHouses+='"is":' + str(index)+', '
+    jsonHouses+='"gdec":' + str(i)+','
+    jsonHouses+='"rsgdeg":' + str(rsgdeg)+', '
+    jsonHouses+='"gdeg":' + str(gdeg)+','
+    jsonHouses+='"mdeg":' + str(mdeg)+','
+    jsonHouses+='"sdeg":' + str(sdeg)+''
     if numHouse != 12:
-        jsonHouses+='},\n'
+        jsonHouses+='},'
     else:
-        jsonHouses+='}\n'
+        jsonHouses+='}'
     numHouse = numHouse + 1
 
 jsonHouses+='}'
 
-json+='      ' + jsonBodies + ',\n'
-json+='      ' + jsonHouses + ',\n'
-json+='      ' + jsonAspets
-json+='}\n'
+jsonString+='' + jsonBodies + ','
+jsonString+='' + jsonHouses + ','
+jsonString+='' + jsonAspets
+jsonString+='}'
+
+#j=json.loads(jsonString)
 
 #print(jsonBodies)
 #print(jsonHouses)
 #print(jsonAspets)
-print(json)
+print(jsonString)
+#print(j)
+swe.close()
 
 #mp=swe.deg_midp(0.0, 90.0)
 #print('MP: '+str(mp))

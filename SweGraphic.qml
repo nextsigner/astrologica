@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: r
+    property bool v: false
     Rectangle{
         width: parent.width*10
         height: width
@@ -9,14 +10,14 @@ Item {
         visible: signCircle.v
     }
     HomeCircle{
-        id:homeCircle
+        id:housesCircle
         width: signCircle.width+app.fs
         height: width
         anchors.centerIn: signCircle
         showBorder: true
         rotation: -90
         w: app.fs*3
-        visible: signCircle.v
+        visible: r.v
     }
     SignCircle{
         id:signCircle
@@ -24,6 +25,7 @@ Item {
         height: width
         anchors.centerIn: parent
         showBorder: true
+        v:r.v
     }
     function load(jsonData){
         console.log('Ejecutando SweGraphic.load()...')
@@ -52,7 +54,11 @@ Item {
         let comp=Qt.createQmlObject(c, r, 'uqpcode')
     }
     function loadSweJson(json){
-        console.log('JSON::: '+json)
-        signCircle.v=true
+        //console.log('JSON::: '+json)
+        let scorrJson=json.replace(/\n/g, '')
+        let j=JSON.parse(scorrJson)
+        signCircle.rotation=j.ph.h1.gdec
+        housesCircle.loadHouses(j)
+        r.v=true
     }
 }
