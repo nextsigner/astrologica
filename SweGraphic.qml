@@ -37,7 +37,7 @@ Item {
         //v:r.v
     }
     function load(jsonData){
-        console.log('Ejecutando SweGraphic.load()...')
+        //console.log('Ejecutando SweGraphic.load()...')
         let vd=jsonData.params.d
         let vm=jsonData.params.m
         let va=jsonData.params.a

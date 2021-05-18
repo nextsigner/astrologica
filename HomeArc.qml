@@ -38,8 +38,10 @@ Item {
             Rectangle{
                 width: app.fs*0.75
                 height: width
-                //radius: width*0.5
-                color: 'transparent'//parent.color
+                radius: width*0.5
+                color: parent.color
+                border.width: 2
+                border.color: 'white'
                 anchors.verticalCenter: parent.verticalCenter
                 MouseArea{
                     anchors.fill: parent
@@ -52,12 +54,14 @@ Item {
                         canvas.opacity=r.selected?1.0:0.65
                     }
                 }
-                Image {
+                /*Image {
                     id: img
                     source: "./resources/imgs/casa.svg"
                     width: parent.width*1.6
                     height: width
                     anchors.centerIn: parent
+                    //anchors.horizontalCenterOffset: app.fs*0.03
+                    //anchors.verticalCenterOffset: 0-app.fs*0.03
                     rotation: 90-r.rotation-parent.rotation
                     //visible: false
                 }
@@ -95,11 +99,18 @@ Item {
                         }
                     }
                 }
+                */
                 Text{
                     text: '<b>'+r.n+'</b>'
+                    //text: ''+r.n
                     font.pixelSize: parent.width*0.8
+                    width: contentWidth
+                    height: contentHeight
+                    horizontalAlignment: Text.AlignHCenter
                     //color: r.colors[r.c]
                     anchors.centerIn: parent
+                    //anchors.horizontalCenterOffset: 0-app.fs*0.03
+                    //anchors.verticalCenterOffset: app.fs*0.03
                     rotation: 90-r.rotation-parent.rotation
                 }
             }
@@ -115,7 +126,10 @@ Item {
             ctx.reset();
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
-            var radius = canvas.width*0.5-r.w*0.5;
+            //var radius = canvas.width*0.5-r.w*0.5;
+            var rad=parseInt(canvas.width*0.5-r.w*0.5)
+            //console.log('Rad: '+rad)
+            var radius = rad>0?rad:r.width;
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.w;
@@ -132,12 +146,16 @@ Item {
         id:canvas2
         width: r.width//-app.fs
         height: width
-        onPaint:{
-            var ctx = canvas2.getContext('2d');
+        onPaint:{            
+            var ctx = canvas2.getContext('2d')
             ctx.reset();
             var x = canvas2.width*0.5+app.fs*0.1;
             var y = canvas2.height*0.5//-app.fs;
-            var radius = canvas2.width*0.5//-r.w*0.5;
+            //var radius = canvas2.width*0.5//-r.w*0.5;
+            var rad=parseInt(canvas.width*0.5)
+            //console.log('Rad: '+rad)
+            var radius = rad>0?rad:r.width;
+
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = app.fs*0.1;

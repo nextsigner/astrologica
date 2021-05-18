@@ -186,7 +186,7 @@ Rectangle {
             let file='/home/ns/nsp/uda/astrologica/jsons/'+flm.get(i, 'fileName')
             let fn=file//.replace('cap_', '').replace('.png', '')
             let jsonFileName=fn
-            console.log('FileName: '+jsonFileName)
+            //console.log('FileName: '+jsonFileName)
 
             let jsonFileData=unik.getFile(jsonFileName)
             //console.log(jsonFileData)

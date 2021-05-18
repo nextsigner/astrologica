@@ -25,7 +25,11 @@ Item {
             var ctx = canvas.getContext('2d');
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
-            var radius = canvas.width*0.5-r.w*0.5;
+            var rad=parseInt(canvas.width*0.5-r.w*0.5)
+            //console.log('Rad: '+rad)
+            var radius = rad>0?rad:r.width;
+            //console.log('Radius: '+radius)
+
             var startAngle = 1.0 * Math.PI;
             var endAngle = 1.17 * Math.PI;
             var counterClockwise = false;

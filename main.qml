@@ -49,7 +49,11 @@ ApplicationWindow {
         let d=currentDate.getDate()
         let h=currentDate.getHours()
         let min=currentDate.getMinutes()
+
+        setNewTimeJsonFileData(currentDate)
+
         xState.currentDateString=d+'/'+m+'/'+a+' '+h+':'+min
+
     }
 
     Settings{
@@ -65,19 +69,8 @@ ApplicationWindow {
             height: width
             anchors.centerIn: parent
         }
-        XNombre{
-            id: xNombre
-            XState{
-                id: xState
-                anchors.left: parent.right
-            }
-            XFormZS{
-                id: xFormZS
-                visible: false
-            }
-            XFormRS{
-                id: xFormRS
-            }
+        XDataBar{
+            id: xDataBar
         }
         XTools{
             id: xTools
@@ -93,13 +86,14 @@ ApplicationWindow {
                 for(var i=0;i<xAsp.children.length;i++){
                     xAsp.children[i].destroy(1)
                 }
-                let asp=jsonData.asp
+                let asp=jsonData.asps
                 for(i=0;i<Object.keys(asp).length;i++){
+                    console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
                     if(asp['asp'+i].p!=='N.'&&asp['asp'+i].p!=='S.'){
-                        let m0=(''+asp['asp'+i].p).toLowerCase().replace('N.', 'n').replace('S.', 's').replace('N.', 'n').replace('.', '').split('-')
-                        let comp=Qt.createComponent('XAsp.qml')
-                        let obj=comp.createObject(xAsp, {c1:m0[0], c2:m0[1], asp: asp['asp'+i].t})
-                        //console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
+                        //let m0=(''+asp['asp'+i].p).toLowerCase().replace('N.', 'n').replace('S.', 's').replace('N.', 'n').replace('.', '').split('-')
+                        //let comp=Qt.createComponent('XAsp.qml')
+                        //let obj=comp.createObject(xAsp, {c1:m0[0], c2:m0[1], asp: asp['asp'+i].t})
+                        console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
                     }
                 }
             }
@@ -421,9 +415,9 @@ ApplicationWindow {
             app.uSon=son
         }
     }
-    function getEdad(dateString) {
+    function getEdad(d, m, a, h, min) {
         let hoy = new Date()
-        let fechaNacimiento = new Date(dateString)
+        let fechaNacimiento = new Date(a, m, d, h, min)
         let edad = hoy.getFullYear() - fechaNacimiento.getFullYear()
         let diferenciaMeses = hoy.getMonth() - fechaNacimiento.getMonth()
         if (
@@ -433,69 +427,6 @@ ApplicationWindow {
             edad--
         }
         return edad
-    }
-    function load(file){
-        //console.log('Salida: '+file)
-        apps.url=file
-        console.log('Count apps.url='+apps.url)
-        let fn=apps.url.replace('cap_', '').replace('.png', '')
-        let jsonFileName=fn+'.json'//'/home/ns/temp-screenshots/'+ms+'.json'
-        //console.log('FileName: '+jsonFileName)
-        let jsonFileData=unik.getFile(jsonFileName)
-        //console.log(jsonFileData)
-        let jsonData=JSON.parse(jsonFileData)
-        let nom=jsonData.params.n.replace(/_/g, ' ')
-        let vd=jsonData.params.d
-        let vm=jsonData.params.m
-        let va=jsonData.params.a
-        let vh=jsonData.params.h
-        let vmin=jsonData.params.min
-        let vgmt=jsonData.params.gmt
-        let vlon=jsonData.params.lon
-        let vlat=jsonData.params.lat
-        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        let edad=''
-        let numEdad=getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
-        let stringEdad=edad.indexOf('NaN')<0?edad:''
-        let textData=''
-        if(parseInt(numEdad)>0){
-            edad=' <b>Edad:</b> '+numEdad
-            textData=''
-                    +'<b>'+nom+'</b>'
-                    +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
-                    +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-                    +'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
-        }else{
-            textData=''
-                    +' <p><b>Revolución Solar</b></p> '
-                    +'<b>'+nom+'</b>'
-                    +'<p style="font-size:20px;"><b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs </p>'
-            //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-            //+'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
-
-        }
-
-        //Seteando datos globales de mapa energético
-        app.currentDate= new Date(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-
-        getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
-        app.currentNom=nom
-        app.currentFecha=vd+'/'+vm+'/'+va
-        app.currentGradoSolar=jsonData.psc.sun.g
-        app.currentMinutoSolar=jsonData.psc.sun.m
-        app.currentLon=vlon
-        app.currentLat=vlat
-        //app.currentSegundoSolar=jsonData.pc.sun.s
-
-
-
-        xNombre.nom=textData
-        //xAreaInteractiva.loadData()
-        //xAreaInteractivaZoom.loadData()
-        tLoadData.restart()
-        tReload.restart()
-        xAsp.load(jsonData)
-        homeCircle.load(jsonData)
     }
     function runCmd(){
         let c='import unik.UnikQProcess 1.0\n'
@@ -511,6 +442,8 @@ ApplicationWindow {
         let jsonFileName=fn
         let jsonFileData=unik.getFile(jsonFileName)
         //console.log(jsonFileData)
+        app.fileData=jsonFileData
+        app.currentData=jsonFileData
         let jsonData=JSON.parse(jsonFileData)
         let nom=jsonData.params.n.replace(/_/g, ' ')
         let vd=jsonData.params.d
@@ -523,21 +456,21 @@ ApplicationWindow {
         let vlat=jsonData.params.lat
         let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
         let edad=''
-        let numEdad=getEdad(""+va+"/"+vm+"/"+vd+" "+vh+":"+vmin+":00")
+        let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
         let stringEdad=edad.indexOf('NaN')<0?edad:''
         let textData=''
         if(parseInt(numEdad)>0){
             edad=' <b>Edad:</b> '+numEdad
             textData=''
-                    +'<b>'+nom+'</b>'
-                    +'<p style="font-size:20px;">'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+'</p>'
-                    +'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-                    +'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+                    +'<b>'+nom+'</b> '
+                    +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
+                    +'<b> '+vCiudad+'</b> '
+                    +'<b>long:</b> '+vlon+' <b>lat:</b> '+vlat+' '
         }else{
             textData=''
-                    +' <p><b>Revolución Solar</b></p> '
-                    +'<b>'+nom+'</b>'
-                    +'<p style="font-size:20px;"><b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs </p>'
+                    +'<b>Revolución Solar</b></p> '
+                    +'<b>'+nom+'</b> '
+                    +'<b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs '
             //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
             //+'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
 
@@ -557,12 +490,44 @@ ApplicationWindow {
 
 
 
-        xNombre.nom=textData
-        //xAreaInteractiva.loadData()
-        //xAreaInteractivaZoom.loadData()
-        //tLoadData.restart()
-        //tReload.restart()
-        //xAsp.load(jsonData)
+        xDataBar.fileData=textData
+        xDataBar.state='show'
         sweg.load(jsonData)
+        xAsp.load(jsonData)
+    }
+    function setNewTimeJsonFileData(date){
+
+        let jsonData=JSON.parse(app.fileData)
+        let ms=jsonData.params.ms
+        let nom=jsonData.params.n.replace(/_/g, ' ')
+
+        let vd=date.getDate()
+        let vm=date.getMonth() + 1
+        let va=date.getFullYear()
+        let vh=date.getHours()
+        let vmin=date.getMinutes()
+
+        let vgmt=jsonData.params.gmt
+        let vlon=jsonData.params.lon
+        let vlat=jsonData.params.lat
+        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+        let j='{\n'
+        j+='    "params":{\n'
+        j+='        "ms":"'+ms+'",\n'
+        j+='        "n":"'+nom+'",\n'
+        j+='        "d":"'+vd+'",\n'
+        j+='        "m":"'+vm+'",\n'
+        j+='        "a":"'+va+'",\n'
+        j+='        "h":"'+vh+'",\n'
+        j+='        "min":"'+vmin+'",\n'
+        j+='        "gmt":"'+vgmt+'",\n'
+        j+='        "lat":"'+vlat+'",\n'
+        j+='        "lon":"'+vlon+'",\n'
+        j+='        "ciudad":"'+vCiudad+'"\n'
+        j+='    }\n'
+        j+='}\n'
+        var njson=JSON.parse(j)
+        app.currentData=JSON.stringify(njson)
+        console.log('j: '+app.currentData)
     }
 }
