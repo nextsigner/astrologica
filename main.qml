@@ -29,6 +29,7 @@ ApplicationWindow {
     property int currentGradoSolar: -1
     property int currentMinutoSolar: -1
     property int currentSegundoSolar: -1
+    property int currentGmt: 0
     property real currentLon: 0.0
     property real currentLat: 0.0
 
@@ -45,6 +46,11 @@ ApplicationWindow {
     property int uMcDegree: -1
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
+    onCurrentGmtChanged: {
+        xDataBar.currentGmtText=''+currentGmt
+        setNewTimeJsonFileData(app.currentDate)
+        runJsonTemp()
+    }
     onCurrentDateChanged: {
         xDataBar.state='show'
         let a=currentDate.getFullYear()
@@ -57,6 +63,7 @@ ApplicationWindow {
             setNewTimeJsonFileData(currentDate)
         }
         xDataBar.currentDateText=d+'/'+m+'/'+a+' '+h+':'+min
+        xDataBar.currentGmtText=''+currentGmt
         runJsonTemp()
     }
 
@@ -273,7 +280,7 @@ ApplicationWindow {
                 xFormRS.alNom=app.currentNom
                 xFormRS.alFecha=app.currentFecha
                 xFormRS.grado=app.currentGradoSolar
-                xFormRS.minuto=app.currentMinutoSolar
+                Qt.ShiftModifierxFormRS.minuto=app.currentMinutoSolar
                 xFormRS.segundo=app.currentSegundoSolar
                 xFormRS.lon=app.currentLon
                 xFormRS.lat=app.currentLat
@@ -335,7 +342,7 @@ ApplicationWindow {
         let jsonFileName=m0[0]!=='asc'?quitarAcentos(nomCuerpo.toLowerCase())+'.json':'asc.json'
         let jsonFileLocation='/home/ns/nsp/uda/quiron/data/'+jsonFileName
         if(!unik.fileExist(jsonFileLocation)){
-            let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: app.fs*8, height: app.fs*3, fs: app.fs*0.5, title:'Sin datos'})
+            let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: app.fs*8, height: app.fs*3, fs: app.fs*0.5, title:'SinQt.ShiftModifier datos'})
         }else{
             let numHome=m0[0]!=='asc'?-1:1
             let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
@@ -495,13 +502,9 @@ ApplicationWindow {
         //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
         app.currentNom=nom
         app.currentFecha=vd+'/'+vm+'/'+va
-        //app.currentGradoSolar=jsonData.psc.sun.g
-        //app.currentMinutoSolar=jsonData.psc.sun.m
+        app.currentGmt=vgmt
         app.currentLon=vlon
         app.currentLat=vlat
-        //app.currentSegundoSolar=jsonData.pc.sun.s
-
-
 
         xDataBar.fileData=textData
         xDataBar.state='show'
@@ -516,7 +519,7 @@ ApplicationWindow {
         let va=jsonData.params.a
         let vh=jsonData.params.h
         let vmin=jsonData.params.min
-        let vgmt=jsonData.params.gmt
+        let vgmt=app.currentGmt
         let vlon=jsonData.params.lon
         let vlat=jsonData.params.lat
         let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
@@ -530,7 +533,6 @@ ApplicationWindow {
         xAsp.load(jsonData)
     }
     function setNewTimeJsonFileData(date){
-
         let jsonData=JSON.parse(app.fileData)
         console.log('json: '+JSON.stringify(jsonData))
         console.log('json2: '+jsonData.params)
@@ -544,7 +546,7 @@ ApplicationWindow {
         let vh=date.getHours()
         let vmin=date.getMinutes()
 
-        let vgmt=jsonData.params.gmt
+        let vgmt=app.currentGmt
         let vlon=jsonData.params.lon
         let vlat=jsonData.params.lat
         let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
@@ -564,12 +566,8 @@ ApplicationWindow {
         j+='}'
         j+='}'
         app.currentData=j
-        console.log('j: '+j)
-        console.log('fd: '+app.fileData)
-        /*
-Debug: j: {"params":{"ms":1619819842947,"n":"Ricardo Martin Pizarro","d":20,"m":6,"a":1975,"h":23,"min":0,"gmt":-3,"lat":-35.47,"lon":-69.61,"ciudad":"Malargue Mendoza Argentina"}} (file:///home/ns/nsp/uda/astrologica/main.qml:535, setNewTimeJsonFileData)
-Debug: fd: {"params":{"ms":1619819842947,"n":"Ricardo Martin Pizarro","d":20,"m":6,"a":1975,"h":23,"min":0,"gmt":-3,"lat":-35.47,"lon":-69.61,"ciudad":"Malargue Mendoza Argentina"}}
-        */
+        //console.log('j: '+j)
+        //console.log('fd: '+app.fileData)
     }
     function saveJson(){
         app.fileData=app.currentData

@@ -67,7 +67,9 @@ Item{
         o.h=jo.h
         xSol.objData=o
         objSigns[jo.is]++
-        //objSigns[objSignsNames.indexOf(jo.is)]++
+        app.currentGradoSolar=jo.gdeg
+        app.currentMinutoSolar=jo.mdeg
+
 
         jo=json.pc.c1
         xLuna.rotation=signCircle.rotation-jo.gdeg
