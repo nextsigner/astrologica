@@ -1,9 +1,7 @@
 import swisseph as swe
 import jdutil
 import datetime
-import json
 import sys
-import os
 from subprocess import run, PIPE
 
 def decdeg2dms(dd):
@@ -101,9 +99,7 @@ GMSLon=decdeg2dms(float(lon))
 
 #cmd1='~/astrolog/astrolog -qa '+str(int(mes))+' '+str(int(dia))+' '+anio+' '+hora+':'+min+' ' + str(gmtNum) + ''+ gmtCar +' ' +str(int(GMSLon[0])) + ':' +str(int(GMSLon[1])) + '' + lonCar + ' ' +str(int(GMSLat[0])) + ':' +str(int(GMSLat[1])) + '' + latCar + '  -a -A 4'
 #print(cmd1)
-
 #s1 = run(cmd1, shell=True, stdout=PIPE, universal_newlines=True)
-
 #s2=str(s1.stdout).split(sep="\n")
 
 #index=0
@@ -113,14 +109,8 @@ GMSLon=decdeg2dms(float(lon))
     #if index > 15:
         #break
 
-
-
-
 getIndexSign
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
-
-jd = swe.julday(int(anio),int(mes),int(dia), int(hora))
-#print(jd)
 
 horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
 #print(horaLocal)
@@ -133,22 +123,10 @@ min=horaLocal.strftime('%M')
 
 #print('Tiempo: ' + dia + '/' + mes + '/' + anio + ' ' + hora + ':' + min)
 
-
 swe.set_ephe_path('/usr/share/libswe/ephe')
-#help(swe)
 
 d = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 jd1 =jdutil.datetime_to_jd(d)
-#print(jdutil.datetime_to_jd(d))
-#jd1 = swe.julday(int(anio),int(mes),int(dia), int(hora),  int(min))
-#jd0 = swe.utc_to_jd(int(anio),int(5),int(2), int(hora),  int(min),0,0)
-#jd1 = float(jd0[0])
-#print('Nuevo JD: ' + str(jd1[0]))
-
-
-#Este falla, dá el Sol porque falta averiguar el flag
-#posAsc=swe.calc(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-#print(posAsc)
 
 jsonParams='"params":{'
 jsonParams+='"jd":'+str(jd1)+','
@@ -165,7 +143,6 @@ oblicuidad=posObli[0][0]
 
 #Se calculan casas previamente para calcular en cada cuerpo con swe.house_pos(...)
 h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
-
 
 jsonString='{'
 
@@ -298,20 +275,10 @@ jsonString+='' + jsonAspets + ','
 jsonString+='' + jsonParams
 jsonString+='}'
 
-#j=json.loads(jsonString)
-
 #print(jsonBodies)
 #print(jsonHouses)
 #print(jsonAspets)
 print(jsonString)
-#print(j)
-#swe.close()
+swe.close()
 
 #help(swe)
-
-#mp=swe.deg_midp(0.0, 90.0)
-#print('MP: '+str(mp))
-#difDeg=swe.difdegn(0.00, 180.00)
-#print('difDeg: '+str(difDeg))
-
-

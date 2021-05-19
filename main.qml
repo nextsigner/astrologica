@@ -101,19 +101,26 @@ ApplicationWindow {
             columns: 2
             anchors.bottom: parent.bottom
             function load(jsonData){
-                /*for(var i=0;i<xAsp.children.length;i++){
+                for(var i=0;i<xAsp.children.length;i++){
                     xAsp.children[i].destroy(1)
                 }
+                if(!jsonData.asps)return
                 let asp=jsonData.asps
                 for(i=0;i<Object.keys(asp).length;i++){
-                    console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
-                    if(asp['asp'+i].p!=='N.'&&asp['asp'+i].p!=='S.'){
-                        //let m0=(''+asp['asp'+i].p).toLowerCase().replace('N.', 'n').replace('S.', 's').replace('N.', 'n').replace('.', '').split('-')
-                        //let comp=Qt.createComponent('XAsp.qml')
-                        //let obj=comp.createObject(xAsp, {c1:m0[0], c2:m0[1], asp: asp['asp'+i].t})
-                        console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
+                    if(asp['asp'+parseInt(i +1)]){
+                        let a=asp['asp'+parseInt(i +1)]
+                        console.log('Asp: '+'asp'+parseInt(i +1))
+                        let comp=Qt.createComponent('XAsp.qml')
+                        let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia})
+                        //console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
                     }
-                }*/
+                    //console.log('Asp: '+a.ia)
+                    //console.log('Asp: '+a.ia+' '+' c1:'+a.c1+' c2:'+a.c2)
+                    //if(asp['asp'+i].p!=='N.'&&asp['asp'+i].p!=='S.'){
+                        //let m0=(''+asp['asp'+i].p).toLowerCase().replace('N.', 'n').replace('S.', 's').replace('N.', 'n').replace('.', '').split('-')
+
+                    //}
+                }
             }
             function resaltar(c){
                 for(var i=0;i<xAsp.children.length;i++){
@@ -174,6 +181,7 @@ ApplicationWindow {
         }
         XSabianos{id: xSabianos}
         PanelFileLoader{id: panelFileLoader}
+        PanelDataBodies{id: panelDataBodies}
     }
     Shortcut{
         sequence: 'Ctrl+Down'
@@ -259,6 +267,12 @@ ApplicationWindow {
         sequence: 'Ctrl+f'
         onActivated: {
             panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+i'
+        onActivated: {
+            panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'
         }
     }
     Shortcut{
@@ -509,7 +523,7 @@ ApplicationWindow {
         xDataBar.fileData=textData
         xDataBar.state='show'
         sweg.load(jsonData)
-        xAsp.load(jsonData)
+        //xAsp.load(jsonData)
     }
     function runJsonTemp(){
         let jsonData=JSON.parse(app.currentData)

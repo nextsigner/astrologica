@@ -59,7 +59,6 @@ Item {
         c+='    onLogDataChanged:{\n'
         c+='        let json=(\'\'+logData)\n'
         c+='        loadSweJson(json)\n'
-        c+='        mp.play()\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
@@ -76,6 +75,8 @@ Item {
         signCircle.rotation=j.ph.h1.gdec
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
+        xAsp.load(j)
+        panelDataBodies.loadJson(j)
         r.v=true
     }
 }
