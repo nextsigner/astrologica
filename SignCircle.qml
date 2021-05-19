@@ -26,16 +26,19 @@ Item {
         property int f: 0
         property int uY: 0
         onWheel: {
-            //if (wheel.modifiers & Qt.ControlModifier) {
-            //let g=wheel.angleDelta.y / 120
-            //console.log('GGGG:'+uY)
+            let i=1
+            if (wheel.modifiers & Qt.ControlModifier) {
+                i=60
+            }
+            if (wheel.modifiers & Qt.ShiftModifier) {
+                i=60*24
+            }
             if(wheel.angleDelta.y===120){
-                rotar(1)
+                rotar(1,i)
             }else{
-                rotar(0)
+                rotar(0,i)
             }
             uY=wheel.angleDelta.y
-            //}
         }
     }
     Item{
@@ -108,52 +111,20 @@ Item {
     }
     property int sent: -1
     function subir(){
-        rotar(1)
+        rotar(1,1)
     }
     function bajar(){
-        rotar(0)
+        rotar(0,1)
     }
     property int uF: 0
-    function rotar(s){
+    function rotar(s,i){
         let grado=0
         let currentDate=app.currentDate
         if(s===0){
-            currentDate.setMinutes(currentDate.getMinutes() + 1)
+            currentDate.setMinutes(currentDate.getMinutes() + i)
         }else{
-            currentDate.setMinutes(currentDate.getMinutes() - 1)
+            currentDate.setMinutes(currentDate.getMinutes() - i)
         }
-
-        /*if(s===0){
-            currentDate.setMinutes(currentDate.getMinutes() + 1)
-            grado=-1
-            if(r.f>2){
-                r.f=0
-            }else{
-                r.f++
-            }
-            uF--
-        }else{
-            currentDate.setMinutes(currentDate.getMinutes() - 1)
-            grado=1
-            if(r.f<1){
-                r.f=3
-            }else{
-                r.f--
-            }
-            uF++
-        }
-        if(r.f===0&grado===-1){
-            if(s===0){
-                r.rotation=r.rotation+1
-            }
-        }
-        if(r.f===3&grado===1){
-            if(s===1){
-                r.rotation=r.rotation-1
-            }
-        }*/
-        //let newDate=currentDate
-        app.currentDate=currentDate//newDate
-        //r.uF=r.f
+        app.currentDate=currentDate
     }
 }

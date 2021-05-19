@@ -60,7 +60,6 @@ Item {
         c+='        let json=(\'\'+logData)\n'
         c+='        loadSweJson(json)\n'
         c+='        mp.play()\n'
-        c+='        //uqp'+ms+'.kill()\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
