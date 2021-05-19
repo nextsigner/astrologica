@@ -11,12 +11,12 @@ Item {
             easing.type: Easing.InOutQuad
         }
     }
-//    Behavior on rotation {
-//        NumberAnimation{
-//            duration: 3000
-//            easing.type: Easing.InOutQuad
-//        }
-//    }
+    //    Behavior on rotation {
+    //        NumberAnimation{
+    //            duration: 3000
+    //            easing.type: Easing.InOutQuad
+    //        }
+    //    }
     MouseArea {
         id: maw
         anchors.fill: parent
@@ -30,9 +30,9 @@ Item {
             //let g=wheel.angleDelta.y / 120
             //console.log('GGGG:'+uY)
             if(wheel.angleDelta.y===120){
-                rotar(0)
-            }else{
                 rotar(1)
+            }else{
+                rotar(0)
             }
             uY=wheel.angleDelta.y
             //}
@@ -119,6 +119,12 @@ Item {
         let currentDate=app.currentDate
         if(s===0){
             currentDate.setMinutes(currentDate.getMinutes() + 1)
+        }else{
+            currentDate.setMinutes(currentDate.getMinutes() - 1)
+        }
+
+        /*if(s===0){
+            currentDate.setMinutes(currentDate.getMinutes() + 1)
             grado=-1
             if(r.f>2){
                 r.f=0
@@ -145,7 +151,7 @@ Item {
             if(s===1){
                 r.rotation=r.rotation-1
             }
-        }
+        }*/
         //let newDate=currentDate
         app.currentDate=currentDate//newDate
         //r.uF=r.f

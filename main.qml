@@ -5,6 +5,8 @@ import QtQuick.Window 2.0
 import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
 
+import QtMultimedia 5.12
+
 import unik.UnikQProcess 1.0
 
 ApplicationWindow {
@@ -44,18 +46,27 @@ ApplicationWindow {
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
     onCurrentDateChanged: {
+        xDataBar.state='show'
         let a=currentDate.getFullYear()
-        let m=currentDate.getMonth()+1
+        let m=currentDate.getMonth()
         let d=currentDate.getDate()
         let h=currentDate.getHours()
         let min=currentDate.getMinutes()
 
-        setNewTimeJsonFileData(currentDate)
-
-        xState.currentDateString=d+'/'+m+'/'+a+' '+h+':'+min
-
+        if(app.fileData!=='' && app.currentData!=='' ){
+            setNewTimeJsonFileData(currentDate)
+        }
+        xDataBar.currentDateText=d+'/'+m+'/'+a+' '+h+':'+min
+        runJsonTemp()
     }
 
+    MediaPlayer{
+        id: mp
+        source:'/home/ns/nsp/uda/twitch-speech/sounds/beep.wav'
+        autoLoad: true
+        autoPlay: true
+        volume: 0.2
+    }
     Settings{
         id: apps
         property string url: ''
@@ -83,7 +94,7 @@ ApplicationWindow {
             columns: 2
             anchors.bottom: parent.bottom
             function load(jsonData){
-                for(var i=0;i<xAsp.children.length;i++){
+                /*for(var i=0;i<xAsp.children.length;i++){
                     xAsp.children[i].destroy(1)
                 }
                 let asp=jsonData.asps
@@ -95,7 +106,7 @@ ApplicationWindow {
                         //let obj=comp.createObject(xAsp, {c1:m0[0], c2:m0[1], asp: asp['asp'+i].t})
                         console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
                     }
-                }
+                }*/
             }
             function resaltar(c){
                 for(var i=0;i<xAsp.children.length;i++){
@@ -440,11 +451,13 @@ ApplicationWindow {
         apps.url=file
         let fn=apps.url
         let jsonFileName=fn
-        let jsonFileData=unik.getFile(jsonFileName)
+        let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
         //console.log(jsonFileData)
+
         app.fileData=jsonFileData
-        app.currentData=jsonFileData
+        app.currentData=app.fileData
         let jsonData=JSON.parse(jsonFileData)
+
         let nom=jsonData.params.n.replace(/_/g, ' ')
         let vd=jsonData.params.d
         let vm=jsonData.params.m
@@ -495,14 +508,38 @@ ApplicationWindow {
         sweg.load(jsonData)
         xAsp.load(jsonData)
     }
+    function runJsonTemp(){
+        let jsonData=JSON.parse(app.currentData)
+        let nom=jsonData.params.n.replace(/_/g, ' ')
+        let vd=jsonData.params.d
+        let vm=jsonData.params.m
+        let va=jsonData.params.a
+        let vh=jsonData.params.h
+        let vmin=jsonData.params.min
+        let vgmt=jsonData.params.gmt
+        let vlon=jsonData.params.lon
+        let vlat=jsonData.params.lat
+        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
+        let edad=''
+        let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+        let stringEdad=edad.indexOf('NaN')<0?edad:''
+        let textData=''
+        app.currentFecha=vd+'/'+vm+'/'+va
+        //xDataBar.state='show'
+        sweg.load(jsonData)
+        xAsp.load(jsonData)
+    }
     function setNewTimeJsonFileData(date){
 
         let jsonData=JSON.parse(app.fileData)
+        console.log('json: '+JSON.stringify(jsonData))
+        console.log('json2: '+jsonData.params)
+        let d = new Date(Date.now())
         let ms=jsonData.params.ms
         let nom=jsonData.params.n.replace(/_/g, ' ')
 
         let vd=date.getDate()
-        let vm=date.getMonth() + 1
+        let vm=date.getMonth()
         let va=date.getFullYear()
         let vh=date.getHours()
         let vmin=date.getMinutes()
@@ -511,23 +548,32 @@ ApplicationWindow {
         let vlon=jsonData.params.lon
         let vlat=jsonData.params.lat
         let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        let j='{\n'
-        j+='    "params":{\n'
-        j+='        "ms":"'+ms+'",\n'
-        j+='        "n":"'+nom+'",\n'
-        j+='        "d":"'+vd+'",\n'
-        j+='        "m":"'+vm+'",\n'
-        j+='        "a":"'+va+'",\n'
-        j+='        "h":"'+vh+'",\n'
-        j+='        "min":"'+vmin+'",\n'
-        j+='        "gmt":"'+vgmt+'",\n'
-        j+='        "lat":"'+vlat+'",\n'
-        j+='        "lon":"'+vlon+'",\n'
-        j+='        "ciudad":"'+vCiudad+'"\n'
-        j+='    }\n'
-        j+='}\n'
-        var njson=JSON.parse(j)
-        app.currentData=JSON.stringify(njson)
-        console.log('j: '+app.currentData)
+        let j='{'
+        j+='"params":{'
+        j+='"ms":'+ms+','
+        j+='"n":"'+nom+'",'
+        j+='"d":'+vd+','
+        j+='"m":'+vm+','
+        j+='"a":'+va+','
+        j+='"h":'+vh+','
+        j+='"min":'+vmin+','
+        j+='"gmt":'+vgmt+','
+        j+='"lat":'+vlat+','
+        j+='"lon":'+vlon+','
+        j+='"ciudad":"'+vCiudad+'"'
+        j+='}'
+        j+='}'
+        app.currentData=j
+        console.log('j: '+j)
+        console.log('fd: '+app.fileData)
+        /*
+Debug: j: {"params":{"ms":1619819842947,"n":"Ricardo Martin Pizarro","d":20,"m":6,"a":1975,"h":23,"min":0,"gmt":-3,"lat":-35.47,"lon":-69.61,"ciudad":"Malargue Mendoza Argentina"}} (file:///home/ns/nsp/uda/astrologica/main.qml:535, setNewTimeJsonFileData)
+Debug: fd: {"params":{"ms":1619819842947,"n":"Ricardo Martin Pizarro","d":20,"m":6,"a":1975,"h":23,"min":0,"gmt":-3,"lat":-35.47,"lon":-69.61,"ciudad":"Malargue Mendoza Argentina"}}
+        */
+    }
+    function saveJson(){
+        app.fileData=app.currentData
+        let jsonFileName=apps.url
+        unik.setFile(jsonFileName, app.currentData)
     }
 }

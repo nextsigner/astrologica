@@ -1,4 +1,5 @@
 import swisseph as swe
+import jdutil
 import datetime
 import json
 import sys
@@ -98,12 +99,12 @@ GMSLon=decdeg2dms(float(lon))
 #Consulta normal ./astrolog -qa 6 20 1975 23:00 3W 69W57 35S47
 #Consultar Aspectos ./astrolog -qa 6 20 1975 23:00 3W 69W57 35S47 -a -A 4
 
-cmd1='~/astrolog/astrolog -qa '+str(int(mes))+' '+str(int(dia))+' '+anio+' '+hora+':'+min+' ' + str(gmtNum) + ''+ gmtCar +' ' +str(int(GMSLon[0])) + ':' +str(int(GMSLon[1])) + '' + lonCar + ' ' +str(int(GMSLat[0])) + ':' +str(int(GMSLat[1])) + '' + latCar + '  -a -A 4'
+#cmd1='~/astrolog/astrolog -qa '+str(int(mes))+' '+str(int(dia))+' '+anio+' '+hora+':'+min+' ' + str(gmtNum) + ''+ gmtCar +' ' +str(int(GMSLon[0])) + ':' +str(int(GMSLon[1])) + '' + lonCar + ' ' +str(int(GMSLat[0])) + ':' +str(int(GMSLat[1])) + '' + latCar + '  -a -A 4'
 #print(cmd1)
 
-s1 = run(cmd1, shell=True, stdout=PIPE, universal_newlines=True)
+#s1 = run(cmd1, shell=True, stdout=PIPE, universal_newlines=True)
 
-s2=str(s1.stdout).split(sep="\n")
+#s2=str(s1.stdout).split(sep="\n")
 
 #index=0
 #for i in s2:
@@ -125,7 +126,7 @@ horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
 #print(horaLocal)
 
 dia=horaLocal.strftime('%d')
-mes=horaLocal.strftime('%m')
+mes=int(horaLocal.strftime('%m'))
 anio=horaLocal.strftime('%Y')
 hora=horaLocal.strftime('%H')
 min=horaLocal.strftime('%M')
@@ -136,13 +137,23 @@ min=horaLocal.strftime('%M')
 swe.set_ephe_path('/usr/share/libswe/ephe')
 #help(swe)
 
-jd1 = swe.julday(int(anio),int(mes),int(dia), int(hora))
-#print(jd1)
+d = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
+jd1 =jdutil.datetime_to_jd(d)
+#print(jdutil.datetime_to_jd(d))
+#jd1 = swe.julday(int(anio),int(mes),int(dia), int(hora),  int(min))
+#jd0 = swe.utc_to_jd(int(anio),int(5),int(2), int(hora),  int(min),0,0)
+#jd1 = float(jd0[0])
+#print('Nuevo JD: ' + str(jd1[0]))
 
 
 #Este falla, dá el Sol porque falta averiguar el flag
-posAsc=swe.calc(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+#posAsc=swe.calc(jd1, 0, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
 #print(posAsc)
+
+jsonParams='"params":{'
+jsonParams+='"jd":'+str(jd1)+','
+jsonParams+='"sd": "'+ str(dia) + '/' + str(mes) + '/' + str(anio) + ' ' + str(hora) + ':' + str(min)+'"'
+jsonParams+='}'
 
 
 np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
@@ -283,7 +294,8 @@ jsonHouses+='}'
 
 jsonString+='' + jsonBodies + ','
 jsonString+='' + jsonHouses + ','
-jsonString+='' + jsonAspets
+jsonString+='' + jsonAspets + ','
+jsonString+='' + jsonParams
 jsonString+='}'
 
 #j=json.loads(jsonString)
@@ -293,7 +305,9 @@ jsonString+='}'
 #print(jsonAspets)
 print(jsonString)
 #print(j)
-swe.close()
+#swe.close()
+
+#help(swe)
 
 #mp=swe.deg_midp(0.0, 90.0)
 #print('MP: '+str(mp))

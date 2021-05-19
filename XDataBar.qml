@@ -8,6 +8,7 @@ Rectangle {
     border.width: 1
     border.color: 'white'
     property alias fileData: txtCurrentData.text
+    property alias currentDateText: txtCurrentDate.text
     state: 'hide'
     states:[
         State {
@@ -50,6 +51,13 @@ Rectangle {
             border.color: 'white'
             anchors.verticalCenter: parent
             y:(parent.height-height)/2
+            MouseArea{
+                anchors.fill: parent
+                enabled: app.fileData!==app.currentData
+                onClicked: {
+                    app.saveJson()
+                }
+            }
         }
         Text {
             id: txtCurrentData
@@ -59,6 +67,24 @@ Rectangle {
             color: 'white'
             textFormat: Text.RichText
             y:(parent.height-height)/2
+        }
+    }
+    Rectangle{
+        width: txtCurrentDate.contentWidth+app.fs*0.5
+        height: txtCurrentDate.contentHeight+app.fs*0.5
+        color: 'black'
+        border.width: 1
+        border.color: 'white'
+        y:parent.height
+        visible: app.fileData!==app.currentData
+        Text {
+            id: txtCurrentDate
+            text: '0/0/000 00:00'
+            font.pixelSize: app.fs*0.5
+            height: app.fs*0.5
+            color: 'white'
+            textFormat: Text.RichText
+            anchors.centerIn: parent
         }
     }
 }

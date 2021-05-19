@@ -4,6 +4,7 @@ Item {
     id: r
     property bool v: false
     property alias expand: planetsCircle.expand
+    Item{id: xuqp}
     Rectangle{
         width: parent.width*10
         height: width
@@ -38,6 +39,9 @@ Item {
     }
     function load(jsonData){
         //console.log('Ejecutando SweGraphic.load()...')
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
         let vd=jsonData.params.d
         let vm=jsonData.params.m
         let va=jsonData.params.a
@@ -46,21 +50,25 @@ Item {
         let vgmt=jsonData.params.gmt
         let vlon=jsonData.params.lon
         let vlat=jsonData.params.lat
-
+        let d = new Date(Date.now())
+        let ms=d.getTime()
          let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
-        c+='    id: uqp\n'
+        c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
         c+='        let json=(\'\'+logData)\n'
         c+='        loadSweJson(json)\n'
-        c+='        uqp.destroy(1)\n'
+        c+='        mp.play()\n'
+        c+='        //uqp'+ms+'.kill()\n'
+        c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
+        c+='        console.log(\'python3 ./py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
         c+='        run(\'python3 ./py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
         c+='    }\n'
         c+='}\n'
-        let comp=Qt.createQmlObject(c, r, 'uqpcode')
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcode')
     }
     function loadSweJson(json){
         //console.log('JSON::: '+json)
