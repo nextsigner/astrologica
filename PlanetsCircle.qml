@@ -205,17 +205,6 @@ Item{
         objSigns[jo.is]++
 
         jo=json.pc.c13
-        xSelena.rotation=signCircle.rotation-jo.gdeg
-        o={}
-        o.p=objSigns[jo.is]
-        o.ns=jo.is
-        o.g=jo.g
-        o.m=jo.m
-        o.h=jo.h
-        xSelena.objData=o
-        objSigns[jo.is]++
-
-        jo=json.pc.c14
         xProserpina.rotation=signCircle.rotation-jo.gdeg
         o={}
         o.p=objSigns[jo.is]
@@ -224,6 +213,17 @@ Item{
         o.m=jo.m
         o.h=jo.h
         xProserpina.objData=o
+        objSigns[jo.is]++
+
+        jo=json.pc.c14
+        xSelena.rotation=signCircle.rotation-jo.gdeg
+        o={}
+        o.p=objSigns[jo.is]
+        o.ns=jo.is
+        o.g=jo.g
+        o.m=jo.m
+        o.h=jo.h
+        xSelena.objData=o
         objSigns[jo.is]++
 
         jo=json.pc.c15

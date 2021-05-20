@@ -23,6 +23,7 @@ ApplicationWindow {
     property string fileData: ''
     property string currentData: ''
 
+    property int currentPlanetIndex: 0
     property date currentDate
     property string currentNom: ''
     property string currentFecha: ''
@@ -46,6 +47,9 @@ ApplicationWindow {
     property int uMcDegree: -1
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
+    onCurrentPlanetIndexChanged: {
+        panelDataBodies.currentIndex=currentPlanetIndex
+    }
     onCurrentGmtChanged: {
         xDataBar.currentGmtText=''+currentGmt
         setNewTimeJsonFileData(app.currentDate)
@@ -111,15 +115,8 @@ ApplicationWindow {
                         let a=asp['asp'+parseInt(i +1)]
                         console.log('Asp: '+'asp'+parseInt(i +1))
                         let comp=Qt.createComponent('XAsp.qml')
-                        let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia})
-                        //console.log('Asp: '+asp['asp'+i].t+' '+asp['asp'+i].p+' c1:'+m0[0]+' c2:'+m0[1])
-                    }
-                    //console.log('Asp: '+a.ia)
-                    //console.log('Asp: '+a.ia+' '+' c1:'+a.c1+' c2:'+a.c2)
-                    //if(asp['asp'+i].p!=='N.'&&asp['asp'+i].p!=='S.'){
-                        //let m0=(''+asp['asp'+i].p).toLowerCase().replace('N.', 'n').replace('S.', 's').replace('N.', 'n').replace('.', '').split('-')
-
-                    //}
+                        let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia})                        
+                    }                   
                 }
             }
             function resaltar(c){
@@ -229,7 +226,12 @@ ApplicationWindow {
                 xSabianos.up()
                 return
             }
-            xAreaInteractiva.back()
+            if(currentPlanetIndex>0){
+                currentPlanetIndex--
+            }else{
+                currentPlanetIndex=14
+            }
+            //xAreaInteractiva.back()
         }
     }
     Shortcut{
@@ -239,7 +241,12 @@ ApplicationWindow {
                 xSabianos.down()
                 return
             }
-            xAreaInteractiva.next()
+            if(currentPlanetIndex<14){
+                currentPlanetIndex++
+            }else{
+                currentPlanetIndex=0
+            }
+            //xAreaInteractiva.next()
         }
     }
     Shortcut{

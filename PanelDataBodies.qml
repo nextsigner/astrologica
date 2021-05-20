@@ -10,6 +10,7 @@ Rectangle {
     border.width: 2
     border.color: 'white'
     state: 'hide'
+    property alias currentIndex: lv.currentIndex
     states: [
         State {
             name: "show"
@@ -46,6 +47,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
+            currentIndex: app.currentPlanetIndex
             clip: true
         }
     }

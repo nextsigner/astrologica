@@ -29,6 +29,10 @@ Item {
         showBorder: true
         v:r.v
     }
+    AspCircle{
+        id: aspCircle
+        rotation: signCircle.rotation - 90
+    }
     PlanetsCircle{
         id:planetsCircle
         width: signCircle.width-app.fs*2
@@ -77,6 +81,7 @@ Item {
         planetsCircle.loadJson(j)
         xAsp.load(j)
         panelDataBodies.loadJson(j)
+        aspCircle.load(j)
         r.v=true
     }
 }

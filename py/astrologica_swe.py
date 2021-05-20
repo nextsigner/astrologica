@@ -30,31 +30,43 @@ def getIndexSign(grado):
 #Para la Cuadratura, un orbe de 7 grados.
 #Para el Sextil, un orbe de 6 grados.
 def getAsp(g1, g2):
-    asp=-1 # -1 = no hay aspectos. 0 = oposición. 1 = cuadratura
+    asp=-1 # -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+
+    #Calculo oposición.
     difDeg=swe.difdegn(g1, g2)
     if difDeg < 180.00 + 8 and difDeg > 180.00 - 8:
         asp=0
+
     difDeg=swe.difdegn(g2, g1)
     if difDeg < 180.00 + 8 and difDeg > 180.00 - 8:
         asp=0
 
+    #Calculo cuadratura.
     difDeg=swe.difdegn(g1, g2)
     if difDeg < 90.00 + 7 and difDeg > 90.00 - 7:
         asp=1
+
     difDeg=swe.difdegn(g2, g1)
     if difDeg < 90.00 + 7 and difDeg > 90.00 - 7:
         asp=1
 
+    #Calculo trígono.
     difDeg=swe.difdegn(g1, g2)
     if difDeg < 120.00 + 8 and difDeg > 120.00 - 8:
             asp=2
+
+    difDeg=swe.difdegn(g2, g1)
     if difDeg < 240.00 + 8 and difDeg > 240.00 - 8:
          asp=2
+
+    #Calculo conjunción.
+    difDeg=swe.difdegn(g1, g2)
+    if difDeg < 0 + 8 and difDeg > 0 - 8:
+            asp=3
+
     difDeg=swe.difdegn(g2, g1)
-    if difDeg < 120.00 + 8 and difDeg > 120.00 - 8:
-            asp=2
-    if difDeg < 240.00 + 8 and difDeg > 240.00 - 8:
-        asp=2
+    if difDeg < 0 + 8 and difDeg > 0 - 8:
+        asp=3
 
     return asp
 
@@ -230,7 +242,10 @@ for i in tuplaPosBodies:
             jsonAspets+=stringActual
             jsonAspets+='"c1":"' + str(np[index][0]) + '", '
             jsonAspets+='"c2":"' + str(np[num][0]) + '", '
-            jsonAspets+='"ia":' + str(asp) + ''
+            jsonAspets+='"ia":' + str(asp) + ','
+            jsonAspets+='"gdeg1":' + str(g1) + ','
+            jsonAspets+='"gdeg2":' + str(g2) + ','
+            jsonAspets+='"dga":' + str(swe.difdegn(g1, g2)) + ''
             jsonAspets+='}'
             indexAsp = indexAsp +1
         #print('Dif 1: '+str(swe.difdegn(g1, g2)))
