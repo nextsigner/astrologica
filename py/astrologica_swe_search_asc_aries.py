@@ -76,13 +76,22 @@ if enDia1 == False:
                 break
 
 
-dia=horaFinal.strftime('%d')
-mes=horaFinal.strftime('%m')
-anio=horaFinal.strftime('%Y')
-hora=horaFinal.strftime('%H')
-min=horaFinal.strftime('%M')
+
+jsonMomentos+='"params":{'
+jsonMomentos+='"gmt":'+str(gmt)+','
+jsonMomentos+='"lat":'+str(lat)+','
+jsonMomentos+='"lon":'+str(lon)+''
+jsonMomentos+='},'
+
+
+dia=str(int(horaFinal.strftime('%d')))
+mes=str(int(horaFinal.strftime('%m')))
+anio=str(int(horaFinal.strftime('%Y')))
+hora=str(int(horaFinal.strftime('%H')))
+min=str(int(horaFinal.strftime('%M')))
 
 jsonMomentos+='"fechas":{'
+jsonMomentos+='"is0":{'
 jsonMomentos+='"d":'+dia+','
 jsonMomentos+='"m":'+mes+','
 jsonMomentos+='"a":'+anio+','
@@ -92,14 +101,15 @@ jsonMomentos+='}'
 
 for signo in range(12):
     horaFinal = horaFinal + datetime.timedelta(hours=2)
-    print(str(horaFinal))
-    dia=horaFinal.strftime('%d')
-    mes=horaFinal.strftime('%m')
-    anio=horaFinal.strftime('%Y')
-    hora=horaFinal.strftime('%H')
-    min=horaFinal.strftime('%M')
+    #print(str(horaFinal))
+    dia=str(int(horaFinal.strftime('%d')))
+    mes=str(int(horaFinal.strftime('%m')))
+    anio=str(int(horaFinal.strftime('%Y')))
+    hora=str(int(horaFinal.strftime('%H')))
+    min=str(int(horaFinal.strftime('%M')))
 
-    jsonMomentos+=',"fechas":{'
+    indexSign = signo + 1
+    jsonMomentos+=',"is'+ str(indexSign) +'":{'
     jsonMomentos+='"d":'+dia+','
     jsonMomentos+='"m":'+mes+','
     jsonMomentos+='"a":'+anio+','
@@ -111,5 +121,3 @@ for signo in range(12):
 jsonMomentos+='}'
 jsonMomentos+='}'
 print(jsonMomentos)
-#print(str(grado))
-#help(swe)

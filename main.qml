@@ -23,6 +23,10 @@ ApplicationWindow {
     property string fileData: ''
     property string currentData: ''
 
+    //Para analizar signos y ascendentes por región
+    property int currentIndexSignData: 0
+    property var currentJsonSignData: ''
+
     property int currentPlanetIndex: 0
     property date currentDate
     property string currentNom: ''
@@ -179,6 +183,7 @@ ApplicationWindow {
         XSabianos{id: xSabianos}
         PanelFileLoader{id: panelFileLoader}
         PanelDataBodies{id: panelDataBodies}
+        ControlsSign{id: ctrlSign}
     }
     Shortcut{
         sequence: 'Ctrl+Down'
@@ -485,13 +490,16 @@ ApplicationWindow {
         app.fileData=jsonFileData
         app.currentData=app.fileData
         let jsonData=JSON.parse(jsonFileData)
-        if(jsonData.params.ms===0){
+        if(parseInt(jsonData.params.ms)===0){
             let d=new Date(Date.now())
             jsonData.params.d=d.getDate()
             jsonData.params.m=d.getMonth()
             jsonData.params.a=d.getFullYear()
             jsonData.params.h=d.getHours()
             jsonData.params.min=d.getMinutes()
+            sweg.loadSign(jsonData)
+        }else{
+            sweg.load(jsonData)
         }
         let nom=jsonData.params.n.replace(/_/g, ' ')
         let vd=jsonData.params.d
@@ -536,7 +544,7 @@ ApplicationWindow {
 
         xDataBar.fileData=textData
         xDataBar.state='show'
-        sweg.load(jsonData)
+
         //xAsp.load(jsonData)
     }
     function runJsonTemp(){
@@ -562,8 +570,8 @@ ApplicationWindow {
     }
     function setNewTimeJsonFileData(date){
         let jsonData=JSON.parse(app.fileData)
-        console.log('json: '+JSON.stringify(jsonData))
-        console.log('json2: '+jsonData.params)
+        //console.log('json: '+JSON.stringify(jsonData))
+        //console.log('json2: '+jsonData.params)
         let d = new Date(Date.now())
         let ms=jsonData.params.ms
         let nom=jsonData.params.n.replace(/_/g, ' ')

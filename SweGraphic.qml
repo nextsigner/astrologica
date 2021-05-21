@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.7
 
 Item {
     id: r
@@ -43,6 +43,38 @@ Item {
         anchors.centerIn: parent
         //showBorder: true
         //v:r.v
+    }
+    function loadSign(j){
+        console.log('Ejecutando SweGraphic.loadSign()...')
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
+        let vd=j.params.d
+        let vm=j.params.m
+        let va=j.params.a
+        let vh=j.params.h
+        let vmin=j.params.min
+        let vgmt=j.params.gmt
+        let vlon=j.params.lon
+        let vlat=j.params.lat
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+         let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='UnikQProcess{\n'
+        c+='    id: uqp'+ms+'\n'
+        c+='    onLogDataChanged:{\n'
+        c+='        let json=(\'\'+logData).replace(/\\n/g, \'\')\n'
+        c+='        app.currentJsonSignData=JSON.parse(json)\n'
+        c+='        ctrlSign.loadJson(app.currentJsonSignData)\n'
+        c+='        uqp'+ms+'.destroy(0)\n'
+        c+='    }\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        console.log(\'python3 ./py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
+        c+='        run(\'python3 ./py/astrologica_swe_search_asc_aries.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
+        c+='    }\n'
+        c+='}\n'
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodesign')
     }
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
