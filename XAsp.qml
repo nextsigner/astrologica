@@ -11,7 +11,7 @@ Rectangle {
     radius: app.fs*0.1
     property bool invertido: false
     //np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
-    property var arrPlanetas: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'proserpina', 'selena', 'lilith']
+    //property var arrPlanetas: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'proserpina', 'selena', 'lilith']
     property int tipo: -1
     property int ic1: -1
     property int ic2: -1
@@ -31,7 +31,7 @@ Rectangle {
                 height: width
                 Image {
                     id: iconoPlaneta
-                    source: index===0?"./resources/imgs/planetas/"+arrPlanetas[r.ic1]+".svg":"./resources/imgs/planetas/"+arrPlanetas[r.ic2]+".svg"
+                    source: index===0?"./resources/imgs/planetas/"+app.planetasRes[r.ic1]+".svg":"./resources/imgs/planetas/"+app.planetasRes[r.ic2]+".svg"
                     visible: false
                     anchors.fill: parent
                 }
@@ -55,7 +55,7 @@ Rectangle {
                 height: width
                 Image {
                     id: iconoPlaneta2
-                    source: index===0?"./resources/imgs/planetas/"+r.c2+".svg":"./resources/imgs/planetas/"+r.c1+".svg"
+                    source: index===0?"./resources/imgs/planetas/"+app.planetasRes[r.ic2]+".svg":"./resources/imgs/planetas/"+app.planetasRes[r.ic1]+".svg"
                     visible: false
                     anchors.fill: parent
                 }
@@ -72,7 +72,7 @@ Rectangle {
         id: iconAsp
         width: app.fs*0.75
         height: width
-        //source: "./resources/imgs/"+r.tipo+".svg"
+        source: "./resources/imgs/"+r.tipo+".svg"
         anchors.centerIn: r
     }
     Component.onCompleted: {

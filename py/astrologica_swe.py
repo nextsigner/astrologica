@@ -30,7 +30,7 @@ def getIndexSign(grado):
 #Para la Cuadratura, un orbe de 7 grados.
 #Para el Sextil, un orbe de 6 grados.
 def getAsp(g1, g2):
-    asp=-1 # -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+    asp=-1 # -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción
 
     #Calculo oposición.
     difDeg=swe.difdegn(g1, g2)
@@ -145,8 +145,7 @@ jsonParams+='"jd":'+str(jd1)+','
 jsonParams+='"sd": "'+ str(dia) + '/' + str(mes) + '/' + str(anio) + ' ' + str(hora) + ':' + str(min)+'"'
 jsonParams+='}'
 
-
-np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
+np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12)]
 
 #La oblicuidad de calcula con ipl = SE_ECL_NUT = -1 en SWE pero en swisseph ECL_NUT = -1
 posObli=swe.calc(jd1, -1, flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
@@ -167,16 +166,17 @@ for i in np:
     #print(pos)
     gObj=float(pos[0][0])
     if index == 11:
-        gNN=float(tuplaPosBodies[index - 1])
-        if gNN < 180:
-            gNS= 360.00 - gNN
-        else:
-            gNS=gNN - 180.00
+        posNN=swe.calc_ut(jd1, np[10][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+        gNN=float(posNN[0][0]) + 180 #float(tuplaPosBodies[index - 1])
+        #if gNN < 180:
+            #gNS= 360.00 - gNN
+        #else:
+            #gNS=gNN - 180.00
 
         #print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
         #print('Grado de Nodo Norte: '+str(gNN))
         #print('Grado de Nodo Sur: '+str(gNS))
-        gObj=gNS
+        gObj=gNN
 
     tuplaPosBodies+=tuple([gObj])
     indexSign=getIndexSign(gObj)
@@ -221,14 +221,13 @@ arr12=(0,1,2,3,4,5,6,7,8,9,10,12,13,14,15)
 arr13=(0,1,2,3,4,5,6,7,8,9,10,11,13,14,15)
 arr14=(0,1,2,3,4,5,6,7,8,9,10,11,12,14,15)
 arr15=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,15)
-arr16=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14)
-tuplaArr=((arr1),(arr2),(arr3),(arr4),(arr5),(arr6),(arr7),(arr8),(arr9),(arr10),(arr11),(arr12),(arr13),(arr14),(arr15),(arr16))
+tuplaArr=((arr1),(arr2),(arr3),(arr4),(arr5),(arr6),(arr7),(arr8),(arr9),(arr10),(arr11),(arr12),(arr13),(arr14),(arr15))
 #print(tuplaArr)
 index=0
 indexAsp=0
 for i in tuplaPosBodies:
     #print('i:' + str(i))
-    for num in range(15):
+    for num in range(14):
         #print('Comp: ' + str(np[index][0]) + ' con ' + str(np[tuplaArr[index][num]][0]))
         g1=float(tuplaPosBodies[index])
         g2=float(tuplaPosBodies[tuplaArr[index][num]])
@@ -295,5 +294,4 @@ jsonString+='}'
 #print(jsonAspets)
 print(jsonString)
 swe.close()
-
 #help(swe)

@@ -22,7 +22,7 @@ Item{
     }
     Behavior on rotation {
         NumberAnimation{
-            duration: 3000
+            duration: 250
             easing.type: Easing.InOutQuad
         }
     }
@@ -70,7 +70,7 @@ Item{
         }
         Image {
             id: img
-            source: "./resources/imgs/planetas/"+r.astro+".svg"
+            source: "./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg"
             width: parent.width
             height: width
             anchors.centerIn: parent

@@ -23,6 +23,7 @@ Item{
         //xTip.anchors.horizontalCenter=cAs.horizontalCenter
         //tResetTip.restart()
     }
+    //np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
     XAs{id:xSol;fs:r.fs;astro:'sun'; numAstro: 0}
     XAs{id:xLuna;fs:r.fs;astro:'moon'; numAstro: 1}
     XAs{id:xMercurio;fs:r.fs;astro:'mercury'; numAstro: 2}
@@ -33,12 +34,11 @@ Item{
     XAs{id:xUrano;fs:r.fs;astro:'uranus'; numAstro: 7}
     XAs{id:xNeptuno;fs:r.fs;astro:'neptune'; numAstro: 8}
     XAs{id:xPluton;fs:r.fs;astro:'pluto'; numAstro: 9}
-    XAs{id:xQuiron;fs:r.fs;astro:'hiron'; numAstro: 10}
-    XAs{id:xProserpina;fs:r.fs;astro:'proserpina'; numAstro: 11}
-    XAs{id:xSelena;fs:r.fs;astro:'selena'; numAstro: 12}
-    XAs{id:xLilith;fs:r.fs;astro:'lilith'; numAstro: 13}
-    XAs{id:xNodoPS;fs:r.fs;astro:'ns'; numAstro: 14}
-    XAs{id:xNodoPN;fs:r.fs;astro:'nn'; numAstro: 15}
+    XAs{id:xNodoPN;fs:r.fs;astro:'nn'; numAstro: 10}
+    XAs{id:xNodoPS;fs:r.fs;astro:'ns'; numAstro: 11}
+    XAs{id:xQuiron;fs:r.fs;astro:'hiron'; numAstro: 12}
+    XAs{id:xSelena;fs:r.fs;astro:'selena'; numAstro: 14}
+    XAs{id:xLilith;fs:r.fs;astro:'lilith'; numAstro: 15}
     function pressed(o){
         unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
@@ -56,8 +56,26 @@ Item{
         r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
-
-        jo=json.pc.c0
+        //np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
+        for(var i=0;i<15;i++){
+            var objAs=r.children[i]
+            objAs.numAstro=i
+            jo=json.pc['c'+i]
+            objAs.rotation=signCircle.rotation-jo.gdeg
+            o={}
+            o.p=objSigns[jo.is]
+            o.ns=objSignsNames.indexOf(jo.is)
+            o.g=jo.gdeg
+            o.m=jo.mdeg
+            o.h=jo.h
+            objAs.objData=o
+            objSigns[jo.is]++
+            if(i===0){
+                app.currentGradoSolar=jo.gdeg
+                app.currentMinutoSolar=jo.mdeg
+            }
+        }
+        /*jo=json.pc.c0
         xSol.rotation=signCircle.rotation-jo.gdeg
         o={}
         o.p=objSigns[jo.is]
@@ -183,14 +201,14 @@ Item{
         objSigns[jo.is]++
 
         jo=json.pc.c11
-        xNodoPS.rotation=signCircle.rotation-jo.gdeg
+        xProserpina.rotation=signCircle.rotation-jo.gdeg
         o={}
         o.p=objSigns[jo.is]
         o.ns=jo.is
         o.g=jo.g
         o.m=jo.m
         o.h=jo.h
-        xNodoPS.objData=o
+        xProserpina.objData=o
         objSigns[jo.is]++
 
         jo=json.pc.c12
@@ -205,14 +223,14 @@ Item{
         objSigns[jo.is]++
 
         jo=json.pc.c13
-        xProserpina.rotation=signCircle.rotation-jo.gdeg
+        xNodoPS.rotation=signCircle.rotation-jo.gdeg
         o={}
         o.p=objSigns[jo.is]
         o.ns=jo.is
         o.g=jo.g
         o.m=jo.m
         o.h=jo.h
-        xProserpina.objData=o
+        xNodoPS.objData=o
         objSigns[jo.is]++
 
         jo=json.pc.c14
@@ -235,6 +253,6 @@ Item{
         o.m=jo.m
         o.h=jo.h
         xLilith.objData=o
-        objSigns[jo.is]++
+        objSigns[jo.is]++*/
     }
 }
