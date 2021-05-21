@@ -30,7 +30,7 @@ Rectangle {
         id:canvasBg
         width: canvas.width
         height: width
-        //visible: false
+        visible: false
         property int px1: -1
         property int py1: -1
         property int px2: -1
@@ -59,13 +59,7 @@ Rectangle {
             ctx.reset();
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
-            var radius=canvas.width*0.5-2
-            /*ctx.beginPath();
-            ctx.arc(x, y, radius, 0, 2 * Math.PI);
-            ctx.lineWidth = 2
-            ctx.strokeStyle = 'red';
-            ctx.stroke();*/
-
+            var radius=canvas.width*0.5
             var cx=canvas.width*0.5
             var cy=canvas.height*0.5
 

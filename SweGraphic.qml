@@ -44,19 +44,19 @@ Item {
         //showBorder: true
         //v:r.v
     }
-    function load(jsonData){
+    function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        let vd=jsonData.params.d
-        let vm=jsonData.params.m
-        let va=jsonData.params.a
-        let vh=jsonData.params.h
-        let vmin=jsonData.params.min
-        let vgmt=jsonData.params.gmt
-        let vlon=jsonData.params.lon
-        let vlat=jsonData.params.lat
+        let vd=j.params.d
+        let vm=j.params.m
+        let va=j.params.a
+        let vh=j.params.h
+        let vmin=j.params.min
+        let vgmt=j.params.gmt
+        let vlon=j.params.lon
+        let vlat=j.params.lat
         let d = new Date(Date.now())
         let ms=d.getTime()
          let c='import QtQuick 2.0\n'

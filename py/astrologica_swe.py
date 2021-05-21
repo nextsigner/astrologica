@@ -29,43 +29,48 @@ def getIndexSign(grado):
 #Para el Trígono un orbe de 8 grados.
 #Para la Cuadratura, un orbe de 7 grados.
 #Para el Sextil, un orbe de 6 grados.
-def getAsp(g1, g2):
+def getAsp(g1, g2, ic):
     asp=-1 # -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono. 3 = conjunción
-
+    #np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12)]
+    orbe8=8
+    orbe7=7
+    if indexAsp == 5 or indexAsp == 6 or indexAsp == 7 or indexAsp == 8 or indexAsp == 9 or indexAsp == 12:
+        orbe8=10
+        orbe7=9
     #Calculo oposición.
     difDeg=swe.difdegn(g1, g2)
-    if difDeg < 180.00 + 8 and difDeg > 180.00 - 8:
+    if difDeg < 180.00 + orbe8 and difDeg > 180.00 - orbe8:
         asp=0
 
     difDeg=swe.difdegn(g2, g1)
-    if difDeg < 180.00 + 8 and difDeg > 180.00 - 8:
+    if difDeg < 180.00 + orbe8 and difDeg > 180.00 - orbe8:
         asp=0
 
     #Calculo cuadratura.
     difDeg=swe.difdegn(g1, g2)
-    if difDeg < 90.00 + 7 and difDeg > 90.00 - 7:
+    if difDeg < 90.00 + orbe7 and difDeg > 90.00 - orbe7:
         asp=1
 
     difDeg=swe.difdegn(g2, g1)
-    if difDeg < 90.00 + 7 and difDeg > 90.00 - 7:
+    if difDeg < 90.00 + orbe7 and difDeg > 90.00 - orbe7:
         asp=1
 
     #Calculo trígono.
     difDeg=swe.difdegn(g1, g2)
-    if difDeg < 120.00 + 8 and difDeg > 120.00 - 8:
+    if difDeg < 120.00 + orbe8 and difDeg > 120.00 - orbe8:
             asp=2
 
     difDeg=swe.difdegn(g2, g1)
-    if difDeg < 240.00 + 8 and difDeg > 240.00 - 8:
+    if difDeg < 240.00 + orbe8 and difDeg > 240.00 - orbe8:
          asp=2
 
     #Calculo conjunción.
     difDeg=swe.difdegn(g1, g2)
-    if difDeg < 0 + 8 and difDeg > 0 - 8:
+    if difDeg < 0 + orbe8 and difDeg > 0 - orbe8:
             asp=3
 
     difDeg=swe.difdegn(g2, g1)
-    if difDeg < 0 + 8 and difDeg > 0 - 8:
+    if difDeg < 0 + orbe8 and difDeg > 0 - orbe8:
         asp=3
 
     return asp
@@ -232,7 +237,7 @@ for i in tuplaPosBodies:
         g1=float(tuplaPosBodies[index])
         g2=float(tuplaPosBodies[tuplaArr[index][num]])
         #print('g1: '+str(g1) + ' g2: ' + str(g2))
-        asp=getAsp(g1, g2)
+        asp=getAsp(g1, g2, index)
         stringInvertido='"ic1":' + str(tuplaArr[index][num]) + ', "ic2":' + str(index) + ', '
         stringActual='"ic1":' + str(index) + ', "ic2":' + str(tuplaArr[index][num]) + ', '
         if asp >= 0 and stringInvertido not in jsonAspets:

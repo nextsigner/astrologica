@@ -485,7 +485,14 @@ ApplicationWindow {
         app.fileData=jsonFileData
         app.currentData=app.fileData
         let jsonData=JSON.parse(jsonFileData)
-
+        if(jsonData.params.ms===0){
+            let d=new Date(Date.now())
+            jsonData.params.d=d.getDate()
+            jsonData.params.m=d.getMonth()
+            jsonData.params.a=d.getFullYear()
+            jsonData.params.h=d.getHours()
+            jsonData.params.min=d.getMinutes()
+        }
         let nom=jsonData.params.n.replace(/_/g, ' ')
         let vd=jsonData.params.d
         let vm=jsonData.params.m
