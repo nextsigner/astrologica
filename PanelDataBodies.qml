@@ -4,7 +4,7 @@ import Qt.labs.folderlistmodel 2.12
 
 Rectangle {
     id: r
-    width: parent.width*0.3
+    width: parent.width*0.25
     height: parent.height
     color: 'black'
     border.width: 2
@@ -88,7 +88,7 @@ Rectangle {
         let o
        for(var i=0;i<15;i++){
            jo=json.pc['c'+i]
-           let s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]
+           let s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]+ '  - Casa ' +jo.ih
            lm.append(lm.addItem('a', s))
        }
 

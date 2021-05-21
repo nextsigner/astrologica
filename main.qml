@@ -113,9 +113,9 @@ ApplicationWindow {
                 for(i=0;i<Object.keys(asp).length;i++){
                     if(asp['asp'+parseInt(i +1)]){
                         let a=asp['asp'+parseInt(i +1)]
-                        console.log('Asp: '+'asp'+parseInt(i +1))
+                        //console.log('Asp: '+'asp'+parseInt(i +1))
                         let comp=Qt.createComponent('XAsp.qml')
-                        let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia})                        
+                        let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia, indexAsp: i})
                     }                   
                 }
             }

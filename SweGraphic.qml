@@ -4,6 +4,9 @@ Item {
     id: r
     property bool v: false
     property alias expand: planetsCircle.expand
+    property alias objAspsCircle: aspsCircle
+    property alias objPlanetsCircle: planetsCircle
+    property alias objHousesCircle: housesCircle
     Item{id: xuqp}
     Rectangle{
         width: parent.width*10
@@ -30,7 +33,7 @@ Item {
         v:r.v
     }
     AspCircle{
-        id: aspCircle
+        id: aspsCircle
         rotation: signCircle.rotation - 90
     }
     PlanetsCircle{
@@ -81,7 +84,7 @@ Item {
         planetsCircle.loadJson(j)
         xAsp.load(j)
         panelDataBodies.loadJson(j)
-        aspCircle.load(j)
+        aspsCircle.load(j)
         r.v=true
     }
 }
