@@ -37,45 +37,51 @@ momento='0/0/0000 00:00'
 grado=0
 #print(str(horaLocal))
 
-for hora in range(24):
-    #print('Hora: '+str(hora))
-    for minuto in range(60):
-        #print('Minuto: '+str(minuto))
-        horaLocal  += datetime.timedelta(minutes=1)
-        #print(str(d))
-        jd1 =jdutil.datetime_to_jd(horaLocal)
-        h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
-        if int(h[0][0]) == 0:
-            horaFinal = horaLocal + datetime.timedelta(hours=int(gmt))
-            momento=str(horaFinal)
-            grado=float(h[0][0])
-            enDia1=True
-            break
-        #print(str(h[0][0]))
-        #print(str(h[0]))
-
-
-#horaLocal  += datetime.timedelta(days=1)
-#print(str(horaLocal))
-
-
-if enDia1 == False:
-#if 1 == int(str('1')):
+def getHour(uHora, grado):
     for hora in range(24):
         #print('Hora: '+str(hora))
+        encontrado=False
         for minuto in range(60):
             #print('Minuto: '+str(minuto))
-            horaLocal  += datetime.timedelta(minutes=1)
+            uHora  += datetime.timedelta(minutes=1)
             #print(str(d))
-            jd1 =jdutil.datetime_to_jd(horaLocal)
+            jd1 =jdutil.datetime_to_jd(uHora)
             h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
-            if int(h[0][0]) == 0:
-                horaFinal = horaLocal + datetime.timedelta(hours=int(gmt))
-                momento=str(horaFinal)
-                grado=float(h[0][0])
+            gasc=float(h[0][0])
+            if  gasc >= grado - 1.00 and gasc <= grado + 1.00:
+                #print(str(gasc))
+                uHora = uHora + datetime.timedelta(hours=int(gmt))
+                encontrado=True
                 break
+        if encontrado:
+            break
 
+    return uHora
 
+h1=getHour(horaLocal, 0.00)
+#print(str(h1))
+h2=getHour(h1, 30.00)
+#print(str(h2))
+h3=getHour(h2, 60.00)
+#print(str(h3))
+h4=getHour(h3, 90.00)
+#print(str(h4))
+h5=getHour(h4, 120.00)
+#print(str(h5))
+h6=getHour(h5, 150.00)
+#print(str(h6))
+h7=getHour(h6, 180.00)
+#print(str(h7))
+h8=getHour(h7, 210.00)
+#print(str(h8))
+h9=getHour(h8, 240.00)
+#print(str(h9))
+h10=getHour(h9, 270.00)
+#print(str(h10))
+h11=getHour(h10, 300.00)
+#print(str(h11))
+h12=getHour(h11, 330.00)
+#print(str(h12))
 
 jsonMomentos+='"params":{'
 jsonMomentos+='"gmt":'+str(gmt)+','
@@ -83,33 +89,22 @@ jsonMomentos+='"lat":'+str(lat)+','
 jsonMomentos+='"lon":'+str(lon)+''
 jsonMomentos+='},'
 
-
-dia=str(int(horaFinal.strftime('%d')))
-mes=str(int(horaFinal.strftime('%m')))
-anio=str(int(horaFinal.strftime('%Y')))
-hora=str(int(horaFinal.strftime('%H')))
-min=str(int(horaFinal.strftime('%M')))
-
 jsonMomentos+='"fechas":{'
-jsonMomentos+='"is0":{'
-jsonMomentos+='"d":'+dia+','
-jsonMomentos+='"m":'+mes+','
-jsonMomentos+='"a":'+anio+','
-jsonMomentos+='"h":'+hora+','
-jsonMomentos+='"min":'+min+''
-jsonMomentos+='}'
 
-for signo in range(12):
-    horaFinal = horaFinal + datetime.timedelta(hours=2)
-    #print(str(horaFinal))
-    dia=str(int(horaFinal.strftime('%d')))
-    mes=str(int(horaFinal.strftime('%m')))
-    anio=str(int(horaFinal.strftime('%Y')))
-    hora=str(int(horaFinal.strftime('%H')))
-    min=str(int(horaFinal.strftime('%M')))
+tuplaHs=tuple([h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11,h12])
+indexHs=0
+for horaTupla in range(12):
+    #print(str(tuplaHs[indexHs]))
+    dia=str(int(tuplaHs[indexHs].strftime('%d')))
+    mes=str(int(tuplaHs[indexHs].strftime('%m')))
+    anio=str(int(tuplaHs[indexHs].strftime('%Y')))
+    hora=str(int(tuplaHs[indexHs].strftime('%H')))
+    min=str(int(tuplaHs[indexHs].strftime('%M')))
 
-    indexSign = signo + 1
-    jsonMomentos+=',"is'+ str(indexSign) +'":{'
+    if indexHs != 0:
+        jsonMomentos+=','
+
+    jsonMomentos+='"is'+ str(indexHs) +'":{'
     jsonMomentos+='"d":'+dia+','
     jsonMomentos+='"m":'+mes+','
     jsonMomentos+='"a":'+anio+','
@@ -117,6 +112,7 @@ for signo in range(12):
     jsonMomentos+='"min":'+min+''
     jsonMomentos+='}'
 
+    indexHs = indexHs + 1
 
 jsonMomentos+='}'
 jsonMomentos+='}'
