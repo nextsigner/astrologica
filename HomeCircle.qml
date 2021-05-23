@@ -88,6 +88,7 @@ Item {
         for(var i=0;i<12;i++){
             nh=i
             let h=xArcs.children[i]
+            h.op=0.0
             //console.log('HomeArc: '+h.objectName)
             let sh1=''
             let sh2=''
@@ -115,49 +116,4 @@ Item {
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
         }
     }
-
-    /*
-    function load(jsonData) {
-        //setHousesArcs()
-        let resta=0.000000
-        let nh=0
-        let o1//=jsonData.pc.h1
-        let o2//=jsonData.pc.h2
-        let indexSign1//=app.objSignsNames.indexOf(o1.s)
-        let p1//=indexSign1*30+o1.g
-        let indexSign2//=app.objSignsNames.indexOf(o2.s)
-        let p2//=indexSign2*30+o2.g
-        //xArcs.children[nh].wg=p2-p1
-        //resta+=xArcs.children[nh].wg
-         //return
-        for(var i=0;i<12;i++){
-            nh=i
-            let h=xArcs.children[i]
-            //console.log('HomeArc: '+h.objectName)
-            let sh1=''
-            let sh2=''
-            if(i===11){
-                sh1='h'+parseInt(nh + 1)
-                sh2='h1'
-                //console.log('Ob1: '+sh1+ ' '+sh2)
-                o1=jsonData.pc[sh1]
-                o2=jsonData.pc[sh2]
-            }else{
-                sh1='h'+parseInt(nh + 1)
-                sh2='h'+parseInt(nh + 2)
-                //console.log('Ob2: '+sh1+ ' '+sh2)
-                o1=jsonData.pc[sh1]
-                o2=jsonData.pc[sh2]
-            }
-            indexSign1=app.objSignsNames.indexOf(o1.s)
-            p1=indexSign1*30+o1.g
-            indexSign2=app.objSignsNames.indexOf(o2.s)
-            p2=0.0000+indexSign2*30+o2.g+(o2.m/60)
-            h.wg=p2-p1+(o1.m/60)
-            h.rotation=90-resta-(o1.m/60)
-            console.log('wg: '+h.wg+' rot: '+h.rotation)
-            resta+=xArcs.children[nh].wg-(o1.m/60)-(o2.m/60)
-        }
-    }
-    */
 }

@@ -11,6 +11,34 @@ Item {
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
     property bool selected: false
+    property  real op: 100.0
+    property int opacitySpeed: 100
+    onOpChanged: {
+        if(op===0.0){
+            opacitySpeed=50
+            r.opacity=0.0
+        }
+        if(op===1.0){
+            opacitySpeed=500
+            r.opacity=1.0
+        }
+    }
+    onOpacityChanged:{
+        if(opacity===0.0){
+            r.op=1.0
+        }
+        tOp.restart()
+    }
+    Timer{
+        id: tOp
+        running: false
+        repeat: true
+        interval: 500
+        onTriggered: r.opacity=1.0
+    }
+    Behavior on opacity{
+        NumberAnimation{duration: r.opacitySpeed}
+    }
     onRotationChanged: {
         canvas.clear_canvas()
         canvas.requestPaint()

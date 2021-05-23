@@ -7,6 +7,7 @@ Item {
     property alias objAspsCircle: aspsCircle
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
+    property int speedRotation: 1000
     Item{id: xuqp}
     Rectangle{
         width: parent.width*10
@@ -34,7 +35,7 @@ Item {
     }
     AspCircle{
         id: aspsCircle
-        rotation: signCircle.rotation - 90
+        rotation: signCircle.rot - 90
     }
     PlanetsCircle{
         id:planetsCircle
@@ -111,7 +112,7 @@ Item {
         //console.log('JSON::: '+json)
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
-        signCircle.rotation=j.ph.h1.gdec
+        signCircle.rot=j.ph.h1.gdec
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         xAsp.load(j)

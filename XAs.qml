@@ -22,7 +22,7 @@ Item{
     }
     Behavior on rotation {
         NumberAnimation{
-            duration: 250
+            duration: sweg.speedRotation
             easing.type: Easing.InOutQuad
         }
     }

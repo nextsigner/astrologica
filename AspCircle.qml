@@ -13,6 +13,12 @@ Rectangle {
     property int currentAspSelected: -1
     property int widthNodosAspSelected: 8
     onCurrentAspSelectedChanged: setPosCurrentAsp(currentAspSelected)
+    Behavior on rotation {
+        NumberAnimation{
+            duration: sweg.speedRotation
+            easing.type: Easing.InOutQuad
+        }
+    }
     Timer{
         running: currentAspSelected!==-1
         repeat: true
