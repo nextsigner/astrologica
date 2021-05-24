@@ -21,6 +21,7 @@ class Unik(QObject):
     def getFile(self, f):
         file = open(f, "r")
         datos=file.read()
+        #print(datos)
         return datos
 
      #def punch(self):

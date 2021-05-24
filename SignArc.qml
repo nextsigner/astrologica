@@ -78,7 +78,7 @@ Item {
                 }
                 Rectangle{
                     anchors.fill: parent
-                    color: colors[c]
+                    color: app.signColors[c]
                     radius: width*0.5
                     opacity: 0.35
                 }

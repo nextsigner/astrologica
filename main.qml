@@ -344,6 +344,7 @@ ApplicationWindow {
 
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
+        console.log('Init app.url: '+app.url)
         if(apps.url!==''){
             console.log('Cargando al iniciar: '+apps.url)
             loadJson(apps.url)
