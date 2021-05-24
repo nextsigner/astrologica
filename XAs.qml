@@ -1,19 +1,37 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+
 Item{
     id: r
-    width: planetsCircle.expand?parent.width-(r.fs*2*objData.p):parent.width-(r.fs*0.5*objData.p)
+    width: !selected?(planetsCircle.expand?parent.width-(r.fs*2*objData.p):parent.width-(r.fs*0.5*objData.p)):parent.width-app.fs*2
     height: 1
     anchors.centerIn: parent
+    property bool selected: numAstro === panelDataBodies.currentIndex
     property string astro
-    property string numSign
+    property int is
     property int fs
     property var objData: ({})
     property int pos: 1
     property int g: -1
     property int m: -1
     property int numAstro: -1
-
+    Rectangle{
+        anchors.fill: parent
+        color: 'transparent'
+        Rectangle{
+            width: parent.width*0.5
+            height: 4
+            color: app.signColors[r.is]//'white'
+            visible: r.selected
+            anchors.verticalCenter: parent.verticalCenter
+//            Behavior on width {
+//                NumberAnimation{
+//                    duration: 1500
+//                    easing.type: Easing.InOutQuad
+//                }
+//            }
+        }
+    }
     Behavior on width {
         NumberAnimation{
             duration: 350
@@ -32,6 +50,17 @@ Item{
         height: width
         anchors.left: parent.left
         anchors.verticalCenter: parent.verticalCenter
+        Rectangle{
+            //Circulo que queda mostrando el cuerpo chico.
+            width: parent.width+app.fs*0.35
+            height: width
+            anchors.centerIn: parent
+            radius: width*0.5
+            border.width: 2
+            border.color: 'white'
+            opacity: r.selected?1.0:0.0
+            color: app.signColors[r.is]
+        }
         MouseArea{
             id: maSig
             property int vClick: 0
@@ -68,45 +97,71 @@ Item{
                 }
             }
         }
+        Rectangle{
+            id: fondoImgCentral
+            opacity: r.selected?1.0:0.0
+            width: img.width*2
+            height: width
+            color: app.signColors[r.is]//'white'
+            radius: width*0.5
+            border.width: 2
+            border.color: 'white'
+            anchors.centerIn: img
+        }
+        Image {
+            id: img0
+            source: img.source
+            width: parent.width
+            height: width
+            rotation: 0-parent.parent.rotation
+        }
         Image {
             id: img
             source: "./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg"
-            width: parent.width
+            width: numAstro !== panelDataBodies.currentIndex?parent.width:parent.width*2
             height: width
-            anchors.centerIn: parent
+            x:numAstro !== panelDataBodies.currentIndex?0:r.parent.width*0.5-img.width*0.5-app.fs//-(r.fs*2*objData.p)
+            y: (parent.width-width)/2
             rotation: 0-parent.parent.rotation
+            Behavior on width {
+                NumberAnimation{
+                    duration: 350
+                    easing.type: Easing.InOutQuad
+                }
+            }
+            Behavior on x {
+                NumberAnimation{
+                    duration: 350
+                    easing.type: Easing.InOutQuad
+                }
+            }
         }
         ColorOverlay {
             id: co
-                anchors.fill: img
-                source: img
-                color: "#ffffff"
-                rotation: img.rotation
-                SequentialAnimation{
-                    running: true
-                    loops: Animation.Infinite
-                    PropertyAnimation {
-                        target: co
-                        properties: "opacity"
-                        from: 0.0
-                        to: 1.0
-                    }
+            anchors.fill: img
+            source: img
+            color: "#ffffff"//r.selected?"#000000":"#ffffff"
+            rotation: img.rotation
+            SequentialAnimation{
+                running: r.selected
+                loops: Animation.Infinite
+                PropertyAnimation {
+                    target: co
+                    properties: "opacity"
+                    from: 0.0
+                    to: 1.0
+                }
 
-                    PauseAnimation {
-                        duration: 500
-                    }
-                    PropertyAnimation {
-                        target: co
-                        properties: "opacity"
-                        from: 1.0
-                        to: 0.0
-                    }
+                PauseAnimation {
+                    duration: 500
+                }
+                PropertyAnimation {
+                    target: co
+                    properties: "opacity"
+                    from: 1.0
+                    to: 0.0
                 }
             }
+        }
     }
-    //    Text{
-    //        font.pixelSize: 20
-    //        text:  r.objData.h
-    //        color: 'red'
-    //    }
 }

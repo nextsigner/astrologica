@@ -1,5 +1,5 @@
 import QtQuick 2.0
-import QtGraphicalEffects 1.12
+import QtGraphicalEffects 1.0
 
 Item {
     id: r
@@ -7,7 +7,7 @@ Item {
     property int n: -1
     property int w: app.fs
     property int c: 0
-    property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
+    //property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
     Rectangle{
         anchors.fill: r
@@ -37,7 +37,7 @@ Item {
             ctx.arc(x, y, radius, startAngle, endAngle, counterClockwise);
             ctx.lineWidth = r.w;
             // line color
-            ctx.strokeStyle = r.colors[r.c];
+            ctx.strokeStyle = app.signColors[r.c];
             ctx.stroke();
         }
     }
@@ -58,7 +58,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             rotation: 0-r.rotation-15-r.gr//-90
             antialiasing: true
-            property bool resaltado: false
+            property bool resaltado: false//panelDataBodies.currentIndexSign === r.n - 1
 
             MouseArea{
                 anchors.fill: parent
@@ -69,7 +69,7 @@ Item {
                 height: width
                 radius: width*0.5
                 border.width: 4
-                border.color: r.colors[r.c]
+                border.color: app.signColors[r.c]
                 anchors.centerIn: parent
                 z: parent.z-1
                 opacity: xImg.resaltado?1.0:0.0

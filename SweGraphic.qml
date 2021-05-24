@@ -45,6 +45,18 @@ Item {
         //showBorder: true
         //v:r.v
     }
+    Rectangle{
+        //Este esta en el centro
+        visible: false
+        opacity: 0.5
+        width: planetsCircle.children[0].fs*0.85+4
+        height: width
+        color: 'red'
+        radius: width*0.5
+        border.width: 2
+        border.color: 'white'
+        anchors.centerIn: parent
+    }
     function loadSign(j){
         console.log('Ejecutando SweGraphic.loadSign()...')
         for(var i=0;i<xuqp.children.length;i++){
@@ -67,7 +79,7 @@ Item {
         c+='    onLogDataChanged:{\n'
         c+='        let json=(\'\'+logData).replace(/\\n/g, \'\')\n'
         c+='        app.currentJsonSignData=JSON.parse(json)\n'
-        c+='        ctrlSign.loadJson(app.currentJsonSignData)\n'
+        c+='        PanelControlsSign.loadJson(app.currentJsonSignData)\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
@@ -92,7 +104,7 @@ Item {
         let vlat=j.params.lat
         let d = new Date(Date.now())
         let ms=d.getTime()
-         let c='import QtQuick 2.0\n'
+        let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'

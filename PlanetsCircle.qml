@@ -67,6 +67,7 @@ Item{
             o.g=jo.gdeg
             o.m=jo.mdeg
             o.h=jo.h
+            objAs.is=jo.is
             objAs.objData=o
             objSigns[jo.is]++
             if(i===0){

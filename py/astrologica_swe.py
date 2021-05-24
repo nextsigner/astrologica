@@ -171,17 +171,17 @@ for i in np:
     #print(pos)
     gObj=float(pos[0][0])
     if index == 11:
-        posNN=swe.calc_ut(jd1, np[10][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-        gNN=float(posNN[0][0]) + 180 #float(tuplaPosBodies[index - 1])
-        #if gNN < 180:
-            #gNS= 360.00 - gNN
-        #else:
-            #gNS=gNN - 180.00
+        #posNN=swe.calc_ut(jd1, np[10][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
+        gNN=float(tuplaPosBodies[index - 1])#float(posNN[0][0]) + 180 #
+        if gNN < 180:
+            gNS= 360.00 - gNN
+        else:
+            gNS=gNN - 180.00
 
         #print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
         #print('Grado de Nodo Norte: '+str(gNN))
         #print('Grado de Nodo Sur: '+str(gNS))
-        gObj=gNN
+        gObj=gNS
 
     tuplaPosBodies+=tuple([gObj])
     indexSign=getIndexSign(gObj)

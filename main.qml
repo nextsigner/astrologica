@@ -1,11 +1,9 @@
 import QtQuick 2.12
-import QtGraphicalEffects 1.12
+//import QtGraphicalEffects 1.12
 import QtQuick.Controls 2.0
 import QtQuick.Window 2.0
 import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
-
-import QtMultimedia 5.12
 
 import unik.UnikQProcess 1.0
 
@@ -47,6 +45,7 @@ ApplicationWindow {
     property var planetas: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith']
     property var planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
+    property var signColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property int uAscDegree: -1
     property int uMcDegree: -1
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
@@ -75,13 +74,6 @@ ApplicationWindow {
         runJsonTemp()
     }
 
-    MediaPlayer{
-        id: mp
-        source:'/home/ns/nsp/uda/twitch-speech/sounds/beep.wav'
-        autoLoad: true
-        autoPlay: true
-        volume: 0.2
-    }
     Settings{
         id: apps
         property string url: ''
@@ -183,7 +175,7 @@ ApplicationWindow {
         XSabianos{id: xSabianos}
         PanelFileLoader{id: panelFileLoader}
         PanelDataBodies{id: panelDataBodies}
-        ControlsSign{id: ctrlSign}
+        PanelControlsSign{id: panelControlsSign}
     }
     Shortcut{
         sequence: 'Ctrl+Down'
@@ -485,7 +477,7 @@ ApplicationWindow {
         let fn=apps.url
         let jsonFileName=fn
         let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-        //console.log(jsonFileData)
+        console.log(':::::'+jsonFileData)
 
         app.fileData=jsonFileData
         app.currentData=app.fileData

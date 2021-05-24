@@ -11,7 +11,6 @@ Rectangle {
     border.color: 'white'
     state: 'hide'
     property alias currentIndex: lv.currentIndex
-    property int currentIndexSign: -1
     states: [
         State {
             name: "show"
@@ -50,17 +49,24 @@ Rectangle {
             model: lm
             currentIndex: app.currentPlanetIndex
             clip: true
-            onCurrentIndexChanged: r.currentIndexSign=lm.get(currentIndex).is
+            onCurrentIndexChanged: {
+                if(currentIndex<12){
+                    let joPar=app.currentJsonSignData.params
+                    let jo=app.currentJsonSignData.fechas['is'+currentIndex]
+                    //let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
+                    let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+jo.d+',"m":'+jo.m+',"a":'+jo.a+',"h":'+jo.h+',"min":'+jo.min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
+                    app.currentData=jsonCode
+                    app.runJsonTemp()
+                }
+            }
         }
     }
-
-
     ListModel{
         id: lm
-        function addItem(indexSign, stringData){
+        function addItem(vFileName, vData){
             return {
-                is: indexSign,
-                sd: stringData
+                fileName: vFileName,
+                dato: vData
             }
         }
     }
@@ -74,7 +80,7 @@ Rectangle {
             border.color: 'white'
             Text {
                 id: txtData
-                text: stringData
+                text: dato
                 font.pixelSize: app.fs*0.5
                 width: parent.width-app.fs
                 wrapMode: Text.WordWrap
@@ -88,12 +94,11 @@ Rectangle {
         lm.clear()
         let jo
         let o
-       for(var i=0;i<15;i++){
-           jo=json.pc['c'+i]
-           let s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]+ '  - Casa ' +jo.ih
-           //console.log('--->'+s)
-           lm.append(lm.addItem(jo.is, s))
+       for(var i=0;i<12;i++){
+           jo=json.fechas['is'+i]
+           let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
+           lm.append(lm.addItem('a', s))
        }
-
+        r.state='show'
     }
 }
