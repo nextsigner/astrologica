@@ -110,7 +110,7 @@ Item {
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
         c+='        let json=(\'\'+logData)\n'
-        c+='        console.log(\'JSON 1:--------->\'+json)\n'
+        //c+='        console.log(\'JSON: \'+json)\n'
         c+='        loadSweJson(json)\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'

@@ -26,13 +26,10 @@ class UnikQProcess(QObject):
 
     @Slot(str)
     def run(self, cmd):
-        #print('Cmd: ' + cmd)
-        #command = subprocess.run(['ls', '-l'], capture_output=True)
         listaCmd=cmd.split(sep=' ')
-        #print(listaCmd)
         command = subprocess.run(listaCmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, encoding='UTF-8')
-        #print('str:::'+str(command.stdout))
         out=str(command.stdout)
+        #print(out)
         self.setLogData(out)
 
     logData = Property(str, getLogData, setLogData, notify=logDataChanged)

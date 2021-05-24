@@ -165,8 +165,8 @@ Item {
             ctx.stroke();
         }
         function clear_canvas() {
-            var ctx = getContext("2d");
-            ctx.reset();
+            //var ctx = canvas.getContext("2d");
+            //ctx.reset();
             canvas.requestPaint();
         }
     }
@@ -191,8 +191,8 @@ Item {
             ctx.stroke();
         }
         function clear_canvas() {
-            var ctx = getContext("2d");
-            ctx.reset();
+            //var ctx = getContext("2d");
+            //ctx.reset();
             canvas2.requestPaint();
         }
     }

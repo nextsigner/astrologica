@@ -1,9 +1,5 @@
 from PySide2.QtCore import QObject, Signal, Slot
-
-@Slot(int)
-@Slot(str)
-def say_something(stuff):
-    print(stuff)
+from pathlib import Path
 
 class Unik(QObject):
     def __init__(self):
@@ -17,3 +13,17 @@ class Unik(QObject):
         #print(datos)
         return datos
 
+    @Slot(str, str, result=bool)
+    def setFile(self, f, d):
+        f = open(f, "a")
+        f.write(d)
+        f.close()
+
+
+    @Slot(int, result=str)
+    def getPath(self, num):
+        path=''
+        if num == 0:
+            path = Path(Path(__dir__).resolve())
+
+        return path

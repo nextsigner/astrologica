@@ -74,7 +74,7 @@ Rectangle {
             border.color: 'white'
             Text {
                 id: txtData
-                text: stringData
+                text: sd
                 font.pixelSize: app.fs*0.5
                 width: parent.width-app.fs
                 wrapMode: Text.WordWrap
