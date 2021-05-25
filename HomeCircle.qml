@@ -2,6 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: r
+    property int currentHouse: -1
     property int w: 20
     property int f: 0
     property bool v: false
@@ -48,9 +49,9 @@ Item {
                 model: 12
                 HomeArc{
                     objectName: 'HomeArc'+index
-                    width: r.width
+                    //width: r.width
                     height: width
-                    w:r.w
+                    //w:r.w
                     n: index+1
                     c: index
                     gr: 0

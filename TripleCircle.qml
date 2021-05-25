@@ -1,13 +1,9 @@
 import QtQuick 2.0
 
-Rectangle {
+Item {
     id: r
     width: app.fs*6
     height: width
-    color: 'transparent'
-    //border.width: 2
-    //border.color: 'white'
-    radius: width*0.5
     anchors.centerIn: parent
     z:r.parent.z-1
     property int is: -1
@@ -16,12 +12,16 @@ Rectangle {
     property int sdeg: -1
     property int rsgdeg: -1
     property int ih: -1
+    property bool expand: false
     Rectangle{
-        width: r.width-circle1.width
+        width: r.expand?r.width-circle1.width:app.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
         rotation: -120+60
+        Behavior on width{
+            NumberAnimation{duration: 1000}
+        }
         Rectangle{
             id: circle1
             width: app.fs*1.5
@@ -41,11 +41,14 @@ Rectangle {
         }
     }
     Rectangle{
-        width: r.width-circle1.width
+        width: r.expand?r.width-circle1.width:app.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
         rotation: -240+60
+        Behavior on width{
+            NumberAnimation{duration: 1000}
+        }
         Rectangle{
             id: circle2
             width: app.fs*1.5
@@ -73,11 +76,14 @@ Rectangle {
         }
     }
     Rectangle{
-        width: r.width-circle1.width
+        width: r.expand?r.width-circle1.width:app.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
         rotation: 0+60
+        Behavior on width{
+            NumberAnimation{duration: 1000}
+        }
         Rectangle{
             id: circle3
             width: app.fs*1.5
@@ -91,7 +97,6 @@ Rectangle {
                 Text{
                     font.pixelSize: app.fs*0.7
                     text: '<b>°'+r.rsgdeg+'</b>'
-                    //rotation: r.gdeg+0-30
                 }
                 Text{
                     font.pixelSize: app.fs*0.45

@@ -3,16 +3,23 @@ import QtQuick 2.0
 
 Item {
     id: r
+    //width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+app.fs*2
+    width: xArcs.width
     property real wg: 0.0
     property int gr: 0
     property int n: -1
-    property int w: app.fs*2.3
+    property int w: housesCircle.currentHouse!==n?app.fs*2.3:app.fs*5
     property int c: 0
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
-    property bool selected: false
+    property bool selected: housesCircle.currentHouse===n
     property  real op: 100.0
     property int opacitySpeed: 100
+    Behavior on w{NumberAnimation{duration: 500}}
+    onWChanged: {
+        canvas.requestPaint()
+        canvas2.requestPaint()
+    }
     onOpChanged: {
         if(op===0.0){
             opacitySpeed=50

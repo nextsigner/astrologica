@@ -10,11 +10,14 @@ Item{
     property string astro
     property int is
     property int fs
-    property var objData: ({})
+    property var objData: ({g:0, m:0,ih:0,rsgdeg:0,rsg:0})
     property int pos: 1
     property int g: -1
     property int m: -1
     property int numAstro: -1
+    onSelectedChanged: {
+        if(selected)housesCircle.currentHouse=objData.ih
+    }
     Rectangle{
         anchors.fill: parent
         color: 'transparent'
@@ -120,6 +123,7 @@ Item{
                 mdeg: objData.m
                 rsgdeg:objData.rsg
                 ih:objData.ih
+                expand: r.selected
             }
         }
         Image {
