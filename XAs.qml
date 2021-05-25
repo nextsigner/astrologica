@@ -21,15 +21,20 @@ Item{
         Rectangle{
             width: parent.width*0.5
             height: 4
-            color: app.signColors[r.is]//'white'
+            color: 'transparent'
             visible: r.selected
             anchors.verticalCenter: parent.verticalCenter
-//            Behavior on width {
-//                NumberAnimation{
-//                    duration: 1500
-//                    easing.type: Easing.InOutQuad
-//                }
-//            }
+            Rectangle{
+                width: r.selected?parent.width:0
+                height: 4
+                color: app.signColors[r.is]
+                Behavior on width {
+                    NumberAnimation{
+                        duration: 500
+                        easing.type: Easing.InOutQuad
+                    }
+                }
+            }
         }
     }
     Behavior on width {
@@ -107,6 +112,15 @@ Item{
             border.width: 2
             border.color: 'white'
             anchors.centerIn: img
+            TripleCircle{
+                id: tripeCircle
+                rotation: 0-parent.parent.rotation
+                is:r.is
+                gdeg: objData.g
+                mdeg: objData.m
+                rsgdeg:objData.rsg
+                ih:objData.ih
+            }
         }
         Image {
             id: img0

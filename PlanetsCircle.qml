@@ -64,6 +64,8 @@ Item{
             o={}
             o.p=objSigns[jo.is]
             o.ns=objSignsNames.indexOf(jo.is)
+            o.ih=jo.ih
+            o.rsg=jo.rsgdeg
             o.g=jo.gdeg
             o.m=jo.mdeg
             o.h=jo.h
