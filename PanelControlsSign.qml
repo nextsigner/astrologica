@@ -47,7 +47,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
-            currentIndex: app.currentPlanetIndex
+            currentIndex: app.currentSignIndex
             clip: true
             onCurrentIndexChanged: {
                 if(currentIndex<12){

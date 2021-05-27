@@ -13,6 +13,7 @@ Rectangle {
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
     onCurrentIndexChanged: {
+        if(!r.enabled)return
         sweg.objHousesCircle.currentHouse=currentIndex
     }
     states: [
@@ -55,6 +56,7 @@ Rectangle {
             clip: true
             onCurrentIndexChanged: {
                 console.log('panelbodies currentIndex: '+currentIndex)
+                if(!r.enabled)return
                 r.currentIndexSign=lm.get(currentIndex).is
             }
         }

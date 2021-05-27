@@ -27,6 +27,7 @@ ApplicationWindow {
     property var currentJsonSignData: ''
 
     property int currentPlanetIndex: 0
+    property int currentSignIndex: 0
     property date currentDate
     property string currentNom: ''
     property string currentFecha: ''
@@ -112,7 +113,7 @@ ApplicationWindow {
                         //console.log('Asp: '+'asp'+parseInt(i +1))
                         let comp=Qt.createComponent('XAsp.qml')
                         let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia, indexAsp: i})
-                    }                   
+                    }
                 }
             }
             function resaltar(c){
@@ -227,6 +228,14 @@ ApplicationWindow {
                 xSabianos.up()
                 return
             }
+            if(panelDataBodies.enabled){
+                if(currentSignIndex>0){
+                    currentSignIndex--
+                }else{
+                    currentSignIndex=12
+                }
+                return
+            }
             if(currentPlanetIndex>0){
                 currentPlanetIndex--
             }else{
@@ -240,6 +249,14 @@ ApplicationWindow {
         onActivated: {
             if(xSabianos.visible){
                 xSabianos.down()
+                return
+            }
+            if(panelDataBodies.enabled){
+                if(currentSignIndex<12){
+                    currentSignIndex++
+                }else{
+                    currentSignIndex=0
+                }
                 return
             }
             if(currentPlanetIndex<14){
@@ -490,6 +507,7 @@ ApplicationWindow {
         app.currentData=app.fileData
         let jsonData=JSON.parse(jsonFileData)
         if(parseInt(jsonData.params.ms)===0){
+            panelDataBodies.enabled=true
             let d=new Date(Date.now())
             jsonData.params.d=d.getDate()
             jsonData.params.m=d.getMonth()
@@ -498,6 +516,7 @@ ApplicationWindow {
             jsonData.params.min=d.getMinutes()
             sweg.loadSign(jsonData)
         }else{
+            panelDataBodies.enabled=false
             sweg.load(jsonData)
         }
         let nom=jsonData.params.n.replace(/_/g, ' ')
