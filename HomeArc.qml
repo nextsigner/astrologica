@@ -3,12 +3,14 @@ import QtQuick 2.0
 
 Item {
     id: r
-    //width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+app.fs*2
-    width: xArcs.width
+    width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+app.fs*2.5
+    //width: xArcs.width
+    anchors.centerIn: parent
     property real wg: 0.0
+    property int wb: app.fs*0.15
     property int gr: 0
     property int n: -1
-    property int w: housesCircle.currentHouse!==n?app.fs*2.3:app.fs*5
+    property int w: housesCircle.currentHouse!==n?app.fs*3:app.fs*7
     property int c: 0
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
@@ -16,6 +18,12 @@ Item {
     property  real op: 100.0
     property int opacitySpeed: 100
     Behavior on w{NumberAnimation{duration: 500}}
+    onWidthChanged: {
+        canvas.anchors.centerIn= r
+        canvas2.anchors.centerIn= r
+        canvas.requestPaint()
+        canvas2.requestPaint()
+    }
     onWChanged: {
         canvas.requestPaint()
         canvas2.requestPaint()
@@ -60,97 +68,6 @@ Item {
         radius: width*0.5
         visible: r.showBorder
     }
-    Rectangle{
-        id: ejeV
-        width: r.width+app.fs*2
-        height: 4
-        color: 'transparent'
-        anchors.centerIn: r
-        Rectangle{
-            width: app.fs+app.fs*0.15
-            height: 4
-            color: r.colors[r.c]
-            Rectangle{
-                width: app.fs*0.75
-                height: width
-                radius: width*0.5
-                color: parent.color
-                border.width: 2
-                border.color: 'white'
-                anchors.verticalCenter: parent.verticalCenter
-                MouseArea{
-                    anchors.fill: parent
-                    onClicked: {
-                        if(tc.running){
-                            r.selected=false//!r.selected
-                        }else{
-                            r.selected=!r.selected
-                        }
-                        canvas.opacity=r.selected?1.0:0.65
-                    }
-                }
-                /*Image {
-                    id: img
-                    source: "./resources/imgs/casa.svg"
-                    width: parent.width*1.6
-                    height: width
-                    anchors.centerIn: parent
-                    //anchors.horizontalCenterOffset: app.fs*0.03
-                    //anchors.verticalCenterOffset: 0-app.fs*0.03
-                    rotation: 90-r.rotation-parent.rotation
-                    //visible: false
-                }
-                ColorOverlay {
-                    id: co1
-                    anchors.fill: img
-                    source: img
-                    color: "#ffffff"
-                    rotation: img.rotation
-                }
-                ColorOverlay {
-                    id: co
-                    anchors.fill: img
-                    source: img
-                    color: r.colors[r.c]//"#ffffff"
-                    rotation: img.rotation
-                    SequentialAnimation{
-                        running: true
-                        loops: Animation.Infinite
-                        PropertyAnimation {
-                            target: co
-                            properties: "opacity"
-                            from: 0.0
-                            to: 1.0
-                        }
-
-                        PauseAnimation {
-                            duration: 500
-                        }
-                        PropertyAnimation {
-                            target: co
-                            properties: "opacity"
-                            from: 1.0
-                            to: 0.0
-                        }
-                    }
-                }
-                */
-                Text{
-                    text: '<b>'+r.n+'</b>'
-                    //text: ''+r.n
-                    font.pixelSize: parent.width*0.8
-                    width: contentWidth
-                    height: contentHeight
-                    horizontalAlignment: Text.AlignHCenter
-                    //color: r.colors[r.c]
-                    anchors.centerIn: parent
-                    //anchors.horizontalCenterOffset: 0-app.fs*0.03
-                    //anchors.verticalCenterOffset: app.fs*0.03
-                    rotation: 90-r.rotation-parent.rotation
-                }
-            }
-        }
-    }
     Canvas {
         id:canvas
         width: r.width//-app.fs
@@ -179,28 +96,73 @@ Item {
     }
     Canvas {
         id:canvas2
-        width: r.width//-app.fs
+        width: r.width
         height: width
-        onPaint:{            
+        onPaint:{
             var ctx = canvas2.getContext('2d')
             ctx.reset();
-            var x = canvas2.width*0.5+app.fs*0.1;
-            var y = canvas2.height*0.5//-app.fs;
-            //var radius = canvas2.width*0.5//-r.w*0.5;
+            var x = canvas2.width*0.5+r.wb;
+            var y = canvas2.height*0.5
             var rad=parseInt(canvas.width*0.5)
-            //console.log('Rad: '+rad)
             var radius = rad>0?rad:r.width;
 
             ctx.beginPath();
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
-            ctx.lineWidth = app.fs*0.1;
+            ctx.lineWidth = r.wb;
             ctx.strokeStyle = r.colors[r.c];
             ctx.stroke();
         }
         function clear_canvas() {
-            //var ctx = getContext("2d");
-            //ctx.reset();
             canvas2.requestPaint();
+        }
+    }
+    Rectangle{
+        id: ejeV
+        width: r.width+app.fs*2.5
+        height: r.wb
+        color: 'transparent'
+        anchors.centerIn: r
+        opacity: housesCircle.currentHouse===n?canvas.opacity:0.5
+        Rectangle{
+            id: lineaEje
+            width: housesCircle.currentHouse===n?r.width*0.5-app.fs:r.w+((ejeV.width-r.width)*0.5-circleBot.width)//app.fs*4//+app.fs*0.15
+            height: r.wb
+            color: r.colors[r.c]
+            anchors.left: circleBot.right
+        }
+        Rectangle{
+            id: circleBot
+            width: app.fs*0.75+r.wb*2
+            height: width
+            radius: width*0.5
+            color: 'black'
+            border.width: r.wb
+            border.color: lineaEje.color
+            anchors.verticalCenter: parent.verticalCenter
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    if(tc.running){
+                        r.selected=false//!r.selected
+                    }else{
+                        r.selected=!r.selected
+                    }
+                    canvas.opacity=r.selected?1.0:0.65
+                }
+            }
+            Text{
+                text: '<b>'+r.n+'</b>'
+                //text: ''+r.n
+                font.pixelSize: parent.width*0.8
+                width: contentWidth
+                height: contentHeight
+                horizontalAlignment: Text.AlignHCenter
+                color: r.colors[r.c]
+                anchors.centerIn: parent
+                //anchors.horizontalCenterOffset: 0-app.fs*0.03
+                //anchors.verticalCenterOffset: app.fs*0.03
+                rotation: 90-r.rotation-parent.rotation
+            }
         }
     }
     Rectangle{
