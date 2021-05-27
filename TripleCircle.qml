@@ -62,9 +62,6 @@ Item {
                 source: "./resources/imgs/casa.svg"
                 width: parent.width
                 height: width
-                //anchors.centerIn: parent
-                //anchors.horizontalCenterOffset: 0-parent.width*0.05
-                //anchors.verticalCenterOffset: 0-parent.width*0.025
                 rotation: r.gdeg+240-30
             }
             Text{

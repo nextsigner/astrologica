@@ -18,6 +18,7 @@ Item {
     property  real op: 100.0
     property int opacitySpeed: 100
     Behavior on w{NumberAnimation{duration: 500}}
+    Behavior on width{NumberAnimation{duration:500}}
     onWidthChanged: {
         canvas.anchors.centerIn= r
         canvas2.anchors.centerIn= r
@@ -72,7 +73,7 @@ Item {
         id:canvas
         width: r.width//-app.fs
         height: width
-        opacity: 0.65//r.selected?1.0:0.5
+        opacity: 0.65
         onPaint:{
             var ctx = canvas.getContext('2d');
             ctx.reset();
@@ -98,6 +99,7 @@ Item {
         id:canvas2
         width: r.width
         height: width
+        opacity: canvas.opacity
         onPaint:{
             var ctx = canvas2.getContext('2d')
             ctx.reset();
@@ -123,12 +125,20 @@ Item {
         color: 'transparent'
         anchors.centerIn: r
         opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
-        Rectangle{
-            id: lineaEje
-            width: housesCircle.currentHouse===n?r.width*0.5-app.fs:r.w+((ejeV.width-r.width)*0.5-circleBot.width)
-            height: r.wb
-            color: r.colors[r.c]
+        Row{
             anchors.left: circleBot.right
+            Rectangle{
+                id: lineaEje
+                width: ((ejeV.width-r.width)*0.5-circleBot.width)
+                height: r.wb
+                color: r.colors[r.c]
+            }
+            Rectangle{
+                id: lineaEje2
+                width: r.w
+                height: r.wb
+                color: r.colors[r.c]
+            }
         }
         Rectangle{
             id: circleBot

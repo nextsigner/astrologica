@@ -15,6 +15,13 @@ Item{
     property int g: -1
     property int m: -1
     property int numAstro: -1
+    onWidthChanged: {
+//        if(r.width===r.parent.width-app.fs*2){
+//            r.opacity=1.0
+//        }else{
+//            r.opacity=0.5
+//        }
+    }
     onSelectedChanged: {
         if(selected)housesCircle.currentHouse=objData.ih
     }
@@ -136,9 +143,9 @@ Item{
         Image {
             id: img
             source: "./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg"
-            width: numAstro !== panelDataBodies.currentIndex?parent.width:parent.width*2
+            width: !r.selected?parent.width:parent.width*2
             height: width
-            x:numAstro !== panelDataBodies.currentIndex?0:r.parent.width*0.5-img.width*0.5-app.fs//-(r.fs*2*objData.p)
+            x:!r.selected?0:r.parent.width*0.5-img.width*0.5-app.fs//-(r.fs*2*objData.p)
             y: (parent.width-width)/2
             rotation: 0-parent.parent.rotation
             Behavior on width {

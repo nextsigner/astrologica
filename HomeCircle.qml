@@ -52,6 +52,7 @@ Item {
                     //width: r.width
                     height: width
                     //w:r.w
+                    //z:index===0?12:11+index
                     n: index+1
                     c: index
                     gr: 0
