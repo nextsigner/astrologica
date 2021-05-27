@@ -10,7 +10,7 @@ Item {
     property int wb: app.fs*0.15
     property int gr: 0
     property int n: -1
-    property int w: housesCircle.currentHouse!==n?app.fs*3:app.fs*7
+    property int w: housesCircle.currentHouse!==n?app.fs*3:app.fs*6.5
     property int c: 0
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false

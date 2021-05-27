@@ -12,6 +12,9 @@ Rectangle {
     state: 'hide'
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
+    onCurrentIndexChanged: {
+        sweg.objHousesCircle.currentHouse=currentIndex
+    }
     states: [
         State {
             name: "show"

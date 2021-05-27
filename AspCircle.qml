@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: r
-    width: parent.width*0.5
+    width: parent.width*0.5-app.fs*3
     height: width
     radius: width*0.5
     color: 'transparent'

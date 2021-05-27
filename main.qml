@@ -66,9 +66,6 @@ ApplicationWindow {
         let d=currentDate.getDate()
         let h=currentDate.getHours()
         let min=currentDate.getMinutes()
-        f = open("demofile2.txt", "a")
-        f.write("Now the file has more content!")
-        f.close()
         if(app.fileData!=='' && app.currentData!=='' ){
             setNewTimeJsonFileData(currentDate)
         }
@@ -180,12 +177,7 @@ ApplicationWindow {
         PanelDataBodies{id: panelDataBodies}
         PanelControlsSign{id: panelControlsSign}
     }
-    Shortcut{
-        sequence: 'Space'
-        onActivated: {
-            panelDataBodies.currentIndex=-1
-        }
-    }
+
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {
@@ -212,8 +204,11 @@ ApplicationWindow {
         }
     }
     Shortcut{
-        sequence: 'Space'
-        onActivated: app.lock=!app.lock
+        sequence: 'Ctrl+0'
+        onActivated: {
+            panelDataBodies.currentIndex=-1
+            //app.lock=!app.lock
+        }
     }
     Shortcut{
         sequence: 'Esc'
