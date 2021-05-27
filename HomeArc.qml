@@ -7,10 +7,10 @@ Item {
     //width: xArcs.width
     anchors.centerIn: parent
     property real wg: 0.0
-    property int wb: app.fs*0.15
+    property int wb: 3
     property int gr: 0
     property int n: -1
-    property int w: housesCircle.currentHouse!==n?app.fs*3:app.fs*6.5
+    property int w: housesCircle.currentHouse!==n?housesCircle.w*0.5:app.fs*6.5
     property int c: 0
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
@@ -81,9 +81,15 @@ Item {
             var y = canvas.height*0.5;
             //var radius = canvas.width*0.5-r.w*0.5;
             var rad=parseInt(canvas.width*0.5-r.w*0.5)
+
             //console.log('Rad: '+rad)
             var radius = rad>0?rad:r.width;
             ctx.beginPath();
+            /*if(r.n===12){
+                ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * (r.wg-1.5), (2 * Math.PI) / 360 * 180);
+            }else{
+                ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
+            }*/
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.w;
             ctx.strokeStyle = r.colors[r.c];

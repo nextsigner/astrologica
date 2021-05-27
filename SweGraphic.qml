@@ -25,6 +25,11 @@ Item {
         w: app.fs*6
         visible: r.v
     }
+    AscMcCircle{
+        id: ascMcCircle
+        width: housesCircle.width
+        height: width
+    }
     SignCircle{
         id:signCircle
         width: planetsCircle.expand?r.width-app.fs*6+app.fs*2:r.width-app.fs*6
@@ -127,6 +132,7 @@ Item {
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec
+        ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
         xAsp.load(j)

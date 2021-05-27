@@ -3,7 +3,8 @@ import QtQuick 2.0
 Item {
     id: r
     property int currentHouse: -1
-    property int w: 20
+    property int w: app.fs*3
+    property int wb: app.fs*0.15
     property int f: 0
     property bool v: false
     property bool showBorder: false
@@ -57,7 +58,27 @@ Item {
                     c: index
                     gr: 0
                     wg:5
+                    wb: r.wb
                     rotation: 90
+                    onSelectedChanged: {
+                        /*var objH1
+                        var objH2
+                        var objH12
+                        for(var i=0;i<xArcs.children.length;i++){
+                            console.log('--->>'+xArcs.children[i].objectName)
+                            if(i===0)objH1=xArcs.children[i]
+                            if(i===0)objH2=xArcs.children[i]
+                            if(i===0)objH12=xArcs.children[i]
+                        }
+                        if(n===0){
+                                objH1.z=20
+                                objH2.z=21
+                                //objH12.z=12
+                        }else{
+                            objH1.z=objH12.z-11
+                            objH2.z=objH1.z+1
+                        }*/
+                    }
                 }
             }
         }

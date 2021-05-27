@@ -51,9 +51,12 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
             model: lm
-            currentIndex: app.currentPlanetIndex
+            //currentIndex: app.currentPlanetIndex
             clip: true
-            onCurrentIndexChanged: r.currentIndexSign=lm.get(currentIndex).is
+            onCurrentIndexChanged: {
+                console.log('panelbodies currentIndex: '+currentIndex)
+                r.currentIndexSign=lm.get(currentIndex).is
+            }
         }
     }
 
