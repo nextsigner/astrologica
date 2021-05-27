@@ -27,7 +27,7 @@ Item {
     }
     SignCircle{
         id:signCircle
-        width: planetsCircle.expand?app.fs*14:app.fs*12
+        width: planetsCircle.expand?r.width-app.fs*6+app.fs*2:r.width-app.fs*6
         height: width
         anchors.centerIn: parent
         showBorder: true

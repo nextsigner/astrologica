@@ -86,7 +86,7 @@ ApplicationWindow {
         anchors.fill: parent
         SweGraphic{
             id: sweg
-            width: parent.height*0.8
+            width: parent.height
             height: width
             anchors.centerIn: parent
         }

@@ -122,10 +122,10 @@ Item {
         height: r.wb
         color: 'transparent'
         anchors.centerIn: r
-        opacity: housesCircle.currentHouse===n?canvas.opacity:0.5
+        opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
         Rectangle{
             id: lineaEje
-            width: housesCircle.currentHouse===n?r.width*0.5-app.fs:r.w+((ejeV.width-r.width)*0.5-circleBot.width)//app.fs*4//+app.fs*0.15
+            width: housesCircle.currentHouse===n?r.width*0.5-app.fs:r.w+((ejeV.width-r.width)*0.5-circleBot.width)
             height: r.wb
             color: r.colors[r.c]
             anchors.left: circleBot.right
@@ -152,8 +152,7 @@ Item {
             }
             Text{
                 text: '<b>'+r.n+'</b>'
-                //text: ''+r.n
-                font.pixelSize: parent.width*0.8
+                font.pixelSize: parent.width*0.7
                 width: contentWidth
                 height: contentHeight
                 horizontalAlignment: Text.AlignHCenter

@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: r
-    width: app.fs*6
+    width: app.fs*4
     height: width
     anchors.centerIn: parent
     z:r.parent.z-1
@@ -13,6 +13,7 @@ Item {
     property int rsgdeg: -1
     property int ih: -1
     property bool expand: false
+    property int wtc: app.fs //width of each circle de triple circle
     Rectangle{
         width: r.expand?r.width-circle1.width:app.fs
         height: 2
@@ -24,7 +25,7 @@ Item {
         }
         Rectangle{
             id: circle1
-            width: app.fs*1.5
+            width: r.wtc
             height: width
             radius: width*0.5
             anchors.verticalCenter: parent.verticalCenter
@@ -51,7 +52,7 @@ Item {
         }
         Rectangle{
             id: circle2
-            width: app.fs*1.5
+            width: r.wtc
             height: width
             radius: width*0.5
             anchors.verticalCenter: parent.verticalCenter
@@ -67,7 +68,7 @@ Item {
                 rotation: r.gdeg+240-30
             }
             Text{
-                font.pixelSize: r.ih<=9?app.fs:app.fs*0.7
+                font.pixelSize: r.ih<=9?r.wtc*0.8:r.wtc*0.6
                 text: '<b>'+r.ih+'</b>'
                 color: 'white'
                 anchors.centerIn: parent
@@ -86,7 +87,7 @@ Item {
         }
         Rectangle{
             id: circle3
-            width: app.fs*1.5
+            width: r.wtc
             height: width
             radius: width*0.5
             anchors.verticalCenter: parent.verticalCenter
@@ -95,11 +96,11 @@ Item {
                 anchors.centerIn: parent
                 rotation: r.gdeg+0-30
                 Text{
-                    font.pixelSize: app.fs*0.7
+                    font.pixelSize: r.wtc*0.45
                     text: '<b>°'+r.rsgdeg+'</b>'
                 }
                 Text{
-                    font.pixelSize: app.fs*0.45
+                    font.pixelSize: r.wtc*0.35
                     text: '<b>\''+r.mdeg+'</b>'
 
                 }

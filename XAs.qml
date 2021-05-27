@@ -108,7 +108,7 @@ Item{
         Rectangle{
             id: fondoImgCentral
             opacity: r.selected?1.0:0.0
-            width: img.width*2
+            width: img.width*1.5
             height: width
             color: app.signColors[r.is]//'white'
             radius: width*0.5
