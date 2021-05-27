@@ -167,6 +167,7 @@ Item{
             source: img
             color: "#ffffff"//r.selected?"#000000":"#ffffff"
             rotation: img.rotation
+            visible: r.selected
             SequentialAnimation{
                 running: r.selected
                 loops: Animation.Infinite
