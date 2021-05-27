@@ -14,7 +14,7 @@ Item{
     property int pos: 1
     property int g: -1
     property int m: -1
-    property int numAstro: -1
+    property int numAstro: 0
     onWidthChanged: {
 //        if(r.width===r.parent.width-app.fs*2){
 //            r.opacity=1.0
