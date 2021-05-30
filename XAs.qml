@@ -124,13 +124,14 @@ Item{
             anchors.centerIn: img
             TripleCircle{
                 id: tripeCircle
-                rotation: 0-parent.parent.rotation
+                //rotation: 0-parent.parent.rotation
                 is:r.is
                 gdeg: objData.g
                 mdeg: objData.m
                 rsgdeg:objData.rsg
                 ih:objData.ih
                 expand: r.selected
+                iconoSignRot: img.rotation
             }
         }
         Image {

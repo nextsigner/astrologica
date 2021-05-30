@@ -6,6 +6,7 @@ import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
 
 import unik.UnikQProcess 1.0
+
 import "Funcs.js" as JS
 
 
@@ -72,7 +73,7 @@ ApplicationWindow {
         if(app.fileData!=='' && app.currentData!=='' ){
             setNewTimeJsonFileData(currentDate)
         }
-        xDataBar.currentDateText=d+'/'+m+'/'+a+' '+h+':'+min
+        xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
         xDataBar.currentGmtText=''+currentGmt
         runJsonTemp()
     }
@@ -504,10 +505,10 @@ ApplicationWindow {
         let fn=apps.url
         let jsonFileName=fn
         let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-        //console.log('loadJson('+file+'):'+jsonFileData)
+        //console.log('main.loadJson('+file+'):'+jsonFileData)
 
         app.fileData=jsonFileData
-        app.currentData=app.fileData
+        //app.currentData=app.fileData
         let jsonData=JSON.parse(jsonFileData)
         if(parseInt(jsonData.params.ms)===0){
             panelDataBodies.enabled=true
@@ -554,7 +555,8 @@ ApplicationWindow {
         }
 
         //Seteando datos globales de mapa energético
-        app.currentDate= new Date(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+        app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
+        //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
 
         //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
         app.currentNom=nom
@@ -565,8 +567,7 @@ ApplicationWindow {
 
         xDataBar.fileData=textData
         xDataBar.state='show'
-
-        //xAsp.load(jsonData)
+        app.currentData=app.fileData
     }
     function runJsonTemp(){
         let jsonData=JSON.parse(app.currentData)
@@ -597,6 +598,7 @@ ApplicationWindow {
         let ms=jsonData.params.ms
         let nom=jsonData.params.n.replace(/_/g, ' ')
 
+        console.log('Date: '+date.toString())
         let vd=date.getDate()
         let vm=date.getMonth()
         let va=date.getFullYear()
