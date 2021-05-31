@@ -80,17 +80,13 @@ ApplicationWindow {
 
     Settings{
         id: apps
+        fileName:'astrologica.cfg'
         property string url: ''
     }
     Item{
         id: xApp
         anchors.fill: parent
-        SweGraphic{
-            id: sweg
-            width: parent.height
-            height: width
-            anchors.centerIn: parent
-        }
+        SweGraphic{id: sweg}
         XDataBar{
             id: xDataBar
         }
@@ -205,6 +201,12 @@ ApplicationWindow {
                 xFlecha.x=0-app.fs*3
                 xFlecha.y=0-app.fs*3
             }
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Space'
+        onActivated: {
+            sweg.nextState()
         }
     }
     Shortcut{

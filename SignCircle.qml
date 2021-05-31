@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id: r
     property int f: 0
+    property int w: app.fs
     property bool v: false
     property bool showBorder: false
     property int rot: 0
@@ -59,6 +60,7 @@ Item {
             SignArc{
                 width: r.width
                 height: width
+                w: r.w
                 n: index===0?1:(index===1?9:5)
                 c:0
                 gr: xSignArcs.rotation
@@ -70,7 +72,7 @@ Item {
             SignArc{
                 width: r.width
                 height: width
-                
+                w: r.w
                 n: index===0?2:(index===1?10:6)
                 c:1
                 gr: xSignArcs.rotation
@@ -82,6 +84,7 @@ Item {
             SignArc{
                 width: r.width
                 height: width
+                w: r.w
                 n: index===0?3:(index===1?11:7)
                 c:2
                 gr: xSignArcs.rotation
@@ -93,6 +96,7 @@ Item {
             SignArc{
                 width: r.width
                 height: width
+                w: r.w
                 n: index===0?4:(index===1?12:8)
                 c:3
                 gr: xSignArcs.rotation

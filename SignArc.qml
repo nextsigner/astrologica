@@ -5,10 +5,11 @@ Item {
     id: r
     property int gr: 0
     property int n: -1
-    property int w: app.fs
+    property int w: 10
     property int c: 0
     //property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
+    Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
     Rectangle{
         anchors.fill: r
         color: 'transparent'
@@ -26,9 +27,7 @@ Item {
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
             var rad=parseInt(canvas.width*0.5-r.w*0.5)
-            //console.log('Rad: '+rad)
             var radius = rad>0?rad:r.width;
-            //console.log('Radius: '+radius)
 
             var startAngle = 1.0 * Math.PI;
             var endAngle = 1.17 * Math.PI;

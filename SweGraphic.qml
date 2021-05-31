@@ -2,12 +2,39 @@ import QtQuick 2.7
 
 Item {
     id: r
+    height: width
+    anchors.centerIn: parent
     property bool v: false
     property alias expand: planetsCircle.expand
     property alias objAspsCircle: aspsCircle
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
     property int speedRotation: 1000
+    property var aStates: ['ps', 'pc', 'pa']
+    state: aStates[0]
+    states: [
+        State {
+            name: aStates[0]
+            PropertyChanges {
+                target: r
+                width:r.parent.height+app.fs*2
+            }
+        },
+        State {
+            name: aStates[1]
+            PropertyChanges {
+                target: r
+                width:r.parent.height-app.fs*2
+            }
+        },
+        State {
+            name: aStates[2]
+            PropertyChanges {
+                target: r
+                width: r.parent.height
+            }
+        }
+    ]
     Item{id: xuqp}
     Rectangle{
         width: parent.width*10
@@ -37,6 +64,7 @@ Item {
         anchors.centerIn: parent
         showBorder: true
         v:r.v
+        w: r.state==='ps'?app.fs:app.fs*0.5
     }
     AspCircle{
         id: aspsCircle
@@ -139,5 +167,14 @@ Item {
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
         r.v=true
+    }
+    function nextState(){
+        let currentIndexState=r.aStates.indexOf(r.state)
+        if(currentIndexState<r.aStates.length-1){
+            currentIndexState++
+        }else{
+            currentIndexState=0
+        }
+        r.state=r.aStates[currentIndexState]
     }
 }
