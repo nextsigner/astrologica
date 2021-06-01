@@ -3,7 +3,7 @@ import QtQuick 2.0
 
 Item {
     id: r
-    width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+app.fs*2.5
+    width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
     //width: xArcs.width
     anchors.centerIn: parent
     property real wg: 0.0
@@ -17,6 +17,7 @@ Item {
     property bool selected: housesCircle.currentHouse===n
     property  real op: 100.0
     property int opacitySpeed: 100
+    property int extraWidth: value
     Behavior on w{NumberAnimation{duration: 500}}
     Behavior on width{NumberAnimation{duration:500}}
 
@@ -36,6 +37,10 @@ Item {
                 target: r
                 colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
             }
+            PropertyChanges {
+                target: r
+                extraWidth: 0
+            }
         },
         State {
             name: sweg.aStates[1]
@@ -51,6 +56,10 @@ Item {
                 target: r
                 colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
             }
+            PropertyChanges {
+                target: r
+                extraWidth: app.fs*2.5
+            }
         },
         State {
             name: sweg.aStates[2]
@@ -65,6 +74,10 @@ Item {
             PropertyChanges {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
+            }
+            PropertyChanges {
+                target: r
+                extraWidth: 0
             }
         }
     ]

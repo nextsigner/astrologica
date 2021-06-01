@@ -69,7 +69,7 @@ Item {
     AspCircle{
         id: aspsCircle
         rotation: signCircle.rot - 90
-        opacity: panelDataBodies.currentIndex<0?1.0:0.0
+        //opacity: panelDataBodies.currentIndex<0?1.0:0.0
     }
     PlanetsCircle{
         id:planetsCircle

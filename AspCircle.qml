@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Rectangle {
     id: r
-    width: parent.width*0.5-app.fs*3.5
+    //width: parent.width*0.5-app.fs*3.5
     height: width
     radius: width*0.5
     color: 'transparent'
@@ -12,7 +12,37 @@ Rectangle {
     antialiasing: true
     property int currentAspSelected: -1
     property int widthNodosAspSelected: 8
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*10
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*10
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*6
+            }
+        }
+    ]
     onCurrentAspSelectedChanged: setPosCurrentAsp(currentAspSelected)
+    Behavior on width {
+        NumberAnimation{
+            duration: sweg.speedRotation
+            easing.type: Easing.InOutQuad
+        }
+    }
     Behavior on opacity {
         NumberAnimation{
             duration: sweg.speedRotation
