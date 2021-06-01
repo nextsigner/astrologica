@@ -4,7 +4,9 @@ Item{
     id: r
     property bool expand: false
     property var cAs: r
-    property int fs: app.fs*0.75
+    property int planetSize: app.fs*0.75
+
+    property int totalPosX: 0
 
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property var objSigns: [0,0,0,0,0,0,0,0,0,0,0,0]
@@ -42,26 +44,26 @@ Item{
         //}
         //labelText.text =cAs!==r?'<b style="font-size:'+parseInt(labelText.font.pixelSize*1.35)+'px;">'+app.planetas[cAs.numAstro]+'</b><br /><b>'+app.signos[cAs.objData.ns]+'</b><br /><b>°'+cAs.objData.g+' \''+cAs.objData.m+'</b><br /><b>Casa '+cAs.objData.h+'</b>':'Mercurio'
         //xTip.anchors.bottom=cAs.top
-        //xTip.anchors.bottomMargin=r.fs*2
+        //xTip.anchors.bottomMargin=r.planetSize*2
         //xTip.anchors.horizontalCenter=cAs.horizontalCenter
         //tResetTip.restart()
     }
     //np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
-    XAs{id:xSol;fs:r.fs;astro:'sun'; numAstro: 0}
-    XAs{id:xLuna;fs:r.fs;astro:'moon'; numAstro: 1}
-    XAs{id:xMercurio;fs:r.fs;astro:'mercury'; numAstro: 2}
-    XAs{id:xVenus;fs:r.fs;astro:'venus'; numAstro: 3}
-    XAs{id:xMarte;fs:r.fs;astro:'mars'; numAstro: 4}
-    XAs{id:xJupiter;fs:r.fs;astro:'jupiter'; numAstro: 5}
-    XAs{id:xSaturno;fs:r.fs;astro:'saturn'; numAstro: 6}
-    XAs{id:xUrano;fs:r.fs;astro:'uranus'; numAstro: 7}
-    XAs{id:xNeptuno;fs:r.fs;astro:'neptune'; numAstro: 8}
-    XAs{id:xPluton;fs:r.fs;astro:'pluto'; numAstro: 9}
-    XAs{id:xNodoPN;fs:r.fs;astro:'nn'; numAstro: 10}
-    XAs{id:xNodoPS;fs:r.fs;astro:'ns'; numAstro: 11}
-    XAs{id:xQuiron;fs:r.fs;astro:'hiron'; numAstro: 12}
-    XAs{id:xSelena;fs:r.fs;astro:'selena'; numAstro: 14}
-    XAs{id:xLilith;fs:r.fs;astro:'lilith'; numAstro: 15}
+    XAs{id:xSol;fs:r.planetSize;astro:'sun'; numAstro: 0}
+    XAs{id:xLuna;fs:r.planetSize;astro:'moon'; numAstro: 1}
+    XAs{id:xMercurio;fs:r.planetSize;astro:'mercury'; numAstro: 2}
+    XAs{id:xVenus;fs:r.planetSize;astro:'venus'; numAstro: 3}
+    XAs{id:xMarte;fs:r.planetSize;astro:'mars'; numAstro: 4}
+    XAs{id:xJupiter;fs:r.planetSize;astro:'jupiter'; numAstro: 5}
+    XAs{id:xSaturno;fs:r.planetSize;astro:'saturn'; numAstro: 6}
+    XAs{id:xUrano;fs:r.planetSize;astro:'uranus'; numAstro: 7}
+    XAs{id:xNeptuno;fs:r.planetSize;astro:'neptune'; numAstro: 8}
+    XAs{id:xPluton;fs:r.planetSize;astro:'pluto'; numAstro: 9}
+    XAs{id:xNodoPN;fs:r.planetSize;astro:'nn'; numAstro: 10}
+    XAs{id:xNodoPS;fs:r.planetSize;astro:'ns'; numAstro: 11}
+    XAs{id:xQuiron;fs:r.planetSize;astro:'hiron'; numAstro: 12}
+    XAs{id:xSelena;fs:r.planetSize;astro:'selena'; numAstro: 14}
+    XAs{id:xLilith;fs:r.planetSize;astro:'lilith'; numAstro: 15}
     function pressed(o){
         unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
@@ -76,6 +78,7 @@ Item{
         xConfirmSearchVideoBy.visible=true
     }
     function loadJson(json){
+        r.totalPosX=-1
         r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
@@ -86,6 +89,9 @@ Item{
             objAs.rotation=signCircle.rot-jo.gdeg
             o={}
             o.p=objSigns[jo.is]
+            if(r.totalPosX<o.p){
+                r.totalPosX=o.p
+            }
             o.ns=objSignsNames.indexOf(jo.is)
             o.ih=jo.ih
             o.rsg=jo.rsgdeg

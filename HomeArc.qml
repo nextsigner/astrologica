@@ -4,7 +4,6 @@ import QtQuick 2.0
 Item {
     id: r
     width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
-    //width: xArcs.width
     anchors.centerIn: parent
     property real wg: 0.0
     property int wb: 3
@@ -20,7 +19,6 @@ Item {
     property int extraWidth: value
     Behavior on w{NumberAnimation{duration: 500}}
     Behavior on width{NumberAnimation{duration:500}}
-
     state: sweg.state
     states: [
         State {
@@ -35,11 +33,15 @@ Item {
             }
             PropertyChanges {
                 target: r
-                colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
+                colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
             }
             PropertyChanges {
                 target: r
                 extraWidth: 0
+            }
+            PropertyChanges {
+                target: r
+                w: planetsCircle.width-(planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2))/2
             }
         },
         State {
@@ -60,6 +62,10 @@ Item {
                 target: r
                 extraWidth: app.fs*2.5
             }
+            PropertyChanges {
+                target: r
+                w: !r.selected?app.fs*2.5:app.fs*6
+            }
         },
         State {
             name: sweg.aStates[2]
@@ -78,6 +84,10 @@ Item {
             PropertyChanges {
                 target: r
                 extraWidth: 0
+            }
+            PropertyChanges {
+                target: r
+                w: app.fs*2
             }
         }
     ]

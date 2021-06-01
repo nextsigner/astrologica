@@ -2,7 +2,6 @@ import QtQuick 2.0
 
 Rectangle {
     id: r
-    //width: parent.width*0.5-app.fs*3.5
     height: width
     radius: width*0.5
     color: 'transparent'
@@ -10,6 +9,7 @@ Rectangle {
     border.color: 'white'
     anchors.centerIn: parent
     antialiasing: true
+    visible: sweg.state===sweg.aStates[0] || sweg.state===sweg.aStates[2]
     property int currentAspSelected: -1
     property int widthNodosAspSelected: 8
     state: sweg.state
@@ -18,21 +18,21 @@ Rectangle {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*10
+                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*10
+                width: 0//Está invisible, no sirve de nada que le ponga una medida acá. XD
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*6
+                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)
             }
         }
     ]
@@ -157,7 +157,14 @@ Rectangle {
             anchors.centerIn: parent
         }
     }
-
+    Rectangle {
+        id: borde
+        anchors.fill: r
+        color: 'transparent'
+        radius: width*0.5
+        border.width: 1
+        border.color: 'white'
+    }
 
 
     function drawPoint(ctx, x, y, r, c){
