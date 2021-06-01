@@ -2,6 +2,7 @@ import QtQuick 2.7
 
 Item {
     id: r
+    width:r.parent.height
     height: width
     anchors.centerIn: parent
     property bool v: false
@@ -13,26 +14,26 @@ Item {
     property var aStates: ['ps', 'pc', 'pa']
     state: aStates[0]
     states: [
-        State {
+        State {//PS
             name: aStates[0]
             PropertyChanges {
                 target: r
-                width:r.parent.height+app.fs*2
-            }
+                //width:r.parent.height+app.fs*4
+            }            
         },
-        State {
+        State {//PC
             name: aStates[1]
             PropertyChanges {
                 target: r
-                width:r.parent.height-app.fs*2
-            }
+                //width:r.parent.height+app.fs*2
+            }            
         },
-        State {
+        State {//PA
             name: aStates[2]
             PropertyChanges {
                 target: r
-                width: r.parent.height
-            }
+                //width: r.parent.height
+            }            
         }
     ]
     Item{id: xuqp}
@@ -44,7 +45,6 @@ Item {
     }
     HomeCircle{
         id:housesCircle
-        width: signCircle.width+app.fs*0.2
         height: width
         anchors.centerIn: signCircle
         showBorder: true
@@ -73,7 +73,6 @@ Item {
     }
     PlanetsCircle{
         id:planetsCircle
-        width: signCircle.width-app.fs*2
         height: width
         anchors.centerIn: parent
         //showBorder: true

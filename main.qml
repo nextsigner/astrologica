@@ -95,6 +95,7 @@ ApplicationWindow {
             anchors.bottom: parent.bottom
             //anchors.horizontalCenter: parent.horizontalCenter
         }
+        XStatus{id: xStatus}
         Grid{
             id: xAsp
             spacing: app.fs*0.1

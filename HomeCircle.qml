@@ -8,6 +8,30 @@ Item {
     property int f: 0
     property bool v: false
     property bool showBorder: false
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*5
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs
+            }
+        }
+    ]
     Behavior on rotation{
         NumberAnimation{duration:2000;easing.type: Easing.InOutElastic}
     }
@@ -93,7 +117,7 @@ Item {
     Component.onCompleted: {
         //let comp=Qt.createComponent("HomeArc.qml")
         //let obj=comp.createObject(xArcs, {width: r.width, height:r.width, w: r.w, n:0+1, c: 0, gr:0, wg:5, rotation:90})
-    //setHousesArcs()
+        //setHousesArcs()
     }
     function loadHouses(jsonData) {
         //setHousesArcs()
@@ -107,7 +131,7 @@ Item {
         let p2//=indexSign2*30+o2.g
         //xArcs.children[nh].wg=p2-p1
         //resta+=xArcs.children[nh].wg
-         //return
+        //return
         for(var i=0;i<12;i++){
             nh=i
             let h=xArcs.children[i]

@@ -12,7 +12,30 @@ Item{
     signal cnLoaded(string nombre, string dia, string mes, string anio, string hora, string minuto, string lon, string lat, string ciudad)
     signal doubleClick
     signal posChanged(int px, int py)
-
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*2.5
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*6
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*2
+            }
+        }
+    ]
     onCAsChanged: {
         //if(cAs!==r){
         //xTip.visible=cAs!==r

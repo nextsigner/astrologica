@@ -7,6 +7,31 @@ Item {
     property bool v: false
     property bool showBorder: false
     property int rot: 0
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs*5
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: r
+                width: sweg.width-app.fs
+            }
+        }
+    ]
+    Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
     Behavior on width {
         NumberAnimation{
             duration: 350

@@ -19,6 +19,56 @@ Item {
     property int opacitySpeed: 100
     Behavior on w{NumberAnimation{duration: 500}}
     Behavior on width{NumberAnimation{duration:500}}
+
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: ejeV
+                width:  r.width+app.fs
+            }
+            PropertyChanges {
+                target: canvas2
+                opacity:  0.0
+            }
+            PropertyChanges {
+                target: r
+                colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: ejeV
+                width:  r.width+app.fs*2.5
+            }
+            PropertyChanges {
+                target: canvas2
+                opacity:  1.0
+            }
+            PropertyChanges {
+                target: r
+                colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: ejeV
+                width:  r.width+app.fs
+            }
+            PropertyChanges {
+                target: canvas2
+                opacity:  0.0
+            }
+            PropertyChanges {
+                target: r
+                colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
+            }
+        }
+    ]
+
     onWidthChanged: {
         canvas.anchors.centerIn= r
         canvas2.anchors.centerIn= r
@@ -126,7 +176,7 @@ Item {
     }
     Rectangle{
         id: ejeV
-        width: r.width+app.fs*2.5
+        //width: r.width+app.fs*2.5
         height: r.wb
         color: 'transparent'
         anchors.centerIn: r
@@ -155,6 +205,33 @@ Item {
             border.width: r.wb
             border.color: lineaEje.color
             anchors.verticalCenter: parent.verticalCenter
+            state: sweg.state
+            states: [
+                State {
+                    name: sweg.aStates[0]
+                    PropertyChanges {
+                        target: circleBot
+                        width: app.fs*0.25+r.wb*2
+                        border.width: r.wb*0.25
+                    }
+                },
+                State {
+                    name: sweg.aStates[1]
+                    PropertyChanges {
+                        target: circleBot
+                        width: app.fs*0.75+r.wb*2
+                        border.width: r.wb
+                    }
+                },
+                State {
+                    name: sweg.aStates[2]
+                    PropertyChanges {
+                        target: circleBot
+                        width: app.fs*0.25+r.wb*2
+                        border.width: r.wb*0.25
+                    }
+                }
+            ]
             MouseArea{
                 anchors.fill: parent
                 onClicked: {

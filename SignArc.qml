@@ -5,11 +5,48 @@ Item {
     id: r
     property int gr: 0
     property int n: -1
-    property int w: 10
+    property int w: signCircle.w
     property int c: 0
     //property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
-    Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
+    //Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
+    onWidthChanged: canvas.requestPaint()
+    state: sweg.state
+    states: [
+        State {
+            name: sweg.aStates[0]
+            PropertyChanges {
+                target: r
+                w: app.fs*0.75
+            }
+            PropertyChanges {
+                target: xImg
+                width: app.fs*0.75
+            }
+        },
+        State {
+            name: sweg.aStates[1]
+            PropertyChanges {
+                target: r
+                w: app.fs*0.5
+            }
+            PropertyChanges {
+                target: xImg
+                width: app.fs*0.5
+            }
+        },
+        State {
+            name: sweg.aStates[2]
+            PropertyChanges {
+                target: r
+                w: app.fs*0.5
+            }
+            PropertyChanges {
+                target: xImg
+                width: app.fs*0.5
+            }
+        }
+    ]
     Rectangle{
         anchors.fill: r
         color: 'transparent'
@@ -50,15 +87,17 @@ Item {
         antialiasing: true
         Rectangle{
             id: xImg
-            width: r.w
+            //width: signCircle.w*0.5
             height: width
-            //border.width: 1
+            //border.width: 2
+            //border.color: 'red'
             color: 'transparent'
             anchors.verticalCenter: parent.verticalCenter
+            x:(r.w-xImg.width)/4
             rotation: 0-r.rotation-15-r.gr//-90
             antialiasing: true
             property bool resaltado: false//panelDataBodies.currentIndexSign === r.n - 1
-
+            onWidthChanged: canvas.requestPaint()
             MouseArea{
                 anchors.fill: parent
                 onClicked: parent.resaltado=!parent.resaltado
@@ -98,13 +137,14 @@ Item {
                     id: iconoSigno
                     source: "./resources/imgs/signos/"+parseInt(r.n - 1)+".svg"
                     property int w: xImg.width*0.75
-                    width: !xImg.resaltado?w:w*2
+                    width: xImg.width//!xImg.resaltado?r.w:r.w*2
                     height: width
                     anchors.horizontalCenter: parent.horizontalCenter
+                    //x:100
                     antialiasing: true
-                    Behavior on width{
+                    /*Behavior on width{
                         NumberAnimation{duration: 350}
-                    }
+                    }*/
                 }
             }
         }
