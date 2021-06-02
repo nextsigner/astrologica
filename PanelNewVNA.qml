@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
+import "comps" as Comps
 
 Rectangle {
     id: r
@@ -10,26 +11,25 @@ Rectangle {
     border.width: 2
     border.color: 'white'
     state: 'hide'
-    property alias currentIndex: lv.currentIndex
     states: [
         State {
             name: "show"
             PropertyChanges {
                 target: r
-                x:r.parent.width-r.width
+                x:0-r.width
             }
         },
         State {
             name: "hide"
             PropertyChanges {
                 target: r
-                x:r.parent.width
+                x:0
             }
         }
     ]
     Behavior on x{NumberAnimation{duration: 250}}
     onStateChanged: {
-        //if(state==='hide')txtDataSearch.focus=false
+        if(state==='show')tiNombre.t.focus=true
         //xApp.focus=true
     }
     onXChanged: {
@@ -39,55 +39,78 @@ Rectangle {
         }
     }
     Column{
-        anchors.horizontalCenter: parent.horizontalCenter
-        ListView{
-            id: lv
-            width: r.width
-            height: r.height
+        anchors.centerIn: parent
+        spacing: app.fs*0.25
+        Text{
+            text: '<b>Creando VNA</b>'
+            font.pixelSize: app.fs
+            color: 'white'
+        }
+        Item{width: 1;height: app.fs*0.5}
+        Column{
             anchors.horizontalCenter: parent.horizontalCenter
-            delegate: compItemList
-            model: lm
-            currentIndex: app.currentSignIndex
-            clip: true
-            onCurrentIndexChanged: {
-                if(currentIndex<12){
-                    let joPar=app.currentJsonSignData.params
-                    if(!app.currentJsonSignData.fechas)return
-                    let jo=app.currentJsonSignData.fechas['is'+currentIndex]
-                    //let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
-                    let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+jo.d+',"m":'+jo.m+',"a":'+jo.a+',"h":'+jo.h+',"min":'+jo.min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
-                    app.currentData=jsonCode
-                    app.runJsonTemp()
+            Comps.XText{
+                text:'Nombre:'
+                t.font.pixelSize: app.fs*0.35
+                height: app.fs*0.8
+            }
+            Comps.XTextInput{
+                id: tiNombre
+                width: r.width-app.fs*0.25
+                t.font.pixelSize: app.fs*0.65
+                anchors.horizontalCenter: parent.horizontalCenter
+                KeyNavigation.tab: tiFecha.t
+            }
+        }
+        Row{
+            anchors.horizontalCenter: parent.horizontalCenter
+            Comps.XText{text:'Fecha:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
+            Comps.XTextInput{
+                id: tiFecha;
+                width: app.fs*4;
+                t.font.pixelSize: app.fs*0.65;
+                c: true
+                KeyNavigation.tab: tiHora.t
+            }
+        }
+        Row{
+            //spacing: app.fs*0.05
+            anchors.horizontalCenter: parent.horizontalCenter
+            Row{
+                Comps.XText{text:'Hora:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
+                Comps.XTextInput{
+                    id: tiHora;
+                    width: app.fs*4;
+                    t.font.pixelSize: app.fs*0.65;
+                    c: true
+                    KeyNavigation.tab: tiGMT.t
+                }
+            }
+            Row{
+                Comps.XText{text:'GMT:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
+                Comps.XTextInput{
+                    id: tiGMT;
+                    width: app.fs*2;
+                    t.font.pixelSize: app.fs*0.65;
+                    c: true
+                    KeyNavigation.tab: tiCiudad.t
                 }
             }
         }
-    }
-    ListModel{
-        id: lm
-        function addItem(vFileName, vData){
-            return {
-                fileName: vFileName,
-                dato: vData
+        Column{
+            anchors.horizontalCenter: parent.horizontalCenter
+            Comps.XText{text:'Lugar:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
+            Comps.XTextInput{
+                id: tiCiudad
+                KeyNavigation.tab: tiNombre.t
             }
         }
-    }
-    Component{
-        id: compItemList
-        Rectangle{
-            width: lv.width
-            height: txtData.contentHeight+app.fs*0.1
-            color: index===lv.currentIndex?'white':'black'
-            border.width: index===lv.currentIndex?4:2
-            border.color: 'white'
-            Text {
-                id: txtData
-                text: dato
-                font.pixelSize: app.fs*0.5
-                width: parent.width-app.fs
-                wrapMode: Text.WordWrap
-                textFormat: Text.RichText
-                color: index===lv.currentIndex?'black':'white'
-                anchors.centerIn: parent
+        Button{
+            text: 'Crear'
+            font.pixelSize: app.fs
+            anchors.right: parent.right
+            onClicked: {
+
             }
         }
     }
@@ -106,7 +129,7 @@ Rectangle {
         let vlat=j.params.lat
         let d = new Date(Date.now())
         let ms=d.getTime()
-         let c='import QtQuick 2.0\n'
+        let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'

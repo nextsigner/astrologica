@@ -177,6 +177,7 @@ ApplicationWindow {
         PanelFileLoader{id: panelFileLoader}
         PanelDataBodies{id: panelDataBodies}
         PanelControlsSign{id: panelControlsSign}
+        PanelNewVNA{id: panelNewVNA}
     }
 
     Shortcut{
@@ -315,7 +316,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+n'
         onActivated: {
-            xFormZS.visible=!xFormZS.visible
+            panelNewVNA.state=panelNewVNA.state==='show'?'hide':'show'
         }
     }
     Shortcut{

@@ -165,8 +165,6 @@ Rectangle {
         border.width: 1
         border.color: 'white'
     }
-
-
     function drawPoint(ctx, x, y, r, c){
         ctx.beginPath();
         ctx.arc(x, y, r, 0, 2 * Math.PI);
@@ -246,5 +244,4 @@ Rectangle {
             //canvas.visible=false
         }
     }
-
 }
