@@ -10,20 +10,22 @@ Rectangle {
     color: 'black'
     border.width: 2
     border.color: 'white'
+    property real lat
+    property real lon
     state: 'hide'
     states: [
         State {
             name: "show"
             PropertyChanges {
                 target: r
-                x:0-r.width
+                x:0
             }
         },
         State {
             name: "hide"
             PropertyChanges {
                 target: r
-                x:0
+                x:0-r.width
             }
         }
     ]
@@ -34,11 +36,12 @@ Rectangle {
     }
     onXChanged: {
         if(x===0){
-            txtDataSearch.selectAll()
-            txtDataSearch.focus=true
+            //txtDataSearch.selectAll()
+            //txtDataSearch.focus=true
         }
     }
     Column{
+        id: col
         anchors.centerIn: parent
         spacing: app.fs*0.25
         Text{
@@ -56,13 +59,14 @@ Rectangle {
             }
             Comps.XTextInput{
                 id: tiNombre
-                width: r.width-app.fs*0.25
+                width: r.width-app.fs*0.5
                 t.font.pixelSize: app.fs*0.65
                 anchors.horizontalCenter: parent.horizontalCenter
                 KeyNavigation.tab: tiFecha.t
             }
         }
         Row{
+            spacing: app.fs*0.5
             anchors.horizontalCenter: parent.horizontalCenter
             Comps.XText{text:'Fecha:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
             Comps.XTextInput{
@@ -74,19 +78,21 @@ Rectangle {
             }
         }
         Row{
-            //spacing: app.fs*0.05
+            //spacing: app.fs*0.5
             anchors.horizontalCenter: parent.horizontalCenter
             Row{
+                spacing: app.fs*0.1
                 Comps.XText{text:'Hora:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
                 Comps.XTextInput{
                     id: tiHora;
-                    width: app.fs*4;
+                    width: app.fs*3;
                     t.font.pixelSize: app.fs*0.65;
                     c: true
                     KeyNavigation.tab: tiGMT.t
                 }
             }
             Row{
+                spacing: app.fs*0.1
                 Comps.XText{text:'GMT:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
                 Comps.XTextInput{
                     id: tiGMT;
@@ -102,31 +108,27 @@ Rectangle {
             Comps.XText{text:'Lugar:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
             Comps.XTextInput{
                 id: tiCiudad
-                KeyNavigation.tab: tiNombre.t
+                width: tiNombre.width
+                t.font.pixelSize: app.fs*0.65;
+                KeyNavigation.tab: botCrear
             }
         }
         Button{
+            id: botCrear
             text: 'Crear'
             font.pixelSize: app.fs
-            anchors.right: parent.right
+            anchors.horizontalCenter: parent.horizontalCenter
+            KeyNavigation.tab: tiNombre.t
             onClicked: {
-
+                searchGeoLoc()
             }
         }
     }
-    function loadSign(j){
-        console.log('Ejecutando SweGraphic.loadSign()...')
+    Item{id: xuqp}
+    function searchGeoLoc(){
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
-        let vd=j.params.d
-        let vm=j.params.m
-        let va=j.params.a
-        let vh=j.params.h
-        let vmin=j.params.min
-        let vgmt=j.params.gmt
-        let vlon=j.params.lon
-        let vlat=j.params.lat
         let d = new Date(Date.now())
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
@@ -134,17 +136,71 @@ Rectangle {
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
-        c+='        let json=(\'\'+logData).replace(/\\n/g, \'\')\n'
-        c+='        app.currentJsonSignData=JSON.parse(json)\n'
-        c+='        PanelControlsSign.loadJson(app.currentJsonSignData)\n'
+        c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
+        c+='        let json=JSON.parse(result)\n'
+        c+='        if(json){\n'
+        //c+='            console.log(JSON.stringify(json))\n'
+        c+='                r.lat=json.coords.lat\n'
+        c+='                r.lon=json.coords.lon\n'
+        c+='                setNewJsonFileData()\n'
+        c+='                r.state=\'hide\'\n'
+        c+='        }else{\n'
+        c+='            console.log(\'No se encontraron las cordenadas.\')\n'
+        c+='        }\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        c+='        console.log(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe_search_asc_aries.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
+        //c+='        console.log(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
+        c+='        run(\'python3 /home/ns/nsp/uda/astrologica/py/geoloc.py "'+tiCiudad.t.text+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodesign')
     }
+    function setNewJsonFileData(){
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let nom=tiNombre.t.text.replace(/ /g, '_')
 
+        let m0=tiFecha.t.text.split('/')
+        if(m0.length!==3)return
+        let vd=parseInt(m0[0])
+        let vm=parseInt(m0[1])
+        let va=parseInt(m0[2])
+
+        m0=tiHora.t.text.split(':')
+        let vh=parseInt(m0[0])
+        let vmin=parseInt(m0[1])
+
+        let vgmt=tiGMT.t.text
+        let vlon=r.lon
+        let vlat=r.lat
+        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+        let j='{'
+        j+='"params":{'
+        j+='"ms":'+ms+','
+        j+='"n":"'+nom+'",'
+        j+='"d":'+vd+','
+        j+='"m":'+vm+','
+        j+='"a":'+va+','
+        j+='"h":'+vh+','
+        j+='"min":'+vmin+','
+        j+='"gmt":'+vgmt+','
+        j+='"lat":'+vlat+','
+        j+='"lon":'+vlon+','
+        j+='"ciudad":"'+vCiudad+'"'
+        j+='}'
+        j+='}'
+        app.currentData=j
+        nom=tiNombre.t.text.replace(/ /g, '_')
+        unik.setFile(app.mainLocation+'/jsons/'+nom+'.json', app.currentData)
+        //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
+        app.loadJson(app.mainLocation+'/jsons/'+nom+'.json')
+        //runJsonTemp()
+    }
+    function enter(){
+        Qt.quit()
+        if(botCrear.focus){
+            searchGeoLoc()
+        }
+    }
 }

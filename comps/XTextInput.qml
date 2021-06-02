@@ -7,12 +7,12 @@ Item {
     property alias t: txt
     property int fs: app.fs
     property bool c: false
-    width: app.fs*6
+    width: app.fs*5
     height: xTi.height
     //focus: txt.focus
     Rectangle{
         id: xTi
-        width: txt.width
+        width: r.width//+app.fs
         height: r.fs*1.2
         color: 'transparent'
         border.width: 1
@@ -47,7 +47,7 @@ Item {
             id: txt
             font.pixelSize: r.fs
             color: 'white'
-            width: r.width-app.fs
+            width: parent.width-app.fs
             anchors.centerIn: parent
             horizontalAlignment: r.c?TextInput.AlignHCenter:TextInput.AlignLeft
         }

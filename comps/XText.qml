@@ -20,7 +20,7 @@ Item {
             id: txt
             font.pixelSize: r.fs
             color: 'white'
-            width: r.width-app.fs
+            //width: r.width-app.fs
             anchors.centerIn: parent
         }
     }

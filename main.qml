@@ -219,6 +219,15 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Enter'
+        onActivated: {
+            if(panelNewVNA.state==='show'){
+                panelNewVNA.enter()
+                return
+            }
+        }
+    }
+    Shortcut{
         sequence: 'Esc'
         onActivated: {
             if(xSabianos.visible){
