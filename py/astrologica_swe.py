@@ -77,7 +77,7 @@ def getAsp(g1, g2, ic):
 
 
 dia = sys.argv[1]
-mes = int(sys.argv[2]) + 1
+mes = int(sys.argv[2]) #+ 1
 anio = sys.argv[3]
 hora = sys.argv[4]
 min = sys.argv[5]

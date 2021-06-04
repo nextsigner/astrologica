@@ -75,6 +75,14 @@ ApplicationWindow {
                 }
                 return
             }
+            if(panelFileLoader.state==='show'){
+                if(panelFileLoader.currentIndex>0){
+                    panelFileLoader.currentIndex--
+                }else{
+                    panelFileLoader.currentIndex=panelFileLoader.listModel.count-1
+                }
+                return
+            }
             if(currentPlanetIndex>0){
                 currentPlanetIndex--
             }else{
@@ -95,6 +103,14 @@ ApplicationWindow {
                     currentSignIndex++
                 }else{
                     currentSignIndex=0
+                }
+                return
+            }
+            if(panelFileLoader.state==='show'){
+                if(panelFileLoader.currentIndex<panelFileLoader.listModel.count){
+                    panelFileLoader.currentIndex++
+                }else{
+                    panelFileLoader.currentIndex=0
                 }
                 return
             }
@@ -197,6 +213,18 @@ ApplicationWindow {
                 return
             }
             signCircle.bajar()
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl++'
+        onActivated: {
+            sweg.width+=app.fs
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+-'
+        onActivated: {
+            sweg.width-=app.fs
         }
     }
 }

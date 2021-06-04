@@ -113,7 +113,7 @@ Item {
     }
     Rectangle{
         id: ejeMC
-        width: r.width
+        width: sweg.objSignsCircle.width//r.width-app.fs
         height: 1
         anchors.centerIn: parent
         color: 'transparent'

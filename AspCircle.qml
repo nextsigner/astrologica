@@ -18,7 +18,7 @@ Rectangle {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)
+                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-app.fs
             }
         },
         State {
@@ -32,7 +32,7 @@ Rectangle {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)
+                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-app.fs
             }
         }
     ]

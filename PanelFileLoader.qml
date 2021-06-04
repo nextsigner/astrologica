@@ -10,6 +10,8 @@ Rectangle {
     color: 'black'
     border.width: 2
     border.color: 'white'
+    property alias currentIndex: lv.currentIndex
+    property alias listModel: lm
     state: 'hide'
     states: [
         State {

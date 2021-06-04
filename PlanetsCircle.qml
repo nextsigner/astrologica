@@ -20,34 +20,24 @@ Item{
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*2.5
+                width: sweg.width-app.fs*2.5-app.fs
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*6
+                width: sweg.width-app.fs*6-app.fs
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*2
+                width: sweg.width-app.fs*2-app.fs
             }
         }
-    ]
-    onCAsChanged: {
-        //if(cAs!==r){
-        //xTip.visible=cAs!==r
-        //}
-        //labelText.text =cAs!==r?'<b style="font-size:'+parseInt(labelText.font.pixelSize*1.35)+'px;">'+app.planetas[cAs.numAstro]+'</b><br /><b>'+app.signos[cAs.objData.ns]+'</b><br /><b>°'+cAs.objData.g+' \''+cAs.objData.m+'</b><br /><b>Casa '+cAs.objData.h+'</b>':'Mercurio'
-        //xTip.anchors.bottom=cAs.top
-        //xTip.anchors.bottomMargin=r.planetSize*2
-        //xTip.anchors.horizontalCenter=cAs.horizontalCenter
-        //tResetTip.restart()
-    }
+    ]   
     //np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Proserpina', 57), ('Selena', 56), ('Lilith', 12)]
     XAs{id:xSol;fs:r.planetSize;astro:'sun'; numAstro: 0}
     XAs{id:xLuna;fs:r.planetSize;astro:'moon'; numAstro: 1}

@@ -13,21 +13,21 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs
+                width: sweg.width-app.fs*2
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*5
+                width: sweg.width-app.fs*6
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs
+                width: sweg.width-app.fs*2
             }
         }
     ]

@@ -2,7 +2,7 @@ import QtQuick 2.7
 
 Item {
     id: r
-    width:r.parent.height
+    width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
     height: width
     anchors.centerIn: parent
     property bool v: false

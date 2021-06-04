@@ -1,5 +1,5 @@
 import QtQuick 2.7
-
+import "Funcs.js" as JS
 Rectangle {
     id: r
     width: parent.width
@@ -56,7 +56,7 @@ Rectangle {
                 anchors.fill: parent
                 enabled: app.fileData!==app.currentData
                 onClicked: {
-                    app.saveJson()
+                    JS.saveJson()
                 }
             }
         }
@@ -115,7 +115,7 @@ Rectangle {
                 property int f: 0
                 property int uY: 0
                 onWheel: {
-                    /*let v=[-11,-10,-9,-8,-7, -6, -5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12]
+                    let v=[-11,-10,-9,-8,-7, -6, -5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12]
                     let ci=v.indexOf(app.currentGmt)
                     if(wheel.angleDelta.y===120){
                         if(ci<23){
@@ -130,7 +130,7 @@ Rectangle {
                             ci=23
                         }
                     }
-                    app.currentGmt=v[ci]*/
+                    app.currentGmt=v[ci]
                 }
             }
         }

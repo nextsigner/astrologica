@@ -255,7 +255,7 @@ function setNewTimeJsonFileData(date){
 
     console.log('Date: '+date.toString())
     let vd=date.getDate()
-    let vm=date.getMonth()
+    let vm=date.getMonth()+1
     let va=date.getFullYear()
     let vh=date.getHours()
     let vmin=date.getMinutes()
