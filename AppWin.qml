@@ -67,19 +67,19 @@ ApplicationWindow {
                 xSabianos.up()
                 return
             }
-            if(panelDataBodies.enabled){
-                if(currentSignIndex>0){
-                    currentSignIndex--
-                }else{
-                    currentSignIndex=12
-                }
-                return
-            }
             if(panelFileLoader.state==='show'){
                 if(panelFileLoader.currentIndex>0){
                     panelFileLoader.currentIndex--
                 }else{
                     panelFileLoader.currentIndex=panelFileLoader.listModel.count-1
+                }
+                return
+            }
+            if(panelDataBodies.enabled){
+                if(currentSignIndex>0){
+                    currentSignIndex--
+                }else{
+                    currentSignIndex=12
                 }
                 return
             }
@@ -98,19 +98,19 @@ ApplicationWindow {
                 xSabianos.down()
                 return
             }
-            if(panelDataBodies.enabled){
-                if(currentSignIndex<12){
-                    currentSignIndex++
-                }else{
-                    currentSignIndex=0
-                }
-                return
-            }
             if(panelFileLoader.state==='show'){
                 if(panelFileLoader.currentIndex<panelFileLoader.listModel.count){
                     panelFileLoader.currentIndex++
                 }else{
                     panelFileLoader.currentIndex=0
+                }
+                return
+            }
+            if(panelDataBodies.enabled){
+                if(currentSignIndex<12){
+                    currentSignIndex++
+                }else{
+                    currentSignIndex=0
                 }
                 return
             }

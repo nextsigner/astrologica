@@ -81,6 +81,11 @@ Rectangle {
                     JS.loadJsonNow(lm.get(lv.currentIndex).fileName)
                     r.state='hide'
                 }
+                Keys.onDownPressed: {
+                    //Qt.quit()
+                    //focus=false
+                    //xApp.focus=true
+                }
                 onTextChanged: {
                     updateList()
                 }
