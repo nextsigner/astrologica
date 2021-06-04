@@ -55,9 +55,9 @@ Rectangle {
             //currentIndex: app.currentPlanetIndex
             clip: true
             onCurrentIndexChanged: {
-                console.log('panelbodies currentIndex: '+currentIndex)
+                //console.log('panelbodies currentIndex: '+currentIndex)
                 if(!r.enabled)return
-                r.currentIndexSign=lm.get(currentIndex).is
+                //r.currentIndexSign=lm.get(currentIndex).is
             }
         }
     }
@@ -77,17 +77,17 @@ Rectangle {
         Rectangle{
             width: lv.width
             height: txtData.contentHeight+app.fs*0.1
-            color: index===lv.currentIndex?'white':'black'
-            border.width: index===lv.currentIndex?4:2
+            color: index===app.currentPlanetIndex?'white':'black'
+            border.width: index===app.currentPlanetIndex?4:2
             border.color: 'white'
             Text {
                 id: txtData
                 text: sd
-                font.pixelSize: app.fs*0.5
+                font.pixelSize: app.fs*0.45
                 width: parent.width-app.fs
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
-                color: index===lv.currentIndex?'black':'white'
+                color: index===app.currentPlanetIndex?'black':'white'
                 anchors.centerIn: parent
             }
         }
@@ -96,12 +96,17 @@ Rectangle {
         lm.clear()
         let jo
         let o
-       for(var i=0;i<15;i++){
-           jo=json.pc['c'+i]
-           let s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]+ '  - Casa ' +jo.ih
-           //console.log('--->'+s)
-           lm.append(lm.addItem(jo.is, s))
-       }
-
+        for(var i=0;i<15;i++){
+            jo=json.pc['c'+i]
+            var s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]+ '  - Casa ' +jo.ih
+            //console.log('--->'+s)
+            lm.append(lm.addItem(jo.is, s))
+        }
+        let o1=json.ph['h1']
+        s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
+        lm.append(lm.addItem(o1.is, s))
+        o1=json.ph['h10']
+        s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
+        lm.append(lm.addItem(o1.is, s))
     }
 }

@@ -10,7 +10,7 @@ import unik.UnikQProcess 1.0
 import "Funcs.js" as JS
 
 
-ApplicationWindow {
+AppWin {
     id: app
     visible: true
     visibility: "Maximized"
@@ -60,8 +60,8 @@ ApplicationWindow {
     }
     onCurrentGmtChanged: {
         xDataBar.currentGmtText=''+currentGmt
-        setNewTimeJsonFileData(app.currentDate)
-        runJsonTemp()
+        JS.setNewTimeJsonFileData(app.currentDate)
+        JS.runJsonTemp()
     }
     onCurrentDateChanged: {
         xDataBar.state='show'
@@ -71,11 +71,11 @@ ApplicationWindow {
         let h=currentDate.getHours()
         let min=currentDate.getMinutes()
         if(app.fileData!=='' && app.currentData!=='' ){
-            setNewTimeJsonFileData(currentDate)
+            JS.setNewTimeJsonFileData(currentDate)
         }
         xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
         xDataBar.currentGmtText=''+currentGmt
-        runJsonTemp()
+        JS.runJsonTemp()
     }
 
     Settings{
@@ -93,7 +93,7 @@ ApplicationWindow {
         XTools{
             id: xTools
             anchors.bottom: parent.bottom
-            //anchors.horizontalCenter: parent.horizontalCenter
+            anchors.right: parent.right
         }
         XStatus{id: xStatus}
         Grid{
@@ -179,206 +179,6 @@ ApplicationWindow {
         PanelControlsSign{id: panelControlsSign}
         PanelNewVNA{id: panelNewVNA}
     }
-
-    Shortcut{
-        sequence: 'Ctrl+Down'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.ctrlDown()
-                return
-            }
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+Up'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.ctrlUp()
-                return
-            }
-            if(app.mod===0){
-                app.mod=1
-            }else{
-                app.mod=0
-                xFlecha.x=0-app.fs*3
-                xFlecha.y=0-app.fs*3
-            }
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+Space'
-        onActivated: {
-            sweg.nextState()
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+0'
-        onActivated: {
-            panelDataBodies.currentIndex=-1
-            //app.lock=!app.lock
-        }
-    }
-    Shortcut{
-        sequence: 'Enter'
-        onActivated: {
-            if(panelNewVNA.state==='show'){
-                panelNewVNA.enter()
-                return
-            }
-        }
-    }
-    Shortcut{
-        sequence: 'Esc'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.visible=false
-                return
-            }
-            Qt.quit()
-        }
-    }
-    Shortcut{
-        sequence: 'Up'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.up()
-                return
-            }
-            if(panelDataBodies.enabled){
-                if(currentSignIndex>0){
-                    currentSignIndex--
-                }else{
-                    currentSignIndex=12
-                }
-                return
-            }
-            if(currentPlanetIndex>0){
-                currentPlanetIndex--
-            }else{
-                currentPlanetIndex=14
-            }
-            //xAreaInteractiva.back()
-        }
-    }
-    Shortcut{
-        sequence: 'Down'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.down()
-                return
-            }
-            if(panelDataBodies.enabled){
-                if(currentSignIndex<12){
-                    currentSignIndex++
-                }else{
-                    currentSignIndex=0
-                }
-                return
-            }
-            if(currentPlanetIndex<14){
-                currentPlanetIndex++
-            }else{
-                currentPlanetIndex=0
-            }
-            //xAreaInteractiva.next()
-        }
-    }
-    Shortcut{
-        sequence: 'Left'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.left()
-                return
-            }
-            xAreaInteractiva.acercarAlCentro()
-        }
-    }
-    Shortcut{
-        sequence: 'Right'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.right()
-                return
-            }
-            xAreaInteractiva.acercarAlBorde()
-        }
-    }
-
-    Shortcut{
-        sequence: 'Ctrl+f'
-        onActivated: {
-            panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+i'
-        onActivated: {
-            panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+e'
-        onActivated: {
-            sweg.expand=!sweg.expand
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+n'
-        onActivated: {
-            panelNewVNA.state=panelNewVNA.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+r'
-        onActivated: {
-            if(!xFormRS.visible){
-                xFormRS.alNom=app.currentNom
-                xFormRS.alFecha=app.currentFecha
-                xFormRS.grado=app.currentGradoSolar
-                Qt.ShiftModifierxFormRS.minuto=app.currentMinutoSolar
-                xFormRS.segundo=app.currentSegundoSolar
-                xFormRS.lon=app.currentLon
-                xFormRS.lat=app.currentLat
-            }
-            xFormRS.visible=!xFormZS.visible
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+o'
-        onActivated: {
-            //img.y+=4
-            showIWFILES()
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+s'
-        onActivated: {
-            //img.y+=4
-            showSABIANOS()
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+Shift+Down'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.zoomDown()
-                return
-            }
-            signCircle.subir()
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+Shift+Up'
-        onActivated: {
-            if(xSabianos.visible){
-                xSabianos.zoomUp()
-                return
-            }
-            signCircle.bajar()
-        }
-    }
-
-
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
         JS.setFs()
@@ -387,263 +187,7 @@ ApplicationWindow {
         console.log('Init app.url: '+app.url)
         if(apps.url!==''){
             console.log('Cargando al iniciar: '+apps.url)
-            loadJson(apps.url)
+            JS.loadJson(apps.url)
         }
-    }
-    function showIW(){
-        console.log('uSon: '+app.uSon)
-        let m0=app.uSon.split('_')
-        let fileLocation='./iw/main.qml'
-        let comp=Qt.createComponent(fileLocation)
-
-        //Cuerpo en Casa
-        let nomCuerpo=m0[0]!=='asc'?app.planetas[app.planetasRes.indexOf(m0[0])]:'Ascendente'
-        let jsonFileName=m0[0]!=='asc'?quitarAcentos(nomCuerpo.toLowerCase())+'.json':'asc.json'
-        let jsonFileLocation='/home/ns/nsp/uda/quiron/data/'+jsonFileName
-        if(!unik.fileExist(jsonFileLocation)){
-            let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: app.fs*8, height: app.fs*3, fs: app.fs*0.5, title:'SinQt.ShiftModifier datos'})
-        }else{
-            let numHome=m0[0]!=='asc'?-1:1
-            let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
-            numHome=vNumRom.indexOf(m0[2])+1
-            //console.log('::::Abriendo signo: '+app.objSignsNames.indexOf(m0[1])+' casa: '+numHome+' nomCuerpo: '+nomCuerpo)
-            getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1])+1, numHome, nomCuerpo)
-        }
-    }
-    function showIWFILES(){
-        console.log('uSon: '+app.uSon)
-        let m0=app.uSon.split('_')
-        let fileLocation='./iwfiles/main.qml'
-        let comp=Qt.createComponent(fileLocation)
-        let obj=comp.createObject(app, {comp: app, width: app.fs*14, fs: app.fs*0.5, title:'Cargar Archivos'})
-    }
-    function showSABIANOS(numSign, numDegree){
-        xSabianos.numSign=numSign
-        xSabianos.numDegree=numDegree
-        xSabianos.visible=true
-        xSabianos.loadData()
-        /*console.log('uSon: '+app.uSon)
-        let m0=app.uSon.split('_')
-        let fileLocation='./sabianos/main.qml'
-        let comp=Qt.createComponent(fileLocation)
-        let obj=comp.createObject(app, {comp: app, width: app.fs*14, fs: app.fs*0.5, htmlFolder: './sabianos/', numSign: numSign, numDegree:numDegree})*/
-    }
-    function getJSON(fileLocation, comp, s, c, nomCuerpo) {
-        var request = new XMLHttpRequest()
-
-        //Url GitHub Raw Data
-        //https://github.com/nextsigner/quiron/raw/main/data/pluton.json
-
-        //Url File Local Data
-        //'file:///home/ns/Documentos/unik/quiron/data/neptuno.json'
-
-        let jsonFileUrl='file:///home/ns/nsp/uda/quiron/data/'+fileLocation
-        //console.log('jsonFileUrl: '+jsonFileUrl)
-        request.open('GET', jsonFileUrl, true);
-        //request.open('GET', 'https://github.com/nextsigner/quiron/raw/main/data/'+cbPlanetas.currentText+'.json', true);
-        request.onreadystatechange = function() {
-            if (request.readyState === XMLHttpRequest.DONE) {
-                if (request.status && request.status === 200) {
-                    //console.log(":::", request.responseText)
-                    var result = JSON.parse(request.responseText)
-                    if(result){
-                        //console.log(result)
-                        //console.log('Abriendo casa de json: '+c)
-                        console.log('Abriendo dato signo:'+s+' casa:'+c+'...')
-                        let dataJson0=''
-                        let data=''//+result['h'+c]
-                        if(result['h'+c]){
-                            console.log('Abriendo dato de casa... ')
-                            dataJson0=result['h'+c].split('|')
-                            data='<h2>'+nomCuerpo+' en casa '+c+'</h2>'
-                            for(var i=0;i<dataJson0.length;i++){
-                                data+='<p>'+dataJson0[i]+'</p>'
-                            }
-                        }
-                        //console.log('Signo para mostar: '+s)
-                        if(result['s'+s]){
-                            console.log('Abriendo dato de signo... ')
-                            dataJson0=result['s'+s].split('|')
-                            data+='<h2>'+nomCuerpo+' en '+app.signos[s - 1]+'</h2>'
-                            for(i=0;i<dataJson0.length;i++){
-                                data+='<p>'+dataJson0[i]+'</p>'
-                            }
-                        }
-                        let obj=comp.createObject(app, {textData:data, width: app.fs*14, fs: app.fs*0.5, title: nomCuerpo+' en '+app.signos[s - 1]+' en casa '+c, xOffSet: app.fs*6})
-                    }
-                    //console.log('Data-->'+JSON.stringify(result))
-                } else {
-                    console.log("HTTP:", request.status, request.statusText)
-                }
-            }
-        }
-        request.send()
-    }
-
-    function quitarAcentos(cadena){
-        const acentos = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
-        return cadena.split('').map( letra => acentos[letra] || letra).join('').toString();
-    }
-    function setInfo(i1, i2, i3, son){
-        if(son){
-            infoCentral.info1=i1
-            infoCentral.info2=i2
-            infoCentral.info3=i3
-            app.uSon=son
-        }
-    }
-    function getEdad(d, m, a, h, min) {
-        let hoy = new Date()
-        let fechaNacimiento = new Date(a, m, d, h, min)
-        let edad = hoy.getFullYear() - fechaNacimiento.getFullYear()
-        let diferenciaMeses = hoy.getMonth() - fechaNacimiento.getMonth()
-        if (
-                diferenciaMeses < 0 ||
-                (diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento.getDate())
-                ) {
-            edad--
-        }
-        return edad
-    }
-    function runCmd(){
-        let c='import unik.UnikQProcess 1.0\n'
-            +'UnikQProcess{\n'
-            +'  '
-            +'}\n'
-    }
-
-    //Astrologica
-    function loadJson(file){
-        apps.url=file
-        let fn=apps.url
-        let jsonFileName=fn
-        let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-        //console.log('main.loadJson('+file+'):'+jsonFileData)
-
-        app.fileData=jsonFileData
-        //app.currentData=app.fileData
-        let jsonData=JSON.parse(jsonFileData)
-        if(parseInt(jsonData.params.ms)===0){
-            panelDataBodies.enabled=true
-            let d=new Date(Date.now())
-            jsonData.params.d=d.getDate()
-            jsonData.params.m=d.getMonth()
-            jsonData.params.a=d.getFullYear()
-            jsonData.params.h=d.getHours()
-            jsonData.params.min=d.getMinutes()
-            sweg.loadSign(jsonData)
-        }else{
-            panelDataBodies.enabled=false
-            sweg.load(jsonData)
-        }
-        let nom=jsonData.params.n.replace(/_/g, ' ')
-        let vd=jsonData.params.d
-        let vm=jsonData.params.m
-        let va=jsonData.params.a
-        let vh=jsonData.params.h
-        let vmin=jsonData.params.min
-        let vgmt=jsonData.params.gmt
-        let vlon=jsonData.params.lon
-        let vlat=jsonData.params.lat
-        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        let edad=''
-        let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-        let stringEdad=edad.indexOf('NaN')<0?edad:''
-        let textData=''
-        if(parseInt(numEdad)>0){
-            edad=' <b>Edad:</b> '+numEdad
-            textData=''
-                    +'<b>'+nom+'</b> '
-                    +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
-                    +'<b> '+vCiudad+'</b> '
-                    +'<b>long:</b> '+vlon+' <b>lat:</b> '+vlat+' '
-        }else{
-            textData=''
-                    +'<b>Revolución Solar</b></p> '
-                    +'<b>'+nom+'</b> '
-                    +'<b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs '
-            //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-            //+'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
-
-        }
-
-        //Seteando datos globales de mapa energético
-        app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
-        //console.log('2 main.loadJson('+file+'): '+app.currentDate.toString())
-
-        //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
-        app.currentNom=nom
-        app.currentFecha=vd+'/'+vm+'/'+va
-        app.currentGmt=vgmt
-        app.currentLon=vlon
-        app.currentLat=vlat
-
-        xDataBar.fileData=textData
-        xDataBar.state='show'
-        app.currentData=app.fileData
-    }
-    function runJsonTemp(){
-        let jsonData=JSON.parse(app.currentData)
-        let nom=jsonData.params.n.replace(/_/g, ' ')
-        let vd=jsonData.params.d
-        let vm=jsonData.params.m
-        let va=jsonData.params.a
-        let vh=jsonData.params.h
-        let vmin=jsonData.params.min
-        let vgmt=app.currentGmt
-        let vlon=jsonData.params.lon
-        let vlat=jsonData.params.lat
-        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        let edad=''
-        let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
-        let stringEdad=edad.indexOf('NaN')<0?edad:''
-        let textData=''
-        app.currentFecha=vd+'/'+vm+'/'+va
-        //xDataBar.state='show'
-        sweg.load(jsonData)
-        xAsp.load(jsonData)
-    }
-    function setNewTimeJsonFileData(date){
-        let jsonData=JSON.parse(app.fileData)
-        //console.log('json: '+JSON.stringify(jsonData))
-        //console.log('json2: '+jsonData.params)
-        let d = new Date(Date.now())
-        let ms=jsonData.params.ms
-        let nom=jsonData.params.n.replace(/_/g, ' ')
-
-        console.log('Date: '+date.toString())
-        let vd=date.getDate()
-        let vm=date.getMonth()
-        let va=date.getFullYear()
-        let vh=date.getHours()
-        let vmin=date.getMinutes()
-
-        let vgmt=app.currentGmt
-        let vlon=jsonData.params.lon
-        let vlat=jsonData.params.lat
-        let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
-        let j='{'
-        j+='"params":{'
-        j+='"ms":'+ms+','
-        j+='"n":"'+nom+'",'
-        j+='"d":'+vd+','
-        j+='"m":'+vm+','
-        j+='"a":'+va+','
-        j+='"h":'+vh+','
-        j+='"min":'+vmin+','
-        j+='"gmt":'+vgmt+','
-        j+='"lat":'+vlat+','
-        j+='"lon":'+vlon+','
-        j+='"ciudad":"'+vCiudad+'"'
-        j+='}'
-        j+='}'
-        app.currentData=j
-        //console.log('j: '+j)
-        //console.log('fd: '+app.fileData)
-    }
-    function saveJson(){
-        app.fileData=app.currentData
-        let jsonFileName=apps.url
-        unik.setFile(jsonFileName, app.currentData)
     }
 }

@@ -2,7 +2,7 @@ import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 import "comps" as Comps
-
+import "Funcs.js" as JS
 Rectangle {
     id: r
     width: parent.width*0.25
@@ -63,6 +63,7 @@ Rectangle {
                 t.font.pixelSize: app.fs*0.65
                 anchors.horizontalCenter: parent.horizontalCenter
                 KeyNavigation.tab: tiFecha.t
+                t.maximumLength: 30
             }
         }
         Row{
@@ -75,6 +76,7 @@ Rectangle {
                 t.font.pixelSize: app.fs*0.65;
                 c: true
                 KeyNavigation.tab: tiHora.t
+                t.inputMask: "00/00/0000"
             }
         }
         Row{
@@ -89,6 +91,7 @@ Rectangle {
                     t.font.pixelSize: app.fs*0.65;
                     c: true
                     KeyNavigation.tab: tiGMT.t
+                    t.inputMask: "00:00"
                 }
             }
             Row{
@@ -100,6 +103,10 @@ Rectangle {
                     t.font.pixelSize: app.fs*0.65;
                     c: true
                     KeyNavigation.tab: tiCiudad.t
+                    t.validator: IntValidator {
+                        bottom: parseInt(-11)
+                        top: parseInt(12)
+                    }
                 }
             }
         }
@@ -111,6 +118,7 @@ Rectangle {
                 width: tiNombre.width
                 t.font.pixelSize: app.fs*0.65;
                 KeyNavigation.tab: botCrear
+                t.maximumLength: 50
             }
         }
         Button{
@@ -194,11 +202,10 @@ Rectangle {
         nom=tiNombre.t.text.replace(/ /g, '_')
         unik.setFile(app.mainLocation+'/jsons/'+nom+'.json', app.currentData)
         //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-        app.loadJson(app.mainLocation+'/jsons/'+nom+'.json')
+        JS.loadJson(app.mainLocation+'/jsons/'+nom+'.json')
         //runJsonTemp()
     }
     function enter(){
-        Qt.quit()
         if(botCrear.focus){
             searchGeoLoc()
         }

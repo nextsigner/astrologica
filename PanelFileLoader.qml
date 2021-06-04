@@ -1,6 +1,7 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
+import "Funcs.js" as JS
 
 Rectangle {
     id: r
@@ -71,7 +72,11 @@ Rectangle {
                 focus: true
                 anchors.centerIn: parent
                 Keys.onReturnPressed: {
-                    app.loadJson(lm.get(lv.currentIndex).fileName)
+                    JS.loadJson(lm.get(lv.currentIndex).fileName)
+                    r.state='hide'
+                }
+                Keys.onRightPressed: {
+                    JS.loadJsonNow(lm.get(lv.currentIndex).fileName)
                     r.state='hide'
                 }
                 onTextChanged: {
@@ -134,7 +139,7 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    app.loadJson(fileName)
+                    JS.loadJson(fileName)
                     r.state='hide'
                 }
             }
@@ -163,7 +168,7 @@ Rectangle {
     function deleteVnData(fileName){
         unik.deleteFile(fileName)
         let fn=fileName.replace('cap_', '').replace('.png', '')
-        let jsonFileName=fn+'.json'//'/home/ns/temp-screenshots/'+ms+'.json'
+        let jsonFileName=fn+'.json'
         unik.deleteFile(jsonFileName)
         updateList()
     }

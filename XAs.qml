@@ -51,7 +51,7 @@ Item{
             }
             PropertyChanges {
                 target: xIcon
-                width: r.fs*0.5
+                width: r.fcs*0.5
             }
         }
     ]
@@ -229,34 +229,40 @@ Item{
             color: lineaATripleCircle.color
             rotation: img.rotation
             visible: r.selected
+        }
+        ColorOverlay {//Planeta que se muestra en espera no seleccionado
+            id: co0
+            anchors.fill: img0
+            source: img0
+            //color: lineaATripleCircle.color//r.colorCuerpo
+            rotation: img.rotation
+            visible: !r.selected
             SequentialAnimation{
-                running: r.selected
+                running: true//r.selected
                 loops: Animation.Infinite
                 PropertyAnimation {
-                    target: co
-                    properties: "opacity"
-                    from: 0.0
-                    to: 1.0
-                }
-
-                PauseAnimation {
+                    target: co0
+                    properties: "color"
+                    from: 'red'
+                    to: 'white'
                     duration: 500
                 }
                 PropertyAnimation {
-                    target: co
-                    properties: "opacity"
-                    from: 1.0
-                    to: 0.0
+                    target: co0
+                    properties: "color"
+                    from: 'red'
+                    to: 'red'
+                    duration: 500
                 }
             }
         }
         ColorOverlay {
-            id: co0
+            id: co1
             anchors.fill: img0
             source: img0
             color: lineaATripleCircle.color//r.colorCuerpo
             rotation: img.rotation
-            //visible: r.selected
+            visible: r.selected
         }
     }
 }

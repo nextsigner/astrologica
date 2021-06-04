@@ -10,6 +10,7 @@ Item {
     property alias objAspsCircle: aspsCircle
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
+    property alias objSignsCircle: signCircle
     property int speedRotation: 1000
     property var aStates: ['ps', 'pc', 'pa']
     state: aStates[0]
