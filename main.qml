@@ -57,6 +57,9 @@ AppWin {
 
     onCurrentPlanetIndexChanged: {
         panelDataBodies.currentIndex=currentPlanetIndex
+        if(currentPlanetIndex>0){
+            ssp.focusedPlanet=currentPlanetIndex
+        }
     }
     onCurrentGmtChanged: {
         xDataBar.currentGmtText=''+currentGmt

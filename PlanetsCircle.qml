@@ -72,6 +72,7 @@ Item{
         r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
+        app.ssp.lm.clear()
         for(var i=0;i<15;i++){
             var objAs=r.children[i]
             objAs.numAstro=i
@@ -82,6 +83,7 @@ Item{
             if(r.totalPosX<o.p){
                 r.totalPosX=o.p
             }
+            app.ssp.add(app.planetas[i], "images/"+app.planetasRes[i]+".png",i)
             o.ns=objSignsNames.indexOf(jo.is)
             o.ih=jo.ih
             o.rsg=jo.rsgdeg

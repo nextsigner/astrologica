@@ -1,8 +1,18 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
+import "./ss" as SS
 
 ApplicationWindow {
     id: r
+    property alias ssp: ssPlanets
+    SS.Planets{
+        id: ssPlanets
+        canvas3dX: 0
+        canvas3dY: 0
+        canvas3dWidth: 400
+        canvas3dHeight: 400
+        //focusedPlanet: 6
+    }
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {

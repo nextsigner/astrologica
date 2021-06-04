@@ -5,6 +5,7 @@ Item {
     width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
     height: width
     anchors.centerIn: parent
+    //anchors.horizontalCenterOffset: app.fs*10
     property bool v: false
     property alias expand: planetsCircle.expand
     property alias objAspsCircle: aspsCircle
@@ -39,9 +40,10 @@ Item {
     ]
     Item{id: xuqp}
     Rectangle{
+        id: bg
         width: parent.width*10
         height: width
-        color: 'black'
+        color: 'transparent'
         visible: signCircle.v
     }
     HomeCircle{
