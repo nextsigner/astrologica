@@ -26,7 +26,7 @@ Item {
     property int sliderLength: (width < height) ? width / 2 : height / 2
     property real textSize: (sliderLength < 320) ? (sliderLength / 20) : 16
     property real planetButtonSize: (height < 768) ? (height / 11) : 70
-
+    Behavior on opacity{NumberAnimation{duration: 500}}
     NumberAnimation {
         id: lookAtOffsetAnimation
         target: mainview
@@ -222,6 +222,7 @@ Item {
         interactive: false
         model: planetModel
         delegate: planetButtonDelegate
+        visible: false
     }
 
     InfoSheet {
@@ -359,7 +360,7 @@ Item {
         var URANUS = 7;
         var NEPTUNE = 8;
         var PLUTO = 10;
-        var NUM_SELECTABLE_PLANETS = 9;
+        var NUM_SELECTABLE_PLANETS = 10;
         var MOON = 9;
         var SOLAR_SYSTEM = 100;
         //planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']

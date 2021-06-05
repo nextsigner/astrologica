@@ -60,8 +60,9 @@ var JUPITER = 5;
 var SATURN = 6;
 var URANUS = 7;
 var NEPTUNE = 8;
-var NUM_SELECTABLE_PLANETS = 9;
+var NUM_SELECTABLE_PLANETS = 10;
 var MOON = 9;
+var PLUTON = 10;
 var SOLAR_SYSTEM = 100;
 
 var camera, scene, renderer;
@@ -116,7 +117,7 @@ function initializeGL(canvas, eventSource, mainView) {
     var starSphere = THREEx.Planets.createStarfield(8500000);
     scene.add(starSphere);
 
-    var light = new THREE.PointLight(0x777777, 2);
+    var light = new THREE.PointLight(0x777777, 4);//Originalmente estaba en 2
     light.position.set(0, 0, 0);
     scene.add(light);
 
@@ -230,14 +231,14 @@ function loadPlanetData() {
         centerOfOrbit: EARTH
     };
     planets.push(moon);
-    var pluto = {
-        radius: 1.5424, tilt: 28.32, N1: 125.1228, N2: -0.0529538083,
-        i1: 5.1454, i2: 0, w1: 318.0634, w2: 0.1643573223,
-        a1: 0.273, a2: 0, e1: 0.054900, e2: 0,
-        M1: 115.3654, M2: 13.0649929509, period: 27.321582,
+    var pluton = {
+        radius: 24.73859, tilt: 28.32, N1: 131.7806, N2: 0.000030173,
+        i1: 1.7700, i2: -0.000000255, w1: 272.8461, w2: 0.000006027,
+        a1: 38.05826, a2: 0.00000003313, e1: 0.008606, e2: 0.00000000215,
+        M1: 260.2471, M2: 0.005995147, period: 0.6713,
         centerOfOrbit: SUN
     };
-    planets.push(pluto);
+    planets.push(pluton);
 }
 
 function createPlanets() {
@@ -306,6 +307,10 @@ function createPlanets() {
         case MOON:
             mesh = createPlanet(planets[i]["radius"], 0.05, 'images/moonmap1k.jpg',
                                 'images/moonbump1k.jpg');
+            break;
+        case PLUTON:
+            mesh = createPlanet(planets[i]["radius"], 0.05, 'images/plutomap1k.jpg',
+                                'images/plutobump1k.jpg');
             break;
         }
 

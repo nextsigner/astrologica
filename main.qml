@@ -56,7 +56,13 @@ AppWin {
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
     onCurrentPlanetIndexChanged: {
-        ssp.setPlanet(currentPlanetIndex)
+        if(currentPlanetIndex>=0&&currentPlanetIndex<10){
+            ssp.opacity=1.0
+            ssp.setPlanet(currentPlanetIndex)
+        }else{
+            ssp.opacity=0.0
+        }
+
         panelDataBodies.currentIndex=currentPlanetIndex        
     }
     onCurrentGmtChanged: {

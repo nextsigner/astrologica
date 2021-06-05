@@ -20,6 +20,7 @@ ApplicationWindow {
                 xSabianos.ctrlDown()
                 return
             }
+            xDataBar.state=xDataBar.state==='show'?'hide':'show'
         }
     }
     Shortcut{

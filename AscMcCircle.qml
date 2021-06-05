@@ -37,7 +37,7 @@ Item {
     ]
     Rectangle{
         id: ejeAsc
-        width: r.width
+        width: sweg.objSignsCircle.width
         height: 1
         anchors.centerIn: parent
         color: 'transparent'
@@ -89,31 +89,52 @@ Item {
                 //anchors.centerIn: co
                 width: parent.width
                 anchors.verticalCenter: parent.verticalCenter
-                //anchors.left: parent.right
                 spacing: app.fs*0.05
                 Text{
                     text: 'Asc '+app.signos[r.isAsc]
                     font.pixelSize: app.fs*0.5
                     color: 'white'
-                    width: app.fs*0.5
+                    width: contentWidth
                     anchors.right: parent.right
                     horizontalAlignment: Text.AlignRight
+                    Rectangle{
+                        width: parent.contentWidth+3
+                        height: parent.contentHeight+3
+                        color: 'black'
+                        border.width: 1
+                        border.color: 'white'
+                        radius: app.fs*0.1
+                        z: parent.z-1
+                        opacity: 0.5
+                        anchors.centerIn: parent
+                    }
                 }
                 Item{width: xIconAsc.width;height: width}
                 Text{
                     text: '°'+r.gdegAsc+' \''+r.mdegAsc+''
                     font.pixelSize: app.fs*0.5
                     color: 'white'
-                    width: app.fs*0.5
+                    width: contentWidth
                     anchors.right: parent.right
                     horizontalAlignment: Text.AlignRight
+                    Rectangle{
+                        width: parent.contentWidth+3
+                        height: parent.contentHeight+3
+                        color: 'black'
+                        border.width: 1
+                        border.color: 'white'
+                        radius: app.fs*0.1
+                        z: parent.z-1
+                        opacity: 0.5
+                        anchors.centerIn: parent
+                    }
                 }
             }
         }
     }
     Rectangle{
         id: ejeMC
-        width: sweg.objSignsCircle.width//r.width-app.fs
+        width: sweg.objSignsCircle.width
         height: 1
         anchors.centerIn: parent
         color: 'transparent'
@@ -170,24 +191,48 @@ Item {
                 color: 'red'
             }
             Row{
-                anchors.centerIn: co2
+                //anchors.centerIn: parent
+                anchors.verticalCenter: parent.verticalCenter
+                x:0-((width-parent.width)/2)-parent.width/2
                 spacing: app.fs*0.05
                 Text{
                     text: 'MC '+app.signos[r.isMC]
                     font.pixelSize: app.fs*0.5
                     color: 'white'
-                    width: app.fs*0.5
+                    width: contentWidth//app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
                     horizontalAlignment: Text.AlignRight
+                    Rectangle{
+                        width: parent.contentWidth+3
+                        height: parent.contentHeight+3
+                        color: 'black'
+                        border.width: 1
+                        border.color: 'white'
+                        radius: app.fs*0.1
+                        z: parent.z-1
+                        opacity: 0.5
+                        anchors.centerIn: parent
+                    }
                 }
                 Item{width: xIconMC.width;height: width}
                 Text{
                     text: '°'+r.gdegAsc+' \''+r.mdegAsc+''
                     font.pixelSize: app.fs*0.5
                     color: 'white'
-                    width: app.fs*0.5
+                    width: contentWidth// app.fs*0.5
                     anchors.verticalCenter: parent.verticalCenter
                     horizontalAlignment: Text.AlignLeft
+                    Rectangle{
+                        width: parent.contentWidth+3
+                        height: parent.contentHeight+3
+                        color: 'black'
+                        border.width: 1
+                        border.color: 'white'
+                        radius: app.fs*0.1
+                        z: parent.z-1
+                        opacity: 0.5
+                        anchors.centerIn: parent
+                    }
                 }
             }
         }
