@@ -2,7 +2,7 @@ import QtQuick 2.7
 
 Item {
     id: r
-    width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
+    //width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
     height: width
     anchors.centerIn: parent
     //anchors.horizontalCenterOffset: app.fs*10
@@ -20,21 +20,21 @@ Item {
             name: aStates[0]
             PropertyChanges {
                 target: r
-                //width:r.parent.height+app.fs*4
+                width: app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
             }            
         },
         State {//PC
             name: aStates[1]
             PropertyChanges {
                 target: r
-                //width:r.parent.height+app.fs*2
+                width: app.currentPlanetIndex!==16?r.parent.height:r.parent.height
             }            
         },
         State {//PA
             name: aStates[2]
             PropertyChanges {
                 target: r
-                //width: r.parent.height
+                width: app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
             }            
         }
     ]

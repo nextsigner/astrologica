@@ -62,8 +62,15 @@ AppWin {
         }else{
             ssp.opacity=0.0
         }
-
         panelDataBodies.currentIndex=currentPlanetIndex        
+        if(currentPlanetIndex>14){
+            if(currentPlanetIndex===15){
+                sweg.objHousesCircle.currentHouse=1
+            }
+            if(currentPlanetIndex===16){
+                sweg.objHousesCircle.currentHouse=10
+            }
+        }
     }
     onCurrentGmtChanged: {
         xDataBar.currentGmtText=''+currentGmt

@@ -157,6 +157,46 @@ Item {
             border.color: co2.color
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.left
+            anchors.rightMargin: 0
+            opacity: app.currentPlanetIndex!==16&&anchors.rightMargin===0?0.0:1.0
+            Behavior on anchors.rightMargin{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+            Behavior on x{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+            state: sweg.state
+            states: [
+                State {
+                    name: sweg.aStates[0]
+                    PropertyChanges {
+                        target: xIconMC
+                        anchors.rightMargin: 0
+                    }
+                    PropertyChanges {
+                        target: xIconMC
+                        //opacity:1.0
+                    }
+                },
+                State {
+                    name: sweg.aStates[1]
+                    PropertyChanges {
+                        target: xIconMC
+                        anchors.rightMargin: app.currentPlanetIndex===16?0- housesCircle.width*0.5-xIconMC.width*0.5:0
+                    }
+                    PropertyChanges {
+                        target: xIconMC
+                        //opacity:app.currentPlanetIndex===16?1.0:0.0
+                    }
+                },
+                State {
+                    name: sweg.aStates[2]
+                    PropertyChanges {
+                        target: xIconMC
+                        anchors.rightMargin: 0
+                    }
+                    PropertyChanges {
+                        target: xIconMC
+                        //opacity:1.0
+                    }
+                }
+            ]
             SequentialAnimation on color {
                 running: true
                 loops: Animation.Infinite
