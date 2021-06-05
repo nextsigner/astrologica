@@ -230,7 +230,14 @@ function loadPlanetData() {
         centerOfOrbit: EARTH
     };
     planets.push(moon);
-
+    var pluto = {
+        radius: 1.5424, tilt: 28.32, N1: 125.1228, N2: -0.0529538083,
+        i1: 5.1454, i2: 0, w1: 318.0634, w2: 0.1643573223,
+        a1: 0.273, a2: 0, e1: 0.054900, e2: 0,
+        M1: 115.3654, M2: 13.0649929509, period: 27.321582,
+        centerOfOrbit: SUN
+    };
+    planets.push(pluto);
 }
 
 function createPlanets() {

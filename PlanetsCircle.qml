@@ -83,7 +83,9 @@ Item{
             if(r.totalPosX<o.p){
                 r.totalPosX=o.p
             }
-            app.ssp.add(app.planetas[i], "images/"+app.planetasRes[i]+".png",i)
+            if(i<10){
+                app.ssp.add(app.planetas[i], "images/"+app.planetasRes[i]+".png",i)
+            }
             o.ns=objSignsNames.indexOf(jo.is)
             o.ih=jo.ih
             o.rsg=jo.rsgdeg

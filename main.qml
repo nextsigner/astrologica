@@ -29,7 +29,7 @@ AppWin {
     property int currentIndexSignData: 0
     property var currentJsonSignData: ''
 
-    property int currentPlanetIndex: 0
+    property int currentPlanetIndex: -1
     property int currentSignIndex: 0
     property date currentDate
     property string currentNom: ''
@@ -56,10 +56,8 @@ AppWin {
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
     onCurrentPlanetIndexChanged: {
-        panelDataBodies.currentIndex=currentPlanetIndex
-        if(currentPlanetIndex>0){
-            ssp.focusedPlanet=currentPlanetIndex
-        }
+        ssp.setPlanet(currentPlanetIndex)
+        panelDataBodies.currentIndex=currentPlanetIndex        
     }
     onCurrentGmtChanged: {
         xDataBar.currentGmtText=''+currentGmt

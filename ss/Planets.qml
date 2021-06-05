@@ -14,7 +14,7 @@ Item {
 
     property alias lm: planetModel
 
-    property int focusedPlanet: 100
+    property int focusedPlanet: 0
     property int oldPlanet: 0
     property real xLookAtOffset: 0
     property real yLookAtOffset: 0
@@ -230,7 +230,7 @@ Item {
         anchors.right: planetButtonView.left
         anchors.rightMargin: 10
         opacity: 0.5
-
+        visible: false
         // Set initial information for Solar System
         planet: "Sistema Solar"
         exampleDetails: "Sistema Solar para Astrología</p>" +
@@ -256,10 +256,11 @@ Item {
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         width: sliderLength
-        value: 0.2
+        value: 0.1
         minimumValue: 0
         maximumValue: 1
         onValueChanged: GLCode.onSpeedChanged(value);
+        visible: false
     }
     Text {
         anchors.right: speedSlider.left
@@ -270,6 +271,7 @@ Item {
         font.weight: Font.Light
         color: "white"
         text: "Rotation Speed"
+        visible: false
     }
 
     StyledSlider {
@@ -282,6 +284,7 @@ Item {
         minimumValue: 1
         maximumValue: 2000
         onValueChanged: GLCode.setScale(value);
+        visible: false
     }
     Text {
         anchors.right: scaleSlider.left
@@ -292,6 +295,7 @@ Item {
         font.weight: Font.Light
         color: "white"
         text: "Planet Size"
+        visible: false
     }
 
     StyledSlider {
@@ -307,6 +311,7 @@ Item {
         //! [2]
         onValueChanged: GLCode.setCameraDistance(value);
         //! [2]
+        visible: false
     }
     Text {
         y: distanceSlider.y + distanceSlider.height + width + 10
@@ -321,6 +326,7 @@ Item {
         font.weight: Font.Light
         color: "white"
         text: "Viewing Distance"
+        visible: false
     }
 
     // FPS display, initially hidden, clicking will show it
@@ -332,7 +338,60 @@ Item {
         height: 64
         hidden: true
     }
+    Text{
+        id: txt
+        font.pixelSize: 50
+        color: 'red'
+        text :'-><b>'+focusedPlanet+'</b>'
+        visible: false
+    }
     function add(nom, s, num){
         lm.append(lm.addPlanets(nom, s, num))
+    }
+    function setPlanet(n){
+        var SUN = 0;
+        var MERCURY = 1;
+        var VENUS = 2;
+        var EARTH = 3;
+        var MARS = 4;
+        var JUPITER = 5;
+        var SATURN = 6;
+        var URANUS = 7;
+        var NEPTUNE = 8;
+        var PLUTO = 10;
+        var NUM_SELECTABLE_PLANETS = 9;
+        var MOON = 9;
+        var SOLAR_SYSTEM = 100;
+        //planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']
+        if(n===0){
+            focusedPlanet=SUN
+        }
+        if(n===1){
+            focusedPlanet=MOON
+        }
+        if(n===2){
+            focusedPlanet=MERCURY
+        }
+        if(n===3){
+            focusedPlanet=VENUS
+        }
+        if(n===4){
+            focusedPlanet=MARS
+        }
+        if(n===5){
+            focusedPlanet=JUPITER
+        }
+        if(n===6){
+            focusedPlanet=SATURN
+        }
+        if(n===7){
+            focusedPlanet=URANUS
+        }
+        if(n===8){
+            focusedPlanet=NEPTUNE
+        }
+        if(n===9){
+            focusedPlanet=PLUTO
+        }
     }
 }

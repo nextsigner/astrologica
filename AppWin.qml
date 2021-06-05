@@ -67,6 +67,22 @@ ApplicationWindow {
                 xSabianos.visible=false
                 return
             }
+            if(panelFileLoader.state==='show'){
+                panelFileLoader.state='hide'
+                return
+            }
+            if(panelDataBodies.state==='show'){
+                panelDataBodies.state='hide'
+                return
+            }
+            if(panelNewVNA.state==='show'){
+                panelNewVNA.state='hide'
+                return
+            }
+            if(panelControlsSign.state==='show'){
+                panelControlsSign.state='hide'
+                return
+            }
             Qt.quit()
         }
     }

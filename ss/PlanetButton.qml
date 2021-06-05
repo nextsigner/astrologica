@@ -71,7 +71,10 @@ Rectangle {
         MouseArea {
             anchors.fill: parent
             hoverEnabled: true
-            onClicked: { planetSelector.focusedPlanet = focusPlanet; }
+            onClicked: {
+               console.log('Boton Planeta: '+focusPlanet)
+                planetSelector.focusedPlanet = focusPlanet;
+            }
         }
     }
 
