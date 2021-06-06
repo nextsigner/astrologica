@@ -92,6 +92,16 @@ Rectangle {
                     c: true
                     KeyNavigation.tab: tiGMT.t
                     t.inputMask: "00:00"
+                    t.color: valid?'white':'red'
+                    property   bool valid: false
+                    onTextChanged: {
+                        let s=text.split(':')
+                        if(s[0].length<2||s[1].length<2){
+                            valid=false
+                        }else{
+                            valid=true
+                        }
+                    }
                 }
             }
             Row{
@@ -119,6 +129,7 @@ Rectangle {
                 t.font.pixelSize: app.fs*0.65;
                 KeyNavigation.tab: botCrear
                 t.maximumLength: 50
+                onTextChanged: t.color='white'
             }
         }
         Button{

@@ -10,6 +10,7 @@ Item {
     width: app.fs*5
     height: xTi.height
     //focus: txt.focus
+    //signal textChanged(string text)
     Rectangle{
         id: xTi
         width: r.width//+app.fs
@@ -50,6 +51,7 @@ Item {
             width: parent.width-app.fs
             anchors.centerIn: parent
             horizontalAlignment: r.c?TextInput.AlignHCenter:TextInput.AlignLeft
+            onTextChanged: r.textChanged(text)
         }
     }
 }
