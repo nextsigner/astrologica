@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick 2.12
 import QtGraphicalEffects 1.0
 
 Item {
@@ -19,6 +19,10 @@ Item {
                 target: r
                 width: sweg.width
             }
+            PropertyChanges {
+                target: ejeMC
+                width: sweg.objSignsCircle.width
+            }
         },
         State {
             name: sweg.aStates[1]
@@ -26,12 +30,20 @@ Item {
                 target: r
                 width: sweg.width-app.fs*5
             }
+            PropertyChanges {
+                target: ejeMC
+                width: sweg.objSignsCircle.width+app.fs*3
+            }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
                 width: sweg.width-app.fs
+            }
+            PropertyChanges {
+                target: ejeMC
+                width: sweg.objSignsCircle.width
             }
         }
     ]
@@ -134,18 +146,9 @@ Item {
     }
     Rectangle{
         id: ejeMC
-        width: sweg.objSignsCircle.width
         height: 1
         anchors.centerIn: parent
         color: 'transparent'
-        //        Rectangle{
-        //            width: housesCircle.w*0.5
-        //            height: housesCircle.wb
-        //            //border.width: 1
-        //            //border.color: 'yellow'
-        //            anchors.verticalCenter: parent.verticalCenter
-        //            color: app.signColors[0]
-        //        }
         Rectangle{
             id: xIconMC
             property bool selected: app.currentPlanetIndex===16
@@ -158,7 +161,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.left
             anchors.rightMargin: 0
-            opacity: app.currentPlanetIndex!==16&&anchors.rightMargin===0?0.0:1.0
+            //opacity: app.currentPlanetIndex===16&&anchors.rightMargin!==0?1.0:0.0
             Behavior on anchors.rightMargin{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
             Behavior on x{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
             state: sweg.state
@@ -178,7 +181,7 @@ Item {
                     name: sweg.aStates[1]
                     PropertyChanges {
                         target: xIconMC
-                        anchors.rightMargin: app.currentPlanetIndex===16?0- housesCircle.width*0.5-xIconMC.width*0.5:0
+                        anchors.rightMargin: app.currentPlanetIndex===16?0- housesCircle.width*0.5-xIconMC.width*0.5-app.fs*1.5:0
                     }
                     PropertyChanges {
                         target: xIconMC
@@ -224,55 +227,51 @@ Item {
                 height: width
                 anchors.centerIn: parent
             }
+
             ColorOverlay {
                 id: co2
                 anchors.fill: img2
                 source: img2
                 color: 'red'
             }
-            Row{
-                //anchors.centerIn: parent
+            Text{
+                text: 'MC '+app.signos[r.isMC]
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+                width: contentWidth
                 anchors.verticalCenter: parent.verticalCenter
-                x:0-((width-parent.width)/2)-parent.width/2
-                spacing: app.fs*0.05
-                Text{
-                    text: 'MC '+app.signos[r.isMC]
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    width: contentWidth//app.fs*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                    horizontalAlignment: Text.AlignRight
-                    Rectangle{
-                        width: parent.contentWidth+3
-                        height: parent.contentHeight+3
-                        color: 'black'
-                        border.width: 1
-                        border.color: 'white'
-                        radius: app.fs*0.1
-                        z: parent.z-1
-                        opacity: 0.5
-                        anchors.centerIn: parent
-                    }
+                anchors.right: parent.left
+                anchors.rightMargin: app.fs*0.1
+                Rectangle{
+                    width: parent.contentWidth+3
+                    height: parent.contentHeight+3
+                    color: 'black'
+                    border.width: 1
+                    border.color: 'white'
+                    radius: app.fs*0.1
+                    z: parent.z-1
+                    opacity: 0.5
+                    anchors.centerIn: parent
                 }
-                Item{width: xIconMC.width;height: width}
-                Text{
-                    text: '°'+r.gdegAsc+' \''+r.mdegAsc+''
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    width: contentWidth// app.fs*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                    horizontalAlignment: Text.AlignLeft
-                    Rectangle{
-                        width: parent.contentWidth+3
-                        height: parent.contentHeight+3
-                        color: 'black'
-                        border.width: 1
-                        border.color: 'white'
-                        radius: app.fs*0.1
-                        z: parent.z-1
-                        opacity: 0.5
-                        anchors.centerIn: parent
-                    }
+            }
+            Text{
+                text: '°'+r.gdegAsc+' \''+r.mdegAsc+''
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+                width: contentWidth// app.fs*0.5
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.right
+                anchors.leftMargin: app.fs*0.1
+                Rectangle{
+                    width: parent.contentWidth+3
+                    height: parent.contentHeight+3
+                    color: 'black'
+                    border.width: 1
+                    border.color: 'white'
+                    radius: app.fs*0.1
+                    z: parent.z-1
+                    opacity: 0.5
+                    anchors.centerIn: parent
                 }
             }
         }
