@@ -20,6 +20,10 @@ Item {
                 width: sweg.width
             }
             PropertyChanges {
+                target: ejeAsc
+                width: sweg.objSignsCircle.width
+            }
+            PropertyChanges {
                 target: ejeMC
                 width: sweg.objSignsCircle.width
             }
@@ -31,6 +35,10 @@ Item {
                 width: sweg.width-app.fs*5
             }
             PropertyChanges {
+                target: ejeAsc
+                width: sweg.objSignsCircle.width+app.fs*3
+            }
+            PropertyChanges {
                 target: ejeMC
                 width: sweg.objSignsCircle.width+app.fs*3
             }
@@ -40,6 +48,10 @@ Item {
             PropertyChanges {
                 target: r
                 width: sweg.width-app.fs
+            }
+            PropertyChanges {
+                target: ejeAsc
+                width: sweg.objSignsCircle.width
             }
             PropertyChanges {
                 target: ejeMC
@@ -255,7 +267,7 @@ Item {
                 }
             }
             Text{
-                text: '°'+r.gdegAsc+' \''+r.mdegAsc+''
+                text: '°'+r.gdegMC+' \''+r.mdegMC+''
                 font.pixelSize: app.fs*0.5
                 color: 'white'
                 width: contentWidth// app.fs*0.5
