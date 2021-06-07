@@ -121,6 +121,7 @@ Item {
     }
     function loadHouses(jsonData) {
         //setHousesArcs()
+        let sumaInf=0
         let resta=0.000000
         let nh=0
         let o1//=jsonData.pc.h1
@@ -155,10 +156,19 @@ Item {
             //indexSign1=app.objSignsNames.indexOf(o1.s)
             indexSign1=o1.is
             p1=indexSign1*30+o1.rsgdeg
+            //p1=parseInt(indexSign1*30+o1.rsgdeg)
             indexSign2=o2.is//app.objSignsNames.indexOf(o2.s)
             p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
+            //p2=parseInt(indexSign2*30+o2.rsgdeg+(o2.mdeg/60))
+            if(i<4){
+                sumaInf+=p2-p1+(o1.mdeg/60)
+                //console.log('sumaInf: '+sumaInf)
+            }
             h.wg=p2-p1+(o1.mdeg/60)
             h.rotation=90-resta-(o1.mdeg/60)
+            console.log('wg: '+h.wg)
+            //console.log('Rotación: '+h.rotation)
+            //console.log('Desde: '+p1+' hasta:'+p2)
             //console.log('wg: '+h.wg+' rot: '+h.rotation)
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
         }

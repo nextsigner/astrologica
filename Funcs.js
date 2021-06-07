@@ -156,14 +156,24 @@ function runCmd(){
 
 //Astrologica
 function loadJson(file){
+    //Global Vars Reset
+    app.currentPlanetIndex=-1
+    app.currentSignIndex= 0
+    app.currentNom= ''
+    app.currentFecha= ''
+    app.currentGradoSolar= -1
+    app.currentMinutoSolar= -1
+    app.currentSegundoSolar= -1
+    app.currentGmt= 0
+    app.currentLon= 0.0
+    app.currentLat= 0.0
+    app.uSon=''
+
     apps.url=file
     let fn=apps.url
     let jsonFileName=fn
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
-    //console.log('main.loadJson('+file+'):'+jsonFileData)
-
     app.fileData=jsonFileData
-    //app.currentData=app.fileData
     let jsonData=JSON.parse(jsonFileData)
     if(parseInt(jsonData.params.ms)===0){
         panelDataBodies.enabled=true

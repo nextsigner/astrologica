@@ -7,8 +7,8 @@ Rectangle {
     width: parent.width*0.25
     height: parent.height
     color: 'black'
-    border.width: 2
-    border.color: 'white'
+    //border.width: 2
+    //border.color: 'white'
     state: 'hide'
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
@@ -43,11 +43,30 @@ Rectangle {
             txtDataSearch.focus=true
         }
     }
+    Rectangle{
+        width: 1
+        height: parent.height
+    }
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
+        spacing: app.fs*0.25
+        Rectangle{
+            width: lv.width
+            height: app.fs
+            color: 'black'
+            border.width: 2
+            border.color: 'white'
+            Text {
+                text: '<b>Astrológica v1.0 by @nextsigner</b>'
+                font.pixelSize: app.fs*0.5
+                width: contentWidth
+                color: 'white'
+                anchors.centerIn: parent
+            }
+        }
         ListView{
             id: lv
-            width: r.width
+            width: r.width-r.border.width*2
             height: r.height
             anchors.horizontalCenter: parent.horizontalCenter
             delegate: compItemList
@@ -78,7 +97,7 @@ Rectangle {
             width: lv.width
             height: txtData.contentHeight+app.fs*0.1
             color: index===app.currentPlanetIndex?'white':'black'
-            border.width: index===app.currentPlanetIndex?4:2
+            border.width: index===app.currentPlanetIndex?2:0
             border.color: 'white'
             Text {
                 id: txtData

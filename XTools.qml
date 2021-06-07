@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.0
+import "Funcs.js" as JS
 
 Rectangle {
     id: r
@@ -18,20 +19,12 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             visible: app.uSon!==''
             onClicked: {
-                app.showIW()
+                JS.showIW()
             }
         }
         Row{
             spacing: app.fs*0.25
             anchors.horizontalCenter: parent.horizontalCenter
-            Button{
-                text: 'A'
-                width: app.fs*0.6
-                height: app.fs*0.6
-                onClicked: {
-                    app.showIWFILES()
-                }
-            }
             Button{
                 visible: app.uSon.indexOf('asc_')===0||app.uSon.indexOf('mc_')===0||app.uSon.indexOf('sun_')===0
                 text: 'S'
@@ -39,13 +32,13 @@ Rectangle {
                 height: app.fs*0.6
                 onClicked: {
                     if(app.uSon.indexOf('asc_')===0){
-                        app.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uAscDegree-1)
+                        JS.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uAscDegree-1)
                     }
                     if(app.uSon.indexOf('mc_')===0){
-                        app.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uMcDegree-1)
+                        JS.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.uMcDegree-1)
                     }
                     if(app.uSon.indexOf('sun_')===0){
-                        app.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.currentGradoSolar-1)
+                        JS.showSABIANOS(app.objSignsNames.indexOf(app.uSon.split('_')[1]), app.currentGradoSolar-1)
                     }
                 }
             }

@@ -55,11 +55,6 @@ Item {
         w: app.fs*6
         visible: r.v
     }
-    AscMcCircle{
-        id: ascMcCircle
-        width: housesCircle.width
-        height: width
-    }
     SignCircle{
         id:signCircle
         width: planetsCircle.expand?r.width-app.fs*6+app.fs*2:r.width-app.fs*6
@@ -81,6 +76,12 @@ Item {
         //showBorder: true
         //v:r.v
     }
+    AscMcCircle{
+        id: ascMcCircle
+        width: housesCircle.width
+        height: width
+    }
+
     Rectangle{
         //Este esta en el centro
         visible: false

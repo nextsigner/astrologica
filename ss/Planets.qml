@@ -53,14 +53,6 @@ Item {
     }
     //! [1]
     onFocusedPlanetChanged: {
-        if (focusedPlanet == 100) {
-            info.opacity = 0;
-            updatePlanetInfo();
-        } else {
-            updatePlanetInfo();
-            info.opacity = 0.5;
-        }
-
         GLCode.prepareFocusedPlanetAnimation();
 
         lookAtOffsetAnimation.restart();
@@ -74,7 +66,6 @@ Item {
         y: mainview.canvas3dY
         width: mainview.canvas3dWidth
         height: mainview.canvas3dHeight
-        //anchors.fill: parent
         //! [4]
         onInitializeGL: {
             GLCode.initializeGL(canvas3d, eventSource, mainview);
@@ -82,7 +73,6 @@ Item {
         //! [4]
         onPaintGL: {
             GLCode.paintGL(canvas3d);
-            fpsDisplay.fps = canvas3d.fps;
         }
 
         onResizeGL: {
@@ -110,92 +100,6 @@ Item {
                 planetNumber:num
             }
         }
-        /*ListElement {
-            name: "Sol"
-            radius: "109 x Tierra"
-            temperature: "5 778 K"
-            orbitalPeriod: ""
-            distance: ""
-            planetImageSource: "images/sun.png"
-            planetNumber: 0
-        }
-        ListElement {
-            name: "Mercurio"
-            radius: "0.3829 x Tierra"
-            temperature: "80-700 K"
-            orbitalPeriod: "87.969 d"
-            distance: "0.387 098 AU"
-            planetImageSource: "images/mercury.png"
-            planetNumber: 1
-        }        
-        ListElement {
-            name: "Venus"
-            radius: "0.9499 x Tierra"
-            temperature: "737 K"
-            orbitalPeriod: "224.701 d"
-            distance: "0.723 327 AU"
-            planetImageSource: "images/venus.png"
-            planetNumber: 2
-        }
-        ListElement {
-            name: "Tierra"
-            radius: "6 378.1 km"
-            temperature: "184-330 K"
-            orbitalPeriod: "365.256 d"
-            distance: "149598261 km (1 AU)"
-            planetImageSource: "images/earth.png"
-            planetNumber: 3
-        }
-        ListElement {
-            name: "Marte"
-            radius: "0.533 x Tierra"
-            temperature: "130-308 K"
-            orbitalPeriod: "686.971 d"
-            distance: "1.523679 AU"
-            planetImageSource: "images/mars.png"
-            planetNumber: 4
-        }
-        ListElement {
-            name: "Jupiter"
-            radius: "11.209 x Tierra"
-            temperature: "112-165 K"
-            orbitalPeriod: "4332.59 d"
-            distance: "5.204267 AU"
-            planetImageSource: "images/jupiter.png"
-            planetNumber: 5
-        }
-        ListElement {
-            name: "Saturno"
-            radius: "9.4492 x Tierra"
-            temperature: "84-134 K"
-            orbitalPeriod: "10759.22 d"
-            distance: "9.5820172 AU"
-            planetImageSource: "images/saturn.png"
-            planetNumber: 6
-        }
-        ListElement {
-            name: "Urano"
-            radius: "4.007 x Tierra"
-            temperature: "49-76 K"
-            orbitalPeriod: "30687.15 d"
-            distance: "19.189253 AU"
-            planetImageSource: "images/uranus.png"
-            planetNumber: 7
-        }
-        ListElement {
-            name: "Neptuno"
-            radius: "3.883 x Tierra"
-            temperature: "55-72 K"
-            orbitalPeriod: "60190.03 d"
-            distance: "30.070900 AU"
-            planetImageSource: "images/neptune.png"
-            planetNumber: 8
-        }
-        ListElement {
-            name: "Sistema Solar"
-            planetImageSource: ""
-            planetNumber: 100 // Defaults to solar system
-        }*/
     }
 
     Component {
@@ -209,48 +113,6 @@ Item {
             fontSize: textSize
         }
     }
-
-    ListView {
-        id: planetButtonView
-        anchors.top: parent.top
-        anchors.right: parent.right
-        anchors.bottom: parent.bottom
-        anchors.rightMargin: planetButtonSize / 5
-        anchors.bottomMargin: planetButtonSize / 7
-        spacing: planetButtonSize / 7
-        width: planetButtonSize * 1.4
-        interactive: false
-        model: planetModel
-        delegate: planetButtonDelegate
-        visible: false
-    }
-
-    InfoSheet {
-        id: info
-        width: 400
-        anchors.right: planetButtonView.left
-        anchors.rightMargin: 10
-        opacity: 0.5
-        visible: false
-        // Set initial information for Solar System
-        planet: "Sistema Solar"
-        exampleDetails: "Sistema Solar para Astrología</p>" +
-                        "<p>Se ha creado este proyecto para mostrar los planetas de un modo sencillo</p>"
-    }
-
-    function updatePlanetInfo() {
-
-        info.width = 200;
-
-        if (focusedPlanet !== 100) {
-            info.planet = planetModel.get(focusedPlanet).name
-            info.radius = planetModel.get(focusedPlanet).radius
-            info.temperature = planetModel.get(focusedPlanet).temperature
-            info.orbitalPeriod = planetModel.get(focusedPlanet).orbitalPeriod
-            info.distance = planetModel.get(focusedPlanet).distance
-        }
-    }
-
     StyledSlider {
         id: speedSlider
         anchors.top: parent.top
@@ -330,15 +192,7 @@ Item {
         visible: false
     }
 
-    // FPS display, initially hidden, clicking will show it
-    FpsDisplay {
-        id: fpsDisplay
-        anchors.left: parent.left
-        anchors.top: parent.top
-        width: 32
-        height: 64
-        hidden: true
-    }
+
     Text{
         id: txt
         font.pixelSize: 50

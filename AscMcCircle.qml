@@ -76,6 +76,9 @@ Item {
             border.color: co.color
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.left
+            onSelectedChanged:{
+                app.uSon='asc_'+app.objSignsNames[r.isAsc]+'_1'
+            }
             SequentialAnimation on color {
                 running: true
                 loops: Animation.Infinite
@@ -293,12 +296,14 @@ Item {
         r.isAsc=o1.is
         r.gdegAsc=o1.rsgdeg
         r.mdegAsc=o1.mdeg
+        app.uAscDegree=o1.rsgdeg
 
         let degs=(30*o1.is)+o1.rsgdeg
         o1=jsonData.ph['h10']
         r.isMC=o1.is
         r.gdegMC=o1.rsgdeg
         r.mdegMC=o1.mdeg
+        app.uMcDegree=o1.rsgdeg
         ejeMC.rotation=degs-360-o1.gdeg
         xIconMC.rotation=0-ejeMC.rotation
     }
