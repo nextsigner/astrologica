@@ -206,6 +206,7 @@ Item {
         opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
         Row{
             anchors.left: circleBot.right
+            visible: false
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)

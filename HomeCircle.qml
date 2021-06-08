@@ -4,7 +4,7 @@ Item {
     id: r
     property int currentHouse: -1
     property int w: app.fs*3
-    property int wb: app.fs*0.15
+    property int wb: 1//app.fs*0.15
     property int f: 0
     property bool v: false
     property bool showBorder: false
@@ -121,7 +121,8 @@ Item {
     }
     function loadHouses(jsonData) {
         //setHousesArcs()
-        let sumaInf=0
+        let sumaInf=0.0
+        let f1
         let resta=0.000000
         let nh=0
         let o1//=jsonData.pc.h1
@@ -156,17 +157,40 @@ Item {
             //indexSign1=app.objSignsNames.indexOf(o1.s)
             indexSign1=o1.is
             p1=indexSign1*30+o1.rsgdeg
-            //p1=parseInt(indexSign1*30+o1.rsgdeg)
+            //p1=parseInt(indexSign1*30)
             indexSign2=o2.is//app.objSignsNames.indexOf(o2.s)
             p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
-            //p2=parseInt(indexSign2*30+o2.rsgdeg+(o2.mdeg/60))
-            if(i<4){
-                sumaInf+=p2-p1+(o1.mdeg/60)
-                //console.log('sumaInf: '+sumaInf)
-            }
+            //p2=parseInt(indexSign2*30+o2.rsgdeg)
             h.wg=p2-p1+(o1.mdeg/60)
+            //h.wg=p2-p1//+(o1.mdeg/60)
             h.rotation=90-resta-(o1.mdeg/60)
-            console.log('wg: '+h.wg)
+
+            if(false){
+                r.z=sweg.objPlanetsCircle.z+1
+                sweg.objSignsCircle.visible=false
+            }
+            /*if(i<5){
+                f1=h.wg
+                if(f1<0){
+                    f1=360+f1
+                }
+                console.log('f1: '+f1)
+                sumaInf+=f1
+                console.log('sumaInf: '+sumaInf)
+            }
+            if(i===6){
+                let wg6=180-sumaInf
+                console.log('wg6: '+wg6)
+                h.wg=wg6
+                h.rotation=90-180
+            }
+            if(i===11){
+                let wg11=sumaInf
+                console.log('wg11: '+wg11)
+                h.wg=wg11
+                h.rotation=90//-360
+            }*/
+            //console.log('wg: '+h.wg)
             //console.log('Rotación: '+h.rotation)
             //console.log('Desde: '+p1+' hasta:'+p2)
             //console.log('wg: '+h.wg+' rot: '+h.rotation)

@@ -12,6 +12,7 @@ Item {
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
     property alias objSignsCircle: signCircle
+    property alias objAscMcCircle: ascMcCircle
     property int speedRotation: 1000
     property var aStates: ['ps', 'pc', 'pa']
     state: aStates[0]
@@ -54,6 +55,7 @@ Item {
         rotation: -90
         w: app.fs*6
         visible: r.v
+        //z: ascMcCircle.z+1
     }
     SignCircle{
         id:signCircle
@@ -63,6 +65,7 @@ Item {
         showBorder: true
         v:r.v
         w: r.state==='ps'?app.fs:app.fs*0.5
+        //visible: false
     }
     AspCircle{
         id: aspsCircle
