@@ -16,7 +16,8 @@ Item {
     property bool selected: housesCircle.currentHouse===n
     property  real op: 100.0
     property int opacitySpeed: 100
-    property int extraWidth: value
+    property int extraWidth: 0
+    property alias showEjeCentro: ejeCentro.visible
     Behavior on w{NumberAnimation{duration: 500}}
     Behavior on width{NumberAnimation{duration:500}}
     state: sweg.state
@@ -204,9 +205,15 @@ Item {
         color: 'transparent'
         anchors.centerIn: r
         opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
+        Rectangle{
+            visible: false//Depurando
+            width: parent.width*3
+            height: r.wb
+            color: 'yellow'
+        }
         Row{
             anchors.left: circleBot.right
-            visible: false
+            //visible: false
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
@@ -290,7 +297,7 @@ Item {
         rotation: 0-r.wg/2
         visible:false
         Rectangle{
-            width: app.fs*3
+            width: app.fs
             height: width
             //x:(r.w-width)/2
             border.width: 2
@@ -302,10 +309,11 @@ Item {
             //anchors.left: parent.left
             //anchors.leftMargin: 0-width
             Text {
-                text: '<b>'+r.n+'</b>'
-                font.pixelSize: parent.width*0.8
+                text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
+                font.pixelSize: parent.width*0.3
                 anchors.centerIn: parent
                 color: 'white'
+                rotation: 270+ejeCentro.rotation
             }
         }
     }

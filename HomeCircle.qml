@@ -4,7 +4,7 @@ Item {
     id: r
     property int currentHouse: -1
     property int w: app.fs*3
-    property int wb: 1//app.fs*0.15
+    property int wb: app.fs*0.15
     property int f: 0
     property bool v: false
     property bool showBorder: false
@@ -120,6 +120,10 @@ Item {
         //setHousesArcs()
     }
     function loadHouses(jsonData) {
+        if(false){
+            loadHouses2(jsonData)
+            return
+        }
         //setHousesArcs()
         let sumaInf=0.0
         let f1
@@ -157,18 +161,104 @@ Item {
             //indexSign1=app.objSignsNames.indexOf(o1.s)
             indexSign1=o1.is
             p1=indexSign1*30+o1.rsgdeg
-            //p1=parseInt(indexSign1*30)
             indexSign2=o2.is//app.objSignsNames.indexOf(o2.s)
             p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
-            //p2=parseInt(indexSign2*30+o2.rsgdeg)
             h.wg=p2-p1+(o1.mdeg/60)
-            //h.wg=p2-p1//+(o1.mdeg/60)
             h.rotation=90-resta-(o1.mdeg/60)
+            resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
+        }
+    }
+    function loadHouses2(jsonData) {
+        r.z=sweg.objPlanetsCircle.z+1
+        sweg.objSignsCircle.visible=false
+        r.wb=1
+        sweg.state='pc'
+        xArcs.rotation=90
 
-            if(false){
-                r.z=sweg.objPlanetsCircle.z+1
-                sweg.objSignsCircle.visible=false
+        //setHousesArcs()
+        let sumaInf=0.0
+        let f1
+        let resta=0.000000
+        let nh=0
+        let o1//=jsonData.pc.h1
+        let o2//=jsonData.pc.h2
+        let indexSign1//=app.objSignsNames.indexOf(o1.s)
+        let p1//=indexSign1*30+o1.g
+        let indexSign2//=app.objSignsNames.indexOf(o2.s)
+        let p2//=indexSign2*30+o2.g
+        //xArcs.children[nh].wg=p2-p1
+        //resta+=xArcs.children[nh].wg
+        //return
+        //for(var i=0;i<12;i++){
+        let gp=[]
+        for(var i=0;i<12;i++){
+
+            nh=i
+            let h=xArcs.children[i]
+            if(i>6){
+                h.visible=false
+            }else{
+                h.showEjeCentro=true
             }
+            h.op=0.0
+            //console.log('HomeArc: '+h.objectName)
+            let sh1=''
+            let sh2=''
+            if(i===11){
+                sh1='h'+parseInt(nh + 1)
+                sh2='h1'
+                //console.log('Ob1: '+sh1+ ' '+sh2)
+                o1=jsonData.ph[sh1]
+                o2=jsonData.ph[sh2]
+            }else{
+                sh1='h'+parseInt(nh + 1)
+                sh2='h'+parseInt(nh + 2)
+                //console.log('Ob2: '+sh1+ ' '+sh2)
+                o1=jsonData.ph[sh1]
+                o2=jsonData.ph[sh2]
+            }
+            //indexSign1=app.objSignsNames.indexOf(o1.s)
+            indexSign1=o1.is
+            //p1=indexSign1*30+o1.rsgdeg
+            p1=parseInt(indexSign1*30)
+            indexSign2=o2.is//app.objSignsNames.indexOf(o2.s)
+            //p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
+            p2=parseInt(indexSign2*30)
+            let wgf=p2-p1+(o1.mdeg/60)
+            if(wgf<0){
+                h.wg=360+p2-p1//+(o1.mdeg/60)
+            }else{
+                h.wg=p2-p1//+(o1.mdeg/60)
+            }
+
+
+            //h.wg=p2-p1//+(o1.mdeg/60)
+            //h.rotation=90-resta-(o1.mdeg/60)
+
+            if(i===0){
+                h.rotation=0
+            }else{
+                if(i===1){
+                    h.rotation=360-gp[i-1]
+                }
+                if(i===2){
+                    h.rotation=360-(gp[i-1]+gp[i-2])
+                }
+                if(i===3){
+                    h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3])
+                }
+                if(i===4){
+                    h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4])
+                }
+                if(i===5){
+                    h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5])
+                }
+                if(i===6){
+                    h.rotation=360-180//(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6])
+                }
+            }
+            //h.rotation=360-resta-(o1.mdeg/60)
+            gp.push(wgf)
             /*if(i<5){
                 f1=h.wg
                 if(f1<0){

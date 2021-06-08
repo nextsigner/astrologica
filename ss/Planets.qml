@@ -60,6 +60,13 @@ Item {
     }
     //! [1]
     //! [0]
+    Rectangle{
+        anchors.fill: canvas3d
+        border.width: 2
+        border.color: 'white'
+        color: 'transparent'
+        z:canvas3d.z+1
+    }
     Canvas3D {
         id: canvas3d
         x: mainview.canvas3dX
