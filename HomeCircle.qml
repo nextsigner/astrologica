@@ -4,7 +4,7 @@ Item {
     id: r
     property int currentHouse: -1
     property int w: app.fs*3
-    property int wb: app.fs*0.15
+    property int wb: 1//app.fs*0.15
     property int f: 0
     property bool v: false
     property bool showBorder: false

@@ -4,6 +4,7 @@ import datetime
 import sys
 from subprocess import run, PIPE
 
+houseType="K"
 
 def decdeg2dms(dd):
    is_positive = dd >= 0
@@ -131,7 +132,7 @@ getIndexSign
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 
 horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
-horaLocal = horaLocal - datetime.timedelta(minutes=int(30))
+#horaLocal = horaLocal - datetime.timedelta(minutes=int(30))
 #print(horaLocal)
 
 dia=horaLocal.strftime('%d')
@@ -161,7 +162,7 @@ oblicuidad=posObli[0][0]
 
 #Se calculan casas previamente para calcular en cada cuerpo con swe.house_pos(...)
 #h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
-h=swe.houses(jd1, float(lat), float(lon), bytes("K", encoding = "utf-8"))
+h=swe.houses(jd1, float(lat), float(lon), bytes(houseType, encoding = "utf-8"))
 
 jsonString='{'
 
@@ -201,7 +202,7 @@ for i in np:
     jsonBodies+='"rsgdeg":' + str(rsgdeg)+', '
     jsonBodies+='"mdeg":' + str(mdeg)+', '
     jsonBodies+='"sdeg":' + str(sdeg)+', '
-    posHouse=swe.house_pos(h[0][9],float(lat), oblicuidad, gObj, 0.0, bytes("P", encoding = "utf-8"))
+    posHouse=swe.house_pos(h[0][9],float(lat), oblicuidad, gObj, 0.0, bytes(houseType, encoding = "utf-8"))
 
     jsonBodies+='"ih":' + str(int(posHouse))+', '
     jsonBodies+='"dh":' + str(posHouse)

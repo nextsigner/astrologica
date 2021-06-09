@@ -13,6 +13,7 @@ Item {
     property int canvas3dHeight: 400
 
     property alias lm: planetModel
+    property alias wb: winBorder
 
     property int focusedPlanet: 0
     property int oldPlanet: 0
@@ -61,11 +62,13 @@ Item {
     //! [1]
     //! [0]
     Rectangle{
+        id: winBorder
         anchors.fill: canvas3d
         border.width: 2
         border.color: 'white'
         color: 'transparent'
         z:canvas3d.z+1
+        antialiasing: true
     }
     Canvas3D {
         id: canvas3d

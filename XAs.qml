@@ -123,7 +123,7 @@ Item{
         //width: r.fs*0.85
         height: width
         anchors.left: parent.left
-        anchors.leftMargin: !r.selected?0:app.fs*0.175
+        //anchors.leftMargin: !r.selected?0:width*0.5
         anchors.verticalCenter: parent.verticalCenter
         Rectangle{
             //Circulo que queda mostrando el cuerpo chico.

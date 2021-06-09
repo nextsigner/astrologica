@@ -87,9 +87,9 @@ Item {
 
     Rectangle{
         //Este esta en el centro
-        visible: false
+        //visible: false
         opacity: 0.5
-        width: planetsCircle.children[0].fs*0.85+4
+        width: app.fs*2//planetsCircle.children[0].fs*0.85+4
         height: width
         color: 'red'
         radius: width*0.5

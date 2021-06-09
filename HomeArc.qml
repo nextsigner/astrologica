@@ -142,12 +142,14 @@ Item {
         border.color: 'red'
         radius: width*0.5
         visible: r.showBorder
+        antialiasing: true
     }
     Canvas {
         id:canvas
         width: r.width//-app.fs
         height: width
         opacity: 0.65
+        antialiasing: true
         onPaint:{
             var ctx = canvas.getContext('2d');
             ctx.reset();
@@ -180,6 +182,7 @@ Item {
         width: r.width
         height: width
         opacity: canvas.opacity
+        antialiasing: true
         onPaint:{
             var ctx = canvas2.getContext('2d')
             ctx.reset();
@@ -205,26 +208,30 @@ Item {
         color: 'transparent'
         anchors.centerIn: r
         opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
+       antialiasing: true
         Rectangle{
             visible: false//Depurando
             width: parent.width*3
             height: r.wb
             color: 'yellow'
+            antialiasing: true
         }
         Row{
             anchors.left: circleBot.right
-            visible: false
+            //visible: false
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
                 height: r.wb
                 color: r.colors[r.c]
+                antialiasing: true
             }
             Rectangle{
                 id: lineaEje2
                 width: r.w
                 height: r.wb
                 color: r.colors[r.c]
+                antialiasing: true
             }
         }
         Rectangle{
@@ -236,6 +243,7 @@ Item {
             border.width: r.wb
             border.color: lineaEje.color
             anchors.verticalCenter: parent.verticalCenter
+            antialiasing: true
             state: sweg.state
             states: [
                 State {
@@ -306,6 +314,7 @@ Item {
             color: 'red'//r.colors[r.c]
             anchors.verticalCenter: parent.verticalCenter
             rotation: 90-r.rotation-parent.rotation
+            antialiasing: true
             //anchors.left: parent.left
             //anchors.leftMargin: 0-width
             Text {

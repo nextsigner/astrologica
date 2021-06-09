@@ -65,6 +65,7 @@ Item {
         height: 1
         anchors.centerIn: parent
         color: 'transparent'
+       antialiasing: true
         Rectangle{
             id: xIconAsc
             property bool selected: app.currentPlanetIndex===15
@@ -74,6 +75,7 @@ Item {
             color: 'black'
             border.width: sweg.objHousesCircle.wb
             border.color: co.color
+            antialiasing: true
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.left
             onSelectedChanged:{
@@ -133,6 +135,7 @@ Item {
                         radius: app.fs*0.1
                         z: parent.z-1
                         opacity: 0.5
+                        antialiasing: true
                         anchors.centerIn: parent
                     }
                 }
@@ -154,6 +157,7 @@ Item {
                         z: parent.z-1
                         opacity: 0.5
                         anchors.centerIn: parent
+                        antialiasing: true
                     }
                 }
             }
@@ -164,6 +168,7 @@ Item {
         height: 1
         anchors.centerIn: parent
         color: 'transparent'
+        antialiasing: true
         Rectangle{
             id: xIconMC
             property bool selected: app.currentPlanetIndex===16
@@ -173,6 +178,7 @@ Item {
             color: 'black'
             border.width: sweg.objHousesCircle.wb
             border.color: co2.color
+            antialiasing: true
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.left
             anchors.rightMargin: 0
@@ -266,6 +272,7 @@ Item {
                     radius: app.fs*0.1
                     z: parent.z-1
                     opacity: 0.5
+                    antialiasing: true
                     anchors.centerIn: parent
                 }
             }
@@ -286,6 +293,7 @@ Item {
                     radius: app.fs*0.1
                     z: parent.z-1
                     opacity: 0.5
+                    antialiasing: true
                     anchors.centerIn: parent
                 }
             }
