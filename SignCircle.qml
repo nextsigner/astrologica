@@ -156,4 +156,13 @@ Item {
         }
         app.currentDate=currentDate
     }
+    function rotarSegundos(s){
+        let currentDate=app.currentDate
+        if(s===0){
+            currentDate.setSeconds(currentDate.getSeconds() + 10)
+        }else{
+            currentDate.setSeconds(currentDate.getSeconds() - 10)
+        }
+        app.currentDate=currentDate
+    }
 }

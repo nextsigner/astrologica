@@ -120,7 +120,7 @@ Item {
         //setHousesArcs()
     }
     function loadHouses(jsonData) {
-        if(false){
+        if(true){
             loadHouses2(jsonData)
             return
         }
@@ -169,13 +169,13 @@ Item {
         }
     }
     function loadHouses2(jsonData) {
-        r.z=sweg.objPlanetsCircle.z+1
+        /*r.z=sweg.objPlanetsCircle.z+1
         sweg.objSignsCircle.visible=false
         r.wb=1
         sweg.state='pc'
+        */
         xArcs.rotation=90
 
-        //setHousesArcs()
         let sumaInf=0.0
         let f1
         let resta=0.000000
@@ -186,20 +186,15 @@ Item {
         let p1//=indexSign1*30+o1.g
         let indexSign2//=app.objSignsNames.indexOf(o2.s)
         let p2//=indexSign2*30+o2.g
-        //xArcs.children[nh].wg=p2-p1
-        //resta+=xArcs.children[nh].wg
-        //return
-        //for(var i=0;i<12;i++){
         let gp=[]
         for(var i=0;i<12;i++){
-
             nh=i
             let h=xArcs.children[i]
-            if(i>6){
+            /*if(i>12){
                 h.visible=false
             }else{
                 h.showEjeCentro=true
-            }
+            }*/
             h.op=0.0
             //console.log('HomeArc: '+h.objectName)
             let sh1=''
@@ -219,22 +214,17 @@ Item {
             }
             //indexSign1=app.objSignsNames.indexOf(o1.s)
             indexSign1=o1.is
-            //p1=indexSign1*30+o1.rsgdeg
-            p1=parseInt(indexSign1*30)
+            p1=indexSign1*30+o1.rsgdeg
+            //p1=parseInt(indexSign1*30)
             indexSign2=o2.is//app.objSignsNames.indexOf(o2.s)
-            //p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
-            p2=parseInt(indexSign2*30)
-            let wgf=p2-p1+(o1.mdeg/60)
+            p2=0.0000+indexSign2*30+o2.rsgdeg+(o2.mdeg/60)
+            //p2=parseInt(indexSign2*30)
+            let wgf=parseInt(p2)-parseInt(p1)//+(o1.mdeg/60)
             if(wgf<0){
                 h.wg=360+p2-p1//+(o1.mdeg/60)
             }else{
                 h.wg=p2-p1//+(o1.mdeg/60)
             }
-
-
-            //h.wg=p2-p1//+(o1.mdeg/60)
-            //h.rotation=90-resta-(o1.mdeg/60)
-
             if(i===0){
                 h.rotation=0
             }else{
@@ -254,7 +244,22 @@ Item {
                     h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5])
                 }
                 if(i===6){
-                    h.rotation=360-180//(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6])
+                    h.rotation=h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6])
+                }
+                if(i===7){
+                    h.rotation=h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6]+gp[i-7])
+                }
+                if(i===8){
+                    h.rotation=h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6]+gp[i-7]+gp[i-8])
+                }
+                if(i===9){
+                    h.rotation=h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6]+gp[i-7]+gp[i-8]+gp[i-9])
+                }
+                if(i===10){
+                    h.rotation=h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6]+gp[i-7]+gp[i-8]+gp[i-9]+gp[i-10])
+                }
+                if(i===11){
+                    h.rotation=h.rotation=360-(gp[i-1]+gp[i-2]+gp[i-3]+gp[i-4]+gp[i-5]+gp[i-6]+gp[i-7]+gp[i-8]+gp[i-9]+gp[i-10]+gp[i-11])
                 }
             }
             //h.rotation=360-resta-(o1.mdeg/60)

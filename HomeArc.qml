@@ -213,7 +213,7 @@ Item {
         }
         Row{
             anchors.left: circleBot.right
-            //visible: false
+            visible: false
             Rectangle{
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
@@ -284,7 +284,7 @@ Item {
                 anchors.centerIn: parent
                 //anchors.horizontalCenterOffset: 0-app.fs*0.03
                 //anchors.verticalCenterOffset: app.fs*0.03
-                rotation: 90-r.rotation-parent.rotation
+                rotation: 0-r.rotation-parent.rotation
             }
         }
     }

@@ -297,6 +297,7 @@ function saveJson(){
     app.fileData=app.currentData
     let jsonFileName=apps.url
     unik.setFile(jsonFileName, app.currentData)
+    loadJson(apps.url)
 }
 
 function loadJsonNow(file){

@@ -229,7 +229,8 @@ ApplicationWindow {
                 xSabianos.zoomDown()
                 return
             }
-            signCircle.subir()
+            //signCircle.subir()
+            sweg.objSignsCircle.rotarSegundos(0)
         }
     }
     Shortcut{
@@ -239,7 +240,8 @@ ApplicationWindow {
                 xSabianos.zoomUp()
                 return
             }
-            signCircle.bajar()
+            //signCircle.bajar()
+            sweg.objSignsCircle.rotarSegundos(1)
         }
     }
     Shortcut{

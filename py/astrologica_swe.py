@@ -4,6 +4,7 @@ import datetime
 import sys
 from subprocess import run, PIPE
 
+
 def decdeg2dms(dd):
    is_positive = dd >= 0
    dd = abs(dd)
@@ -130,6 +131,7 @@ getIndexSign
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 
 horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
+horaLocal = horaLocal - datetime.timedelta(minutes=int(30))
 #print(horaLocal)
 
 dia=horaLocal.strftime('%d')
@@ -158,7 +160,8 @@ oblicuidad=posObli[0][0]
 #print('Oblicuidad: ' + str(posObli[0][0]))
 
 #Se calculan casas previamente para calcular en cada cuerpo con swe.house_pos(...)
-h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
+#h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
+h=swe.houses(jd1, float(lat), float(lon), bytes("K", encoding = "utf-8"))
 
 jsonString='{'
 
