@@ -13,6 +13,7 @@ Item {
     property alias objHousesCircle: housesCircle
     property alias objSignsCircle: signCircle
     property alias objAscMcCircle: ascMcCircle
+    property alias objEclipseCircle: eclipseCircle
     property int speedRotation: 1000
     property var aStates: ['ps', 'pc', 'pa']
     state: aStates[0]
@@ -84,10 +85,15 @@ Item {
         width: housesCircle.width
         height: width
     }
+    EclipseCircle{
+        id: eclipseCircle
+        width: housesCircle.width
+        height: width
+    }
 
     Rectangle{
         //Este esta en el centro
-        //visible: false
+        visible: false
         opacity: 0.5
         width: app.fs*2//planetsCircle.children[0].fs*0.85+4
         height: width
@@ -172,6 +178,8 @@ Item {
         xAsp.load(j)
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
+        eclipseCircle.arrayWg=housesCircle.arrayWg
+        eclipseCircle.isEclipse=-1
         r.v=true
     }
     function nextState(){

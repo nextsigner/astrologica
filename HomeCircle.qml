@@ -8,6 +8,7 @@ Item {
     property int f: 0
     property bool v: false
     property bool showBorder: false
+    property var arrayWg: []
     state: sweg.state
     states: [
         State {
@@ -120,6 +121,7 @@ Item {
         //setHousesArcs()
     }
     function loadHouses(jsonData) {
+        r.arrayWg=[]
         if(true){
             loadHouses2(jsonData)
             return
@@ -139,6 +141,9 @@ Item {
         //resta+=xArcs.children[nh].wg
         //return
         for(var i=0;i<12;i++){
+            if(i===0){
+                app.uAscDegreeTotal=jsonData.ph.h1.gdec
+            }
             nh=i
             let h=xArcs.children[i]
             h.op=0.0
@@ -166,6 +171,8 @@ Item {
             h.wg=p2-p1+(o1.mdeg/60)
             h.rotation=90-resta-(o1.mdeg/60)
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
+            r.arrayWg.push(h.wg)
+            //console.log('r.arrayWg: '+r.arrayWg.toString())
         }
     }
     function loadHouses2(jsonData) {
@@ -174,6 +181,7 @@ Item {
         r.wb=1
         sweg.state='pc'
         */
+        r.arrayWg=[]
         xArcs.rotation=90
 
         let sumaInf=0.0
@@ -188,6 +196,9 @@ Item {
         let p2//=indexSign2*30+o2.g
         let gp=[]
         for(var i=0;i<12;i++){
+            if(i===0){
+                app.uAscDegreeTotal=jsonData.ph.h1.gdec
+            }
             nh=i
             let h=xArcs.children[i]
             /*if(i>12){
@@ -290,6 +301,8 @@ Item {
             //console.log('Desde: '+p1+' hasta:'+p2)
             //console.log('wg: '+h.wg+' rot: '+h.rotation)
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
+            r.arrayWg.push(h.wg)
+            console.log('r.arrayWg: '+r.arrayWg.toString())
         }
     }
 }

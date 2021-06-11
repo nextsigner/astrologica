@@ -3,10 +3,10 @@ import QtCanvas3D 1.0
 
 import "planets.js" as GLCode
 
-Item {
+Rectangle {
     id: mainview
     anchors.fill: parent
-
+    color: "transparent"
     property int canvas3dX: 0
     property int canvas3dY: 0
     property int canvas3dWidth: 400
@@ -14,6 +14,7 @@ Item {
 
     property alias lm: planetModel
     property alias wb: winBorder
+    property alias ds: distanceSlider
 
     property int focusedPlanet: 0
     property int oldPlanet: 0
@@ -129,7 +130,7 @@ Item {
         anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
         width: sliderLength
-        value: 0.1
+        value: 0.05
         minimumValue: 0
         maximumValue: 1
         onValueChanged: GLCode.onSpeedChanged(value);
@@ -178,8 +179,8 @@ Item {
         anchors.verticalCenter: parent.verticalCenter
         orientation: Qt.Vertical
         height: sliderLength
-        value: 1
-        minimumValue: 1
+        value: -3
+        minimumValue: -6
         maximumValue: 2
         //! [2]
         onValueChanged: GLCode.setCameraDistance(value);

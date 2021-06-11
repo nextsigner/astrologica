@@ -1,18 +1,11 @@
 import QtQuick 2.12
 import QtQuick.Controls 2.12
-import "./ss" as SS
+
 
 ApplicationWindow {
     id: r
-    property alias ssp: ssPlanets
-    SS.Planets{
-        id: ssPlanets
-        canvas3dX: 0
-        canvas3dY: 0
-        canvas3dWidth: 400
-        canvas3dHeight: 400
-        //focusedPlanet: 6
-    }
+    property alias ssp: xPlanets.ssp
+    XPlanets{id: xPlanets}
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {
@@ -173,6 +166,12 @@ ApplicationWindow {
         sequence: 'Ctrl+f'
         onActivated: {
             panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'
+        }
+    }
+    Shortcut{
+        sequence: 'Ctrl+Shift+c'
+        onActivated: {
+            panelCmd.state=panelCmd.state==='show'?'hide':'show'
         }
     }
     Shortcut{

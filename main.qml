@@ -51,6 +51,7 @@ AppWin {
     property var planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property var signColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
+    property int uAscDegreeTotal: -1
     property int uAscDegree: -1
     property int uMcDegree: -1
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
@@ -192,6 +193,7 @@ AppWin {
         PanelDataBodies{id: panelDataBodies}
         PanelControlsSign{id: panelControlsSign}
         PanelNewVNA{id: panelNewVNA}
+        PanelCmd{id: panelCmd}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
