@@ -302,7 +302,6 @@ Item {
             //console.log('wg: '+h.wg+' rot: '+h.rotation)
             resta+=xArcs.children[nh].wg-(o1.mdeg/60)-(o2.mdeg/60)
             r.arrayWg.push(h.wg)
-            console.log('r.arrayWg: '+r.arrayWg.toString())
         }
     }
 }

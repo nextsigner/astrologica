@@ -10,6 +10,7 @@ Item {
     property int mdegEclipse: -1
     property int house: -1
     property var arrayWg
+    property alias typeEclipse: anEclipse.typeEclipse
 
     state: sweg.state
     states: [
@@ -90,63 +91,56 @@ Item {
                 }
             }
             Behavior on width{NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
-            Image {
-                id: img
-                source: "./resources/imgs/signos/"+r.isEclipse+".svg"
-                width: parent.width*0.65
-                height: width
+            XEclipse{
+                id: anEclipse
                 anchors.centerIn: parent
-            }
-            ColorOverlay {
-                id: co
-                anchors.fill: img
-                source: img
-                color: 'red'
-            }
-            Column{
-                //anchors.centerIn: co
-                width: parent.width
-                anchors.verticalCenter: parent.verticalCenter
-                spacing: app.fs*0.05
-                Text{
-                    text: 'Eclipse '+app.signos[r.isEclipse]
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    width: contentWidth
-                    anchors.right: parent.right
-                    horizontalAlignment: Text.AlignRight
-                    Rectangle{
-                        width: parent.contentWidth+3
-                        height: parent.contentHeight+3
-                        color: 'black'
-                        border.width: 1
-                        border.color: 'white'
-                        radius: app.fs*0.1
-                        z: parent.z-1
-                        opacity: 0.5
-                        antialiasing: true
-                        anchors.centerIn: parent
+                onWidthChanged: col.width=width
+                Column{
+                    id: col
+                    //anchors.centerIn: co
+                    width: parent.width
+                    anchors.verticalCenter: parent.verticalCenter
+                    spacing: app.fs*0.05
+                    Text{
+                        text: 'Eclipse '+app.signos[r.isEclipse]
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                        width: contentWidth
+                        anchors.right: parent.right
+                        horizontalAlignment: Text.AlignRight
+                        Rectangle{
+                            width: parent.contentWidth+3
+                            height: parent.contentHeight+3
+                            color: 'black'
+                            border.width: 1
+                            border.color: 'white'
+                            radius: app.fs*0.1
+                            z: parent.z-1
+                            opacity: 0.5
+                            antialiasing: true
+                            anchors.centerIn: parent
+                        }
                     }
-                }
-                Item{width: xIconEclipse.width;height: width}
-                Text{
-                    text: '°'+r.gdegEclipse+' \''+r.mdegEclipse+' - Casa '+r.house
-                    font.pixelSize: app.fs*0.5
-                    color: 'white'
-                    width: contentWidth
-                    anchors.right: parent.right
-                    horizontalAlignment: Text.AlignRight
-                    Rectangle{
-                        width: parent.contentWidth+3
-                        height: parent.contentHeight+3
-                        color: 'black'
-                        border.width: 1
-                        border.color: 'white'
-                        radius: app.fs*0.1
-                        z: parent.z-1
-                        opacity: 0.5
-                        anchors.centerIn: parent
-                        antialiasing: true
+                    Item{width: xIconEclipse.width;height: width}
+                    Text{
+                        text: '°'+r.gdegEclipse+' \''+r.mdegEclipse+' - Casa '+r.house
+                        font.pixelSize: app.fs*0.5
+                        color: 'white'
+                        width: contentWidth
+                        anchors.right: parent.right
+                        horizontalAlignment: Text.AlignRight
+                        Rectangle{
+                            width: parent.contentWidth+3
+                            height: parent.contentHeight+3
+                            color: 'black'
+                            border.width: 1
+                            border.color: 'white'
+                            radius: app.fs*0.1
+                            z: parent.z-1
+                            opacity: 0.5
+                            anchors.centerIn: parent
+                            antialiasing: true
+                        }
                     }
                 }
             }
@@ -160,7 +154,7 @@ Item {
         //ejeEclipse.rotation=degs-360-gdeg
         ejeEclipse.rotation=sweg.objSignsCircle.rot-gdeg
         xIconEclipse.rotation=0-ejeEclipse.rotation
-        console.log(JSON.stringify(r.json))
+        //console.log(JSON.stringify(r.json))
         let j=r.json
         let sum=0
         let h=1
@@ -173,5 +167,8 @@ Item {
             }
             h++
         }
+        anEclipse.width=anEclipse.parent.width
+        app.currentPlanetIndex=-1
+        r.visible=true
     }
 }

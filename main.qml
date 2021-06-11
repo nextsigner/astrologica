@@ -102,6 +102,7 @@ AppWin {
         id: xApp
         anchors.fill: parent
         SweGraphic{id: sweg}
+
         XDataBar{
             id: xDataBar
         }
