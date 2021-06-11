@@ -20,10 +20,10 @@ Rectangle {
     Image {
         id: luna
         source: "./resources/imgs/luna1.png"
-        width: parent.width
+        width: parent.width+parent.width*0.1
         height: width
         anchors.centerIn: parent
-        anchors.horizontalCenterOffset: 0-r.width*0.1
+        //anchors.horizontalCenterOffset: 0-r.width*0.1
         visible: r.typeEclipse===1
     }
     Rectangle {
@@ -46,7 +46,7 @@ Rectangle {
                     target: som
                     property: "x"
                     from:r.width
-                    to: 0
+                    to: r.typeEclipse===0?0:0+r.width*0.05
                     duration: 3000
                     easing.type: Easing.InOutQuad
                 }
@@ -56,7 +56,7 @@ Rectangle {
                 PropertyAnimation{
                     target: som
                     property: "x"
-                    from:0
+                    from:r.typeEclipse===0?0:0+r.width*0.05
                     to: 0-r.width//-som.width
                     duration: 3000
                     easing.type: Easing.InOutQuad
