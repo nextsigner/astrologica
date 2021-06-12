@@ -19,6 +19,7 @@ Rectangle {
             PropertyChanges {
                 target: r
                 width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-app.fs
+                opacity: 0.0
             }
         },
         State {
@@ -26,6 +27,7 @@ Rectangle {
             PropertyChanges {
                 target: r
                 width: 0//Está invisible, no sirve de nada que le ponga una medida acá. XD
+                opacity: 0.0
             }
         },
         State {
@@ -33,6 +35,7 @@ Rectangle {
             PropertyChanges {
                 target: r
                 width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-app.fs
+                opacity: 1.0
             }
         }
     ]

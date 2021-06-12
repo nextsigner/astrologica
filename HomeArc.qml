@@ -26,7 +26,7 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: ejeV
-                width:  r.width+app.fs
+                width:  r.width+app.fs*1.5
             }
             PropertyChanges {
                 target: canvas2
@@ -35,14 +35,9 @@ Item {
             PropertyChanges {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
-            }
-            PropertyChanges {
-                target: r
                 extraWidth: 0
-            }
-            PropertyChanges {
-                target: r
-                w: planetsCircle.width-(planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2))/2
+                //w: planetsCircle.width-(planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2))/2
+                 w: !r.selected?app.fs*2.5:app.fs*6
             }
         },
         State {
@@ -58,13 +53,7 @@ Item {
             PropertyChanges {
                 target: r
                 colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
-            }
-            PropertyChanges {
-                target: r
                 extraWidth: app.fs*2.5
-            }
-            PropertyChanges {
-                target: r
                 w: !r.selected?app.fs*2.5:app.fs*6
             }
         },
@@ -72,7 +61,7 @@ Item {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: ejeV
-                width:  r.width+app.fs
+                width:  r.width+app.fs*1.5
             }
             PropertyChanges {
                 target: canvas2
@@ -81,13 +70,7 @@ Item {
             PropertyChanges {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
-            }
-            PropertyChanges {
-                target: r
                 extraWidth: 0
-            }
-            PropertyChanges {
-                target: r
                 w: app.fs*2
             }
         }
@@ -207,7 +190,7 @@ Item {
         height: r.wb
         color: 'transparent'
         anchors.centerIn: r
-        opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
+        //opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
        antialiasing: true
         Rectangle{
             visible: false//Depurando
@@ -223,7 +206,7 @@ Item {
                 id: lineaEje
                 width: ((ejeV.width-r.width)*0.5-circleBot.width)
                 height: r.wb
-                color: r.colors[r.c]
+                color: r.selected?r.colors[r.c]:'white'
                 antialiasing: true
             }
             Rectangle{
@@ -250,8 +233,9 @@ Item {
                     name: sweg.aStates[0]
                     PropertyChanges {
                         target: circleBot
-                        width: app.fs*0.25+r.wb*2
-                        border.width: r.wb*0.25
+                        width: app.fs*0.5
+                        border.width: 1
+                        border.color: 'white'
                     }
                 },
                 State {
@@ -260,14 +244,16 @@ Item {
                         target: circleBot
                         width: app.fs*0.75+r.wb*2
                         border.width: r.wb
+                        border.color: lineaEje.color
                     }
                 },
                 State {
                     name: sweg.aStates[2]
                     PropertyChanges {
                         target: circleBot
-                        width: app.fs*0.25+r.wb*2
-                        border.width: r.wb*0.25
+                        width: app.fs*0.5
+                        border.width: 1
+                        border.color: 'white'
                     }
                 }
             ]
@@ -288,10 +274,8 @@ Item {
                 width: contentWidth
                 height: contentHeight
                 horizontalAlignment: Text.AlignHCenter
-                color: r.colors[r.c]
+                color: circleBot.border.color
                 anchors.centerIn: parent
-                //anchors.horizontalCenterOffset: 0-app.fs*0.03
-                //anchors.verticalCenterOffset: app.fs*0.03
                 rotation: 0-r.rotation-parent.rotation
             }
         }

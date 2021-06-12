@@ -5,7 +5,7 @@ import "planets.js" as GLCode
 
 Rectangle {
     id: mainview
-    anchors.fill: parent
+    //anchors.fill: parent
     color: "transparent"
     property int canvas3dX: 0
     property int canvas3dY: 0
@@ -15,6 +15,7 @@ Rectangle {
     property alias lm: planetModel
     property alias wb: winBorder
     property alias ds: distanceSlider
+    property alias ss: scaleSlider
 
     property int focusedPlanet: 0
     property int oldPlanet: 0
@@ -181,7 +182,7 @@ Rectangle {
         height: sliderLength
         value: -3
         minimumValue: -6
-        maximumValue: 2
+        maximumValue: 3
         //! [2]
         onValueChanged: GLCode.setCameraDistance(value);
         //! [2]
