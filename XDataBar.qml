@@ -1,5 +1,6 @@
 import QtQuick 2.7
 import "Funcs.js" as JS
+import "./comps" as Comps
 Rectangle {
     id: r
     width: parent.width
@@ -29,14 +30,14 @@ Rectangle {
     ]
     Behavior on y{NumberAnimation{duration:350;easing.type: Easing.InOutQuad}}
     onStateChanged: {
-        if(state==='show')tHide.restart()
+        //if(state==='show')tHide.restart()
     }
     Timer{
         id: tHide
         running: false
         repeat: false
         interval: 15*1000
-        onTriggered: r.state='hide'
+        //onTriggered: r.state='hide'
     }
     Row{
         id: row
@@ -69,6 +70,12 @@ Rectangle {
             textFormat: Text.RichText
             y:(parent.height-height)/2
         }
+    }
+    Comps.XTimes{
+        id: xTimes
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.1
+        anchors.verticalCenter: parent.verticalCenter
     }
     Row{
         spacing: app.fs*0.5

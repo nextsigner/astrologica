@@ -207,15 +207,16 @@ function loadJson(file){
         textData=''
                 +'<b>'+nom+'</b> '
                 +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
+                +'<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
                 +'<b> '+vCiudad+'</b> '
-                +'<b>long:</b> '+vlon+' <b>lat:</b> '+vlat+' '
+                +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
     }else{
         textData=''
                 +'<b>Revolución Solar</b></p> '
                 +'<b>'+nom+'</b> '
                 +'<b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs '
         //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-        //+'<p style="font-size:20px;"> <b>long:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
+        //+'<p style="font-size:20px;"> <b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
 
     }
 
@@ -334,10 +335,11 @@ function loadJsonNow(file){
     let textData=''
 
     textData=''
-    +'<b>'+nom+'</b> '
-    +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
-    +'<b> '+vCiudad+'</b> '
-    +'<b>long:</b> '+vlon+' <b>lat:</b> '+vlat+' '
+            +'<b>'+nom+'</b> '
+            +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
+            +'<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
+            +'<b> '+vCiudad+'</b> '
+            +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
 
     //Seteando datos globales de mapa energético
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))

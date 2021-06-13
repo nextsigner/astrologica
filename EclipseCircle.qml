@@ -62,8 +62,8 @@ Item {
             height: width
             radius: width*0.5
             color: 'black'
-            border.width: sweg.objHousesCircle.wb
-            border.color: co.color
+            border.width: 0//sweg.objHousesCircle.wb
+            border.color: 'white'//co.color
             antialiasing: true
             anchors.verticalCenter: parent.verticalCenter
             anchors.right: parent.left
