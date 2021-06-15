@@ -169,6 +169,12 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+t'
+        onActivated: {
+            apps.showTimes=!apps.showTimes
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
             panelCmd.state=panelCmd.state==='show'?'hide':'show'

@@ -6,6 +6,8 @@ Item {
     height: parent.height
     property var arrayHour: [0,0,0]
     property var arrayCrono: [0,0,0,0]
+    property int yPos: apps.showTimes&&xDataBar.state!=='show'?r.height:0
+    Behavior on yPos{NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
     Row{
         id: row
         anchors.verticalCenter: parent.verticalCenter
@@ -16,7 +18,7 @@ Item {
                 model: 3
                 Text {
                     text: index===0?'00':':00'
-                    font.pixelSize: app.fs*0.8
+                    font.pixelSize: app.fs*0.5
                     color: 'white'
                     MouseArea{
                         anchors.fill: parent
@@ -36,15 +38,16 @@ Item {
                 }
             }
         }
-        Item{width: app.fs*0.5;height: 1}
+        Item{width: app.fs*0.1;height: 1}
         Row{
             id: row1
             anchors.verticalCenter: parent.verticalCenter
+            width: app.fs*1.6
             Repeater{
                 model: 3
                 Text {
                     text: index===0?'00':':00'
-                    font.pixelSize: app.fs*0.8
+                    font.pixelSize: app.fs*0.5
                     color: 'white'
                     MouseArea{
                         anchors.fill: parent

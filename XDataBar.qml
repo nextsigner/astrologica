@@ -11,6 +11,7 @@ Rectangle {
     property alias fileData: txtCurrentData.text
     property alias currentDateText: txtCurrentDate.text
     property alias currentGmtText: txtCurrentGmt.text
+    property bool showTimes: false
     state: 'hide'
     states:[
         State {
@@ -76,6 +77,7 @@ Rectangle {
         anchors.right: parent.right
         anchors.rightMargin: app.fs*0.1
         anchors.verticalCenter: parent.verticalCenter
+        anchors.verticalCenterOffset: yPos
     }
     Row{
         spacing: app.fs*0.5

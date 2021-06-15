@@ -97,6 +97,7 @@ AppWin {
         id: apps
         fileName:'astrologica.cfg'
         property string url: ''
+        property bool showTimes: false
     }
     Item{
         id: xApp
