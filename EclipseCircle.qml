@@ -33,7 +33,7 @@ Item {
             }
             PropertyChanges {
                 target: ejeEclipse
-                width: sweg.objSignsCircle.width+app.fs*3
+                width: sweg.objSignsCircle.width-app.fs*4
             }
         },
         State {
@@ -44,7 +44,7 @@ Item {
             }
             PropertyChanges {
                 target: ejeEclipse
-                width: sweg.objSignsCircle.width
+                width: sweg.objSignsCircle.width-app.fs*6
             }
         }
     ]
@@ -55,6 +55,7 @@ Item {
         anchors.centerIn: parent
         color: 'red'//'transparent'
         antialiasing: true
+        Behavior on width{NumberAnimation{duration: 500; easing.type: Easing.InOutQuad}}
         Rectangle{
             id: xIconEclipse
             property bool selected: app.currentPlanetIndex===15
@@ -70,25 +71,6 @@ Item {
             //rotation: 0-parent.rotation
             onSelectedChanged:{
                 //app.uSon='asc_'+app.objSignsNames[r.isAsc]+'_1'
-            }
-            SequentialAnimation on color {
-                running: true
-                loops: Animation.Infinite
-                PropertyAnimation {
-                    target: co;
-                    property: "color"
-                    from: 'red'
-                    to: 'yellow'
-                }
-                PauseAnimation {
-                    duration: 100
-                }
-                PropertyAnimation {
-                    target: co;
-                    property: "color"
-                    from: 'yellow'
-                    to: 'red'
-                }
             }
             Behavior on width{NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
             XEclipse{

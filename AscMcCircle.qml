@@ -65,7 +65,7 @@ Item {
         height: 1
         anchors.centerIn: parent
         color: 'transparent'
-       antialiasing: true
+        antialiasing: true
         Rectangle{
             id: xIconAsc
             property bool selected: app.currentPlanetIndex===15
@@ -81,6 +81,30 @@ Item {
             onSelectedChanged:{
                 app.uSon='asc_'+app.objSignsNames[r.isAsc]+'_1'
             }
+            state: sweg.state
+            states: [
+                State {
+                    name: sweg.aStates[0]
+                    PropertyChanges {
+                        target: xIconAsc
+                        anchors.rightMargin: 0
+                    }
+                },
+                State {
+                    name: sweg.aStates[1]
+                    PropertyChanges {
+                        target: xIconAsc
+                        anchors.rightMargin: app.currentPlanetIndex===15?0- housesCircle.width*0.5-xIconAsc.width*0.5-app.fs*1.5:0
+                    }
+                },
+                State {
+                    name: sweg.aStates[2]
+                    PropertyChanges {
+                        target: xIconAsc
+                        anchors.rightMargin: 0
+                    }
+                }
+            ]
             SequentialAnimation on color {
                 running: true
                 loops: Animation.Infinite
@@ -100,6 +124,7 @@ Item {
                     to: 'red'
                 }
             }
+            Behavior on anchors.rightMargin{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
             Behavior on width{NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
             Image {
                 id: img

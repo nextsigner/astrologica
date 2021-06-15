@@ -9,6 +9,7 @@ Item {
     property bool v: false
     property alias expand: planetsCircle.expand
     property alias objAspsCircle: aspsCircle
+    property alias objXAsp: xAsp
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
     property alias objSignsCircle: signCircle
@@ -84,6 +85,64 @@ Item {
         id: ascMcCircle
         width: housesCircle.width
         height: width
+    }
+    Grid{
+        id: xAsp
+        spacing: app.fs*0.1
+        columns: 2
+        anchors.right: parent.left
+        anchors.bottom: parent.bottom
+
+        function load(jsonData){
+            for(var i=0;i<xAsp.children.length;i++){
+                xAsp.children[i].destroy(1)
+            }
+            if(!jsonData.asps)return
+            let asp=jsonData.asps
+            for(i=0;i<Object.keys(asp).length;i++){
+                if(asp['asp'+parseInt(i +1)]){
+                    let a=asp['asp'+parseInt(i +1)]
+                    //console.log('Asp: '+'asp'+parseInt(i +1))
+                    let comp=Qt.createComponent('XAsp.qml')
+                    let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia, indexAsp: i})
+                }
+            }
+        }
+        function resaltar(c){
+            for(var i=0;i<xAsp.children.length;i++){
+                xAsp.children[i].invertido=false
+            }
+            for(var i=0;i<xAsp.children.length;i++){
+                console.log('resaltar('+c+'); '+xAsp.children[i].c1)
+                let s1=xAsp.children[i].c1+'-'+xAsp.children[i].c2
+                let s2=xAsp.children[i].c2+'-'+xAsp.children[i].c1
+                if(s1.indexOf(app.uCuerpoAsp)>=0||s2.indexOf(app.uCuerpoAsp)>=0){
+                    xAsp.children[i].opacity=1.0
+                    xAsp.children[i].visible=true
+                    if(xAsp.children[i].c1!==c){
+                        xAsp.children[i].invertido=true
+                    }
+                    xAsp.columns=2
+                }else{
+                    xAsp.columns=1
+                    //if(xAsp.children[i].c1===c||xAsp.children[i].c2===c){
+                    //                        if(xAsp.children[i].c2===c){
+                    //                            xAsp.children[i].opacity=1.0
+                    //                            xAsp.children[i].visible=true
+                    //                            //xAsp.height=app.fs*2
+                    //                        }else{
+                    xAsp.children[i].opacity=0.5
+                    xAsp.children[i].visible=false
+                    //xAsp.height=app.fs*0.9
+                    //}
+                }
+            }
+            if(c===app.uCuerpoAsp){
+                app.uCuerpoAsp=''
+            }else{
+                app.uCuerpoAsp=c
+            }
+        }
     }
     EclipseCircle{
         id: eclipseCircle
@@ -170,6 +229,7 @@ Item {
     function loadSweJson(json){
         //console.log('JSON::: '+json)
         sweg.objHousesCircle.currentHouse=-1
+        app.currentPlanetIndex=-1
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec

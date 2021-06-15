@@ -3,13 +3,11 @@ import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 import "comps" as Comps
 import "Funcs.js" as JS
-Rectangle {
+
+Item {
     id: r
     width: parent.width
-    height: app.fs*2
-    color: 'black'
-    border.width: 2
-    border.color: 'white'
+    height: tiCmd.height
     y:r.parent.height
     property real lat
     property real lon
@@ -20,6 +18,15 @@ Rectangle {
             PropertyChanges {
                 target: r
                 y:r.parent.height-r.height
+                //z:1000
+            }
+            PropertyChanges {
+                target: sweg.objXAsp
+                visible:false
+            }
+            PropertyChanges {
+                target: xStatus
+                visible:false
             }
         },
         State {
@@ -27,6 +34,14 @@ Rectangle {
             PropertyChanges {
                 target: r
                 y:r.parent.height
+            }
+            PropertyChanges {
+                target: sweg.objXAsp
+                visible:true
+            }
+            PropertyChanges {
+                target: xStatus
+                visible:true
             }
         }
     ]
@@ -47,17 +62,9 @@ Rectangle {
         Row{
             spacing: app.fs*05
             anchors.verticalCenter: parent.verticalCenter
-            Comps.XText{
-                id: labelCmd
-                text:'Comando:'
-                t.color: 'white'
-                t.font.pixelSize: app.fs*0.35
-                height: app.fs*0.8
-                //anchors.verticalCenter: parent.verticalCenter
-            }
             Comps.XTextInput{
                 id: tiCmd
-                width: r.width-labelCmd.width-app.fs
+                width: r.width
                 t.font.pixelSize: app.fs*0.65
                 anchors.verticalCenter: parent.verticalCenter
                 Keys.onReturnPressed: {
@@ -81,12 +88,11 @@ Rectangle {
         if(comando.length<1)return
         if(comando[0]==='eclipse'){
             if(comando.length<5)return
-            c=''
-            //+'  console.log("Eclipse: "+logData)\n'
-                    +'  let json=JSON.parse(logData)\n'
-                    +'  r.state="hide"\n'
-                    +'  sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)\n'
-                    +'  sweg.objEclipseCircle.typeEclipse='+comando[4]+'\n'
+            c='let json=JSON.parse(logData)
+r.state="hide"
+sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)
+sweg.objEclipseCircle.typeEclipse='+comando[4]+''
+                    sweg.objHousesCircle.currentHouse=-1
 
             finalCmd=''
                     +'python3 ./py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+''
@@ -106,7 +112,7 @@ Rectangle {
             let cd3=new Date(cd2)
             finalCmd=''
                     +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
-        //console.log('finalCmd: '+finalCmd)
+            //console.log('finalCmd: '+finalCmd)
         }
         mkCmd(finalCmd, c)
     }
