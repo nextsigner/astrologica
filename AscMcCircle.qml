@@ -60,6 +60,54 @@ Item {
         }
     ]
     Rectangle{
+        id: ejeCard1
+        width: ejeAsc.width+app.fs*2
+        height: 1//app.fs*0.1
+        color: 'red'
+        anchors.centerIn: r
+        anchors.horizontalCenterOffset: 0-app.fs
+        //opacity: app.currentPlanetIndex===15?1.0:0.0
+        state: app.currentPlanetIndex===15?'showAsc':'hideAsc'
+        states: [
+            State {
+                name: 'showAsc'
+                PropertyChanges {
+                    target: ejeCard1
+                    width: ejeAsc.width+app.fs*4
+                }
+            },
+            State {
+                name: 'hideAsc'
+                PropertyChanges {
+                    target: ejeCard1
+                    width: ejeAsc.width+app.fs*2
+                }
+            }
+        ]
+        Behavior on opacity{NumberAnimation{duration: 500}}
+        Canvas {
+            id:canvas
+            width: app.fs*0.5
+            height: width
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.left: parent.left
+            antialiasing: true
+            onPaint:{
+                var ctx = canvas.getContext('2d');
+                ctx.beginPath();
+                ctx.moveTo(0, canvas.width*0.5);
+                ctx.lineTo(canvas.width, 0);
+                ctx.lineTo(canvas.width, canvas.width);
+                ctx.lineTo(0, canvas.width*0.5);                               ctx.strokeStyle = canvas.parent.color
+                ctx.lineWidth = canvas.parent.height;
+                ctx.fillStyle = canvas.parent.color
+                ctx.fill();
+                ctx.stroke();
+
+            }
+        }
+    }
+    Rectangle{
         id: ejeAsc
         width: sweg.objSignsCircle.width
         height: 1
