@@ -83,13 +83,30 @@ Rectangle {
             if(comando.length<5)return
             c=''
             //+'  console.log("Eclipse: "+logData)\n'
-            +'  let json=JSON.parse(logData)\n'
-            +'  r.state="hide"\n'
-            +'  sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)\n'
-            +'  sweg.objEclipseCircle.typeEclipse='+comando[4]+'\n'
+                    +'  let json=JSON.parse(logData)\n'
+                    +'  r.state="hide"\n'
+                    +'  sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)\n'
+                    +'  sweg.objEclipseCircle.typeEclipse='+comando[4]+'\n'
 
             finalCmd=''
-            +'python3 ./py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+''
+                    +'python3 ./py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+''
+        }
+        if(comando[0]==='rs'){
+            if(comando.length<1)return
+            c=''
+                    +'  let s=""+logData\n'
+                    +'  console.log("RS: "+s)\n'
+                    +'  r.state="hide"\n'
+                    +'  sweg.loadSweJson(s)\n'
+
+            let cd=app.currentDate
+            cd = cd.setFullYear(parseInt(comando[1]))
+            let cd2=new Date(cd)
+            cd2 = cd2.setDate(cd2.getDate() - 1)
+            let cd3=new Date(cd2)
+            finalCmd=''
+                    +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
+        //console.log('finalCmd: '+finalCmd)
         }
         mkCmd(finalCmd, c)
     }

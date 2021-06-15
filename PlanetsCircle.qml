@@ -96,8 +96,10 @@ Item{
             objAs.objData=o
             objSigns[jo.is]++
             if(i===0){
+                app.currentAbsolutoGradoSolar=jo.rsgdeg
                 app.currentGradoSolar=jo.gdeg
                 app.currentMinutoSolar=jo.mdeg
+                app.currentSegundoSolar=jo.sdeg
             }
         }        
     }

@@ -1,7 +1,7 @@
 import swisseph as swe
 import jdutil
 import datetime
-import sys
+import sys, os, pathlib
 from subprocess import run, PIPE
 
 def dms2dd(degrees, minutes, seconds):
@@ -84,8 +84,18 @@ if pos1[0][1] == False:
 if encontradoFinal == False:
     print(encontradoFinal)
 else:
-    print(dateTimeFinal)
-
+    #print(dateTimeFinal)
+    cmd='python3 '+str(pathlib.Path(__file__).parent.absolute())+'/astrologica_swe.py '
+    cmd+=str(dateTimeFinal.day)
+    cmd+=' '+str(dateTimeFinal.month)
+    cmd+=' '+str(dateTimeFinal.year)
+    cmd+=' '+str(dateTimeFinal.hour)
+    cmd+=' '+str(dateTimeFinal.minute)
+    cmd+=' '+str(gmt)
+    cmd+=' '+str(lat)
+    cmd+=' '+str(lon)
+    #cmd+=' -35.47857 -69.61535'
+    os.system(cmd)
 #print(pos1)
 #print(pos2)
 

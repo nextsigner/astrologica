@@ -137,7 +137,6 @@ Item {
     }
     function load(j){
         //console.log('Ejecutando SweGraphic.load()...')
-        sweg.objHousesCircle.currentHouse=-1
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -170,6 +169,7 @@ Item {
     }
     function loadSweJson(json){
         //console.log('JSON::: '+json)
+        sweg.objHousesCircle.currentHouse=-1
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec
