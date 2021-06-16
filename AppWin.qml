@@ -6,6 +6,9 @@ ApplicationWindow {
     id: r
     property alias ssp: xPlanets.ssp
     XPlanets{id: xPlanets}
+
+
+
     Shortcut{
         sequence: 'Ctrl+Down'
         onActivated: {
