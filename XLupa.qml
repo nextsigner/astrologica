@@ -1,69 +1,87 @@
-import QtQuick 2.0
+import QtQuick 2.7
 import QtGraphicalEffects 1.0
 Item {
     id: r
-    width: app.fs*3
+    width: app.fs*4
     height: width
-    //border.width: 2
-    //border.color: 'red'
-    //radius: width*0.5
-    //color: 'black'
+    property real zoom: 2.0
+    property alias image:img
+    property int mod: 0
     clip: true
+    onModChanged: {
+        if(mod===0){
+            xViewLupa.visible=false
+        }
+        if(mod===1){
+            xViewLupa.visible=true
+        }
+        if(mod===2){
+            xViewLupa.visible=true
+        }
+    }
     MouseArea{
         anchors.fill: r
         drag.axis: Drag.XAndYAxis
         drag.target: r
-
-    }
-
-    Image {
-        id: img
-        x:0-r.x+sweg.width*0.5+app.fs*0.17
-        y: 0-r.y//+r.width//*0.5//-sweg.height*0.5//+app.fs
-        width: sweg.width
-        height: sweg.height
-        visible: false
-        //scale: 2.0
-        //radius: width*0.5
-        //source: "file"
-        //anchors.centerIn: r
-
+        onClicked: {
+            if(mod===0){
+                mod=1
+                return
+            }
+            if(mod===1){
+                mod=2
+                return
+            }
+            if(mod===2){
+                mod=0
+                return
+            }
+        }
     }
     Rectangle{
-        id: mask
+        id: bg
         anchors.fill: r
-        radius: width*0.5
-        color: 'red'
-        visible: false
+        color: 'black'
+        visible: img.visible
     }
-    OpacityMask {
-        width: img.width
-        height: img.height
-        x: img.width*0.5+img.x*2-r.width*0.5//+sweg.width*0.5
-        y:img.height*0.5+img.y*2-r.width*0.5
-        source: img
-        maskSource: mask
-        opacity: 0.6
-        scale: 2.0
+    Image {
+        id: img
+        x:0-r.x*r.zoom+xApp.width*(r.zoom*0.25)-r.width*0.5
+        y: 0-r.y*r.zoom+xApp.height*(r.zoom*0.25)-r.width*0.5
+        width: xApp.width
+        height: xApp.height
+        scale: r.zoom
+        visible: r.mod!==2
+        onSourceChanged: {
+            if(xViewLupa.visible)xViewLupa.url=source
+        }
+    }
+    Rectangle {
+        id: mask
+        width: 100
+        height: 50
+        //radius: width*0.5
+        visible: false
     }
     Rectangle{
         id: borde
         anchors.fill: r
-        radius: width*0.5
+        //radius: width*0.5
         color: 'transparent'
         border.width: 3
         border.color: 'white'
     }
     Timer{
         id: tScreenShot
-        running: true
+        running: img.visible || xViewLupa.visible
         repeat: true
-        interval: 500
+        interval: 100
         onTriggered: {
-            sweg.grabToImage(function(result) {
+            tScreenShot.stop()
+            xApp.grabToImage(function(result) {
                 //console.log('Url: '+result.url)
                 img.source=result.url
-                //result.saveToFile(name);
+                tScreenShot.restart()
             });
         }
     }

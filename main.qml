@@ -104,7 +104,6 @@ AppWin {
         id: xApp
         anchors.fill: parent
         SweGraphic{id: sweg}
-        XLupa{id: xLupa}
         XDataBar{
             id: xDataBar
         }
@@ -141,6 +140,12 @@ AppWin {
         PanelControlsSign{id: panelControlsSign}
         PanelNewVNA{id: panelNewVNA}
         PanelCmd{id: panelCmd}
+    }
+    Item{
+        id: capa101
+        anchors.fill: xApp
+        XViewLupa{id: xViewLupa}
+        XLupa{id: xLupa}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
