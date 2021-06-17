@@ -9,27 +9,29 @@ Item {
     property bool v: false
     property bool showBorder: false
     property var arrayWg: []
-    state: sweg.state
+    property string extraObjectName: ''
+    property var swegParent//: value
+    state: r.parent.state
     states: [
         State {
-            name: sweg.aStates[0]
+            name: r.parent.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs-app.fs
+                width: r.parent.width-app.fs-app.fs
             }
         },
         State {
-            name: sweg.aStates[1]
+            name: r.parent.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*5-app.fs
+                width: r.parent.width-app.fs*5-app.fs
             }
         },
         State {
-            name: sweg.aStates[2]
+            name: r.parent.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs-app.fs
+                width: r.parent.width-app.fs-app.fs
             }
         }
     ]
@@ -74,7 +76,7 @@ Item {
             Repeater{
                 model: 12
                 HomeArc{
-                    objectName: 'HomeArc'+index
+                    objectName: 'HomeArc'+index+'_'+r.extraObjectName
                     //width: r.width
                     height: width
                     //w:r.w

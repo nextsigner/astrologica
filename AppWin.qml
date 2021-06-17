@@ -39,6 +39,7 @@ ApplicationWindow {
         sequence: 'Ctrl+Space'
         onActivated: {
             sweg.nextState()
+            //swegz.sweg.nextState()
         }
     }
     Shortcut{

@@ -254,7 +254,7 @@ function runJsonTemp(){
     app.currentFecha=vd+'/'+vm+'/'+va
     //xDataBar.state='show'
     sweg.load(jsonData)
-    xAsp.load(jsonData)
+    swegz.sweg.load(jsonData)
 }
 function setNewTimeJsonFileData(date){
     let jsonData=JSON.parse(app.fileData)

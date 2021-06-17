@@ -41,6 +41,7 @@ Item {
             }            
         }
     ]
+    onStateChanged: swegz.sweg.state=state
     Item{id: xuqp}
     Rectangle{
         id: bg
@@ -229,6 +230,7 @@ Item {
     function loadSweJson(json){
         //console.log('JSON::: '+json)
         sweg.objHousesCircle.currentHouse=-1
+        swegz.sweg.objHousesCircle.currentHouse=-1
         app.currentPlanetIndex=-1
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
@@ -251,5 +253,6 @@ Item {
             currentIndexState=0
         }
         r.state=r.aStates[currentIndexState]
+        swegz.sweg.state=r.state
     }
 }

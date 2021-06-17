@@ -10,13 +10,13 @@ Item {
     clip: true
     onModChanged: {
         if(mod===0){
-            xViewLupa.visible=false
+            swegz.visible=false
         }
         if(mod===1){
-            xViewLupa.visible=true
+            swegz.visible=true
         }
         if(mod===2){
-            xViewLupa.visible=true
+            swegz.visible=true
         }
     }
     MouseArea{
@@ -52,9 +52,6 @@ Item {
         height: xApp.height
         scale: r.zoom
         visible: r.mod!==2
-        onSourceChanged: {
-            if(xViewLupa.visible)xViewLupa.url=source
-        }
     }
     Rectangle {
         id: mask

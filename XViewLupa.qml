@@ -11,6 +11,7 @@ Item {
     property int lupaY: xLupa.image.y
     property url url
     clip: true
+    antialiasing: true
     Rectangle{
         anchors.fill: r
         color: 'black'
@@ -23,7 +24,7 @@ Item {
         x:r.lupaX+r.width*0.5-xLupa.width*0.5//0-lupaX*r.zoom+xApp.width*(r.zoom*0.25)//-r.width*0.5
         y: r.lupaY+r.height*0.5-xLupa.height*0.5//0-lupaY*r.zoom+xApp.height*(r.zoom*0.25)//-r.width*0.5
         scale: r.zoom
-        //anchors.centerIn: parent
+       antialiasing: true
     }
     Rectangle{
         anchors.fill: r

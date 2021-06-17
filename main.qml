@@ -68,9 +68,11 @@ AppWin {
         if(currentPlanetIndex>14){
             if(currentPlanetIndex===15){
                 sweg.objHousesCircle.currentHouse=1
+                swegz.sweg.objHousesCircle.currentHouse=1
             }
             if(currentPlanetIndex===16){
                 sweg.objHousesCircle.currentHouse=10
+                swegz.sweg.objHousesCircle.currentHouse=10
             }
         }
     }
@@ -144,7 +146,12 @@ AppWin {
     Item{
         id: capa101
         anchors.fill: xApp
-        XViewLupa{id: xViewLupa}
+        SweGraphicZoom{
+            id: swegz
+            anchors.top: parent.top
+            anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
+            visible: false
+        }
         XLupa{id: xLupa}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
