@@ -8,6 +8,7 @@ import Qt.labs.settings 1.1
 import unik.UnikQProcess 1.0
 
 import "Funcs.js" as JS
+import "./comps" as Comps
 
 
 AppWin {
@@ -137,12 +138,7 @@ AppWin {
             }
         }
         XSabianos{id: xSabianos}
-        PanelFileLoader{id: panelFileLoader}
-        PanelDataBodies{id: panelDataBodies}
-        PanelControlsSign{id: panelControlsSign}
-        PanelNewVNA{id: panelNewVNA}
-        PanelCmd{id: panelCmd}
-    }
+        }
     Item{
         id: capa101
         anchors.fill: xApp
@@ -150,9 +146,21 @@ AppWin {
             id: swegz
             anchors.top: parent.top
             anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
-            visible: false
+            anchors.bottom: parent.bottom
         }
         XLupa{id: xLupa}
+        Comps.XLayerTouch{
+            id: xLayerTouch
+            onMove: {
+                xLupa.x=px-xLupa.width*0.5
+                xLupa.y=py-xLupa.height*0.5
+            }
+        }
+        PanelFileLoader{id: panelFileLoader}
+        PanelDataBodies{id: panelDataBodies}
+        PanelControlsSign{id: panelControlsSign}
+        PanelNewVNA{id: panelNewVNA}
+        PanelCmd{id: panelCmd}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {

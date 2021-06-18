@@ -167,6 +167,12 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+Shift+a'
+        onActivated: {
+            xLayerTouch.visible=!xLayerTouch.visible
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+f'
         onActivated: {
             panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'

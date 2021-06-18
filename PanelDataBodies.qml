@@ -15,7 +15,7 @@ Rectangle {
     onCurrentIndexChanged: {
         if(!r.enabled)return
         sweg.objHousesCircle.currentHouse=currentIndex
-        //swegz.objHousesCircle.currentHouse=currentIndex
+        swegz.sweg.objHousesCircle.currentHouse=currentIndex
     }
     states: [
         State {

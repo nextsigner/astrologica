@@ -10,15 +10,17 @@ Item {
     clip: true
     onModChanged: {
         if(mod===0){
-            swegz.visible=false
+            swegz.state='hide'
         }
         if(mod===1){
-            swegz.visible=true
+            swegz.state='show'
         }
         if(mod===2){
-            swegz.visible=true
+            swegz.state='show'
         }
     }
+    Behavior on x{NumberAnimation{duration: 1000;easing.type: Easing.OutQuad}}
+    Behavior on y{NumberAnimation{duration: 1000;easing.type: Easing.OutQuad}}
     MouseArea{
         anchors.fill: r
         drag.axis: Drag.XAndYAxis
@@ -70,9 +72,9 @@ Item {
     }
     Timer{
         id: tScreenShot
-        running: img.visible || xViewLupa.visible
+        running: img.visible
         repeat: true
-        interval: 100
+        interval: 1
         onTriggered: {
             tScreenShot.stop()
             xApp.grabToImage(function(result) {

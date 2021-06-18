@@ -6,13 +6,30 @@ Item {
     id: r
     width: xApp.width*0.2
     height: width
-    anchors.verticalCenter: parent.verticalCenter
     property alias sweg: objSweGraphinZoom
     property real zoom: 2.0
     property int lupaX: xLupa.image.x
     property int lupaY: xLupa.image.y
     //visible: false
     clip: true
+    state: 'hide'
+    states: [
+        State {
+            name: "show"
+            PropertyChanges {
+                target: r
+                x:0
+            }
+        },
+        State {
+            name: "hide"
+            PropertyChanges {
+                target: r
+                x:0-r.width
+            }
+        }
+    ]
+    Behavior on x{NumberAnimation{duration: 250}}
     Rectangle{
         anchors.fill: r
         color: 'black'
@@ -41,6 +58,7 @@ Item {
         text: 'S:'+objSweGraphinZoom.state+' CH:'+objSweGraphinZoom.objHousesCircle.currentHouse
         font.pixelSize: app.fs
         color: 'red'
+        visible: false
     }
     Rectangle{
         anchors.fill: r
