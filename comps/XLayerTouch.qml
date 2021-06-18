@@ -5,11 +5,20 @@ Item {
     anchors.fill: parent
     signal move(int px, int py)
     MouseArea{
-        anchors.fill: r
-        onClicked: r.move(mouseX, mouseY)
+        //anchors.fill: r
+        width: sweg.width
+        height: r.height
+        anchors.horizontalCenter: parent.horizontalCenter
+        onClicked: r.move(mouseX+((r.width-sweg.width)*0.5), mouseY)
         onDoubleClicked: {
             r.visible=false
             tShow.restart()
+        }
+        Rectangle{
+            anchors.fill: parent
+            color: 'red'
+            opacity: 0.5
+            visible: false
         }
     }
     Timer{

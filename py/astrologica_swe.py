@@ -4,7 +4,7 @@ import datetime
 import sys
 from subprocess import run, PIPE
 
-houseType="K"
+houseType="T"
 
 def decdeg2dms(dd):
    is_positive = dd >= 0

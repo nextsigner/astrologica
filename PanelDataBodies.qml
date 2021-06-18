@@ -40,8 +40,8 @@ Rectangle {
     }
     onXChanged: {
         if(x===0){
-            txtDataSearch.selectAll()
-            txtDataSearch.focus=true
+            //txtDataSearch.selectAll()
+            //txtDataSearch.focus=true
         }
     }
     Rectangle{
@@ -109,6 +109,17 @@ Rectangle {
                 textFormat: Text.RichText
                 color: index===app.currentPlanetIndex?'black':'white'
                 anchors.centerIn: parent
+            }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    app.currentPlanetIndex=index
+                }
+                Rectangle{
+                    anchors.fill: parent
+                    color: 'red'
+                    visible: false
+                }
             }
         }
     }

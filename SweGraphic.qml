@@ -92,7 +92,9 @@ Item {
         spacing: app.fs*0.1
         columns: 2
         anchors.right: parent.left
+        anchors.rightMargin: app.fs*4
         anchors.bottom: parent.bottom
+        anchors.bottomMargin: app.fs*0.2
 
         function load(jsonData){
             for(var i=0;i<xAsp.children.length;i++){
@@ -185,7 +187,7 @@ Item {
         c+='    onLogDataChanged:{\n'
         c+='        let json=(\'\'+logData).replace(/\\n/g, \'\')\n'
         c+='        app.currentJsonSignData=JSON.parse(json)\n'
-        c+='        PanelControlsSign.loadJson(app.currentJsonSignData)\n'
+        c+='        panelControlsSign.loadJson(app.currentJsonSignData)\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
@@ -238,7 +240,7 @@ Item {
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
-        xAsp.load(j)
+        sweg.objXAsp.load(j)
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
         eclipseCircle.arrayWg=housesCircle.arrayWg

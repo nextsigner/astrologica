@@ -157,10 +157,10 @@ AppWin {
             }
         }
         PanelFileLoader{id: panelFileLoader}
-        PanelDataBodies{id: panelDataBodies}
         PanelControlsSign{id: panelControlsSign}
         PanelNewVNA{id: panelNewVNA}
         PanelCmd{id: panelCmd}
+        PanelDataBodies{id: panelDataBodies}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {

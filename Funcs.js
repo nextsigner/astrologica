@@ -185,7 +185,7 @@ function loadJson(file){
         jsonData.params.min=d.getMinutes()
         sweg.loadSign(jsonData)
     }else{
-        panelDataBodies.enabled=false
+        //panelDataBodies.enabled=false
         sweg.load(jsonData)
     }
     let nom=jsonData.params.n.replace(/_/g, ' ')

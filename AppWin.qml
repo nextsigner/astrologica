@@ -179,6 +179,12 @@ ApplicationWindow {
         }
     }
     Shortcut{
+        sequence: 'Ctrl+Shift+s'
+        onActivated: {
+            panelControlsSign.state=panelControlsSign.state==='show'?'hide':'show'
+        }
+    }
+    Shortcut{
         sequence: 'Ctrl+t'
         onActivated: {
             apps.showTimes=!apps.showTimes
