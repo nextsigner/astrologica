@@ -64,6 +64,7 @@ Item{
         //        }
     }
     onSelectedChanged: {
+        if(selected)app.uSon=''+app.planetasRes[r.numAstro]+'_'+app.objSignsNames[r.is]+'_'+objData.ih
         if(selected)housesCircle.currentHouse=objData.ih
     }
     Rectangle{

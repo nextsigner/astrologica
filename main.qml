@@ -110,11 +110,6 @@ AppWin {
         XDataBar{
             id: xDataBar
         }
-        XTools{
-            id: xTools
-            anchors.bottom: parent.bottom
-            anchors.right: parent.right
-        }
         XStatus{id: xStatus}        
         Rectangle{
             id: xMsgProcDatos
@@ -161,6 +156,11 @@ AppWin {
         PanelNewVNA{id: panelNewVNA}
         PanelCmd{id: panelCmd}
         PanelDataBodies{id: panelDataBodies}
+        XTools{
+            id: xTools
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+        }
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {

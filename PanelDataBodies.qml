@@ -76,6 +76,8 @@ Rectangle {
             clip: true
             onCurrentIndexChanged: {
                 //console.log('panelbodies currentIndex: '+currentIndex)
+                //let item=lm.get(currentIndex)
+                //app.uSon='_'+app.objSignsNames[item.is]+'_1'
                 if(!r.enabled)return
                 //r.currentIndexSign=lm.get(currentIndex).is
             }
@@ -85,9 +87,13 @@ Rectangle {
 
     ListModel{
         id: lm
-        function addItem(indexSign, stringData){
+        function addItem(indexSign, indexHouse, grado, minuto, segundo, stringData){
             return {
                 is: indexSign,
+                ih: indexHouse,
+                gdeg:grado,
+                mdeg: minuto,
+                sdeg: segundo,
                 sd: stringData
             }
         }
@@ -131,13 +137,13 @@ Rectangle {
             jo=json.pc['c'+i]
             var s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]+ '  - Casa ' +jo.ih
             //console.log('--->'+s)
-            lm.append(lm.addItem(jo.is, s))
+            lm.append(lm.addItem(jo.is, jo.ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
         }
         let o1=json.ph['h1']
         s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
-        lm.append(lm.addItem(o1.is, s))
+        lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
         o1=json.ph['h10']
         s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
-        lm.append(lm.addItem(o1.is, s))
+        lm.append(lm.addItem(o1.is, 10, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
     }
 }

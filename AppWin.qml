@@ -99,7 +99,7 @@ ApplicationWindow {
                 }
                 return
             }
-            if(panelDataBodies.enabled){
+            if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
                 if(currentSignIndex>0){
                     currentSignIndex--
                 }else{
@@ -130,7 +130,7 @@ ApplicationWindow {
                 }
                 return
             }
-            if(panelDataBodies.enabled){
+            if(panelControlsSign.state==='show'&&panelDataBodies.state==='hide'){
                 if(currentSignIndex<12){
                     currentSignIndex++
                 }else{

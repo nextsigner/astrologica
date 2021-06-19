@@ -44,7 +44,7 @@ function showIW(){
     let jsonFileName=m0[0]!=='asc'?quitarAcentos(nomCuerpo.toLowerCase())+'.json':'asc.json'
     let jsonFileLocation='/home/ns/nsp/uda/quiron/data/'+jsonFileName
     if(!unik.fileExist(jsonFileLocation)){
-        let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: app.fs*8, height: app.fs*3, fs: app.fs*0.5, title:'SinQt.ShiftModifier datos'})
+        let obj=comp.createObject(app, {textData:'No hay datos disponibles.', width: sweg.width, height: sweg.height, x:0, y:0, fs: app.fs*0.5, title:'Sin datos'})
     }else{
         let numHome=m0[0]!=='asc'?-1:1
         let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
@@ -112,7 +112,7 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
                             data+='<p>'+dataJson0[i]+'</p>'
                         }
                     }
-                    let obj=comp.createObject(app, {textData:data, width: app.fs*14, fs: app.fs*0.5, title: nomCuerpo+' en '+app.signos[s - 1]+' en casa '+c, xOffSet: app.fs*6})
+                    let obj=comp.createObject(app, {textData:data, width: sweg.width, height: sweg.height, x:(xApp.width-sweg.width)/2, y:0, fs: app.fs*0.5, title: nomCuerpo+' en '+app.signos[s - 1]+' en casa '+c, xOffSet: app.fs*6})
                 }
                 //console.log('Data-->'+JSON.stringify(result))
             } else {
@@ -175,11 +175,12 @@ function loadJson(file){
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
     app.fileData=jsonFileData
     let jsonData=JSON.parse(jsonFileData)
+    app.mod=parseInt(jsonData.params.ms)
     if(parseInt(jsonData.params.ms)===0){
         panelDataBodies.enabled=true
         let d=new Date(Date.now())
         jsonData.params.d=d.getDate()
-        jsonData.params.m=d.getMonth()
+        jsonData.params.m=d.getMonth()+1
         jsonData.params.a=d.getFullYear()
         jsonData.params.h=d.getHours()
         jsonData.params.min=d.getMinutes()

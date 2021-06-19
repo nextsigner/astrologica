@@ -162,6 +162,7 @@ oblicuidad=posObli[0][0]
 
 #Se calculan casas previamente para calcular en cada cuerpo con swe.house_pos(...)
 #h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
+#swe.set_topo(float(lat), float(lon), 1440.00)
 h=swe.houses(jd1, float(lat), float(lon), bytes(houseType, encoding = "utf-8"))
 
 jsonString='{'
