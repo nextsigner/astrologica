@@ -72,7 +72,8 @@ Item{
         r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
-        app.ssp.lm.clear()
+        if(app.sspEnabled)app.ip.children[0].ssp.lm.clear()
+        //if(app.ssp.objectName!=='void')app.ssp.lm.clear()
         for(var i=0;i<15;i++){
             var objAs=r.children[i]
             objAs.numAstro=i
@@ -84,7 +85,7 @@ Item{
                 r.totalPosX=o.p
             }
             if(i<10){
-                app.ssp.add(app.planetas[i], "images/"+app.planetasRes[i]+".png",i)
+                if(app.sspEnabled)app.ip.children[0].ssp.add(app.planetas[i], "images/"+app.planetasRes[i]+".png",i)
             }
             o.ns=objSignsNames.indexOf(jo.is)
             o.ih=jo.ih

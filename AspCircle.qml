@@ -111,25 +111,27 @@ Rectangle {
             //Dibujo punto inicio en Aries
             //drawLine(ctx, radius-3, 0, px3+cx, py3+cy)
 
-            let asp=json.asps
-            for(var i=0;i<Object.keys(asp).length;i++){
-                if(asp['asp'+parseInt(i +1)]){
-                    let a=asp['asp'+parseInt(i +1)]
-                    let colorAsp='black'
-                    //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
-                    if(a.ia===0){
-                        colorAsp='red'
+            if(json.asps){
+                let asp=json.asps
+                for(var i=0;i<Object.keys(asp).length;i++){
+                    if(asp['asp'+parseInt(i +1)]){
+                        let a=asp['asp'+parseInt(i +1)]
+                        let colorAsp='black'
+                        //# -1 = no hay aspectos. 0 = oposición. 1 = cuadratura. 2 = trígono
+                        if(a.ia===0){
+                            colorAsp='red'
+                        }
+                        if(a.ia===1){
+                            colorAsp='#ff8833'
+                        }
+                        if(a.ia===2){
+                            colorAsp='green'
+                        }
+                        if(a.ia===3){
+                            colorAsp='blue'
+                        }
+                        drawAsp(ctx, cx, cy, a.gdeg1, a.gdeg2, colorAsp)
                     }
-                    if(a.ia===1){
-                        colorAsp='#ff8833'
-                    }
-                    if(a.ia===2){
-                        colorAsp='green'
-                    }
-                    if(a.ia===3){
-                        colorAsp='blue'
-                    }
-                    drawAsp(ctx, cx, cy, a.gdeg1, a.gdeg2, colorAsp)
                 }
             }
         }

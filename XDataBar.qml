@@ -52,7 +52,7 @@ Rectangle {
             color: app.fileData===app.currentData?'gray':'red'
             border.width: 2
             border.color: 'white'
-            anchors.verticalCenter: parent
+            anchors.verticalCenter: parent.verticalCenter
             y:(parent.height-height)/2
             MouseArea{
                 anchors.fill: parent

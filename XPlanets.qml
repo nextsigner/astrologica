@@ -4,6 +4,7 @@ import "./ss" as SS
 Item {
     id: r
     anchors.fill: parent
+    objectName: 'xplanets'
     property int w: 500
     property alias ssp: ssPlanets
     state: sweg.state

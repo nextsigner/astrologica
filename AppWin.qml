@@ -4,9 +4,29 @@ import QtQuick.Controls 2.12
 
 ApplicationWindow {
     id: r
-    property alias ssp: xPlanets.ssp
-    XPlanets{id: xPlanets}
+    property alias ip: itemXPlanets
+    Item{
+        id: itemXPlanets
+        anchors.fill: parent
+        //XPlanets{id: xPlanets}
+        Component.onCompleted: {
+            if(unik.objectName!=='unikpy'){
+                let comp=Qt.createComponent("XPlanets.qml")
+                let obj=comp.createObject(itemXPlanets)
+                if(obj){
+                    app.sspEnabled=true
+                }
 
+            }
+        }
+        Timer{
+            id: tt
+            running: true
+            repeat: true
+            interval: 1000
+            onTriggered: console.log('c:'+itemXPlanets.children.length)
+        }
+    }
 
 
     Shortcut{

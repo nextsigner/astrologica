@@ -6,12 +6,14 @@ import "Funcs.js" as JS
 Rectangle {
     id: r
     width: parent.width*0.25
-    height: parent.height
+    height: xDataBar.state==='hide'?parent.height:parent.height-xDataBar.height
+    anchors.bottom: parent.bottom
     color: 'black'
     border.width: 2
     border.color: 'white'
     state: 'hide'
     property alias currentIndex: lv.currentIndex
+    Behavior on height{NumberAnimation{duration:350;easing.type: Easing.InOutQuad}}
     states: [
         State {
             name: "show"

@@ -58,14 +58,18 @@ AppWin {
     property int uMcDegree: -1
     property string stringRes: "Res"+Screen.width+"x"+Screen.height
 
+    property bool sspEnabled: false
+
     onCurrentPlanetIndexChanged: {
-        if(currentPlanetIndex>=0&&currentPlanetIndex<10){
-            ssp.opacity=1.0
-            ssp.setPlanet(currentPlanetIndex)
-        }else{
-            ssp.opacity=0.0
+        if(sspEnabled){
+            if(currentPlanetIndex>=0&&currentPlanetIndex<10){
+                app.ip.opacity=1.0
+                app.ip.children[0].ssp.setPlanet(currentPlanetIndex)
+            }else{
+                app.ip.opacity=0.0
+            }
         }
-        panelDataBodies.currentIndex=currentPlanetIndex        
+        panelDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>14){
             if(currentPlanetIndex===15){
                 sweg.objHousesCircle.currentHouse=1
@@ -110,7 +114,7 @@ AppWin {
         XDataBar{
             id: xDataBar
         }
-        XStatus{id: xStatus}        
+        XStatus{id: xStatus}
         Rectangle{
             id: xMsgProcDatos
             width: txtPD.contentWidth+app.fs
@@ -133,7 +137,7 @@ AppWin {
             }
         }
         XSabianos{id: xSabianos}
-        }
+    }
     Item{
         id: capa101
         anchors.fill: xApp

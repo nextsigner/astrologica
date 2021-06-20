@@ -5,13 +5,15 @@ import Qt.labs.folderlistmodel 2.12
 Rectangle {
     id: r
     width: parent.width*0.25
-    height: parent.height
+    height: xDataBar.state==='hide'?parent.height:parent.height-xDataBar.height
+    anchors.bottom: parent.bottom
     color: 'black'
     //border.width: 2
     //border.color: 'white'
     state: 'hide'
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
+    Behavior on height{NumberAnimation{duration:350;easing.type: Easing.InOutQuad}}
     onCurrentIndexChanged: {
         if(!r.enabled)return
         sweg.objHousesCircle.currentHouse=currentIndex
