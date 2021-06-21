@@ -18,16 +18,8 @@ ApplicationWindow {
                 }
 
             }
-        }
-        Timer{
-            id: tt
-            running: true
-            repeat: true
-            interval: 1000
-            onTriggered: console.log('c:'+itemXPlanets.children.length)
-        }
+        }        
     }
-
 
     Shortcut{
         sequence: 'Ctrl+Down'

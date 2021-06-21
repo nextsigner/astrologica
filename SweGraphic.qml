@@ -240,7 +240,7 @@ Item {
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
-        sweg.objXAsp.load(j)
+        r.objXAsp.load(j)
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
         eclipseCircle.arrayWg=housesCircle.arrayWg

@@ -12,7 +12,7 @@ Item {
     property int lupaY: xLupa.image.y
     //visible: false
     clip: true
-    state: 'hide'
+    state: 'show'
     states: [
         State {
             name: "show"

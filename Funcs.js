@@ -137,11 +137,13 @@ function setInfo(i1, i2, i3, son){
 function getEdad(d, m, a, h, min) {
     let hoy = new Date()
     let fechaNacimiento = new Date(a, m, d, h, min)
-    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear()
-    let diferenciaMeses = hoy.getMonth() - fechaNacimiento.getMonth()
+    fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
+    let fechaNacimiento2 = new Date(fechaNacimiento)
+    let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
+    let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
     if (
             diferenciaMeses < 0 ||
-            (diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento.getDate())
+            (diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())
             ) {
         edad--
     }
@@ -177,7 +179,7 @@ function loadJson(file){
     let jsonData=JSON.parse(jsonFileData)
     app.mod=parseInt(jsonData.params.ms)
     if(parseInt(jsonData.params.ms)===0){
-        panelDataBodies.enabled=true
+        //panelDataBodies.enabled=true
         let d=new Date(Date.now())
         jsonData.params.d=d.getDate()
         jsonData.params.m=d.getMonth()+1
@@ -185,9 +187,11 @@ function loadJson(file){
         jsonData.params.h=d.getHours()
         jsonData.params.min=d.getMinutes()
         sweg.loadSign(jsonData)
+        swegz.sweg.loadSign(jsonData)
     }else{
         //panelDataBodies.enabled=false
         sweg.load(jsonData)
+        swegz.sweg.load(jsonData)
     }
     let nom=jsonData.params.n.replace(/_/g, ' ')
     let vd=jsonData.params.d
@@ -320,6 +324,7 @@ function loadJsonNow(file){
     o.n=(o.n+' '+o.d+'-'+o.m+'-'+o.a+'-'+o.h+':'+o.min).replace(/Ahora/g, '').replace(/ahora/g, '')
     json.params=o
     sweg.loadSign(json)
+    swegz.sweg.loadSign(json)
     let nom=o.n.replace(/_/g, ' ')
     let vd=o.d
     let vm=o.m
