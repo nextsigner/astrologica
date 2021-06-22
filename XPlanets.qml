@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 //import QtGraphicalEffects 1.0
 import "./ss" as SS
 Item {
@@ -84,6 +85,10 @@ Item {
                     anchors.horizontalCenterOffset: 0-sweg.width*0.47
                     anchors.verticalCenterOffset: 0-sweg.height*0.35
                 }
+                PropertyChanges {
+                    target: xIconPlanet
+                    opacity:1.0
+                }
             },
             State {
                 name: 'centrado'
@@ -91,6 +96,10 @@ Item {
                     target: ssPlanets
                     anchors.horizontalCenterOffset: 0
                     anchors.verticalCenterOffset: 0
+                }
+                PropertyChanges {
+                    target: xIconPlanet
+                    opacity:0.0
                 }
             }
         ]
@@ -100,9 +109,58 @@ Item {
             repeat: false
             interval: 5000
             onTriggered: {
+                if(app.currentPlanetIndex===-1)return
                 na1.duration=3000
                 na2.duration=3000
                 ssPlanets.state='descentrado'
+            }
+        }
+        Item{
+            id: xIconPlanet
+            width: app.fs*1.5
+            height: width
+            anchors.centerIn: parent
+            opacity: 0.0
+           //visible: app.currentPlanetIndex >=0
+            Behavior on opacity{NumberAnimation{duration: 2000}}
+            Image {
+                id: img
+                source: "./resources/imgs/planetas/"+app.planetasRes[app.currentPlanetIndex]+".svg"
+                anchors.fill: parent
+                visible: false
+            }
+            ColorOverlay {
+                id: co
+                anchors.fill: img
+                source: img
+                color: app.currentPlanetIndex>=1?'#ffffff':'#000000'
+                opacity: 0.5
+                antialiasing: true
+                visible: app.currentPlanetIndex >=0
+            }
+            Rectangle{
+                width: txtPlanetName.contentWidth+app.fs*0.25
+                height: txtPlanetName.contentHeight+app.fs*0.25
+                color: 'transparent'
+                radius: app.fs*0.25
+                border.width: 1
+                border.color: 'white'
+                anchors.bottom: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                Rectangle{
+                    anchors.fill: parent
+                    color: 'black'
+                    opacity: 0.5
+                    radius: parent.radius
+                    z:parent.z-1
+                }
+                Text {
+                    id: txtPlanetName
+                    text: app.currentPlanetIndex >=0?'<b>'+app.planetas[app.currentPlanetIndex]+'</b>':'<b>Tierra</b>'
+                    font.pixelSize: app.fs*0.5
+                    color: 'white'
+                    anchors.centerIn: parent
+                }
             }
         }
     }

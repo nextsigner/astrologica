@@ -153,7 +153,7 @@ ApplicationWindow {
             if(currentPlanetIndex<16){
                 currentPlanetIndex++
             }else{
-                currentPlanetIndex=0
+                currentPlanetIndex=-1
             }
             //xAreaInteractiva.next()
         }

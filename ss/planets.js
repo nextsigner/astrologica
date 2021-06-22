@@ -284,7 +284,7 @@ function createPlanets() {
             innerRadius = (planets[i]["radius"] + 6.630) / planets[i]["radius"];
             outerRadius = (planets[i]["radius"] + saturnOuterRadius) / planets[i]["radius"];
             ring = createRing(innerRadius, outerRadius, ringSegments,
-                                  'qrc:images/saturnringcolortrans.png');
+                                  './images/saturnringcolortrans.png');
             ring.receiveShadow = true;
             ring.castShadow = true;
             mesh.add(ring);
@@ -295,7 +295,7 @@ function createPlanets() {
             innerRadius = (planets[i]["radius"] + 2) / planets[i]["radius"];
             outerRadius = (planets[i]["radius"] + uranusOuterRadius) / planets[i]["radius"];
             ring = createRing(innerRadius, outerRadius, ringSegments,
-                                  'qrc:images/uranusringcolortrans.png');
+                                  './images/uranusringcolortrans.png');
             ring.receiveShadow = true;
             ring.castShadow = true;
             mesh.add(ring);
@@ -368,7 +368,7 @@ function createEarthCloud(earthMesh) {
 
     var textureLoader = new THREE.TextureLoader();
     var material = new THREE.MeshPhongMaterial({
-                                                   map: textureLoader.load('qrc:images/earthcloudmapcolortrans.png'),
+                                                   map: textureLoader.load('./images/earthcloudmapcolortrans.png'),
                                                    side: THREE.BackSide,
                                                    transparent: true,
                                                    opacity: 0.8
@@ -376,7 +376,7 @@ function createEarthCloud(earthMesh) {
     var mesh = new THREE.Mesh(commonGeometry, material);
 
     var material2 = new THREE.MeshPhongMaterial({
-                                                   map: textureLoader.load('qrc:images/earthcloudmapcolortrans.png'),
+                                                   map: textureLoader.load('./images/earthcloudmapcolortrans.png'),
                                                    side: THREE.FrontSide,
                                                    transparent: true,
                                                    opacity: 0.8

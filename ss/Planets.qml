@@ -230,6 +230,9 @@ Rectangle {
         var MOON = 9;
         var SOLAR_SYSTEM = 100;
         //planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']
+        if(n===-1){
+            focusedPlanet=EARTH
+        }
         if(n===0){
             focusedPlanet=SUN
         }

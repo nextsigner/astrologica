@@ -62,7 +62,7 @@ AppWin {
 
     onCurrentPlanetIndexChanged: {
         if(sspEnabled){
-            if(currentPlanetIndex>=0&&currentPlanetIndex<10){
+            if(currentPlanetIndex>=-1&&currentPlanetIndex<10){
                 app.ip.opacity=1.0
                 app.ip.children[0].ssp.setPlanet(currentPlanetIndex)
             }else{
