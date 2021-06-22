@@ -72,6 +72,7 @@ Item{
         r.objSigns = [0,0,0,0,0,0,0,0,0,0,0,0]
         let jo
         let o
+        let degNN=0.00000
         //if(app.sspEnabled)app.ip.children[0].ssp.lm.clear()
         for(var i=0;i<15;i++){
             var objAs=r.children[i]
@@ -92,6 +93,22 @@ Item{
             o.g=jo.gdeg
             o.m=jo.mdeg
             o.h=jo.h
+            /*if(i===10){
+                degNN=jo.gdeg
+                console.log('degNN: '+degNN)
+            }
+            if(i===11){
+                let gns=0.00000
+                if(degNN===180){
+                    o.g=0.0000
+                }else if(degNN===0){
+                    o.g=180.0000
+                }else if(degNN>180){
+                    o.g=degNN-180
+                }else if(degNN<180){
+                    o.g=degNN+180
+                }
+            }*/
             objAs.is=jo.is
             objAs.objData=o
             objSigns[jo.is]++

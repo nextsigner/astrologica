@@ -179,7 +179,7 @@ for i in np:
         #posNN=swe.calc_ut(jd1, np[10][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
         gNN=float(tuplaPosBodies[index - 1])#float(posNN[0][0]) + 180 #
         if gNN < 180:
-            gNS= 360.00 - gNN
+            gNS= 180.00 + gNN#360.00 - gNN
         else:
             gNS=gNN - 180.00
 
