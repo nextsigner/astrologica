@@ -182,7 +182,7 @@ Rectangle {
         height: sliderLength
         value: -3
         minimumValue: -6
-        maximumValue: 3
+        maximumValue: 6
         //! [2]
         onValueChanged: GLCode.setCameraDistance(value);
         //! [2]
