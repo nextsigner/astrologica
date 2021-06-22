@@ -4,7 +4,7 @@ Item{
     id: r
     property bool expand: false
     property var cAs: r
-    property int planetSize: app.fs*0.75
+    property int planetSize: sweg.fs*0.75
 
     property int totalPosX: 0
 
@@ -20,21 +20,21 @@ Item{
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*2.5-app.fs
+                width: sweg.width-sweg.fs*2.5-sweg.fs
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*6-app.fs
+                width: sweg.width-sweg.fs*6-sweg.fs
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*2-app.fs
+                width: sweg.width-sweg.fs*2-sweg.fs
             }
         }
     ]   

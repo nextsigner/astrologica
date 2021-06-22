@@ -187,11 +187,11 @@ function loadJson(file){
         jsonData.params.h=d.getHours()
         jsonData.params.min=d.getMinutes()
         sweg.loadSign(jsonData)
-        swegz.sweg.loadSign(jsonData)
+        //swegz.sweg.loadSign(jsonData)
     }else{
         //panelDataBodies.enabled=false
         sweg.load(jsonData)
-        swegz.sweg.load(jsonData)
+        //swegz.sweg.load(jsonData)
     }
     let nom=jsonData.params.n.replace(/_/g, ' ')
     let vd=jsonData.params.d
@@ -259,7 +259,7 @@ function runJsonTemp(){
     app.currentFecha=vd+'/'+vm+'/'+va
     //xDataBar.state='show'
     sweg.load(jsonData)
-    swegz.sweg.load(jsonData)
+    //swegz.sweg.load(jsonData)
 }
 function setNewTimeJsonFileData(date){
     let jsonData=JSON.parse(app.fileData)

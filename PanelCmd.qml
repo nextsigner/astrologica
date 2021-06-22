@@ -104,6 +104,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                     +'  console.log("RS: "+s)\n'
                     +'  r.state="hide"\n'
                     +'  sweg.loadSweJson(s)\n'
+                    +'  swegz.sweg.loadSweJson(s)\n'
 
             let cd=app.currentDate
             cd = cd.setFullYear(parseInt(comando[1]))

@@ -67,7 +67,7 @@ Item {
     Rectangle{
         id: borde
         anchors.fill: r
-        //radius: width*0.5
+        radius: r.mod===2?width*0.5:0
         color: 'transparent'
         border.width: 3
         border.color: 'white'

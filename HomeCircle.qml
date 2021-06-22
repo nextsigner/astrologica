@@ -3,8 +3,8 @@ import QtQuick 2.0
 Item {
     id: r
     property int currentHouse: -1
-    property int w: app.fs*3
-    property int wb: 1//app.fs*0.15
+    property int w: sweg.fs*3
+    property int wb: 1//sweg.fs*0.15
     property int f: 0
     property bool v: false
     property bool showBorder: false
@@ -17,21 +17,21 @@ Item {
             name: r.parent.aStates[0]
             PropertyChanges {
                 target: r
-                width: r.parent.width-app.fs-app.fs
+                width: r.parent.width-sweg.fs-sweg.fs
             }
         },
         State {
             name: r.parent.aStates[1]
             PropertyChanges {
                 target: r
-                width: r.parent.width-app.fs*5-app.fs
+                width: r.parent.width-sweg.fs*5-sweg.fs
             }
         },
         State {
             name: r.parent.aStates[2]
             PropertyChanges {
                 target: r
-                width: r.parent.width-app.fs-app.fs
+                width: r.parent.width-sweg.fs-sweg.fs
             }
         }
     ]

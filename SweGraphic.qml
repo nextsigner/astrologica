@@ -6,6 +6,7 @@ Item {
     height: width
     anchors.centerIn: parent
     //anchors.horizontalCenterOffset: app.fs*10
+    property int fs: r.objectName==='sweg'?app.fs:app.fs*2
     property bool v: false
     property alias expand: planetsCircle.expand
     property alias objAspsCircle: aspsCircle
@@ -23,21 +24,21 @@ Item {
             name: aStates[0]
             PropertyChanges {
                 target: r
-                width: app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
+                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3)*2
             }            
         },
         State {//PC
             name: aStates[1]
             PropertyChanges {
                 target: r
-                width: app.currentPlanetIndex!==16?r.parent.height:r.parent.height
+                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height)*2
             }            
         },
         State {//PA
             name: aStates[2]
             PropertyChanges {
                 target: r
-                width: app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
+                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3)*2
             }            
         }
     ]
@@ -56,18 +57,18 @@ Item {
         anchors.centerIn: signCircle
         showBorder: true
         rotation: -90
-        w: app.fs*6
+        w: r.fs*6
         visible: r.v
         //z: ascMcCircle.z+1
     }
     SignCircle{
         id:signCircle
-        width: planetsCircle.expand?r.width-app.fs*6+app.fs*2:r.width-app.fs*6
+        width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
         height: width
         anchors.centerIn: parent
         showBorder: true
         v:r.v
-        w: r.state==='ps'?app.fs:app.fs*0.5
+        w: r.state==='ps'?r.fs:r.fs*0.5
         //visible: false
     }
     AspCircle{
@@ -89,12 +90,12 @@ Item {
     }
     Grid{
         id: xAsp
-        spacing: app.fs*0.1
+        spacing: r.fs*0.1
         columns: 2
         anchors.right: parent.left
-        anchors.rightMargin: app.fs*4
+        anchors.rightMargin: r.fs*4
         anchors.bottom: parent.bottom
-        anchors.bottomMargin: app.fs*0.2
+        anchors.bottomMargin: r.fs*0.2
 
         function load(jsonData){
             for(var i=0;i<xAsp.children.length;i++){
@@ -157,7 +158,7 @@ Item {
         //Este esta en el centro
         visible: false
         opacity: 0.5
-        width: app.fs*2//planetsCircle.children[0].fs*0.85+4
+        width: r.fs*2//planetsCircle.children[0].fs*0.85+4
         height: width
         color: 'red'
         radius: width*0.5
@@ -220,6 +221,7 @@ Item {
         c+='        let json=(\'\'+logData)\n'
         c+='        //console.log(\'JSON: \'+json)\n'
         c+='        loadSweJson(json)\n'
+        c+='        swegz.sweg.loadSweJson(json)\n'
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'

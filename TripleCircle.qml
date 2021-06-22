@@ -2,7 +2,7 @@ import QtQuick 2.0
 
 Item {
     id: r
-    width: app.fs*4
+    width: sweg.fs*4
     height: width
     anchors.centerIn: parent
     z:r.parent.z-1
@@ -15,13 +15,14 @@ Item {
     property int rsgdeg: -1
     property int ih: -1
     property bool expand: false
-    property int wtc: app.fs //width of each circle de triple circle
+    property int wtc: sweg.fs //width of each circle de triple circle
     Rectangle{
-        width: r.expand?r.width-circle1.width:app.fs
+        width: r.expand?r.width-circle1.width:sweg.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
         rotation: -120+60
+        antialiasing: true
         Behavior on width{
             NumberAnimation{duration: 1000}
         }
@@ -33,6 +34,7 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.left
             color: 'white'
+            antialiasing: true
 
             Image {
                 id: img1
@@ -41,12 +43,14 @@ Item {
                 height: width
                 anchors.centerIn: parent
                 rotation: r.iconoSignRot + 60
+                antialiasing: true
                 Rectangle{
                     width: 4
                     height: parent.height+20
                     color: 'red'
                     anchors.centerIn: parent
                     visible: false
+                    antialiasing: true
                     Rectangle{
                         width: 8
                         height: width
@@ -56,17 +60,19 @@ Item {
                         border.color: 'white'
                         anchors.horizontalCenter: parent.horizontalCenter
                         //anchors.centerIn: parent
+                        antialiasing: true
                     }
                 }
             }
         }
     }
     Rectangle{
-        width: r.expand?r.width-circle1.width:app.fs
+        width: r.expand?r.width-circle1.width:sweg.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
         rotation: -240+60
+        antialiasing: true
         Behavior on width{
             NumberAnimation{duration: 1000}
         }
@@ -77,12 +83,14 @@ Item {
             radius: width*0.5
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.left
+            antialiasing: true
             Image {
                 id: img2
                 source: "./resources/imgs/casa.svg"
                 width: parent.width
                 height: width
                 rotation: r.iconoSignRot + 180
+                antialiasing: true
             }
             Text{
                 font.pixelSize: r.ih<=9?r.wtc*0.8:r.wtc*0.6
@@ -94,11 +102,12 @@ Item {
         }
     }
     Rectangle{
-        width: r.expand?r.width-circle1.width:app.fs
+        width: r.expand?r.width-circle1.width:sweg.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
         rotation: 0+60
+        antialiasing: true
         Behavior on width{
             NumberAnimation{duration: 1000}
         }
@@ -109,6 +118,7 @@ Item {
             radius: width*0.5
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.left
+            antialiasing: true
             Row{
                 anchors.centerIn: parent
                 rotation: r.iconoSignRot - 60

@@ -3,7 +3,7 @@ import QtGraphicalEffects 1.0
 
 Item{
     id: r
-    width: !selected?(planetsCircle.expand?parent.width-(r.fs*2*objData.p)-r.fs:parent.width-(r.fs*1.5*objData.p))-r.fs:parent.width//-app.fs*2-(r.fs*1.5*(planetsCircle.totalPosX-1))
+    width: !selected?(planetsCircle.expand?parent.width-(r.fs*2*objData.p)-r.fs:parent.width-(r.fs*1.5*objData.p))-r.fs:parent.width//-sweg.fs*2-(r.fs*1.5*(planetsCircle.totalPosX-1))
     height: 1
     anchors.centerIn: parent
     z: !selected?numAstro:15
@@ -57,7 +57,7 @@ Item{
     ]
 
     onWidthChanged: {
-        //        if(r.width===r.parent.width-app.fs*2){
+        //        if(r.width===r.parent.width-sweg.fs*2){
         //            r.opacity=1.0
         //        }else{
         //            r.opacity=0.5
@@ -70,16 +70,19 @@ Item{
     Rectangle{
         anchors.fill: parent
         color: 'transparent'
+        antialiasing: true
         Rectangle{
             width: parent.width*0.5
             height: 4
             color: 'transparent'
             visible: r.selected
             anchors.verticalCenter: parent.verticalCenter
+            antialiasing: true
             Rectangle{
                 id: lineaATripleCircle
                 width: r.selected?parent.width:0
                 height: 4
+                antialiasing: true
                 SequentialAnimation on color {
                     running: true
                     loops: Animation.Infinite
@@ -128,7 +131,7 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         Rectangle{
             //Circulo que queda mostrando el cuerpo chico.
-            width: parent.width+app.fs*0.35
+            width: parent.width+sweg.fs*0.35
             height: width
             anchors.centerIn: parent
             radius: width*0.5
@@ -136,6 +139,7 @@ Item{
             border.color: lineaATripleCircle.color
             opacity: r.selected?1.0:0.0
             color: 'black'//app.signColors[r.is]
+            antialiasing: true
         }
         MouseArea{
             id: maSig
@@ -183,6 +187,7 @@ Item{
             border.width: 2
             border.color: lineaATripleCircle.color
             anchors.centerIn: img
+            antialiasing: true
             TripleCircle{
                 id: tripeCircle
                 //rotation: 0-parent.parent.rotation
@@ -201,15 +206,17 @@ Item{
             width: parent.width
             height: width
             rotation: 0-parent.parent.rotation
+            antialiasing: true
         }
         Image {
             id: img
             source: "./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg"
             width: !r.selected?parent.width:parent.width*2
             height: width
-            x:!r.selected?0:r.parent.width*0.5-img.width*0.5//+app.fs*2
+            x:!r.selected?0:r.parent.width*0.5-img.width*0.5//+sweg.fs*2
             y: (parent.width-width)/2
             rotation: 0-parent.parent.rotation
+            antialiasing: true
             Behavior on width {
                 NumberAnimation{
                     duration: 350
@@ -230,6 +237,7 @@ Item{
             color: lineaATripleCircle.color
             rotation: img.rotation
             visible: r.selected
+            antialiasing: true
         }
         ColorOverlay {//Planeta que se muestra en espera no seleccionado
             id: co0
@@ -238,6 +246,7 @@ Item{
             //color: lineaATripleCircle.color//r.colorCuerpo
             rotation: img.rotation
             visible: !r.selected
+            antialiasing: true
             SequentialAnimation{
                 running: true//r.selected
                 loops: Animation.Infinite
@@ -264,6 +273,7 @@ Item{
             color: lineaATripleCircle.color//r.colorCuerpo
             rotation: img.rotation
             visible: r.selected
+            antialiasing: true
         }
     }
 }

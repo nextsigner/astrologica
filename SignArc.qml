@@ -17,33 +17,33 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                w: app.fs*0.75
+                w: sweg.fs*0.75
             }
             PropertyChanges {
                 target: xImg
-                width: app.fs*0.75
+                width: sweg.fs*0.75
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                w: app.fs*0.5
+                w: sweg.fs*0.5
             }
             PropertyChanges {
                 target: xImg
-                width: app.fs*0.5
+                width: sweg.fs*0.5
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                w: app.fs*0.5
+                w: sweg.fs*0.5
             }
             PropertyChanges {
                 target: xImg
-                width: app.fs*0.5
+                width: sweg.fs*0.5
             }
         }
     ]
@@ -57,7 +57,7 @@ Item {
     }
     Canvas {
         id:canvas
-        width: r.width//-app.fs
+        width: r.width//-sweg.fs
         height: width
         onPaint:{
             var ctx = canvas.getContext('2d');

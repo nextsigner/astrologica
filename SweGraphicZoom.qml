@@ -43,9 +43,10 @@ Item {
         SweGraphic{
             id: objSweGraphinZoom
             anchors.centerIn: parent
+            objectName: 'swegz'
             objHousesCircle.extraObjectName: 'zoom'
             state: sweg.state
-            scale: 2.0
+            //scale: 2.0
         }
 //        MouseArea{
 //            anchors.fill: parent

@@ -9,7 +9,7 @@ Item {
     property int wb: 3
     property int gr: 0
     property int n: -1
-    property int w: housesCircle.currentHouse!==n?housesCircle.w*0.5:app.fs*6.5
+    property int w: housesCircle.currentHouse!==n?housesCircle.w*0.5:sweg.fs*6.5
     property int c: 0
     property var colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property bool showBorder: false
@@ -26,7 +26,7 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: ejeV
-                width:  r.width+app.fs*1.5
+                width:  housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*1.5):(r.width+sweg.fs*3)
             }
             PropertyChanges {
                 target: canvas2
@@ -37,14 +37,14 @@ Item {
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
                 //w: planetsCircle.width-(planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2))/2
-                 w: !r.selected?app.fs*2.5:app.fs*6
+                 w: !r.selected?sweg.fs*2.5:sweg.fs*6
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: ejeV
-                width:  r.width+app.fs*2.5
+                width:  housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*2.5):(r.width+sweg.fs*5)
             }
             PropertyChanges {
                 target: canvas2
@@ -53,15 +53,15 @@ Item {
             PropertyChanges {
                 target: r
                 colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
-                extraWidth: app.fs*2.5
-                w: !r.selected?app.fs*2.5:app.fs*6
+                extraWidth: sweg.fs*2.5
+                w: !r.selected?sweg.fs*2.5:sweg.fs*6
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: ejeV
-                width:  r.width+app.fs*1.5
+                width: housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*1.5):(r.width+sweg.fs*3)
             }
             PropertyChanges {
                 target: canvas2
@@ -71,7 +71,7 @@ Item {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
-                w: app.fs*2
+                w: sweg.fs*2
             }
         }
     ]
@@ -129,7 +129,7 @@ Item {
     }
     Canvas {
         id:canvas
-        width: r.width//-app.fs
+        width: r.width//-sweg.fs
         height: width
         opacity: 0.65
         antialiasing: true
@@ -186,7 +186,7 @@ Item {
     }
     Rectangle{
         id: ejeV
-        //width: r.width+app.fs*2.5
+        //width: r.width+sweg.fs*2.5
         height: r.wb
         color: 'transparent'
         anchors.centerIn: r
@@ -219,7 +219,7 @@ Item {
         }
         Rectangle{
             id: circleBot
-            width: app.fs*0.75+r.wb*2
+            width: sweg.fs*0.75+r.wb*2
             height: width
             radius: width*0.5
             color: 'black'
@@ -233,7 +233,7 @@ Item {
                     name: sweg.aStates[0]
                     PropertyChanges {
                         target: circleBot
-                        width: app.fs*0.5
+                        width: sweg.fs*0.5
                         border.width: 1
                         border.color: 'white'
                     }
@@ -242,7 +242,7 @@ Item {
                     name: sweg.aStates[1]
                     PropertyChanges {
                         target: circleBot
-                        width: app.fs*0.75+r.wb*2
+                        width: sweg.fs*0.75+r.wb*2
                         border.width: r.wb
                         border.color: lineaEje.color
                     }
@@ -251,7 +251,7 @@ Item {
                     name: sweg.aStates[2]
                     PropertyChanges {
                         target: circleBot
-                        width: app.fs*0.5
+                        width: sweg.fs*0.5
                         border.width: 1
                         border.color: 'white'
                     }
@@ -289,7 +289,7 @@ Item {
         rotation: 0-r.wg/2
         visible:false
         Rectangle{
-            width: app.fs
+            width: sweg.fs
             height: width
             //x:(r.w-width)/2
             border.width: 2
