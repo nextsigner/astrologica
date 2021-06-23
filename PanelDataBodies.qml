@@ -147,6 +147,6 @@ Rectangle {
         o1=json.ph['h10']
         s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         lm.append(lm.addItem(o1.is, 10, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
-        r.state='show'
+        if(app.mod!==0)r.state='show'
     }
 }
