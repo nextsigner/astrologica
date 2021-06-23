@@ -17,7 +17,7 @@ Rectangle {
     property alias ds: distanceSlider
     property alias ss: scaleSlider
 
-    property int focusedPlanet: 0
+    property int focusedPlanet: 3
     property int oldPlanet: 0
     property real xLookAtOffset: 0
     property real yLookAtOffset: 0

@@ -111,7 +111,7 @@ Rectangle {
             //Dibujo punto inicio en Aries
             //drawLine(ctx, radius-3, 0, px3+cx, py3+cy)
 
-            if(json.asps){
+            if(json&&json.asps){
                 let asp=json.asps
                 for(var i=0;i<Object.keys(asp).length;i++){
                     if(asp['asp'+parseInt(i +1)]){

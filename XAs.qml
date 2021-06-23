@@ -7,7 +7,7 @@ Item{
     height: 1
     anchors.centerIn: parent
     z: !selected?numAstro:15
-    property bool selected: numAstro === panelDataBodies.currentIndex
+    property bool selected: numAstro === app.currentPlanetIndex//panelDataBodies.currentIndex
     property string astro
     property int is
     property int fs

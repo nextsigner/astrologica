@@ -148,6 +148,12 @@ Item {
             }
         }
     }
+    PanelAspects{
+        id: panelAspects
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 0-((xApp.width-r.width)/2)+swegz.width
+    }
     EclipseCircle{
         id: eclipseCircle
         width: housesCircle.width
@@ -242,7 +248,8 @@ Item {
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
-        r.objXAsp.load(j)
+        //r.objXAsp.load(j)
+        panelAspects.load(j)
         panelDataBodies.loadJson(j)
         aspsCircle.load(j)
         eclipseCircle.arrayWg=housesCircle.arrayWg
