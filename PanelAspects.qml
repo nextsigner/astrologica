@@ -32,12 +32,9 @@ Rectangle {
     function setAsp2(c1, c2, ia, iPosAsp){
         if(!r.visible)return
         let column=row.children[c2]
-        console.log('column.objectName: '+column.objectName)
         let cellRow=column.col.children[c1]
-        console.log('cellRow.objectName: '+cellRow.objectName)
         cellRow.indexAsp=ia
-        cellRow.indexPosAsp=iPosAsp
-        //cellRow.opacity=1.0
+        cellRow.indexPosAsp=iPosAsp        
     }
     function setAsp(c1, c2, ia, iPosAsp){
         if(!r.visible)return
@@ -52,9 +49,6 @@ Rectangle {
         for(var i=0;i<Object.keys(asp).length;i++){
             if(asp['asp'+parseInt(i +1)]){
                 let a=asp['asp'+parseInt(i +1)]
-                //console.log('Asp: '+'asp'+parseInt(i +1))
-                //let comp=Qt.createComponent('XAsp.qml')
-                //let obj=comp.createObject(xAsp, {c1:a.c1, c2:a.c2, ic1:a.ic1, ic2:a.ic2, tipo:a.ia, indexAsp: i})
                 setAsp(a.ic1, a.ic2, a.ia,i)
             }
         }

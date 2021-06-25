@@ -8,6 +8,7 @@ Item {
     x: parent.width*0.5-r.height*0.5
     property real zoom: 2.0
     property alias image:img
+    property alias centroLupa: centro
     property int mod: 2
     clip: true
     onModChanged: {
@@ -21,6 +22,7 @@ Item {
             swegz.state='show'
         }
     }
+    onXChanged: an.running=true
     Behavior on x{NumberAnimation{duration: 1000;easing.type: Easing.OutQuad}}
     Behavior on y{NumberAnimation{duration: 1000;easing.type: Easing.OutQuad}}
     MouseArea{
@@ -70,7 +72,7 @@ Item {
         radius: r.mod===2?width*0.5:0
         color: 'transparent'
         border.width: 3
-        border.color: 'white'
+        border.color: xLayerTouch.visible?'white':'red'
     }
     Timer{
         id: tScreenShot
@@ -86,13 +88,69 @@ Item {
             });
         }
     }
+    Timer{
+        id: tCentro
+        running: false
+        repeat: false
+        interval: 3000
+        onTriggered: an.running=false
+    }
     Rectangle{
-        width: app.fs*0.25
+        id: centro
+        width: app.fs*0.5
         height: width
         radius: width*0.5
         color: 'transparent'
-        border.width: 2
-        border.color: 'white'
+        border.width: 1
+        border.color: borde.border.color
         anchors.centerIn: parent
+        visible: an.running
+        Rectangle{
+            id: bgc1
+            anchors.fill: parent
+            radius: parent.radius
+            opacity: 0.0
+        }
+        Rectangle{
+            id: bgc2
+            anchors.fill: parent
+            radius: parent.radius
+            opacity: 0.0
+        }
+    }
+    SequentialAnimation{
+        id: an
+        running: false
+        onRunningChanged: tCentro.restart()
+        loops: Animation.Infinite
+        PropertyAnimation{
+            target: centro
+            property: "opacity"
+            from:1.0
+            to:0.0
+        }
+
+        PauseAnimation {
+            duration: 100
+        }
+        PropertyAnimation{
+            target: centro
+            property: "opacity"
+            from:0.0
+            to:1.0
+        }
+    }
+    SequentialAnimation{
+        running: an.running
+        loops: Animation.Infinite
+
+        PropertyAnimation {
+            target: bgc1; property: "opacity";from:0.0;to:0.5 }
+        PropertyAnimation {
+            target: bgc1; property: "opacity";from:0.5;to:0.0 }
+        PropertyAnimation {
+            target: bgc2; property: "opacity";from:0.0;to:0.5 }
+        PropertyAnimation {
+            target: bgc2; property: "opacity";from:0.5;to:0.0 }
     }
 }

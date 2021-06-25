@@ -71,12 +71,14 @@ Item {
         color: 'transparent'
     }
     Rectangle{
-        width: app.fs*0.25
+        width: app.fs*2
         height: width
         radius: width*0.5
         color: 'transparent'
-        border.width: 2
+        border.width: 4
         border.color: 'white'
         anchors.centerIn: parent
+        visible: xLupa.centroLupa.visible
+        opacity: xLupa.centroLupa.opacity
     }
 }
