@@ -96,7 +96,6 @@ Item {
         anchors.rightMargin: r.fs*4
         anchors.bottom: parent.bottom
         anchors.bottomMargin: r.fs*0.2
-
         function load(jsonData){
             for(var i=0;i<xAsp.children.length;i++){
                 xAsp.children[i].destroy(1)
@@ -153,6 +152,7 @@ Item {
         anchors.bottom: parent.bottom
         anchors.left: parent.left
         anchors.leftMargin: 0-((xApp.width-r.width)/2)+swegz.width
+        visible: r.objectName==='sweg'
     }
     EclipseCircle{
         id: eclipseCircle

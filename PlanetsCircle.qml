@@ -20,21 +20,21 @@ Item{
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-sweg.fs*2.5-sweg.fs
+                width: housesCircle.parent.objectName==='sweg'?(sweg.width-sweg.fs*2.5-sweg.fs):(sweg.width-sweg.fs*3.5)
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-sweg.fs*6-sweg.fs
+                width: housesCircle.parent.objectName==='sweg'?(sweg.width-sweg.fs*6-sweg.fs):(sweg.width-sweg.fs*4)
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-sweg.fs*2-sweg.fs
+                width: housesCircle.parent.objectName==='sweg'?(sweg.width-sweg.fs*2-sweg.fs):(sweg.width-sweg.fs*2)
             }
         }
     ]   

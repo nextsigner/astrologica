@@ -26,7 +26,8 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: ejeV
-                width:  housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*1.5):(r.width+sweg.fs*3)
+                //width:  housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*1.5):(r.width+sweg.fs*1.5)
+                width:  r.width+sweg.fs*1.5
             }
             PropertyChanges {
                 target: canvas2
@@ -37,14 +38,16 @@ Item {
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
                 //w: planetsCircle.width-(planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2))/2
-                 w: !r.selected?sweg.fs*2.5:sweg.fs*6
+                 w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
+                //w: !r.selected?sweg.fs*2.5:sweg.fs*6
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: ejeV
-                width:  housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*2.5):(r.width+sweg.fs*5)
+                //width:  housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*2.5):(r.width+sweg.fs*5)
+                width:  r.width+sweg.fs*2.5
             }
             PropertyChanges {
                 target: canvas2
@@ -54,14 +57,16 @@ Item {
                 target: r
                 colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
                 extraWidth: sweg.fs*2.5
-                w: !r.selected?sweg.fs*2.5:sweg.fs*6
+                w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*2.5:sweg.fs*8)
+                //w: !r.selected?sweg.fs*2.5:sweg.fs*6
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: ejeV
-                width: housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*1.5):(r.width+sweg.fs*3)
+                //width: housesCircle.parent.objectName==='sweg'?(r.width+sweg.fs*1.5):(r.width+sweg.fs*3)
+                width: r.width+sweg.fs*1.5
             }
             PropertyChanges {
                 target: canvas2
@@ -71,7 +76,7 @@ Item {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
-                w: sweg.fs*2
+                w: housesCircle.parent.objectName==='sweg'?(sweg.fs*2):(sweg.fs*4)
             }
         }
     ]
