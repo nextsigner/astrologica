@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id: r
     anchors.fill: parent
+    visible: false
     signal move(int px, int py)
     MouseArea{
         //anchors.fill: r

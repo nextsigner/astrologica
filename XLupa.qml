@@ -86,4 +86,13 @@ Item {
             });
         }
     }
+    Rectangle{
+        width: app.fs*0.25
+        height: width
+        radius: width*0.5
+        color: 'transparent'
+        border.width: 2
+        border.color: 'white'
+        anchors.centerIn: parent
+    }
 }

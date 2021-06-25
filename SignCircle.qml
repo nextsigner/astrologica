@@ -3,7 +3,7 @@ import QtQuick 2.0
 Item {
     id: r
     property int f: 0
-    property int w: app.fs
+    property int w: sweg.fs
     property bool v: false
     property bool showBorder: false
     property int rot: 0
@@ -13,21 +13,21 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*2
+                width: sweg.width-sweg.fs*2
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*6
+                width: sweg.width-sweg.fs*6
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*2
+                width: sweg.width-sweg.fs*2
             }
         }
     ]
@@ -132,7 +132,7 @@ Item {
     Text {
         id: t1
         text: "F:"+r.f
-        font.pixelSize: app.fs*3
+        font.pixelSize: sweg.fs*3
         color: 'red'
         anchors.horizontalCenter: xSignArcs.horizontalCenter
         rotation: 90

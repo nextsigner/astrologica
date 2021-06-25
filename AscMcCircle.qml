@@ -21,33 +21,33 @@ Item {
             }
             PropertyChanges {
                 target: ejeAsc
-                width: sweg.objSignsCircle.width
+                width: sweg.objSignsCircle.width+sweg.fs*0.5
             }
             PropertyChanges {
                 target: ejeMC
-                width: sweg.objSignsCircle.width
+                width: sweg.objSignsCircle.width+sweg.fs*0.5
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs*5
+                width: sweg.width-sweg.fs*5
             }
             PropertyChanges {
                 target: ejeAsc
-                width: sweg.objSignsCircle.width+app.fs*3
+                width: sweg.objSignsCircle.width+sweg.fs*3
             }
             PropertyChanges {
                 target: ejeMC
-                width: sweg.objSignsCircle.width+app.fs*3
+                width: sweg.objSignsCircle.width+sweg.fs*3
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: sweg.width-app.fs
+                width: sweg.width-sweg.fs
             }
             PropertyChanges {
                 target: ejeAsc
@@ -61,11 +61,11 @@ Item {
     ]
     Rectangle{
         id: ejeCard1
-        width: ejeAsc.width+app.fs*2
-        height: 1//app.fs*0.1
+        width: ejeAsc.width+sweg.fs*2
+        height: 1//sweg.fs*0.1
         color: 'red'
         anchors.centerIn: r
-        anchors.horizontalCenterOffset: 0-app.fs
+        anchors.horizontalCenterOffset: 0-sweg.fs
         //opacity: app.currentPlanetIndex===15?1.0:0.0
         state: app.currentPlanetIndex===15?'showAsc':'hideAsc'
         states: [
@@ -73,21 +73,21 @@ Item {
                 name: 'showAsc'
                 PropertyChanges {
                     target: ejeCard1
-                    width: ejeAsc.width+app.fs*4
+                    width: ejeAsc.width+sweg.fs*4
                 }
             },
             State {
                 name: 'hideAsc'
                 PropertyChanges {
                     target: ejeCard1
-                    width: ejeAsc.width+app.fs*2
+                    width: ejeAsc.width+sweg.fs*2
                 }
             }
         ]
         Behavior on opacity{NumberAnimation{duration: 500}}
         Canvas {
             id:canvas
-            width: app.fs*0.5
+            width: sweg.fs*0.5
             height: width
             anchors.verticalCenter: parent.verticalCenter
             anchors.left: parent.left
@@ -117,7 +117,7 @@ Item {
         Rectangle{
             id: xIconAsc
             property bool selected: app.currentPlanetIndex===15
-            width: selected?app.fs*2:app.fs
+            width: selected?sweg.fs*2:sweg.fs
             height: width
             radius: width*0.5
             color: 'black'
@@ -142,7 +142,7 @@ Item {
                     name: sweg.aStates[1]
                     PropertyChanges {
                         target: xIconAsc
-                        anchors.rightMargin: app.currentPlanetIndex===15?0- housesCircle.width*0.5-xIconAsc.width*0.5-app.fs*1.5:0
+                        anchors.rightMargin: app.currentPlanetIndex===15?0- housesCircle.width*0.5-xIconAsc.width*0.5-sweg.fs*1.5:0
                     }
                 },
                 State {
@@ -191,10 +191,10 @@ Item {
                 //anchors.centerIn: co
                 width: parent.width
                 anchors.verticalCenter: parent.verticalCenter
-                spacing: app.fs*0.05
+                spacing: sweg.fs*0.05
                 Text{
                     text: 'Asc '+app.signos[r.isAsc]
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: sweg.fs*0.5
                     color: 'white'
                     width: contentWidth
                     anchors.right: parent.right
@@ -205,7 +205,7 @@ Item {
                         color: 'black'
                         border.width: 1
                         border.color: 'white'
-                        radius: app.fs*0.1
+                        radius: sweg.fs*0.1
                         z: parent.z-1
                         opacity: 0.5
                         antialiasing: true
@@ -215,7 +215,7 @@ Item {
                 Item{width: xIconAsc.width;height: width}
                 Text{
                     text: '°'+r.gdegAsc+' \''+r.mdegAsc+''
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: sweg.fs*0.5
                     color: 'white'
                     width: contentWidth
                     anchors.right: parent.right
@@ -226,7 +226,7 @@ Item {
                         color: 'black'
                         border.width: 1
                         border.color: 'white'
-                        radius: app.fs*0.1
+                        radius: sweg.fs*0.1
                         z: parent.z-1
                         opacity: 0.5
                         anchors.centerIn: parent
@@ -245,7 +245,7 @@ Item {
         Rectangle{
             id: xIconMC
             property bool selected: app.currentPlanetIndex===16
-            width: selected?app.fs*2:app.fs
+            width: selected?sweg.fs*2:sweg.fs
             height: width
             radius: width*0.5
             color: 'black'
@@ -275,7 +275,7 @@ Item {
                     name: sweg.aStates[1]
                     PropertyChanges {
                         target: xIconMC
-                        anchors.rightMargin: app.currentPlanetIndex===16?0- housesCircle.width*0.5-xIconMC.width*0.5-app.fs*1.5:0
+                        anchors.rightMargin: app.currentPlanetIndex===16?0- housesCircle.width*0.5-xIconMC.width*0.5-sweg.fs*1.5:0
                     }
                     PropertyChanges {
                         target: xIconMC
@@ -330,19 +330,19 @@ Item {
             }
             Text{
                 text: 'MC '+app.signos[r.isMC]
-                font.pixelSize: app.fs*0.5
+                font.pixelSize: sweg.fs*0.5
                 color: 'white'
                 width: contentWidth
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.right: parent.left
-                anchors.rightMargin: app.fs*0.1
+                anchors.rightMargin: sweg.fs*0.1
                 Rectangle{
                     width: parent.contentWidth+3
                     height: parent.contentHeight+3
                     color: 'black'
                     border.width: 1
                     border.color: 'white'
-                    radius: app.fs*0.1
+                    radius: sweg.fs*0.1
                     z: parent.z-1
                     opacity: 0.5
                     antialiasing: true
@@ -351,19 +351,19 @@ Item {
             }
             Text{
                 text: '°'+r.gdegMC+' \''+r.mdegMC+''
-                font.pixelSize: app.fs*0.5
+                font.pixelSize: sweg.fs*0.5
                 color: 'white'
-                width: contentWidth// app.fs*0.5
+                width: contentWidth// sweg.fs*0.5
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.left: parent.right
-                anchors.leftMargin: app.fs*0.1
+                anchors.leftMargin: sweg.fs*0.1
                 Rectangle{
                     width: parent.contentWidth+3
                     height: parent.contentHeight+3
                     color: 'black'
                     border.width: 1
                     border.color: 'white'
-                    radius: app.fs*0.1
+                    radius: sweg.fs*0.1
                     z: parent.z-1
                     opacity: 0.5
                     antialiasing: true

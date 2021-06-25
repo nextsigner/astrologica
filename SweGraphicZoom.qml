@@ -10,6 +10,8 @@ Item {
     property real zoom: 2.0
     property int lupaX: xLupa.image.x
     property int lupaY: xLupa.image.y
+    //property int lupaX: xLupa.x
+    //property int lupaY: xLupa.y
     //visible: false
     clip: true
     state: 'show'
@@ -47,6 +49,7 @@ Item {
             objHousesCircle.extraObjectName: 'zoom'
             state: sweg.state
             //scale: 2.0
+
         }
 //        MouseArea{
 //            anchors.fill: parent
@@ -66,5 +69,14 @@ Item {
         border.width: 2
         border.color: 'white'
         color: 'transparent'
+    }
+    Rectangle{
+        width: app.fs*0.25
+        height: width
+        radius: width*0.5
+        color: 'transparent'
+        border.width: 2
+        border.color: 'white'
+        anchors.centerIn: parent
     }
 }

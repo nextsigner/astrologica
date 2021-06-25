@@ -2,10 +2,10 @@ import QtQuick 2.7
 
 Item {
     id: r
-    //width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3
+    //width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3
     height: width
     anchors.centerIn: parent
-    //anchors.horizontalCenterOffset: app.fs*10
+    //anchors.horizontalCenterOffset: r.fs*10
     property int fs: r.objectName==='sweg'?app.fs:app.fs*2
     property bool v: false
     property alias expand: planetsCircle.expand
@@ -24,8 +24,9 @@ Item {
             name: aStates[0]
             PropertyChanges {
                 target: r
-                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3)*2
-            }            
+                //width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
+                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
+            }
         },
         State {//PC
             name: aStates[1]
@@ -38,7 +39,7 @@ Item {
             name: aStates[2]
             PropertyChanges {
                 target: r
-                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-app.fs*3)*2
+                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
             }            
         }
     ]
@@ -132,11 +133,11 @@ Item {
                     //                        if(xAsp.children[i].c2===c){
                     //                            xAsp.children[i].opacity=1.0
                     //                            xAsp.children[i].visible=true
-                    //                            //xAsp.height=app.fs*2
+                    //                            //xAsp.height=r.fs*2
                     //                        }else{
                     xAsp.children[i].opacity=0.5
                     xAsp.children[i].visible=false
-                    //xAsp.height=app.fs*0.9
+                    //xAsp.height=r.fs*0.9
                     //}
                 }
             }
