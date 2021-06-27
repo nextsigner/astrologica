@@ -9,7 +9,7 @@ Rectangle {
     border.color: 'white'
     anchors.centerIn: parent
     antialiasing: true
-    visible: sweg.state===sweg.aStates[0] || sweg.state===sweg.aStates[2]
+    //visible: sweg.state===sweg.aStates[0] || sweg.state===sweg.aStates[2]
     property int currentAspSelected: -1
     property int widthNodosAspSelected: 8
     state: sweg.state
@@ -18,7 +18,7 @@ Rectangle {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-app.fs
+                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-sweg.fs
                 opacity: 0.0
             }
         },
@@ -26,20 +26,25 @@ Rectangle {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: r
-                width: 0//Está invisible, no sirve de nada que le ponga una medida acá. XD
-                opacity: 0.0
+                width: sweg.fs*4//Está invisible, no sirve de nada que le ponga una medida acá. XD
+                //opacity: 0.0
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: r
-                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-app.fs
+                width: planetsCircle.width-((planetsCircle.totalPosX*planetsCircle.planetSize)*2)-sweg.fs
                 opacity: 1.0
             }
         }
     ]
     onCurrentAspSelectedChanged: setPosCurrentAsp(currentAspSelected)
+    onWidthChanged: {
+        currentAspSelected=-1
+        clear_canvas()
+        clear_canvasBg()
+    }
     Behavior on width {
         NumberAnimation{
             duration: sweg.speedRotation
@@ -87,14 +92,14 @@ Rectangle {
             var x = canvasBg.width*0.5;
             var y = canvasBg.height*0.5;
             var radius=canvasBg.width*0.5-2
-            drawLine(ctx, px1, py1, px2, py2, 'white', 6)
+            drawLine(ctx, px1, py1+2, px2, py2+2, 'white', 7)
             //drawPoint(ctx, px1, py1, 8, 'white')
             //drawPoint(ctx, px2, py2, 8, 'white')
         }
     }
     Canvas {
         id:canvas
-        width: r.width//-app.fs
+        width: r.width//-sweg.fs
         height: width
         anchors.centerIn: r
         property var json
@@ -207,9 +212,14 @@ Rectangle {
         return [ x, y ];
     }
     function clear_canvas() {
-        var ctx = getContext("2d");
+        var ctx = canvas.getContext("2d");
         ctx.reset();
         canvas.requestPaint();
+    }
+    function clear_canvasBg() {
+        var ctx = canvasBg.getContext("2d");
+        ctx.reset();
+        canvasBg.requestPaint();
     }
     function load(jsonData){
         canvas.json=jsonData

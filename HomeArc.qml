@@ -17,6 +17,7 @@ Item {
     property int opacitySpeed: 100
     property int extraWidth: 0
     property alias showEjeCentro: ejeCentro.visible
+
     Behavior on w{NumberAnimation{duration: 500}}
     Behavior on width{NumberAnimation{duration:500}}
     state: sweg.state
@@ -35,7 +36,7 @@ Item {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
-                 w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
+                 w: (sweg.width-sweg.objAspsCircle.width)/2//housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
             }
         },
         State {
@@ -52,7 +53,8 @@ Item {
                 target: r
                 colors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
                 extraWidth: sweg.fs*2.5
-                w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*2.5:sweg.fs*8)
+                w: (sweg.width-sweg.objAspsCircle.width)/2
+                //w: housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*2.5:sweg.fs*8)
             }
         },
         State {
@@ -69,7 +71,8 @@ Item {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
-                w: housesCircle.parent.objectName==='sweg'?(sweg.fs*2):(sweg.fs*4)
+                //w: housesCircle.parent.objectName==='sweg'?(sweg.fs*2):(sweg.fs*4)
+                w: (sweg.width-sweg.objAspsCircle.width)/2
             }
         }
     ]
@@ -258,7 +261,11 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
+                    sweg.state=sweg.aStates[1]
+                    swegz.sweg.state=sweg.aStates[1]
+                    let ni=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
+                    sweg.objHousesCircle.currentHouse=ni
+                    swegz.sweg.objHousesCircle.currentHouse=ni
                 }
             }
             Text{

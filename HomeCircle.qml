@@ -11,28 +11,31 @@ Item {
     property var arrayWg: []
     property string extraObjectName: ''
     property var swegParent//: value
+    property int widthAspCircle: 10
     state: r.parent.state
     states: [
         State {
             name: r.parent.aStates[0]
             PropertyChanges {
                 target: r
-                width: housesCircle.parent.objectName==='sweg'?(r.parent.width-sweg.fs-sweg.fs):(r.parent.width-sweg.fs)
-                //width: r.parent.width-sweg.fs-sweg.fs
+                //width: housesCircle.parent.objectName==='sweg'?(r.parent.width-sweg.fs-sweg.fs):(r.parent.width-sweg.fs)
+                width: r.parent.width-sweg.fs-sweg.fs
             }
         },
         State {
             name: r.parent.aStates[1]
             PropertyChanges {
                 target: r
-                width: housesCircle.parent.objectName==='sweg'?(r.parent.width-sweg.fs*5-sweg.fs):(r.parent.width-sweg.fs*2.5-sweg.fs*0.5)
+                //width: housesCircle.parent.objectName==='sweg'?(r.parent.width-sweg.fs*5-sweg.fs):(r.parent.width-sweg.fs*2.5-sweg.fs*0.5)
+                width: r.parent.width-sweg.fs*5-sweg.fs
             }
         },
         State {
             name: r.parent.aStates[2]
             PropertyChanges {
                 target: r
-                width: housesCircle.parent.objectName==='sweg'?(r.parent.width-sweg.fs-sweg.fs):(r.parent.width)
+                //width: housesCircle.parent.objectName==='sweg'?(r.parent.width-sweg.fs-sweg.fs):(r.parent.width)
+                width: r.parent.width-sweg.fs-sweg.fs
             }
         }
     ]

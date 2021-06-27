@@ -67,6 +67,7 @@ Item {
         showBorder: true
         rotation: -90
         w: r.fs*6
+        widthAspCircle: aspsCircle.width
         visible: r.v
         //z: ascMcCircle.z+1
     }
