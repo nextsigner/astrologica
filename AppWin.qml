@@ -165,7 +165,6 @@ ApplicationWindow {
                 xSabianos.left()
                 return
             }
-            xAreaInteractiva.acercarAlCentro()
         }
     }
     Shortcut{
@@ -175,7 +174,6 @@ ApplicationWindow {
                 xSabianos.right()
                 return
             }
-            xAreaInteractiva.acercarAlBorde()
         }
     }
     Shortcut{

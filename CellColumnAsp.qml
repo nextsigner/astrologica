@@ -31,7 +31,6 @@ Item {
         }
     }
     function clear(){
-        console.log('Clear aspects...')
         for(var i=0;i<15;i++){
             let cellRow=colCells.children[i]
             cellRow.indexAsp=-1
