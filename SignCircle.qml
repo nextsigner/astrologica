@@ -38,28 +38,42 @@ Item {
             easing.type: Easing.InOutQuad
         }
     }
-    MouseArea {
-        id: maw
-        anchors.fill: parent
-        onClicked: r.v=!r.v
-        property int m:0
-        property date uDate//: app.currentDate
-        property int f: 0
-        property int uY: 0
-        onWheel: {
-            let i=1
-            if (wheel.modifiers & Qt.ControlModifier) {
-                i=60
+    Repeater{
+        model: 36
+        Item{
+            width: r.width
+            height: 1
+            anchors.centerIn: parent
+            rotation: 10*index
+            MouseArea {
+                id: maw
+                width: r.w*0.9
+                height: r.w*1.3
+                anchors.verticalCenter: parent.verticalCenter
+                anchors.left: parent.left
+                anchors.leftMargin:  0-sweg.fs*0.05
+                onClicked: r.v=!r.v
+                property int m:0
+                property date uDate//: app.currentDate
+                property int f: 0
+                property int uY: 0
+                onWheel: {
+                    let i=1
+                    if (wheel.modifiers & Qt.ControlModifier) {
+                        i=60
+                    }
+                    if (wheel.modifiers & Qt.ShiftModifier) {
+                        i=60*24
+                    }
+                    if(wheel.angleDelta.y===120){
+                        rotar(0,i)
+                    }else{
+                        rotar(1,i)
+                    }
+                    uY=wheel.angleDelta.y
+                }
+                //Rectangle{anchors.fill: parent; color: 'red';border.width: 1;border.color: 'white'}
             }
-            if (wheel.modifiers & Qt.ShiftModifier) {
-                i=60*24
-            }
-            if(wheel.angleDelta.y===120){
-                rotar(1,i)
-            }else{
-                rotar(0,i)
-            }
-            uY=wheel.angleDelta.y
         }
     }
     Item{
