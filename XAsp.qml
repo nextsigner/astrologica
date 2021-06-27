@@ -83,5 +83,6 @@ Rectangle {
                 sweg.objAspsCircle.currentAspSelected=-1
             }
         }
+        //Rectangle{anchors.fill: parent; color: 'red';opacity:0.5}
     }
 }

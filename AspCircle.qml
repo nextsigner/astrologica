@@ -225,6 +225,7 @@ Rectangle {
         canvas.json=jsonData
     }
     function setPosCurrentAsp(ci){
+        clear_canvasBg()
         let asp=canvas.json.asps
         //for(var i=0;i<Object.keys(asp).length;i++){
         if(asp['asp'+parseInt(r.currentAspSelected +1)]){
@@ -252,10 +253,12 @@ Rectangle {
             punto.y=cy+coords[1]
             punto2.x=cx+coords2[0]
             punto2.y=cy+coords2[1]
+            clear_canvasBg()
             canvasBg.px1=cx+coords[0]
             canvasBg.py1=cx+coords[1]
             canvasBg.px2=cx+coords2[0]
             canvasBg.py2=cx+coords2[1]
+            canvasBg.requestPaint()
             //canvas.visible=false
         }
     }

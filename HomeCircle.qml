@@ -41,28 +41,7 @@ Item {
     ]
     Behavior on rotation{
         NumberAnimation{duration:2000;easing.type: Easing.InOutElastic}
-    }
-    MouseArea {
-        id: maw
-        anchors.fill: parent
-        onClicked: r.v=!r.v
-        property int m:0
-        property date uDate//: app.currentDate
-        property int f: 0
-        property int uY: 0
-        onWheel: {
-            //if (wheel.modifiers & Qt.ControlModifier) {
-            //let g=wheel.angleDelta.y / 120
-            console.log('GGGG:'+uY)
-            if(wheel.angleDelta.y===120){
-                rotar(0)
-            }else{
-                rotar(1)
-            }
-            uY=wheel.angleDelta.y
-            //}
-        }
-    }
+    }    
     Item{
         id: xHomeArcs
         anchors.fill: r

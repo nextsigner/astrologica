@@ -67,5 +67,6 @@ Rectangle {
     MouseArea{
         anchors.fill: r
         onClicked: sweg.objEclipseCircle.visible=false
+        //Rectangle{anchors.fill: parent; color: 'red';opacity:0.5}
     }
 }

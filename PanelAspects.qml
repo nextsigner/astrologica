@@ -21,6 +21,7 @@ Rectangle {
             sweg.state=sweg.aStates[2]
             swegz.sweg.state=sweg.aStates[2]
         }
+        //Rectangle{anchors.fill: parent; color: 'red';opacity:0.5}
     }
     function clear(){
         if(!r.visible)return
