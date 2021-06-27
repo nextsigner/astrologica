@@ -179,13 +179,19 @@ Item {
                 source: "./resources/imgs/signos/"+r.isAsc+".svg"
                 width: parent.width*0.65
                 height: width
-                anchors.centerIn: parent
+                anchors.centerIn: parent                
             }
             ColorOverlay {
                 id: co
                 anchors.fill: img
                 source: img
                 color: 'red'
+            }
+            MouseArea{
+                anchors.fill: parent
+                onClicked: {
+                    sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==1?1:-1
+                }
             }
             Column{
                 //anchors.centerIn: co
@@ -320,6 +326,12 @@ Item {
                 width: parent.width*0.65
                 height: width
                 anchors.centerIn: parent
+                MouseArea{
+                    anchors.fill: parent
+                    onClicked: {
+                        sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==10?10:-1
+                    }
+                }
             }
 
             ColorOverlay {

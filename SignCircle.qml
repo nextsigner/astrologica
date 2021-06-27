@@ -72,7 +72,6 @@ Item {
                     }
                     uY=wheel.angleDelta.y
                 }
-                //Rectangle{anchors.fill: parent; color: 'red';border.width: 1;border.color: 'white'}
             }
         }
     }

@@ -258,14 +258,7 @@ Item {
             MouseArea{
                 anchors.fill: parent
                 onClicked: {
-                    Qt.quit()
-                    sweg.objHousesCircle.currentHouse=r.n-1
-                    /*if(tc.running){
-                        r.selected=false//!r.selected
-                    }else{
-                        r.selected=!r.selected
-                    }
-                    canvas.opacity=r.selected?1.0:0.65*/
+                    sweg.objHousesCircle.currentHouse=sweg.objHousesCircle.currentHouse!==r.n?r.n:-1
                 }
             }
             Text{

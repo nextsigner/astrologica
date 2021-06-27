@@ -52,6 +52,14 @@ Item {
         color: 'transparent'
         visible: signCircle.v
     }
+    PanelAspects{
+        id: panelAspects
+        anchors.bottom: parent.bottom
+        anchors.left: parent.left
+        anchors.leftMargin: 0-((xApp.width-r.width)/2)+swegz.width
+        visible: r.objectName==='sweg'
+        //Rectangle{anchors.fill: parent; color: 'red';border.width: 1;border.color: 'white'}
+    }
     HomeCircle{
         id:housesCircle
         height: width
@@ -148,13 +156,7 @@ Item {
             }
         }
     }
-    PanelAspects{
-        id: panelAspects
-        anchors.bottom: parent.bottom
-        anchors.left: parent.left
-        anchors.leftMargin: 0-((xApp.width-r.width)/2)+swegz.width
-        visible: r.objectName==='sweg'
-    }
+
     EclipseCircle{
         id: eclipseCircle
         width: housesCircle.width
