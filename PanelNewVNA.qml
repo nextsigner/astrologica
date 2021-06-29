@@ -10,6 +10,7 @@ Rectangle {
     color: 'black'
     border.width: 2
     border.color: 'white'
+    x:0-r.width
     property real lat
     property real lon
     state: 'hide'

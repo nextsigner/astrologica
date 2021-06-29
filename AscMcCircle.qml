@@ -125,6 +125,7 @@ Item {
             border.color: co.color
             antialiasing: true
             anchors.verticalCenter: parent.verticalCenter
+            anchors.verticalCenterOffset: 0
             anchors.right: parent.left
             onSelectedChanged:{
                 app.uSon='asc_'+app.objSignsNames[r.isAsc]+'_1'
@@ -135,7 +136,9 @@ Item {
                     name: sweg.aStates[0]
                     PropertyChanges {
                         target: xIconAsc
-                        anchors.rightMargin: 0
+                        anchors.rightMargin: !xIconAsc.selected?0:0-sweg.width*0.5-sweg.fs*0.25
+                        anchors.verticalCenterOffset: !xIconAsc.selected?0-sweg.fs*2:0
+
                     }
                 },
                 State {
@@ -143,6 +146,8 @@ Item {
                     PropertyChanges {
                         target: xIconAsc
                         anchors.rightMargin: app.currentPlanetIndex===15?0- housesCircle.width*0.5-xIconAsc.width*0.5-sweg.fs*1.5:0
+                        //anchors.rightMargin: !xIconAsc.selected?0:0-sweg.width*0.5-sweg.fs*0.25
+                        anchors.verticalCenterOffset: !xIconAsc.selected?0-sweg.fs*2:0
                     }
                 },
                 State {
@@ -150,6 +155,8 @@ Item {
                     PropertyChanges {
                         target: xIconAsc
                         anchors.rightMargin: 0
+                        //anchors.rightMargin: !xIconAsc.selected?0:0-sweg.width*0.5-sweg.fs*0.25
+                        anchors.verticalCenterOffset: !xIconAsc.selected?0-sweg.fs*2:0
                     }
                 }
             ]
@@ -239,6 +246,14 @@ Item {
                         antialiasing: true
                     }
                 }
+            }
+            Rectangle{
+                id: lineSenAsc
+                width: 2
+                height: Math.abs(parent.anchors.verticalCenterOffset)-parent.height*0.5
+                color: 'red'
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.bottom
             }
         }
     }

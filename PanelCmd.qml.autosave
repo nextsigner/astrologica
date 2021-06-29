@@ -1,0 +1,143 @@
+import QtQuick 2.7
+import QtQuick.Controls 2.0
+import Qt.labs.folderlistmodel 2.12
+import "comps" as Comps
+import "Funcs.js" as JS
+
+Item {
+    id: r
+    width: parent.width
+    height: tiCmd.height
+    y:r.parent.height
+    property real lat
+    property real lon
+    state: 'hide'
+    states: [
+        State {
+            name: "show"
+            PropertyChanges {
+                target: r
+                y:r.parent.height-r.height
+                //z:1000
+            }
+//            PropertyChanges {
+//                target: sweg.objXAsp
+//                visible:false
+//            }
+            PropertyChanges {
+                target: xStatus
+                visible:false
+            }
+        },
+        State {
+            name: "hide"
+            PropertyChanges {
+                target: r
+                y:r.parent.height
+            }
+//            PropertyChanges {
+//                target: sweg.objXAsp
+//                visible:true
+//            }
+            PropertyChanges {
+                target: xStatus
+                visible:true
+            }
+        }
+    ]
+    Behavior on x{NumberAnimation{duration: 250}}
+    onStateChanged: {
+        if(state==='show')tiCmd.t.focus=true
+    }
+    onXChanged: {
+        if(x===0){
+            //txtDataSearch.selectAll()
+            //txtDataSearch.focus=true
+        }
+    }
+    Row{
+        id: row
+        anchors.centerIn: parent
+        spacing: app.fs*0.25
+        Row{
+            spacing: app.fs*05
+            anchors.verticalCenter: parent.verticalCenter
+            Comps.XTextInput{
+                id: tiCmd
+                width: r.width
+                t.font.pixelSize: app.fs*0.65
+                anchors.verticalCenter: parent.verticalCenter
+                Keys.onReturnPressed: {
+                    runCmd(text)
+                }
+                //KeyNavigation.tab: tiFecha.t
+                //t.maximumLength: 30
+            }
+        }
+    }
+    Item{id: xuqp}
+    function runCmd(cmd){
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let finalCmd=''
+        let c=''
+        let comando=cmd.split(' ')
+        if(comando.length<1)return
+        if(comando[0]==='eclipse'){
+            if(comando.length<5)return
+            c='let json=JSON.parse(logData)
+r.state="hide"
+sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)
+sweg.objEclipseCircle.typeEclipse='+comando[4]+''
+                    sweg.objHousesCircle.currentHouse=-1
+
+            finalCmd=''
+                    +'python3 ./py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+''
+        }
+        if(comando[0]==='rs'){
+            if(comando.length<1)return
+            c=''
+                    +'  let s=""+logData\n'
+                    +'  console.log("RS: "+s)\n'
+                    +'  r.state="hide"\n'
+                    +'  sweg.loadSweJson(s)\n'
+                    +'  swegz.sweg.loadSweJson(s)\n'
+
+            let cd=app.currentDate
+            cd = cd.setFullYear(parseInt(comando[1]))
+            let cd2=new Date(cd)
+            cd2 = cd2.setDate(cd2.getDate() - 1)
+            let cd3=new Date(cd2)
+            finalCmd=''
+                    +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
+            //console.log('finalCmd: '+finalCmd)
+        }
+        mkCmd(finalCmd, c)
+    }
+    function mkCmd(finalCmd, code){
+        for(var i=0;i<xuqp.children.length;i++){
+            xuqp.children[i].destroy(0)
+        }
+        let d = new Date(Date.now())
+        let ms=d.getTime()
+        let c='import QtQuick 2.0\n'
+        c+='import unik.UnikQProcess 1.0\n'
+        c+='UnikQProcess{\n'
+        c+='    id: uqp'+ms+'\n'
+        c+='    onLogDataChanged:{\n'
+        c+='        '+code+'\n'
+        c+='        uqp'+ms+'.destroy(0)\n'
+        c+='    }\n'
+        c+='    Component.onCompleted:{\n'
+        c+='        run(\''+finalCmd+'\')\n'
+        c+='    }\n'
+        c+='}\n'
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodecmd')
+    }
+    function enter(){
+        runCmd(tiCmd.text)
+    }
+}
