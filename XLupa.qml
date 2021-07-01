@@ -116,7 +116,15 @@ Item {
             anchors.fill: parent
             radius: parent.radius
             opacity: 0.0
-        }
+        }        
+    }
+    Rectangle{
+        color: 'yellow'
+        width: 20
+        height: width
+        radius: width*0.5
+        anchors.centerIn: parent
+        visible: false
     }
     SequentialAnimation{
         id: an

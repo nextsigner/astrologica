@@ -17,7 +17,10 @@ Item {
     property bool expand: false
     property int wtc: sweg.fs //width of each circle de triple circle
     Rectangle{
-        width: r.expand?r.width-circle1.width:sweg.fs
+        id: eje1
+        //width: r.expand?r.width-circle1.width:sweg.fs
+        //width: r.parent.parent.parent.objectName==='sweg'?(r.expand?r.width-circle1.width:sweg.fs):(r.expand?r.width-circle1.width-sweg.fs:sweg.fs)
+        width: r.parent.parent.parent.parent.parent.objectName==='sweg'?sweg.fs*3:sweg.fs*2.25
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
@@ -67,7 +70,8 @@ Item {
         }
     }
     Rectangle{
-        width: r.expand?r.width-circle1.width:sweg.fs
+        width: eje1.width
+        //width: r.expand?r.width-circle1.width:sweg.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'
@@ -102,7 +106,8 @@ Item {
         }
     }
     Rectangle{
-        width: r.expand?r.width-circle1.width:sweg.fs
+        width: eje1.width
+        //width: r.expand?r.width-circle1.width:sweg.fs
         height: 2
         anchors.centerIn: parent
         color: 'transparent'

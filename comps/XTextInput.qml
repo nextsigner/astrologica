@@ -7,6 +7,8 @@ Item {
     property alias t: txt
     property int fs: app.fs
     property bool c: false
+    property alias bw: xTi.border
+    property alias bc: xTi.border
     width: app.fs*5
     height: xTi.height
     //focus: txt.focus
@@ -14,11 +16,12 @@ Item {
     Rectangle{
         id: xTi
         width: r.width//+app.fs
-        height: r.fs*1.2
+        height: r.fs
         color: 'transparent'
         border.width: 1
         border.color: 'white'
         clip: true
+        anchors.centerIn: r
         Rectangle{
             id: bg
             anchors.fill: parent

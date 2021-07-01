@@ -4,10 +4,13 @@ import Qt.labs.folderlistmodel 2.12
 import "comps" as Comps
 import "Funcs.js" as JS
 
-Item {
+Rectangle {
     id: r
     width: parent.width
-    height: tiCmd.height
+    height: app.fs
+    border.width: 2
+    border.color: 'white'
+    color: 'black'
     y:r.parent.height
     property real lat
     property real lon
@@ -20,10 +23,10 @@ Item {
                 y:r.parent.height-r.height
                 //z:1000
             }
-            PropertyChanges {
-                target: sweg.objXAsp
-                visible:false
-            }
+            //            PropertyChanges {
+            //                target: sweg.objXAsp
+            //                visible:false
+            //            }
             PropertyChanges {
                 target: xStatus
                 visible:false
@@ -35,17 +38,17 @@ Item {
                 target: r
                 y:r.parent.height
             }
-            PropertyChanges {
-                target: sweg.objXAsp
-                visible:true
-            }
+            //            PropertyChanges {
+            //                target: sweg.objXAsp
+            //                visible:true
+            //            }
             PropertyChanges {
                 target: xStatus
                 visible:true
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: 250}}
+    Behavior on y{NumberAnimation{duration: 250}}
     onStateChanged: {
         if(state==='show')tiCmd.t.focus=true
     }
@@ -55,25 +58,19 @@ Item {
             //txtDataSearch.focus=true
         }
     }
-    Row{
-        id: row
+    Comps.XTextInput{
+        id: tiCmd
+        width: r.width
+        height: r.height
+        t.font.pixelSize: app.fs*0.65
+        //bw.width: 0
+        //anchors.verticalCenter: parent.verticalCenter
         anchors.centerIn: parent
-        spacing: app.fs*0.25
-        Row{
-            spacing: app.fs*05
-            anchors.verticalCenter: parent.verticalCenter
-            Comps.XTextInput{
-                id: tiCmd
-                width: r.width
-                t.font.pixelSize: app.fs*0.65
-                anchors.verticalCenter: parent.verticalCenter
-                Keys.onReturnPressed: {
-                    runCmd(text)
-                }
-                //KeyNavigation.tab: tiFecha.t
-                //t.maximumLength: 30
-            }
+        Keys.onReturnPressed: {
+            runCmd(text)
         }
+        //KeyNavigation.tab: tiFecha.t
+        //t.maximumLength: 30
     }
     Item{id: xuqp}
     function runCmd(cmd){
@@ -92,20 +89,13 @@ Item {
 r.state="hide"
 sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)
 sweg.objEclipseCircle.typeEclipse='+comando[4]+''
-                    sweg.objHousesCircle.currentHouse=-1
+            sweg.objHousesCircle.currentHouse=-1
 
             finalCmd=''
                     +'python3 ./py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+''
         }
         if(comando[0]==='rs'){
             if(comando.length<1)return
-            c=''
-                    +'  let s=""+logData\n'
-                    +'  console.log("RS: "+s)\n'
-                    +'  r.state="hide"\n'
-                    +'  sweg.loadSweJson(s)\n'
-                    +'  swegz.sweg.loadSweJson(s)\n'
-
             let cd=app.currentDate
             cd = cd.setFullYear(parseInt(comando[1]))
             let cd2=new Date(cd)
@@ -114,6 +104,19 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             finalCmd=''
                     +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
             //console.log('finalCmd: '+finalCmd)
+            c=''
+            c+=''
+                    +'  let s=""+logData\n'
+                    +'  console.log("RS: "+s)\n'
+                    +'  r.state="hide"\n'
+                    +'  sweg.loadSweJson(s)\n'
+                    +'  swegz.sweg.loadSweJson(s)\n'
+                    +'  let j=JSON.parse(s)\n'
+                    +'  let o=j.params\n'
+                    +'  let m0=o.sd.split(" ")\n'
+                    +'  let m1=m0[0].split("/")\n'
+                    +'  let m2=m0[1].split(":")\n'
+                    +'  JS.setTitleData("'+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1] , "aca", '+app.currentGmt+','+app.currentLat+','+app.currentLon+')\n'
         }
         mkCmd(finalCmd, c)
     }
@@ -125,6 +128,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
+        c+='import "Funcs.js" as JS\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'

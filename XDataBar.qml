@@ -8,7 +8,7 @@ Rectangle {
     color: 'black'
     border.width: 1
     border.color: 'white'
-    property alias fileData: txtCurrentData.text
+    property alias titleData: txtCurrentData.text
     property alias currentDateText: txtCurrentDate.text
     property alias currentGmtText: txtCurrentGmt.text
     property bool showTimes: false
@@ -56,7 +56,7 @@ Rectangle {
             y:(parent.height-height)/2
             MouseArea{
                 anchors.fill: parent
-                enabled: app.fileData!==app.currentData
+                enabled: app.titleData!==app.currentData
                 onClicked: {
                     JS.saveJson()
                 }
@@ -83,7 +83,7 @@ Rectangle {
         spacing: app.fs*0.5
         height: txtCurrentDate.contentHeight+app.fs*0.5
         y:parent.height
-        visible: app.fileData!==app.currentData
+        visible: app.titleData!==app.currentData
         Rectangle{
             width: txtCurrentDate.contentWidth+app.fs*0.5
             height: txtCurrentDate.contentHeight+app.fs*0.5

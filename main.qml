@@ -145,7 +145,7 @@ AppWin {
             id: swegz
             anchors.top: parent.top
             anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
-            anchors.bottom: parent.bottom
+            anchors.bottom: xBottomBar.top
         }
         XLupa{id: xLupa}
         Comps.XLayerTouch{
@@ -158,13 +158,13 @@ AppWin {
         PanelFileLoader{id: panelFileLoader}
         PanelControlsSign{id: panelControlsSign}
         PanelNewVNA{id: panelNewVNA}
-        PanelCmd{id: panelCmd}
         PanelDataBodies{id: panelDataBodies}
         XTools{
             id: xTools
             anchors.bottom: parent.bottom
             anchors.right: parent.right
         }
+        XBottomBar{id: xBottomBar}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {

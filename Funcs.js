@@ -135,16 +135,13 @@ function setInfo(i1, i2, i3, son){
     }
 }
 function getEdad(d, m, a, h, min) {
-    let hoy = new Date()
+    let hoy = new Date(Date.now())
     let fechaNacimiento = new Date(a, m, d, h, min)
     fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
     let fechaNacimiento2 = new Date(fechaNacimiento)
     let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
     let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
-    if (
-            diferenciaMeses < 0 ||
-            (diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())
-            ) {
+    if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
         edad--
     }
     return edad
@@ -237,7 +234,7 @@ function loadJson(file){
     app.currentLon=vlon
     app.currentLat=vlat
 
-    xDataBar.fileData=textData
+    xDataBar.titleData=textData
     xDataBar.state='show'
     app.currentData=app.fileData
 }
@@ -363,4 +360,23 @@ function loadJsonNow(file){
     xDataBar.state='show'
     app.currentData=app.fileData
     app.fileData=jsonFileData
+}
+
+function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
+    let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
+    let stringTiempo=''
+    console.log('Edad: '+numEdad)
+    if(numEdad>0){
+        stringTiempo='<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
+    }else{
+        let nAnio=Math.abs(getEdad(vd, vm, va, vh, vmin))
+        stringTiempo=nAnio>=1?'<b> Años:</b>'+nAnio+' ':'<b> Año:</b>'+nAnio+' '
+    }
+    let textData=''
+            +'<b>'+nom+'</b> '
+            +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt
+            +' '+stringTiempo+' '
+            +'<b> '+vCiudad+'</b> '
+            +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
+    xDataBar.titleData=textData
 }

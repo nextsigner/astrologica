@@ -93,6 +93,10 @@ ApplicationWindow {
                 panelControlsSign.state='hide'
                 return
             }
+            if(xBottomBar.objPanelCmd.state==='show'){
+                xBottomBar.objPanelCmd.state='hide'
+                return
+            }
             Qt.quit()
         }
     }
@@ -203,7 +207,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
-            panelCmd.state=panelCmd.state==='show'?'hide':'show'
+            xBottomBar.objPanelCmd.state=xBottomBar.objPanelCmd.state==='show'?'hide':'show'
         }
     }
     Shortcut{
