@@ -73,6 +73,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
+            if(xBottomBar.objPanelCmd.state==='show'){
+                xBottomBar.objPanelCmd.state='hide'
+                return
+            }
             if(xSabianos.visible){
                 xSabianos.visible=false
                 return
@@ -95,10 +99,6 @@ ApplicationWindow {
             }
             if(panelRsList.state==='show'){
                 panelRsList.state='hide'
-                return
-            }
-            if(xBottomBar.objPanelCmd.state==='show'){
-                xBottomBar.objPanelCmd.state='hide'
                 return
             }
             Qt.quit()

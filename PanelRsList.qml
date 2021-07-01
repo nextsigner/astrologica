@@ -11,6 +11,7 @@ Rectangle {
     border.color: 'white'
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
+    property int edadMaxima: 0
     state: 'hide'
     states: [
         State {
@@ -45,7 +46,7 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             Text {
                 id: txtLabelTit
-                text: 'Revoluciones Solares'
+                text: 'Revoluciones Solares hasta los '+r.edadMaxima+' años'
                 font.pixelSize: app.fs*0.5
                 width: parent.width-app.fs
                 wrapMode: Text.WordWrap
@@ -170,8 +171,8 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: lv.currentIndex=index
                 onDoubleClicked: {
-                    //JS.loadJson(fileName)
-                    //r.state='hide'
+                    r.state='hide'
+                    xBottomBar.objPanelCmd.makeRS(rsDate)
                 }
             }
 
@@ -183,32 +184,6 @@ Rectangle {
                     if(index===0){
                         getAsc(index, rsDate, itemRS)
                     }
-                   /* if(parent.color==='white'){
-                        parent.color='red'
-                    }
-
-                    let cd=rsDate
-                    cd = cd.setFullYear(rsDate.getFullYear())
-                    let cd2=new Date(cd)
-                    cd2 = cd2.setDate(cd2.getDate() - 1)
-                    let cd3=new Date(cd2)
-                    let finalCmd=''
-                        +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
-                    //console.log('finalCmd: '+finalCmd)
-                    let c=''
-                    c+=''
-                            +'  let s=""+logData\n'
-                            +'  console.log("RSList: "+s)\n'
-                            +'  let j=JSON.parse(s)\n'
-                            +'  let o=j.params\n'
-                            +'  let m0=o.sd.split(" ")\n'
-                            +'  let m1=m0[0].split("/")\n'
-                            +'  let m2=m0[1].split(":")\n'
-                            +'  lm.get('+index+').dato=""+o.sd\n'
-                            +'  o=j.ph\n'
-                            +'  lm.get('+index+').indexSign=o.h1.is\n'
-
-                    mkCmd(finalCmd, c, itemRS)*/
                 }
             }
         }
@@ -232,6 +207,7 @@ Rectangle {
         //setRsList(150)
     }
     function setRsList(edad){
+        r.edadMaxima=edad-1
         lm.clear()
         r.state='show'
         let arraDates =[]
@@ -239,7 +215,7 @@ Rectangle {
             let d = app.currentDate
             d = d.setFullYear(d.getFullYear() + i)
             let d2= new Date(d)
-            console.log('d: '+d2.toString())
+            //console.log('d: '+d2.toString())
             arraDates.push(d2)
         }
         for(i=0;i<arraDates.length;i++){
@@ -280,7 +256,7 @@ Rectangle {
         let c=''
         c+=''
                 +'  let s=""+logData\n'
-                +'  console.log("RSList: "+s)\n'
+                +'  //console.log("RSList: "+s)\n'
                 +'  let j=JSON.parse(s)\n'
                 +'  let o=j.params\n'
                 +'  let m0=o.sd.split(" ")\n'
@@ -289,11 +265,15 @@ Rectangle {
                 +'  lm.get('+index+').dato=""+o.sd\n'
                 +'  o=j.ph\n'
                 +'  lm.get('+index+').indexSign=o.h1.is\n'
-                +'  lv.currentIndex='+parseInt(index )+'\n'
-                +'  tSearchAsc.index='+parseInt(index + 1)+'\n'
-                +'  tSearchAsc.rsDate=lm.get('+parseInt(index + 1)+').rsDate\n'
-                +'  tSearchAsc.itemRS=lv.itemAtIndex('+parseInt(index + 1)+')\n'
-                +'  tSearchAsc.start()\n'
+                +'  if('+parseInt(index )+'<r.edadMaxima){\n'
+                +'      lv.currentIndex='+parseInt(index )+'\n'
+                +'      tSearchAsc.index='+parseInt(index + 1)+'\n'
+                +'      tSearchAsc.rsDate=lm.get('+parseInt(index + 1)+').rsDate\n'
+                +'      tSearchAsc.itemRS=lv.itemAtIndex('+parseInt(index + 1)+')\n'
+                +'      tSearchAsc.start()\n'
+                +'  }else{\n'
+                +'      lv.currentIndex=0\n'
+                +'  }\n'
                 //+'  getAsc('+parseInt(index + 1)+', lm.get('+parseInt(index + 1)+').rsDate, lv.itemAtIndex('+parseInt(index + 1)+')) \n'
 
         mkCmd(finalCmd, c, itemRS)

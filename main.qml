@@ -162,6 +162,7 @@ AppWin {
         PanelDataBodies{id: panelDataBodies}
         PanelRsList{
             id: panelRsList
+            width: swegz.width
             anchors.top: parent.top
             anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
             anchors.bottom: xBottomBar.top
