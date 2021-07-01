@@ -118,6 +118,10 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                     +'  let m2=m0[1].split(":")\n'
                     +'  JS.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
         }
+        if(comando[0]==='rsl'){
+            if(comando.length<1)return
+            if(parseInt(comando[1])>=1)panelRsList.setRsList(parseInt(comando[1])+ 1)
+        }
         mkCmd(finalCmd, c)
     }
     function mkCmd(finalCmd, code){

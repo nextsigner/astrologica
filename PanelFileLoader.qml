@@ -179,7 +179,7 @@ Rectangle {
         unik.deleteFile(jsonFileName)
         updateList()
     }
-    /*function getEdad(dateString) {
+    function getEdad(dateString) {
         let hoy = new Date()
         let fechaNacimiento = new Date(dateString)
         let edad = hoy.getFullYear() - fechaNacimiento.getFullYear()
@@ -191,7 +191,7 @@ Rectangle {
             edad--
         }
         return edad
-    }*/
+    }
     function updateList(){
         lm.clear()
         for(var i=0;i<flm.count;i++){

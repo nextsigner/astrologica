@@ -160,6 +160,12 @@ AppWin {
         PanelControlsSign{id: panelControlsSign}
         PanelNewVNA{id: panelNewVNA}
         PanelDataBodies{id: panelDataBodies}
+        PanelRsList{
+            id: panelRsList
+            anchors.top: parent.top
+            anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
+            anchors.bottom: xBottomBar.top
+        }
         XTools{
             id: xTools
             anchors.bottom: parent.bottom

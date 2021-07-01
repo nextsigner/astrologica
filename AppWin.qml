@@ -93,6 +93,10 @@ ApplicationWindow {
                 panelControlsSign.state='hide'
                 return
             }
+            if(panelRsList.state==='show'){
+                panelRsList.state='hide'
+                return
+            }
             if(xBottomBar.objPanelCmd.state==='show'){
                 xBottomBar.objPanelCmd.state='hide'
                 return
