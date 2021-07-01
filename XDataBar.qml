@@ -8,7 +8,7 @@ Rectangle {
     color: 'black'
     border.width: 1
     border.color: 'white'
-    property alias titleData: txtCurrentData.text
+    property string titleData: txtCurrentData.text
     property alias currentDateText: txtCurrentDate.text
     property alias currentGmtText: txtCurrentGmt.text
     property bool showTimes: false
@@ -33,6 +33,10 @@ Rectangle {
     onStateChanged: {
         //if(state==='show')tHide.restart()
     }
+    onTitleDataChanged: {
+        let a=titleData.split('|')
+        rep.model=a
+    }
     Timer{
         id: tHide
         running: false
@@ -42,7 +46,7 @@ Rectangle {
     }
     Row{
         id: row
-        spacing: app.fs*0.5
+        spacing: app.fs*0.15
         y:(parent.height-height)/2
         x: app.fs*0.25
         Rectangle{
@@ -62,14 +66,27 @@ Rectangle {
                 }
             }
         }
-        Text {
-            id: txtCurrentData
-            text: 'Astrológica by @nextsigner'
-            font.pixelSize: app.fs*0.5
-            height: app.fs*0.5
-            color: 'white'
-            textFormat: Text.RichText
-            y:(parent.height-height)/2
+        Row{
+            spacing: app.fs*0.15
+            anchors.verticalCenter: parent.verticalCenter
+            Repeater{
+                id: rep
+                Rectangle{
+                    width: txtRow.contentWidth+app.fs*0.1
+                    height: txtRow.contentHeight+app.fs*0.1
+                    color: 'black'
+                    border.width: 1
+                    border.color: 'white'
+                    radius: app.fs*0.1
+                    Text{
+                        id: txtRow
+                        text: modelData//.replace(/_/g, ' ')
+                        font.pixelSize: r.height*0.5
+                        color: 'white'
+                        anchors.centerIn: parent
+                    }
+                }
+            }
         }
     }
     Comps.XTimes{

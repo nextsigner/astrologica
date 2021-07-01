@@ -146,6 +146,18 @@ function getEdad(d, m, a, h, min) {
     }
     return edad
 }
+function getEdadRS(d, m, a, h, min) {
+    let hoy = app.currentDate//new Date(Date.now())
+    let fechaNacimiento = new Date(a, m, d, h, min)
+    fechaNacimiento=fechaNacimiento.setMonth(fechaNacimiento.getMonth() - 1)
+    let fechaNacimiento2 = new Date(fechaNacimiento)
+    let edad = hoy.getFullYear() - fechaNacimiento2.getFullYear()
+    let diferenciaMeses = hoy.getMonth() - fechaNacimiento2.getMonth()
+    if(diferenciaMeses < 0 ||(diferenciaMeses === 0 && hoy.getDate() < fechaNacimiento2.getDate())){
+        edad--
+    }
+    return edad
+}
 function runCmd(){
     let c='import unik.UnikQProcess 1.0\n'
         +'UnikQProcess{\n'
@@ -230,11 +242,13 @@ function loadJson(file){
     //getCmdData.getData(vd, vm, va, vh, vmin, vlon, vlat, 0, vgmt)
     app.currentNom=nom
     app.currentFecha=vd+'/'+vm+'/'+va
+    app.currentLugar=vCiudad
     app.currentGmt=vgmt
     app.currentLon=vlon
     app.currentLat=vlat
 
-    xDataBar.titleData=textData
+    setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
+    //xDataBar.titleData=textData
     xDataBar.state='show'
     app.currentData=app.fileData
 }
@@ -362,21 +376,23 @@ function loadJsonNow(file){
     app.fileData=jsonFileData
 }
 
-function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon){
+function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod){
+    //mod 0=cn, mod 1=rs
+
     let numEdad=getEdad(vd, vm, va, vh, vmin)//getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringTiempo=''
-    console.log('Edad: '+numEdad)
-    if(numEdad>0){
+    //console.log('Edad: '+numEdad)
+    if(mod===0){
         stringTiempo='<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
     }else{
-        let nAnio=Math.abs(getEdad(vd, vm, va, vh, vmin))
-        stringTiempo=nAnio>=1?'<b> Años:</b>'+nAnio+' ':'<b> Año:</b>'+nAnio+' '
+        let nAnio=Math.abs(getEdadRS(vd, vm, va, vh, vmin))
+        stringTiempo='<b> Edad:</b> '+nAnio+' años '
     }
     let textData=''
-            +'<b>'+nom+'</b> '
-            +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt
-            +' '+stringTiempo+' '
-            +'<b> '+vCiudad+'</b> '
-            +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
+            +'<b>'+nom+'</b>'
+            +'|'+vd+'/'+vm+'/'+va+'|'+vh+':'+vmin+'hs|GMT '+vgmt
+            +'|'+stringTiempo
+            +'|<b> '+vCiudad+'</b> '
+            +'|<b>lat:</b> '+parseFloat(vlat).toFixed(2)+'|<b>lon:</b> '+parseFloat(vlon).toFixed(2)+' '
     xDataBar.titleData=textData
 }

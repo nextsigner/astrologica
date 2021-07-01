@@ -35,6 +35,7 @@ AppWin {
     property date currentDate
     property string currentNom: ''
     property string currentFecha: ''
+    property string currentLugar: ''
     property int currentAbsolutoGradoSolar: -1
     property int currentGradoSolar: -1
     property int currentMinutoSolar: -1

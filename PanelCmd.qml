@@ -116,7 +116,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                     +'  let m0=o.sd.split(" ")\n'
                     +'  let m1=m0[0].split("/")\n'
                     +'  let m2=m0[1].split(":")\n'
-                    +'  JS.setTitleData("'+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1] , "aca", '+app.currentGmt+','+app.currentLat+','+app.currentLon+')\n'
+                    +'  JS.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
         }
         mkCmd(finalCmd, c)
     }
