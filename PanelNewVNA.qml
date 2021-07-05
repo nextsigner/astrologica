@@ -5,7 +5,7 @@ import "comps" as Comps
 import "Funcs.js" as JS
 Rectangle {
     id: r
-    width: parent.width*0.25
+    width: parent.width
     height: parent.height
     color: 'black'
     border.width: 2

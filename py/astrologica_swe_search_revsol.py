@@ -95,6 +95,7 @@ else:
     cmd+=' '+str(lat)
     cmd+=' '+str(lon)
     #cmd+=' -35.47857 -69.61535'
+    #print(cmd)
     os.system(cmd)
 #print(pos1)
 #print(pos2)

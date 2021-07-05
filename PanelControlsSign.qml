@@ -5,8 +5,8 @@ import "Funcs.js" as JS
 
 Rectangle {
     id: r
-    width: parent.width*0.25
-    height: xDataBar.state==='hide'?parent.height:parent.height-xDataBar.height
+    width: parent.width
+    height: parent.height
     anchors.bottom: parent.bottom
     color: 'black'
     border.width: 2

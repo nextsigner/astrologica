@@ -131,10 +131,21 @@ GMSLon=decdeg2dms(float(lon))
 getIndexSign
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
 
+#Prevo a aplicar el GMT
+dia=horaLocal.strftime('%d')
+mes=int(horaLocal.strftime('%m'))
+anio=horaLocal.strftime('%Y')
+hora=horaLocal.strftime('%H')
+min=horaLocal.strftime('%M')
+
+stringDateSinGmt= str(dia) + '/' + str(mes) + '/' + str(anio) + ' ' + str(hora) + ':' + str(min)+'"'
+
+
 horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
 #horaLocal = horaLocal - datetime.timedelta(minutes=int(30))
 #print(horaLocal)
 
+#Luego de aplicar el GMT
 dia=horaLocal.strftime('%d')
 mes=int(horaLocal.strftime('%m'))
 anio=horaLocal.strftime('%Y')
@@ -150,7 +161,8 @@ jd1 =jdutil.datetime_to_jd(d)
 
 jsonParams='"params":{'
 jsonParams+='"jd":'+str(jd1)+','
-jsonParams+='"sd": "'+ str(dia) + '/' + str(mes) + '/' + str(anio) + ' ' + str(hora) + ':' + str(min)+'"'
+jsonParams+='"sd": "'+ str(dia) + '/' + str(mes) + '/' + str(anio) + ' ' + str(hora) + ':' + str(min)+'",'
+jsonParams+='"sdgmt": "'+ stringDateSinGmt
 jsonParams+='}'
 
 np=[('Sol', 0), ('Luna', 1), ('Mercurio', 2), ('Venus', 3), ('Marte', 4), ('Júpiter', 5), ('Saturno', 6), ('Urano', 7), ('Neptuno', 8), ('Plutón', 9), ('Nodo Norte', 11), ('Nodo Sur', 10), ('Quirón', 15), ('Selena', 57), ('Lilith', 12)]

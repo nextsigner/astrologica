@@ -4,8 +4,8 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: r
-    width: xApp.width*0.2
-    height: width
+    width: parent.width
+    height: parent.height
     property alias sweg: objSweGraphinZoom
     property real zoom: 2.0
     property int lupaX: xLupa.image.x

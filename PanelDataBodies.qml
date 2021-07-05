@@ -4,12 +4,12 @@ import Qt.labs.folderlistmodel 2.12
 
 Rectangle {
     id: r
-    width: parent.width*0.25
-    height: xDataBar.state==='hide'?parent.height:parent.height-xDataBar.height
+    width: parent.width
+    height: parent.height
     anchors.bottom: parent.bottom
     color: 'black'
-    //border.width: 2
-    //border.color: 'white'
+    border.width: 1
+    border.color: 'white'
     state: 'hide'
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
@@ -45,10 +45,6 @@ Rectangle {
             //txtDataSearch.selectAll()
             //txtDataSearch.focus=true
         }
-    }
-    Rectangle{
-        width: 1
-        height: parent.height
     }
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
@@ -111,8 +107,8 @@ Rectangle {
             Text {
                 id: txtData
                 text: sd
-                font.pixelSize: app.fs*0.45
-                width: parent.width-app.fs
+                font.pixelSize: app.fs*0.4
+                width: parent.width-app.fs*0.2
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
                 color: index===app.currentPlanetIndex?'black':'white'
@@ -147,6 +143,6 @@ Rectangle {
         o1=json.ph['h10']
         s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         lm.append(lm.addItem(o1.is, 10, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
-        if(app.mod!==0)r.state='show'
+        if(app.mod!=='rs'&&app.mod!=='pl')r.state='show'
     }
 }

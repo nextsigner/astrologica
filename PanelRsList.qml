@@ -4,7 +4,7 @@ import "Funcs.js" as JS
 
 Rectangle {
     id: r
-    width: parent.width*0.3
+    width: parent.width
     height: parent.height
     color: 'black'
     border.width: 2
@@ -30,10 +30,7 @@ Rectangle {
         }
     ]
     Behavior on x{NumberAnimation{duration: 250}}
-    onStateChanged: {
-        if(state==='hide')txtLabelTit.focus=false
-        xApp.focus=true
-    }
+    Behavior on height{NumberAnimation{duration: 500}}
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
         Rectangle{
@@ -65,10 +62,9 @@ Rectangle {
             cacheBuffer: 150
             displayMarginBeginning: cacheBuffer*app.fs*3
             clip: true
+            Behavior on contentY{NumberAnimation{duration: 250}}
         }
     }
-
-
     ListModel{
         id: lm
         function addItem(vRsDate, vData){
@@ -83,95 +79,139 @@ Rectangle {
         id: compItemList
         Rectangle{
             id: itemRS
-            width: lv.width
-            height: txtData.contentHeight+app.fs
+            width: lv.width-r.border.width*2
+            height: index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
             color: 'black'//index===lv.currentIndex?'white':'black'
-            border.width: index===lv.currentIndex?4:2
-            border.color: 'white'
             property int is: indexSign
-            onIsChanged: {
-                let c='white'
-                if(is===0||is===4||is===8){
-                    c=app.signColors[0]
+            anchors.horizontalCenter: parent.horizontalCenter
+            opacity: is!==-1?1.0:0.0
+            Behavior on height{NumberAnimation{duration: 500}}
+            Behavior on opacity{NumberAnimation{duration: 500}}
+            Timer{
+                running: false//bg.color==='black' || bg.color==='#000000'
+                repeat: true
+                interval: 1000
+                onTriggered: {
+                    //console.log('IS:'+itemRS.is+' Color:'+bg.color)
+                    //return
+                    /*let c='#00ff88'
+                    if(itemRS.is===0||itemRS.is===4||itemRS.is===8){
+                        c=app.signColors[0]
+                    }
+                    if(itemRS.is===1||itemRS.is===5||itemRS.is===9){
+                        c=app.signColors[1]
+                    }
+                    if(itemRS.is===2||itemRS.is===6||itemRS.is===10){
+                        c=app.signColors[2]
+                    }
+                    if(itemRS.is===3||itemRS.is===7||itemRS.is===11){
+                        c=app.signColors[3]
+                    }*/
+                    bg.color=app.signColors[itemRS.is]
                 }
-                if(is===1||is===5||is===9){
-                    c=app.signColors[1]
-                }
-                if(is===2||is===6||is===10){
-                    c=app.signColors[2]
-                }
-                if(is===3||is===7||is===11){
-                    c=app.signColors[3]
-                }
-                color=c
             }
-
-            Row{
-                id: row
+            Rectangle{
+                id: bg
+                width: parent.width
+                height: itemRS.height//app.fs*1.5
                 anchors.centerIn: parent
-                spacing: app.fs*0.5
-                Rectangle{
-                    id: labelEdad
-                    width: txtEdad.contentWidth+app.fs*0.25
-                    height: txtEdad.contentHeight+app.fs*0.25
+                color: app.signColors[itemRS.is]
+            }
+            Column{
+                anchors.centerIn: parent
+                /*Rectangle{
+                    id: labelAsc
+                    //width: txtData.contentWidth+app.fs*0.25
+                    width: itemRS.width//-app.fs*0.5-iconoSigno.width-row.spacing*2-labelEdad.width
+                    height: txtAsc.contentHeight+app.fs*0.1
                     color: 'black'
                     border.width: 1
                     border.color: 'white'
                     radius: app.fs*0.1
+                    anchors.horizontalCenter: parent.horizontalCenter
                     Text {
-                        id: txtEdad
-                        text: '<b>'+parseInt(index)+'</b>'
-                        color: 'white'
-                        font.pixelSize: app.fs*0.5
+                        id: txtAsc
+                        text: itemRS.is!==-1?'<b>Ascendente '+app.signos[itemRS.is]+'</b>':''
+                        font.pixelSize: index!==lv.currentIndex?app.fs*0.25:app.fs*0.5
+                        width: parent.width
+                        wrapMode: Text.WordWrap
+                        //textFormat: Text.RichText
+                        horizontalAlignment: Text.AlignHCenter
+                        color: 'white'//index===lv.currentIndex?'black':'white'
                         anchors.centerIn: parent
+                        Behavior on font.pixelSize {NumberAnimation{duration: 250}}
                     }
-                    MouseArea{
-                        anchors.fill: parent
-                        onClicked: {
-                            getAsc(index, rsDate, itemRS)
+                }*/
+                Row{
+                    id: row
+                    spacing: app.fs*0.1
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Rectangle{
+                        id: labelEdad
+                        width: txtEdad.contentWidth+app.fs*0.1
+                        height: txtEdad.contentHeight+app.fs*0.1
+                        color: 'black'
+                        border.width: 1
+                        border.color: 'white'
+                        radius: app.fs*0.1
+                        anchors.verticalCenter: parent.verticalCenter
+                        Text {
+                            id: txtEdad
+                            text: '<b>'+parseInt(index)+'</b>'
+                            color: 'white'
+                            font.pixelSize: app.fs*0.5
+                            anchors.centerIn: parent
+                        }
+                        MouseArea{
+                            anchors.fill: parent
+                            onClicked: {
+                                getAsc(index, rsDate, itemRS)
+                            }
                         }
                     }
-                }
-                Rectangle{
-                    id: labelFecha
-                    width: txtData.contentWidth+app.fs*0.25
-                    height: txtData.contentHeight+app.fs*0.25
-                    color: 'black'
-                    border.width: 1
-                    border.color: 'white'
-                    radius: app.fs*0.1
-                    anchors.verticalCenter: parent.verticalCenter
-                    Text {
-                        id: txtData
-                        text: dato
-                        font.pixelSize: app.fs*0.5
-                        width: itemRS.width-app.fs-iconoSigno.width-row.spacing*2-labelEdad.width//indexSign===-1?itemRS.width-app.fs:itemRS.width-app.fs-iconoSigno.width-row.spacing
-                        wrapMode: Text.WordWrap
-                        textFormat: Text.RichText
-                        color: index===lv.currentIndex?'black':'white'
-                        anchors.centerIn: parent
+                    Rectangle{
+                        id: labelFecha
+                        //width: txtData.contentWidth+app.fs*0.25
+                        width: itemRS.width-app.fs*0.5-iconoSigno.width-row.spacing*2-labelEdad.width
+                        height: txtData.contentHeight+app.fs*0.25
+                        color: 'black'
+                        border.width: 1
+                        border.color: 'white'
+                        radius: app.fs*0.1
+                        anchors.verticalCenter: parent.verticalCenter
+                        Text {
+                            id: txtData
+                            text: (itemRS.is!==-1?'<b>Ascendente '+app.signos[itemRS.is]+'</b><br />':'')+dato
+                            font.pixelSize: app.fs*0.35
+                            width: parent.width
+                            wrapMode: Text.WordWrap
+                            textFormat: Text.RichText
+                            horizontalAlignment: Text.AlignHCenter
+                            color: 'white'//index===lv.currentIndex?'black':'white'
+                            anchors.centerIn: parent
+                        }
                     }
-                }
-                Rectangle{
-                    width: app.fs
-                    height: width
-                    border.width: 2
-                    radius: width*0.5
-                    anchors.verticalCenter: parent.verticalCenter
-                    Image {
-                        id: iconoSigno
-                        source: indexSign!==-1?"./resources/imgs/signos/"+indexSign+".svg":""
-                        width: parent.width*0.8
+                    Rectangle{
+                        width: index===lv.currentIndex?bg.height*0.45:bg.height*0.45
                         height: width
-                        anchors.centerIn: parent
+                        border.width: 2
+                        radius: width*0.5
+                        anchors.verticalCenter: parent.verticalCenter
+                        Image {
+                            id: iconoSigno
+                            source: indexSign!==-1?"./resources/imgs/signos/"+indexSign+".svg":""
+                            width: parent.width*0.8
+                            height: width
+                            anchors.centerIn: parent
+                        }
                     }
                 }
             }
             MouseArea{
                 anchors.fill: parent
-                onClicked: lv.currentIndex=index
-                onDoubleClicked: {
-                    r.state='hide'
+                onClicked: {
+                    lv.currentIndex=index
+                    //r.state='hide'
                     xBottomBar.objPanelCmd.makeRS(rsDate)
                 }
             }
@@ -201,7 +241,6 @@ Rectangle {
             getAsc(index, rsDate, itemRS)
         }
     }
-
     Component.objectName: {
         //r.state='show'
         //setRsList(150)
@@ -209,7 +248,7 @@ Rectangle {
     function setRsList(edad){
         r.edadMaxima=edad-1
         lm.clear()
-        r.state='show'
+        //r.state='show'
         let arraDates =[]
         for(var i=0;i<edad;i++){
             let d = app.currentDate
@@ -259,10 +298,17 @@ Rectangle {
                 +'  //console.log("RSList: "+s)\n'
                 +'  let j=JSON.parse(s)\n'
                 +'  let o=j.params\n'
-                +'  let m0=o.sd.split(" ")\n'
+                +'  let m0=o.sdgmt.split(" ")\n'
                 +'  let m1=m0[0].split("/")\n'
                 +'  let m2=m0[1].split(":")\n'
-                +'  lm.get('+index+').dato=""+o.sd\n'
+        //+'  let d = lm.get('+parseInt(index )+').rsDate\n'
+        //+'  console.log("d--->"+d.toString())\n'
+        //+'  let d2 = new Date(d)\n'
+        //+'  d2 = d2.setTime(d2.getTime() + ('+app.currentGmt+'*60*60*1000))\n'
+        //+'  console.log("d2--->"+d2.toString())\n'
+        //+'  let d3 = new Date(d2)\n'
+        //+'  lm.get('+index+').dato=""+o.sd+" -- "+d3.toString()\n'
+                +'  lm.get('+index+').dato="GMT: "+o.sdgmt + "<br />UTC: "+o.sd\n'
                 +'  o=j.ph\n'
                 +'  lm.get('+index+').indexSign=o.h1.is\n'
                 +'  if('+parseInt(index )+'<r.edadMaxima){\n'
@@ -274,8 +320,11 @@ Rectangle {
                 +'  }else{\n'
                 +'      lv.currentIndex=0\n'
                 +'  }\n'
-                //+'  getAsc('+parseInt(index + 1)+', lm.get('+parseInt(index + 1)+').rsDate, lv.itemAtIndex('+parseInt(index + 1)+')) \n'
+        //+'  getAsc('+parseInt(index + 1)+', lm.get('+parseInt(index + 1)+').rsDate, lv.itemAtIndex('+parseInt(index + 1)+')) \n'
 
         mkCmd(finalCmd, c, itemRS)
+    }
+    function enter(){
+        xBottomBar.objPanelCmd.makeRS(lm.get(lv.currentIndex).rsDate)
     }
 }

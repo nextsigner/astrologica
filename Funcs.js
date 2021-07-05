@@ -187,7 +187,7 @@ function loadJson(file){
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
     app.fileData=jsonFileData
     let jsonData=JSON.parse(jsonFileData)
-    app.mod=parseInt(jsonData.params.ms)
+    app.mod=jsonData.params.tipo
     if(parseInt(jsonData.params.ms)===0){
         //panelDataBodies.enabled=true
         let d=new Date(Date.now())
@@ -352,12 +352,14 @@ function loadJsonNow(file){
     let stringEdad=edad.indexOf('NaN')<0?edad:''
     let textData=''
 
-    textData=''
-            +'<b>'+nom+'</b> '
-            +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
-            +'<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
-            +'<b> '+vCiudad+'</b> '
-            +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
+    //    textData=''
+    //            +'<b>'+nom+'</b> '
+    //            +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
+    //            +'<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
+    //            +'<b> '+vCiudad+'</b> '
+    //            +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
+
+    setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
 
     //Seteando datos globales de mapa energético
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
@@ -389,10 +391,10 @@ function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
         stringTiempo='<b> Edad:</b> '+nAnio+' años '
     }
     let textData=''
-            +'<b>'+nom+'</b>'
-            +'|'+vd+'/'+vm+'/'+va+'|'+vh+':'+vmin+'hs|GMT '+vgmt
-            +'|'+stringTiempo
-            +'|<b> '+vCiudad+'</b> '
-            +'|<b>lat:</b> '+parseFloat(vlat).toFixed(2)+'|<b>lon:</b> '+parseFloat(vlon).toFixed(2)+' '
+        +'<b>'+nom+'</b>'
+        +'|'+vd+'/'+vm+'/'+va+'|'+vh+':'+vmin+'hs|GMT '+vgmt
+        +'|'+stringTiempo
+        +'|<b> '+vCiudad+'</b> '
+        +'|<b>lat:</b> '+parseFloat(vlat).toFixed(2)+'|<b>lon:</b> '+parseFloat(vlon).toFixed(2)+' '
     xDataBar.titleData=textData
 }

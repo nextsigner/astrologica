@@ -21,7 +21,9 @@ AppWin {
     property string mainLocation: ''
     property int fs: width*0.031
     property string url
-    property int mod: 0
+    property string mod: 'mi'
+
+    property var api: [panelNewVNA, panelFileLoader]
 
     property string fileData: ''
     property string currentData: ''
@@ -112,10 +114,6 @@ AppWin {
         id: xApp
         anchors.fill: parent
         SweGraphic{id: sweg;objectName: 'sweg'}
-        XDataBar{
-            id: xDataBar
-        }
-        XStatus{id: xStatus}
         Rectangle{
             id: xMsgProcDatos
             width: txtPD.contentWidth+app.fs
@@ -142,11 +140,35 @@ AppWin {
     Item{
         id: capa101
         anchors.fill: xApp
-        SweGraphicZoom{
-            id: swegz
-            anchors.top: parent.top
-            anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
+        XDataBar{
+            id: xDataBar
+        }
+        Row{
+            //anchors.centerIn: parent
+            anchors.top: xDataBar.bottom
             anchors.bottom: xBottomBar.top
+            Item{
+                id: xLatIzq
+                width: xApp.width*0.2
+                height: parent.height
+                Rectangle{anchors.fill: parent;color:'red';opacity: 0.5}
+                SweGraphicZoom{id: swegz}
+                PanelRsList{id: panelRsList}
+                PanelFileLoader{id: panelFileLoader}
+                PanelNewVNA{id: panelNewVNA}
+            }
+            Item{
+                id: xMed
+                width: xApp.width-xLatIzq.width-xLatDer.width
+                height: parent.height
+            }
+            Item{
+                id: xLatDer
+                width: xApp.width*0.2
+                height: parent.height
+                PanelControlsSign{id: panelControlsSign}
+                PanelDataBodies{id: panelDataBodies}
+            }
         }
         XLupa{id: xLupa}
         Comps.XLayerTouch{
@@ -156,17 +178,8 @@ AppWin {
                 xLupa.y=py-xLupa.height*0.5
             }
         }
-        PanelFileLoader{id: panelFileLoader}
-        PanelControlsSign{id: panelControlsSign}
-        PanelNewVNA{id: panelNewVNA}
-        PanelDataBodies{id: panelDataBodies}
-        PanelRsList{
-            id: panelRsList
-            width: swegz.width
-            anchors.top: parent.top
-            anchors.topMargin: xDataBar.state==='hide'?0:xDataBar.height
-            anchors.bottom: xBottomBar.top
-        }
+
+
         XTools{
             id: xTools
             anchors.bottom: parent.bottom

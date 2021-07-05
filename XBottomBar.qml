@@ -3,9 +3,11 @@ import QtQuick 2.0
 Rectangle {
     id: r
     width: parent.width
-    height: 0
+    height: app.fs
     color: 'black'
-    anchors.bottom: parent.bottom
+    border.width: 1
+    border.color: 'white'
+    //anchors.bottom: parent.bottom
     property alias objPanelCmd: panelCmd
     state: "hide"
     states: [
@@ -13,20 +15,22 @@ Rectangle {
             name: "hide"
             PropertyChanges {
                 target: r
-                height: 0
+                y:r.parent.height-r.height
             }
         },
         State {
             name: "show"
             PropertyChanges {
                 target: r
-                height: app.fs
+                y:r.parent.height
             }
         }
     ]
-    Behavior on height {NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+    Behavior on y {NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+    XStatus{id: xStatus}
     PanelCmd{
         id: panelCmd
-        onStateChanged: r.state=state
+        width: parent.width-xStatus.width
+        onStateChanged: if(state==='show')r.state='show'
     }
 }

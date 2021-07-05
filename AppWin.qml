@@ -38,13 +38,7 @@ ApplicationWindow {
                 xSabianos.ctrlUp()
                 return
             }
-            if(app.mod===0){
-                app.mod=1
-            }else{
-                app.mod=0
-                xFlecha.x=0-app.fs*3
-                xFlecha.y=0-app.fs*3
-            }
+            xBottomBar.state=xBottomBar.state==='show'?'hide':'show'
         }
     }
     Shortcut{
@@ -66,6 +60,10 @@ ApplicationWindow {
         onActivated: {
             if(panelNewVNA.state==='show'){
                 panelNewVNA.enter()
+                return
+            }
+            if(panelRsList.state==='show'){
+                panelRsList.enter()
                 return
             }
         }
@@ -127,6 +125,14 @@ ApplicationWindow {
                 }
                 return
             }
+            if(panelRsList.state==='show'){
+                if(panelRsList.currentIndex>0){
+                    panelRsList.currentIndex--
+                }else{
+                    panelRsList.currentIndex=panelRsList.listModel.count-1
+                }
+                return
+            }
             if(currentPlanetIndex>0){
                 currentPlanetIndex--
             }else{
@@ -155,6 +161,14 @@ ApplicationWindow {
                     currentSignIndex++
                 }else{
                     currentSignIndex=0
+                }
+                return
+            }
+            if(panelRsList.state==='show'){
+                if(panelRsList.currentIndex<panelRsList.listModel.count-1){
+                    panelRsList.currentIndex++
+                }else{
+                    panelRsList.currentIndex=0
                 }
                 return
             }
@@ -235,16 +249,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+r'
         onActivated: {
-            if(!xFormRS.visible){
-                xFormRS.alNom=app.currentNom
-                xFormRS.alFecha=app.currentFecha
-                xFormRS.grado=app.currentGradoSolar
-                Qt.ShiftModifierxFormRS.minuto=app.currentMinutoSolar
-                xFormRS.segundo=app.currentSegundoSolar
-                xFormRS.lon=app.currentLon
-                xFormRS.lat=app.currentLat
-            }
-            xFormRS.visible=!xFormZS.visible
+            panelRsList.state=panelRsList.state==='show'?'hide':'show'
         }
     }
     Shortcut{

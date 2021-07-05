@@ -3,7 +3,7 @@ import QtQuick 2.0
 Rectangle{
     id: r
     width: row.width+app.fs
-    height: txtStatus.contentHeight+app.fs*0.5
+    height: r.parent.height
     color: 'transparent'
     border.width: 1
     border.color: 'white'
@@ -14,9 +14,14 @@ Rectangle{
         anchors.centerIn: parent
         spacing: app.fs*0.25
         Text {
+            text: '<b>Mod:</b> '+app.mod
+            font.pixelSize: r.height*0.5
+            color: 'white'
+        }
+        Text {
             id: txtStatus
-            text: '<b>Modo:</b> '+sweg.state
-            font.pixelSize: app.fs*0.5
+            text: '<b>SWEG:</b> '+sweg.state
+            font.pixelSize: r.height*0.5
             color: 'white'
         }
         Text {

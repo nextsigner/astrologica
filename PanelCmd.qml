@@ -11,41 +11,28 @@ Rectangle {
     border.width: 2
     border.color: 'white'
     color: 'black'
-    y:r.parent.height
+    //y:r.parent.height
     property real lat
     property real lon
+
+    property string uCmd: ''
+
     state: 'hide'
     states: [
         State {
             name: "show"
             PropertyChanges {
                 target: r
-                y:r.parent.height-r.height
+                y:0//r.parent.height-r.height
                 //z:1000
-            }
-            //            PropertyChanges {
-            //                target: sweg.objXAsp
-            //                visible:false
-            //            }
-            PropertyChanges {
-                target: xStatus
-                visible:false
-            }
+            }          
         },
         State {
             name: "hide"
             PropertyChanges {
                 target: r
-                y:r.parent.height
-            }
-            //            PropertyChanges {
-            //                target: sweg.objXAsp
-            //                visible:true
-            //            }
-            PropertyChanges {
-                target: xStatus
-                visible:true
-            }
+                y:r.height
+            }          
         }
     ]
     Behavior on y{NumberAnimation{duration: 250}}
@@ -109,20 +96,26 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                     +'  let s=""+logData\n'
                     +'  console.log("RS: "+s)\n'
                     +'  r.state="hide"\n'
+                    +'  app.mod="rs"\n'
                     +'  sweg.loadSweJson(s)\n'
                     +'  swegz.sweg.loadSweJson(s)\n'
                     +'  let j=JSON.parse(s)\n'
                     +'  let o=j.params\n'
-                    +'  let m0=o.sd.split(" ")\n'
+                    +'  let m0=o.sdgmt.split(" ")\n'
                     +'  let m1=m0[0].split("/")\n'
                     +'  let m2=m0[1].split(":")\n'
                     +'  JS.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
         }
         if(comando[0]==='rsl'){
+            if(cmd===r.uCmd){
+                panelRsList.state=panelRsList.state==='show'?'hide':'show'
+                return
+            }
             if(comando.length<1)return
             if(parseInt(comando[1])>=1)panelRsList.setRsList(parseInt(comando[1])+ 1)
         }
         mkCmd(finalCmd, c)
+        r.uCmd=cmd
     }
     function mkCmd(finalCmd, code){
         for(var i=0;i<xuqp.children.length;i++){
@@ -160,15 +153,16 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let c=''
         c+=''
                 +'  let s=""+logData\n'
-                +'  console.log("RS: "+s)\n'
+                +'  //console.log("RS: "+s)\n'
                 +'  r.state="hide"\n'
                 +'  sweg.loadSweJson(s)\n'
                 +'  swegz.sweg.loadSweJson(s)\n'
                 +'  let j=JSON.parse(s)\n'
                 +'  let o=j.params\n'
-                +'  let m0=o.sd.split(" ")\n'
+                +'  let m0=o.sdgmt.split(" ")\n'
                 +'  let m1=m0[0].split("/")\n'
                 +'  let m2=m0[1].split(":")\n'
                 +'  JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+        mkCmd(finalCmd, c)
     }
 }
