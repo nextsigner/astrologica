@@ -34,6 +34,7 @@ Item {
         for(var i=0;i<15;i++){
             let cellRow=colCells.children[i]
             cellRow.indexAsp=-1
+            cellRow.indexPosAsp=-1
         }
     }
 }

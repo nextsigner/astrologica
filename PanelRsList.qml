@@ -12,6 +12,7 @@ Rectangle {
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
     property int edadMaxima: 0
+    property string jsonFull: ''
     state: 'hide'
     states: [
         State {
@@ -67,11 +68,9 @@ Rectangle {
     }
     ListModel{
         id: lm
-        function addItem(vRsDate, vData){
+        function addItem(vJson){
             return {
-                rsDate: vRsDate,
-                dato: vData,
-                indexSign:-1
+                json: vJson
             }
         }
     }
@@ -82,9 +81,13 @@ Rectangle {
             width: lv.width-r.border.width*2
             height: index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
             color: 'black'//index===lv.currentIndex?'white':'black'
-            property int is: indexSign
+            property int is: -1
+            property var rsDate
             anchors.horizontalCenter: parent.horizontalCenter
-            opacity: is!==-1?1.0:0.0
+            //opacity: is!==-1?1.0:0.0
+            onIsChanged:{
+                iconoSigno.source="./resources/imgs/signos/"+is+".svg"
+            }
             Behavior on height{NumberAnimation{duration: 500}}
             Behavior on opacity{NumberAnimation{duration: 500}}
             Timer{
@@ -119,29 +122,6 @@ Rectangle {
             }
             Column{
                 anchors.centerIn: parent
-                /*Rectangle{
-                    id: labelAsc
-                    //width: txtData.contentWidth+app.fs*0.25
-                    width: itemRS.width//-app.fs*0.5-iconoSigno.width-row.spacing*2-labelEdad.width
-                    height: txtAsc.contentHeight+app.fs*0.1
-                    color: 'black'
-                    border.width: 1
-                    border.color: 'white'
-                    radius: app.fs*0.1
-                    anchors.horizontalCenter: parent.horizontalCenter
-                    Text {
-                        id: txtAsc
-                        text: itemRS.is!==-1?'<b>Ascendente '+app.signos[itemRS.is]+'</b>':''
-                        font.pixelSize: index!==lv.currentIndex?app.fs*0.25:app.fs*0.5
-                        width: parent.width
-                        wrapMode: Text.WordWrap
-                        //textFormat: Text.RichText
-                        horizontalAlignment: Text.AlignHCenter
-                        color: 'white'//index===lv.currentIndex?'black':'white'
-                        anchors.centerIn: parent
-                        Behavior on font.pixelSize {NumberAnimation{duration: 250}}
-                    }
-                }*/
                 Row{
                     id: row
                     spacing: app.fs*0.1
@@ -162,12 +142,6 @@ Rectangle {
                             font.pixelSize: app.fs*0.5
                             anchors.centerIn: parent
                         }
-                        MouseArea{
-                            anchors.fill: parent
-                            onClicked: {
-                                getAsc(index, rsDate, itemRS)
-                            }
-                        }
                     }
                     Rectangle{
                         id: labelFecha
@@ -181,7 +155,7 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         Text {
                             id: txtData
-                            text: (itemRS.is!==-1?'<b>Ascendente '+app.signos[itemRS.is]+'</b><br />':'')+dato
+                            //text: (itemRS.is!==-1?'<b>Ascendente '+app.signos[itemRS.is]+'</b><br />':'')+dato
                             font.pixelSize: app.fs*0.35
                             width: parent.width
                             wrapMode: Text.WordWrap
@@ -199,7 +173,7 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         Image {
                             id: iconoSigno
-                            source: indexSign!==-1?"./resources/imgs/signos/"+indexSign+".svg":""
+                            //source: indexSign!==-1?"./resources/imgs/signos/"+indexSign+".svg":""
                             width: parent.width*0.8
                             height: width
                             anchors.centerIn: parent
@@ -212,54 +186,36 @@ Rectangle {
                 onClicked: {
                     lv.currentIndex=index
                     //r.state='hide'
-                    xBottomBar.objPanelCmd.makeRS(rsDate)
+                    xBottomBar.objPanelCmd.makeRS(itemRS.rsDate)
                 }
             }
-
-            Timer{
-                running: true
-                repeat: false
-                interval: 500*(index+1)
-                onTriggered: {
-                    if(index===0){
-                        getAsc(index, rsDate, itemRS)
-                    }
-                }
+            Component.onCompleted: {
+                //console.log('jjj:'+json)
+                let j=JSON.parse(json)
+                let params=j['ph']['params']
+                let sd=params.sd
+                let sdgmt=params.sdgmt
+                itemRS.is=j['ph']['h1']['is']
+                txtData.text="GMT: "+sdgmt + "<br />UTC: "+sd
+                let m0=sd.split(' ')//20/6/1984 06:40
+                let m1=m0[0].split('/')
+                let m2=m0[1].split(':')
+                itemRS.rsDate=new Date(m1[2],parseInt(m1[1]-1),m1[0],m2[0],m2[1])
             }
         }
     }
     Item{id: xuqp}
-    Timer{
-        id: tSearchAsc
-        running: false
-        repeat: false
-        interval: 100
-        property int index
-        property var rsDate
-        property var itemRS
-        onTriggered: {
-            getAsc(index, rsDate, itemRS)
-        }
-    }
-    Component.objectName: {
-        //r.state='show'
-        //setRsList(150)
-    }
     function setRsList(edad){
+        r.jsonFull=''
         r.edadMaxima=edad-1
         lm.clear()
-        //r.state='show'
-        let arraDates =[]
-        for(var i=0;i<edad;i++){
-            let d = app.currentDate
-            d = d.setFullYear(d.getFullYear() + i)
-            let d2= new Date(d)
-            //console.log('d: '+d2.toString())
-            arraDates.push(d2)
-        }
-        for(i=0;i<arraDates.length;i++){
-            lm.append(lm.addItem(arraDates[i], arraDates[i].toString()))
-        }
+        let cd3= new Date(app.currentDate)
+        let finalCmd=''
+            +'python3 ./py/astrologica_swe_search_revsol_time.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad
+        let c=''
+            +'  let j=JSON.parse(logData)\n'
+            +'  loadJson(j)\n'
+        mkCmd(finalCmd, c, xuqp)
     }
     function mkCmd(finalCmd, code, item){
         for(var i=0;i<xuqp.children.length;i++){
@@ -280,49 +236,13 @@ Rectangle {
         c+='        run(\''+finalCmd+'\')\n'
         c+='    }\n'
         c+='}\n'
-        let comp=Qt.createQmlObject(c, item, 'uqpcodecmd')
+        let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
     }
-    function getAsc(index, rsDate,itemRS){
-        //let aaa=lv.
-        let cd=rsDate
-        cd = cd.setFullYear(rsDate.getFullYear())
-        let cd2=new Date(cd)
-        cd2 = cd2.setDate(cd2.getDate() - 1)
-        let cd3=new Date(cd2)
-        let finalCmd=''
-            +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
-        //console.log('finalCmd: '+finalCmd)
-        let c=''
-        c+=''
-                +'  let s=""+logData\n'
-                +'  //console.log("RSList: "+s)\n'
-                +'  let j=JSON.parse(s)\n'
-                +'  let o=j.params\n'
-                +'  let m0=o.sdgmt.split(" ")\n'
-                +'  let m1=m0[0].split("/")\n'
-                +'  let m2=m0[1].split(":")\n'
-        //+'  let d = lm.get('+parseInt(index )+').rsDate\n'
-        //+'  console.log("d--->"+d.toString())\n'
-        //+'  let d2 = new Date(d)\n'
-        //+'  d2 = d2.setTime(d2.getTime() + ('+app.currentGmt+'*60*60*1000))\n'
-        //+'  console.log("d2--->"+d2.toString())\n'
-        //+'  let d3 = new Date(d2)\n'
-        //+'  lm.get('+index+').dato=""+o.sd+" -- "+d3.toString()\n'
-                +'  lm.get('+index+').dato="GMT: "+o.sdgmt + "<br />UTC: "+o.sd\n'
-                +'  o=j.ph\n'
-                +'  lm.get('+index+').indexSign=o.h1.is\n'
-                +'  if('+parseInt(index )+'<r.edadMaxima){\n'
-                +'      lv.currentIndex='+parseInt(index )+'\n'
-                +'      tSearchAsc.index='+parseInt(index + 1)+'\n'
-                +'      tSearchAsc.rsDate=lm.get('+parseInt(index + 1)+').rsDate\n'
-                +'      tSearchAsc.itemRS=lv.itemAtIndex('+parseInt(index + 1)+')\n'
-                +'      tSearchAsc.start()\n'
-                +'  }else{\n'
-                +'      lv.currentIndex=0\n'
-                +'  }\n'
-        //+'  getAsc('+parseInt(index + 1)+', lm.get('+parseInt(index + 1)+').rsDate, lv.itemAtIndex('+parseInt(index + 1)+')) \n'
-
-        mkCmd(finalCmd, c, itemRS)
+    function loadJson(json){
+        for(var i=0;i<Object.keys(json).length;i++){
+            let j=json['rs'+i]
+            lm.append(lm.addItem(JSON.stringify(j)))
+        }
     }
     function enter(){
         xBottomBar.objPanelCmd.makeRS(lm.get(lv.currentIndex).rsDate)

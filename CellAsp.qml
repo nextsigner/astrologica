@@ -12,6 +12,12 @@ Rectangle {
     SequentialAnimation{
         running: indexPosAsp===sweg.objAspsCircle.currentAspSelected&&sweg.objAspsCircle.currentAspSelected!==-1
         loops: Animation.Infinite
+        onRunningChanged: {
+            if(!running){
+                r.border.width=1
+                r.border.color='gray'
+            }
+        }
         ParallelAnimation{
             PropertyAnimation{
                 target: r

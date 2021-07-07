@@ -173,111 +173,12 @@ oblicuidad=posObli[0][0]
 #print('Oblicuidad: ' + str(posObli[0][0]))
 
 #Se calculan casas previamente para calcular en cada cuerpo con swe.house_pos(...)
-#h=swe.houses(jd1, float(lat), float(lon), bytes("P", encoding = "utf-8"))
-#swe.set_topo(float(lat), float(lon), 1440.00)
 h=swe.houses(jd1, float(lat), float(lon), bytes(houseType, encoding = "utf-8"))
 
 jsonString='{'
 
-#Comienza JSON Bodies
-tuplaPosBodies=()
-jsonBodies='"pc":{'
 index=0
-for i in np:
-    pos=swe.calc_ut(jd1, np[index][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-    #print(pos)
-    gObj=float(pos[0][0])
-    if index == 11:
-        #posNN=swe.calc_ut(jd1, np[10][1], flag=swe.FLG_SWIEPH+swe.FLG_SPEED)
-        gNN=float(tuplaPosBodies[index - 1])#float(posNN[0][0]) + 180 #
-        if gNN < 180:
-            gNS= 180.00 + gNN#360.00 - gNN
-        else:
-            gNS=gNN - 180.00
 
-        #print('Planeta: ' +np[index][0] + ' casa ' + str(posHouse))
-        #print('Grado de Nodo Norte: '+str(gNN))
-        #print('Grado de Nodo Sur: '+str(gNS))
-        gObj=gNS
-
-    tuplaPosBodies+=tuple([gObj])
-    indexSign=getIndexSign(gObj)
-    td=decdeg2dms(gObj)
-    gdeg=int(td[0])
-    mdeg=int(td[1])
-    sdeg=int(td[2])
-    rsgdeg=gdeg - ( indexSign * 30 )
-    jsonBodies+='"c' + str(index) +'": {' if (index==0) else  ',"c' + str(index) +'": {'
-    jsonBodies+='"nom":"' + str(np[index][0]) + '",'
-    jsonBodies+='"is":' + str(indexSign)+', '
-    jsonBodies+='"gdec":' + str(gObj)+', '
-    jsonBodies+='"gdeg":' + str(gdeg)+', '
-    jsonBodies+='"rsgdeg":' + str(rsgdeg)+', '
-    jsonBodies+='"mdeg":' + str(mdeg)+', '
-    jsonBodies+='"sdeg":' + str(sdeg)+', '
-    posHouse=swe.house_pos(h[0][9],float(lat), oblicuidad, gObj, 0.0, bytes(houseType, encoding = "utf-8"))
-
-    jsonBodies+='"ih":' + str(int(posHouse))+', '
-    jsonBodies+='"dh":' + str(posHouse)
-    jsonBodies+='}'
-    index=index + 1
-
-jsonBodies+='}'
-
-
-jsonAspets='"asps":{'
-#print(tuplaPosBodies)
-tuplaArr=(())
-arr1=(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
-arr2=(0,2,3,4,5,6,7,8,9,10,11,12,13,14,15)
-arr3=(0,1,3,4,5,6,7,8,9,10,11,12,13,14,15)
-arr4=(0,1,2,4,5,6,7,8,9,10,11,12,13,14,15)
-arr5=(0,1,2,3,5,6,7,8,9,10,11,12,13,14,15)
-arr6=(0,1,2,3,4,6,7,8,9,10,11,12,13,14,15)
-arr7=(0,1,2,3,4,5,7,8,9,10,11,12,13,14,15)
-arr8=(0,1,2,3,4,5,6,8,9,10,11,12,13,14,15)
-arr9=(0,1,2,3,4,5,6,7,9,10,11,12,13,14,15)
-arr10=(0,1,2,3,4,5,6,7,8,10,11,12,13,14,15)
-arr11=(0,1,2,3,4,5,6,7,8,9,11,12,13,14,15)
-arr12=(0,1,2,3,4,5,6,7,8,9,10,12,13,14,15)
-arr13=(0,1,2,3,4,5,6,7,8,9,10,11,13,14,15)
-arr14=(0,1,2,3,4,5,6,7,8,9,10,11,12,14,15)
-arr15=(0,1,2,3,4,5,6,7,8,9,10,11,12,13,15)
-tuplaArr=((arr1),(arr2),(arr3),(arr4),(arr5),(arr6),(arr7),(arr8),(arr9),(arr10),(arr11),(arr12),(arr13),(arr14),(arr15))
-#print(tuplaArr)
-index=0
-indexAsp=0
-for i in tuplaPosBodies:
-    #print('i:' + str(i))
-    for num in range(14):
-        #print('Comp: ' + str(np[index][0]) + ' con ' + str(np[tuplaArr[index][num]][0]))
-        g1=float(tuplaPosBodies[index])
-        g2=float(tuplaPosBodies[tuplaArr[index][num]])
-        #print('g1: '+str(g1) + ' g2: ' + str(g2))
-        controlar=str(tuplaArr[index][num])==str(index)
-
-        asp=getAsp(g1, g2, index)
-        stringInvertido='"ic1":' + str(tuplaArr[index][num]) + ', "ic2":' + str(index) + ', '
-        stringActual='"ic1":' + str(index) + ', "ic2":' + str(tuplaArr[index][num]) + ', '
-        if asp >= 0 and stringInvertido not in jsonAspets and controlar == False:
-            jsonAspets+='"asp' +str(index) + '": {' if (indexAsp==0) else  ',"asp' +str(index) + '": {'
-            #jsonAspets+='"asp' +str(index) + '": {'
-            jsonAspets+=stringActual
-            jsonAspets+='"c1":"' + str(np[index][0]) + '", '
-            jsonAspets+='"c2":"' + str(np[num][0]) + '", '
-            jsonAspets+='"ia":' + str(asp) + ','
-            jsonAspets+='"gdeg1":' + str(g1) + ','
-            jsonAspets+='"gdeg2":' + str(g2) + ','
-            jsonAspets+='"dga":' + str(swe.difdegn(g1, g2)) + ''
-            jsonAspets+='}'
-            indexAsp = indexAsp +1
-        #print('Dif 1: '+str(swe.difdegn(g1, g2)))
-        #print('Dif 2: '+str(swe.difdegn(g2, g1)))
-        #print(asp)
-        #print('Comp:' + np[index][0] + ' con '
-    index = index + 1
-
-jsonAspets+='}'
 #print(jsonAspets)
 #print('Cantidad de Aspectos: '+str(indexAsp))
 #Comienza JSON Houses
@@ -299,19 +200,12 @@ for i in h[0]:
     jsonHouses+='"gdeg":' + str(gdeg)+','
     jsonHouses+='"mdeg":' + str(mdeg)+','
     jsonHouses+='"sdeg":' + str(sdeg)+''
-    if numHouse != 12:
-        jsonHouses+='},'
-    else:
-        jsonHouses+='}'
-    numHouse = numHouse + 1
+    break
 
 jsonHouses+='}'
-
-jsonString+='' + jsonBodies + ','
-jsonString+='' + jsonHouses + ','
-jsonString+='' + jsonAspets + ','
+jsonString+='' + jsonHouses+','
 jsonString+='' + jsonParams
-jsonString+='}'
+jsonString+='}}'
 
 #print(jsonBodies)
 #print(jsonHouses)
