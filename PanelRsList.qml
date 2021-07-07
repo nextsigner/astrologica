@@ -64,6 +64,9 @@ Rectangle {
             displayMarginBeginning: cacheBuffer*app.fs*3
             clip: true
             Behavior on contentY{NumberAnimation{duration: 250}}
+            onCurrentIndexChanged: {
+                contentY=lv.itemAtIndex(currentIndex).y+lv.itemAtIndex(currentIndex).height-r.height*0.5
+            }
         }
     }
     ListModel{
@@ -245,6 +248,6 @@ Rectangle {
         }
     }
     function enter(){
-        xBottomBar.objPanelCmd.makeRS(lm.get(lv.currentIndex).rsDate)
+        xBottomBar.objPanelCmd.makeRS(lv.itemAtIndex(lv.currentIndex).rsDate)
     }
 }
