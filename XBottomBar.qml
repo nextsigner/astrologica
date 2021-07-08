@@ -12,14 +12,14 @@ Rectangle {
     state: "hide"
     states: [
         State {
-            name: "hide"
+            name: "show"
             PropertyChanges {
                 target: r
                 y:r.parent.height-r.height
             }
         },
         State {
-            name: "show"
+            name: "hide"
             PropertyChanges {
                 target: r
                 y:r.parent.height

@@ -43,9 +43,5 @@ Rectangle {
                 }
             }
         }
-    }
-    /*XCamera{
-        id: xCamera
-        anchors.centerIn: r
-    }*/
+    }    
 }

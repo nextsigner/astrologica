@@ -218,11 +218,12 @@ Rectangle {
         let c=''
             +'  let j=JSON.parse(logData)\n'
             +'  loadJson(j)\n'
+            +'  logData=""\n'
         mkCmd(finalCmd, c, xuqp)
     }
     function mkCmd(finalCmd, code, item){
-        for(var i=0;i<xuqp.children.length;i++){
-            xuqp.children[i].destroy(0)
+        for(var i=0;i<item.children.length;i++){
+            item.children[i].destroy(0)
         }
         let d = new Date(Date.now())
         let ms=d.getTime()
@@ -239,9 +240,11 @@ Rectangle {
         c+='        run(\''+finalCmd+'\')\n'
         c+='    }\n'
         c+='}\n'
+        console.log(c)
         let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
     }
     function loadJson(json){
+        lm.clear()
         for(var i=0;i<Object.keys(json).length;i++){
             let j=json['rs'+i]
             lm.append(lm.addItem(JSON.stringify(j)))

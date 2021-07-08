@@ -28,7 +28,7 @@ ApplicationWindow {
                 xSabianos.ctrlDown()
                 return
             }
-            xDataBar.state=xDataBar.state==='show'?'hide':'show'
+            xBottomBar.state=xBottomBar.state==='show'?'hide':'show'
         }
     }
     Shortcut{
@@ -38,7 +38,7 @@ ApplicationWindow {
                 xSabianos.ctrlUp()
                 return
             }
-            xBottomBar.state=xBottomBar.state==='show'?'hide':'show'
+            xDataBar.state=xDataBar.state==='show'?'hide':'show'
         }
     }
     Shortcut{

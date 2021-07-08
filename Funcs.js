@@ -197,11 +197,8 @@ function loadJson(file){
         jsonData.params.h=d.getHours()
         jsonData.params.min=d.getMinutes()
         sweg.loadSign(jsonData)
-        //swegz.sweg.loadSign(jsonData)
     }else{
-        //panelDataBodies.enabled=false
         sweg.load(jsonData)
-        //swegz.sweg.load(jsonData)
     }
     let nom=jsonData.params.n.replace(/_/g, ' ')
     let vd=jsonData.params.d
@@ -216,24 +213,6 @@ function loadJson(file){
     let edad=''
     let numEdad=getEdad(parseInt(va), parseInt(vm), parseInt(vd), parseInt(vh), parseInt(vmin))
     let stringEdad=edad.indexOf('NaN')<0?edad:''
-    let textData=''
-    if(parseInt(numEdad)>0){
-        edad=' <b>Edad:</b> '+numEdad
-        textData=''
-                +'<b>'+nom+'</b> '
-                +''+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs GMT '+vgmt+stringEdad+' '
-                +'<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
-                +'<b> '+vCiudad+'</b> '
-                +'<b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+' '
-    }else{
-        textData=''
-                +'<b>Revolución Solar</b></p> '
-                +'<b>'+nom+'</b> '
-                +'<b>Cumpleaños Astrológico: </b>'+vd+'/'+vm+'/'+va+' '+vh+':'+vmin+'hs '
-        //+'<p style="font-size:20px;"><b> '+vCiudad+'</b></p>'
-        //+'<p style="font-size:20px;"> <b>lon:</b> '+vlon+' <b>lat:</b> '+vlat+'</p>'
-
-    }
 
     //Seteando datos globales de mapa energético
     app.currentDate= new Date(parseInt(va), parseInt(vm) - 1, parseInt(vd), parseInt(vh), parseInt(vmin))
