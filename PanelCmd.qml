@@ -35,7 +35,7 @@ Rectangle {
             }          
         }
     ]
-    Behavior on y{NumberAnimation{duration: 250}}
+    Behavior on y{NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='show')tiCmd.t.focus=true
     }

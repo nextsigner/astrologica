@@ -30,8 +30,8 @@ Rectangle {
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: 250}}
-    Behavior on height{NumberAnimation{duration: 500}}
+    Behavior on x{NumberAnimation{duration: app.msDesDuration}}
+    Behavior on height{NumberAnimation{duration: app.msDesDuration}}
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
         Rectangle{
@@ -63,7 +63,7 @@ Rectangle {
             cacheBuffer: 150
             displayMarginBeginning: cacheBuffer*app.fs*3
             clip: true
-            Behavior on contentY{NumberAnimation{duration: 250}}
+            Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
             onCurrentIndexChanged: {
                 contentY=lv.itemAtIndex(currentIndex).y+lv.itemAtIndex(currentIndex).height-r.height*0.5
             }
@@ -91,8 +91,8 @@ Rectangle {
             onIsChanged:{
                 iconoSigno.source="./resources/imgs/signos/"+is+".svg"
             }
-            Behavior on height{NumberAnimation{duration: 500}}
-            Behavior on opacity{NumberAnimation{duration: 500}}
+            Behavior on height{NumberAnimation{duration: app.msDesDuration}}
+            Behavior on opacity{NumberAnimation{duration: app.msDesDuration}}
             Timer{
                 running: false//bg.color==='black' || bg.color==='#000000'
                 repeat: true

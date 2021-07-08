@@ -23,7 +23,10 @@ AppWin {
     property string url
     property string mod: 'mi'
 
+    property int msDesDuration: 500
     property var api: [panelNewVNA, panelFileLoader]
+
+
 
     property string fileData: ''
     property string currentData: ''
