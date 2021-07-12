@@ -202,6 +202,7 @@ Rectangle {
         let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
         let j='{'
         j+='"params":{'
+        j+='"tipo":"vn",'
         j+='"ms":'+ms+','
         j+='"n":"'+nom+'",'
         j+='"d":'+vd+','

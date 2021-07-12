@@ -156,6 +156,7 @@ AppWin {
                 height: parent.height
                 Rectangle{anchors.fill: parent;color:'red';opacity: 0.5}
                 SweGraphicZoom{id: swegz}
+                PanelZonaMes{id: panelZonaMes; state: 'show'}
                 PanelRsList{id: panelRsList}
                 PanelFileLoader{id: panelFileLoader}
                 PanelNewVNA{id: panelNewVNA}

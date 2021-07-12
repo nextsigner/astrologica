@@ -7,12 +7,15 @@ Rectangle {
     width: parent.width
     height: parent.height
     color: 'black'
+    //visible: false
     border.width: 2
     border.color: 'white'
     property alias currentIndex: lv.currentIndex
     property alias listModel: lm
-    property int edadMaxima: 0
-    property string jsonFull: ''
+    property string currentCity: ''
+    property int currentYear: -1
+    property int currentMonth: -1
+    property int currentDate: -1
     state: 'hide'
     states: [
         State {
@@ -82,7 +85,7 @@ Rectangle {
         Rectangle{
             id: itemRS
             width: lv.width-r.border.width*2
-            height: index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
+            height: txtData.contentHeight+app.fs//index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
             color: 'black'//index===lv.currentIndex?'white':'black'
             property int is: -1
             property var rsDate
@@ -93,29 +96,6 @@ Rectangle {
             }
             Behavior on height{NumberAnimation{duration: app.msDesDuration}}
             Behavior on opacity{NumberAnimation{duration: app.msDesDuration}}
-            Timer{
-                running: false//bg.color==='black' || bg.color==='#000000'
-                repeat: true
-                interval: 1000
-                onTriggered: {
-                    //console.log('IS:'+itemRS.is+' Color:'+bg.color)
-                    //return
-                    /*let c='#00ff88'
-                    if(itemRS.is===0||itemRS.is===4||itemRS.is===8){
-                        c=app.signColors[0]
-                    }
-                    if(itemRS.is===1||itemRS.is===5||itemRS.is===9){
-                        c=app.signColors[1]
-                    }
-                    if(itemRS.is===2||itemRS.is===6||itemRS.is===10){
-                        c=app.signColors[2]
-                    }
-                    if(itemRS.is===3||itemRS.is===7||itemRS.is===11){
-                        c=app.signColors[3]
-                    }*/
-                    bg.color=app.signColors[itemRS.is]
-                }
-            }
             Rectangle{
                 id: bg
                 width: parent.width
@@ -130,26 +110,9 @@ Rectangle {
                     spacing: app.fs*0.1
                     anchors.horizontalCenter: parent.horizontalCenter
                     Rectangle{
-                        id: labelEdad
-                        width: txtEdad.contentWidth+app.fs*0.1
-                        height: txtEdad.contentHeight+app.fs*0.1
-                        color: 'black'
-                        border.width: 1
-                        border.color: 'white'
-                        radius: app.fs*0.1
-                        anchors.verticalCenter: parent.verticalCenter
-                        Text {
-                            id: txtEdad
-                            text: '<b>'+parseInt(index)+'</b>'
-                            color: 'white'
-                            font.pixelSize: app.fs*0.5
-                            anchors.centerIn: parent
-                        }
-                    }
-                    Rectangle{
                         id: labelFecha
                         //width: txtData.contentWidth+app.fs*0.25
-                        width: itemRS.width-app.fs*0.5-iconoSigno.width-row.spacing*2-labelEdad.width
+                        width: itemRS.width-app.fs*0.5-iconoSigno.width-row.spacing*2
                         height: txtData.contentHeight+app.fs*0.25
                         color: 'black'
                         border.width: 1
@@ -189,68 +152,30 @@ Rectangle {
                 onClicked: {
                     lv.currentIndex=index
                     //r.state='hide'
-                    xBottomBar.objPanelCmd.makeRS(itemRS.rsDate)
+                    // xBottomBar.objPanelCmd.makeRS(itemRS.rsDate)
                 }
             }
             Component.onCompleted: {
-                //console.log('jjj:'+json)
-                let j=JSON.parse(json)
-                let params=j['ph']['params']
-                let sd=params.sd
-                let sdgmt=params.sdgmt
-                itemRS.is=j['ph']['h1']['is']
-                txtData.text="GMT: "+sdgmt + "<br />UTC: "+sd
-                let m0=sd.split(' ')//20/6/1984 06:40
-                let m1=m0[0].split('/')
-                let m2=m0[1].split(':')
-                itemRS.rsDate=new Date(m1[2],parseInt(m1[1]-1),m1[0],m2[0],m2[1])
+                console.log('index '+index+': '+JSON.stringify(json))
+                let fs1=parseInt(app.fs*0.75)
+                let fs2=parseInt(fs1*0.6)
+                let data='<b style="font-size:'+fs1+'px;">'+json['nom']+'</b><br/>'
+                +'<b style="font-size:'+fs2+'px;">'+json['des']+'</b>'
+                txtData.text=data
             }
         }
     }
     Item{id: xuqp}
-    function setRsList(edad){
-        r.jsonFull=''
-        r.edadMaxima=edad-1
-        lm.clear()
-        let cd3= new Date(app.currentDate)
-        let finalCmd=''
-            +'python3 ./py/astrologica_swe_search_revsol_time.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad
-        let c=''
-            +'  let j=JSON.parse(logData)\n'
-            +'  loadJson(j)\n'
-            +'  logData=""\n'
-        mkCmd(finalCmd, c, xuqp)
+    Component.onCompleted: {
+        loadZonas()
     }
-    function mkCmd(finalCmd, code, item){
-        for(var i=0;i<item.children.length;i++){
-            item.children[i].destroy(0)
+    function loadZonas(){
+        let fileName='./jsons/hm/zonas.json'
+        let fileData=unik.getFile(fileName)
+        console.log('json zonas: '+fileData)
+        let j=JSON.parse(fileData)
+        for(var i=0;i<Object.keys(j.zonas).length;i++){
+            lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))
         }
-        let d = new Date(Date.now())
-        let ms=d.getTime()
-        let c='import QtQuick 2.0\n'
-        c+='import unik.UnikQProcess 1.0\n'
-        c+='import "Funcs.js" as JS\n'
-        c+='UnikQProcess{\n'
-        c+='    id: uqp'+ms+'\n'
-        c+='    onLogDataChanged:{\n'
-        c+='        '+code+'\n'
-        c+='        uqp'+ms+'.destroy(0)\n'
-        c+='    }\n'
-        c+='    Component.onCompleted:{\n'
-        c+='        run(\''+finalCmd+'\')\n'
-        c+='    }\n'
-        c+='}\n'
-        //console.log(c)
-        let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
-    }
-    function loadJson(json){
-        lm.clear()
-        for(var i=0;i<Object.keys(json).length;i++){
-            let j=json['rs'+i]
-            lm.append(lm.addItem(JSON.stringify(j)))
-        }
-    }
-    function enter(){
-        xBottomBar.objPanelCmd.makeRS(lv.itemAtIndex(lv.currentIndex).rsDate)
     }
 }

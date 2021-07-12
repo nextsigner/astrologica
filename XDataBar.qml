@@ -8,7 +8,7 @@ Rectangle {
     color: 'black'
     border.width: 1
     border.color: 'white'
-    property string titleData: txtCurrentData.text
+    property string titleData//: txtCurrentData.text
     property alias currentDateText: txtCurrentDate.text
     property alias currentGmtText: txtCurrentGmt.text
     property bool showTimes: false
