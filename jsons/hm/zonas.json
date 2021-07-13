@@ -1,9 +1,9 @@
 {
     "zonas":{
-        "z1":{"nom":"Centro de Argentina", "des":"Centro geográfico de la República Argentina ubicado en Villa Huidobro en Provincia de Córdoba", "lat": -34.8403116, "lon":-64.5965932, "alt":14},
-        "z2":{"nom":"Sur de Argentina", "des":"Sur geográfico de la República Argentina ubicado en Hostena Provincia de Chubut", "lat":-45.9364322, "lon":-69.9364056, "alt":14},
-        "z3":{"nom":"Norte de Argentina", "des":"Norte geográfico de la República Argentina ubicado en Miraflores Provincia de Chaco", "lat":-26.4842789, "lon":-64.5892648, "alt":5},
-        "z4":{"nom":"Centro de Centro América", "des":"Centro geográfico aproximado de Centroamérica ubicado en Managua Nicaragua", "lat":12.0976239, "lon":-86.3985472, "alt":11},
-        "z5":{"nom":"Centro de la Península Ibérica", "des":"Centro geográfico de la Península Ibérica ubicado en Gefafe España", "lat":63.7379095, "lon":-3.7882308, "alt":1.82}
+        "z1":{"id":"cenarg", "nom":"Centro de Argentina", "des":"Centro geográfico de la República Argentina ubicado en Villa Huidobro en Provincia de Córdoba", "lat": -34.8403116, "lon":-64.5965932, "alt":14, "gmt": -4},
+        "z2":{"id":"surarg", "nom":"Sur de Argentina", "des":"Sur geográfico de la República Argentina ubicado en Hostena Provincia de Chubut", "lat":-45.9364322, "lon":-69.9364056, "alt":14, "gmt": -4},
+        "z3":{"id":"norarg", "nom":"Norte de Argentina", "des":"Norte geográfico de la República Argentina ubicado en Miraflores Provincia de Chaco", "lat":-26.4842789, "lon":-64.5892648, "alt":5, "gmt": -4},
+        "z4":{"id":"cename", "nom":"Centro de Centro América", "des":"Centro geográfico aproximado de Centroamérica ubicado en Managua Nicaragua", "lat":12.0976239, "lon":-86.3985472, "alt":11, "gmt": -5},
+        "z5":{"id":"cenpen", "nom":"Centro de la Península Ibérica", "des":"Centro geográfico de la Península Ibérica ubicado en Gefafe España", "lat":63.7379095, "lon":-3.7882308, "alt":1.82, "gmt": 1}
     }
 }

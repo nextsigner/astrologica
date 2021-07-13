@@ -70,6 +70,15 @@ Rectangle {
         let c=''
         let comando=cmd.split(' ')
         if(comando.length<1)return
+        if(comando[0]==='setzmt'){
+            if(comando.length<4){
+                console.log('Error al setear el panelZonaMes: Faltan argumentos. setCurrentTime(q,m,y)')
+                return
+            }
+            panelZonaMes.setCurrentTime(comando[1], comando[2], comando[3])
+            return
+        }
+
         if(comando[0]==='eclipse'){
             if(comando.length<5)return
             c='let json=JSON.parse(logData)
