@@ -37,8 +37,8 @@ Rectangle {
     }
     onXChanged: {
         if(x===0){
-            txtDataSearch.selectAll()
-            txtDataSearch.focus=true
+            //txtDataSearch.selectAll()
+            //txtDataSearch.focus=true
         }
     }
     Column{
@@ -53,7 +53,7 @@ Rectangle {
             currentIndex: app.currentSignIndex
             clip: true
             onCurrentIndexChanged: {
-                if(currentIndex<12){
+                if(currentIndex<12&&panelZonaMes.state==='hide'){
                     let joPar=app.currentJsonSignData.params
                     if(!app.currentJsonSignData.fechas)return
                     let jo=app.currentJsonSignData.fechas['is'+currentIndex]
@@ -103,6 +103,7 @@ Rectangle {
            let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
            lm.append(lm.addItem('a', s))
        }
+       //lv.currentIndex=0
         r.state='show'
     }
 }
