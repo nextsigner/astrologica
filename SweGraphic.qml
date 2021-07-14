@@ -198,7 +198,7 @@ Item {
         aspsCircle.load(j)
         eclipseCircle.arrayWg=housesCircle.arrayWg
         eclipseCircle.isEclipse=-1
-        if(app.mod!=='rs'&&app.mod!=='pl')panelRsList.setRsList(61)
+        if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
         r.v=true
     }
     function nextState(){

@@ -51,8 +51,16 @@ Rectangle {
         if(!app.currentJsonSignData.fechas)return
         let jo=app.currentJsonSignData.fechas['is'+r.currentIndexSign]
         //let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
-        let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+jo.d+',"m":'+jo.m+',"a":'+jo.a+',"h":'+jo.h+',"min":'+jo.min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
-        //JS.setTitleData(r.currentCity, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, jo.gmt, '', jo.lat, jo.lon, 0)
+        let d1=new Date(jo.a, jo.m - 1, jo.d, jo.h, jo.min)
+        d1 = d1.setMinutes(d1.getMinutes() + 8)
+        let d2=new Date(d1)
+        let d=d2.getDate()
+        let m=d2.getMonth() + 1
+        let a=d2.getFullYear()
+        let h=d2.getHours()
+        let min=d2.getMinutes()
+        let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
+        JS.setTitleData(r.currentCity, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 1)
         console.log('jsonCode:'+jsonCode)
         app.currentData=jsonCode
         JS.runJsonTemp()
@@ -87,10 +95,10 @@ Rectangle {
                 //panelControlsSign.currentIndex=currentIndex
                 //r.currentIndex=currentIndex
                 //panelDataBodies.state='hide'
-//                if((''+currentItemSource).indexOf('&isFS=true')>=0){
-//                    panelDataBodies.state='hide'
-//                    //panelControlsSign.currentIndex++
-//                }
+                //                if((''+currentItemSource).indexOf('&isFS=true')>=0){
+                //                    panelDataBodies.state='hide'
+                //                    //panelControlsSign.currentIndex++
+                //                }
             }
             onCurrentItemSourceChanged:{
                 //panelDataBodies.state='hide'
@@ -98,16 +106,16 @@ Rectangle {
                 //                    unik.speak('en cero')
                 //                }else{
 
-//                if((''+currentItemSource).indexOf('&isFS=true')>=0){
-//                    panelDataBodies.state='hide'
-//                    //r.currentIndexSign++
-//                    //panelControlsSign.currentIndex++
-//                    //mp.currentIndex++
-//                    //unik.speak('en uno uno uno.current')
-//                }else{
-//                    //unik.speak('en cero')
-//                    //panelControlsSign.currentIndex=mp.currentIndex
-//                }
+                //                if((''+currentItemSource).indexOf('&isFS=true')>=0){
+                //                    panelDataBodies.state='hide'
+                //                    //r.currentIndexSign++
+                //                    //panelControlsSign.currentIndex++
+                //                    //mp.currentIndex++
+                //                    //unik.speak('en uno uno uno.current')
+                //                }else{
+                //                    //unik.speak('en cero')
+                //                    //panelControlsSign.currentIndex=mp.currentIndex
+                //                }
                 //}
                 //console.log('currentItemsource :'+currentItemSource)
             }
@@ -115,9 +123,9 @@ Rectangle {
                 //xMsgList.actualizar(playlist)
             }
             function checkSource(){
-//                if(r.currentIndexSign<0){
-//                    r.currentIndexSign=0
-//                }
+                //                if(r.currentIndexSign<0){
+                //                    r.currentIndexSign=0
+                //                }
                 if((''+playlist.currentItemSource).indexOf('&isFS=true')>=0){
                     panelDataBodies.state='hide'
                     r.currentIndexSign++
@@ -176,19 +184,31 @@ Rectangle {
                 }
             }
         }
-        ListView{
-            id: lv
+        Flickable {
+            id: listController
             width: r.width
-            height: r.height-xTit.height
-            anchors.horizontalCenter: parent.horizontalCenter
-            delegate: compItemList
-            model: lm
-            cacheBuffer: 150
-            displayMarginBeginning: cacheBuffer*app.fs*3
-            clip: true
-            Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
-            onCurrentIndexChanged: {
-                contentY=lv.itemAtIndex(currentIndex).y+lv.itemAtIndex(currentIndex).height-r.height*0.5
+            height: app.fs*4//lm.count>0?itemAtIndex(0).height:0//r.height-xTit.height
+            contentWidth: r.width*lm.count
+            contentHeight: r.height
+            boundsBehavior: Flickable.StopAtBounds
+            GridView{
+                id: lv
+                width: r.width//*lm.count
+                height: app.fs*4//lm.count>0?itemAtIndex(0).height:0//r.height-xTit.height
+
+                //anchors.horizontalCenter: parent.horizontalCenter
+                delegate: compItemList
+                model: lm
+                //orientation: ListView.Horizontal
+                cacheBuffer: 10
+                displayMarginBeginning: cacheBuffer*app.fs*3
+                clip: true
+                cellWidth: r.width
+                cellHeight: app.fs*4
+                Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
+                onCurrentIndexChanged: {
+                    //contentY=0-lv.itemAtIndex(currentIndex).y//+r.height//+lv.itemAtIndex(currentIndex).height//-r.height//*0.5
+                }
             }
         }
     }
@@ -210,9 +230,12 @@ Rectangle {
             border.width: itemList.selected?2:0
             border.color: 'red'
             opacity: itemList.selected?1.0:0.5
+            //visible: isReady
+            property bool isReady: false
             property bool selected: lv.currentIndex===index
             property int is: -1
             anchors.horizontalCenter: parent.horizontalCenter
+            onHeightChanged: lv.height=height
             onSelectedChanged: loadJsonTask()
             Behavior on opacity{NumberAnimation{duration: app.msDesDuration}}
             Column{
@@ -244,9 +267,18 @@ Rectangle {
                 anchors.fill: parent
                 onClicked: {
                     lv.currentIndex=index
+                    r.currentIndexSign=-1
+                    playlist.currentIndex=0
                     //r.state='hide'
                     // xBottomBar.objPanelCmd.makeRS(itemList.rsDate)
                 }
+            }
+            Timer{
+                id: tPlay
+                running: false
+                repeat: false
+                interval: 2000
+                onTriggered: mp.play()
             }
             function loadJsonTask(){
                 r.currentCity=json.nom
@@ -259,18 +291,23 @@ Rectangle {
                 let fileName='./jsons/hm/'+json.id+'/q'+s.currentQ+'_'+s.currentMonth+'_'+s.currentYear+'.json'
                 if(!unik.fileExist(fileName)){
                     console.log('El archivo '+fileName+' no está disponible.')
+                    itemList.isReady=false
+                    let txtSinDatos='El horóscopo para la región '+json.nom+' aún no está listo.'
+                    mp.addText(txtSinDatos, 2)
                     return
                 }else{
+
                     //JS.setTitleData(json.nom, s.currentQ===1?1:15, s.currentMonth, s.currentYear, 0, 0, 0, json.des, json.lat, json.lon, 0)
                     //let j3='{"params":{"tipo": "pl", "ms":0,"n":"'+r.currentCity+'","d":1,"m":'+s.currentMonth+',"a":'+s.currentYear+',"h":0,"min":1,"gmt":'+json.gmt+',"lat":'+r.currentLat+',"lon":'+r.currentLon+',"ciudad":"'+r.currentCity+'"}}'
                     //sweg.loadSign(JSON.parse(j3))
+                    let cant=0
                     let txtCab='Cargando signo'
                     mp.addText(txtCab, 1)
                     let jsonData=unik.getFile(fileName)
                     let j=JSON.parse(jsonData)
                     console.log('json task: '+JSON.stringify(j))
                     for(var i=0;i<Object.keys(j.signos).length;i++){
-                        let title='Horóscopo para las personas nacidas en '+json.nom+' con el signo solar o ascendente '+app.signos[i]+'para el mes de '+app.meses[s.currentMonth]+' de '+s.currentYear
+                        let title='Horóscopo para las personas nacidas en '+json.nom+' con el signo solar o ascendente '+app.signos[i]+'para el mes de '+app.meses[s.currentMonth - 1]+' de '+s.currentYear
                         mp.addText(title, 0)
                         let t=j.signos['s'+parseInt(i + 1)].h
                         let pf=t.split('.')
@@ -281,23 +318,22 @@ Rectangle {
                             }else{
                                 mp.addText(pf[i2], true)
                             }*/
+                            cant++
                         }
                         let txtPie='Próximo signo'
                         if(i!==11){
                             txtPie='Próximo signo'
                             mp.addText(txtPie, 1)
                         }else{
-                            txtPie='Fin del horóscopo para las personas nacidas en '+json.nom+' con el signo solar o ascendente '+app.signos[i]+'para el mes de '+app.meses[s.currentMonth]+' de '+s.currentYear
+                            txtPie='Fin del horóscopo para las personas nacidas en '+json.nom+' con el signo solar o ascendente '+app.signos[i]+'para el mes de '+app.meses[s.currentMonth - 1]+' de '+s.currentYear
                             mp.addText(txtPie, 2)
                         }
                     }
-                    /*let sj='{"params":{"tipo": "pl", "ms":0,"n":"'+r.currentCity+'","d":1,"m":'+s.currentMonth+',"a":'+s.currentYear+',"h":0,"min":0,"gmt":'+r.currentGmt+',"lat":'+r.currentLat+',"lon":'+r.currentLat+',"ciudad":"'+r.currentCity+'"}}'
-                    let json2=JSON.parse(sj)
-                    sweg.loadSign(json2)*/
+                    if(cant>=1)itemList.isReady=true
+
                 }
                 sweg.loadSign(r.mkJsonSign(json))
-                //panelControlsSign.currentIndex=1
-                //mp.play()
+                tPlay.start()
             }
 
             Component.onCompleted: {
@@ -319,7 +355,7 @@ Rectangle {
     }
     Item{id: xuqp}
     Component.onCompleted: {
-        //loadZonas()
+        loadZonas()
     }
     function setCurrentTime(q, m, y){
         s.currentQ=q
@@ -357,6 +393,13 @@ Rectangle {
         let j=JSON.parse(fileData)
         for(var i=0;i<Object.keys(j.zonas).length;i++){
             lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))
+        }
+    }
+    function pause(){
+        if(mp.pauded){
+            mp.pause()
+        }else{
+            mp.play()
         }
     }
 }

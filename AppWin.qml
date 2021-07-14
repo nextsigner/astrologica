@@ -44,6 +44,10 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Space'
         onActivated: {
+            if(panelZonaMes.state==='show'){
+                panelZonaMes.pause()
+                return
+            }
             sweg.nextState()
             //swegz.sweg.nextState()
         }
