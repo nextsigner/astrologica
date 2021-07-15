@@ -12,6 +12,7 @@ Rectangle {
     border.width: 2
     border.color: 'white'
     state: 'hide'
+    property bool enableLoadSign: true
     property alias currentIndex: lv.currentIndex
     Behavior on height{NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
     states: [
@@ -53,6 +54,10 @@ Rectangle {
             currentIndex: app.currentSignIndex
             clip: true
             onCurrentIndexChanged: {
+                if(!r.enableLoadSign){
+                    r.enableLoadSign=true
+                    return
+                }
                 if(currentIndex<12&&panelZonaMes.state==='hide'){
                     let joPar=app.currentJsonSignData.params
                     if(!app.currentJsonSignData.fechas)return

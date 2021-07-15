@@ -38,6 +38,16 @@ Rectangle {
             }
         }
     ]
+    onStateChanged:{
+        if(state==='hide'){
+            detener()
+            return
+        }
+        if(state==='show'){
+            iniciar()
+            return
+        }
+    }
     Behavior on x{NumberAnimation{duration: app.msDesDuration}}
     Behavior on height{NumberAnimation{duration: app.msDesDuration}}
     Settings{
@@ -82,7 +92,7 @@ Rectangle {
         Flickable {
             id: listController
             width: r.width
-            height: app.fs*4//lm.count>0?itemAtIndex(0).height:0//r.height-xTit.height
+            height: lv.itemAtIndex(0).height//app.fs*4//lm.count>0?itemAtIndex(0).height:0//r.height-xTit.height
             contentWidth: r.width*lm.count
             contentHeight: r.height
             boundsBehavior: Flickable.StopAtBounds
@@ -118,6 +128,7 @@ Rectangle {
                     width: parent.width
                     fillMode: Image.PreserveAspectFit
                     anchors.centerIn: parent
+                    //scale: 1.2
                     opacity: modelData===r.currentIdZona
                     Behavior on opacity{NumberAnimation{duration: 500}}
                 }
@@ -182,5 +193,15 @@ Rectangle {
     }
     function play(){
         lv.itemAtIndex(lv.currentIndex).play()
+    }
+    function stop(){
+        lv.itemAtIndex(lv.currentIndex).stop()
+    }
+    function iniciar(){
+        lv.itemAtIndex(0).loadJsonTask()
+    }
+    function detener(){
+        lv.itemAtIndex(0).detener()
+        r.currentIndex=0
     }
 }

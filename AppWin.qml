@@ -208,34 +208,53 @@ ApplicationWindow {
             xLayerTouch.visible=!xLayerTouch.visible
         }
     }
+    //Mostrar Panel para Cargar Archivos
     Shortcut{
         sequence: 'Ctrl+f'
         onActivated: {
             panelFileLoader.state=panelFileLoader.state==='show'?'hide':'show'
         }
     }
+    //Mostrar Panel PL Signos
     Shortcut{
         sequence: 'Ctrl+Shift+s'
         onActivated: {
             panelControlsSign.state=panelControlsSign.state==='show'?'hide':'show'
         }
     }
+    //Mostrar Mostrar Reloj
     Shortcut{
         sequence: 'Ctrl+t'
         onActivated: {
             apps.showTimes=!apps.showTimes
         }
     }
+    //Mostrar Panel para Lineas de Comando
     Shortcut{
         sequence: 'Ctrl+Shift+c'
         onActivated: {
             xBottomBar.objPanelCmd.state=xBottomBar.objPanelCmd.state==='show'?'hide':'show'
         }
     }
+    //Mostrar Panel de Cuerpos
     Shortcut{
         sequence: 'Ctrl+i'
         onActivated: {
             panelDataBodies.state=panelDataBodies.state==='show'?'hide':'show'
+        }
+    }
+    //Mostrar Panel para Crear Nuevo VN
+    Shortcut{
+        sequence: 'Ctrl+n'
+        onActivated: {
+            panelNewVNA.state=panelNewVNA.state==='show'?'hide':'show'
+        }
+    }
+    //Mostrar Panel de Revoluciones Solares
+    Shortcut{
+        sequence: 'Ctrl+r'
+        onActivated: {
+            panelRsList.state=panelRsList.state==='show'?'hide':'show'
         }
     }
     Shortcut{
@@ -245,22 +264,9 @@ ApplicationWindow {
         }
     }
     Shortcut{
-        sequence: 'Ctrl+n'
+        sequence: 'Ctrl+Shift+p'
         onActivated: {
-            panelNewVNA.state=panelNewVNA.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+r'
-        onActivated: {
-            panelRsList.state=panelRsList.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+o'
-        onActivated: {
-            //img.y+=4
-            showIWFILES()
+            panelZonaMes.state=panelZonaMes.state==='hide'?'show':'hide'
         }
     }
     Shortcut{

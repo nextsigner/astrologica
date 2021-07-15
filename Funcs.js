@@ -365,6 +365,8 @@ function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
     //console.log('Edad: '+numEdad)
     if(mod===0){
         stringTiempo='<b> Edad:</b>'+getEdad(vd, vm, va, vh, vmin)+' '
+    }else if(mod===2){
+        stringTiempo=''
     }else{
         let nAnio=Math.abs(getEdadRS(vd, vm, va, vh, vmin))
         stringTiempo='<b> Edad:</b> '+nAnio+' años '

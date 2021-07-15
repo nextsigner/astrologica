@@ -7,8 +7,8 @@ Rectangle{
     width: parent.width-r.border.width*2
     height: txtData.contentHeight+app.fs//index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
     color: r.selected?'white':'black'
-    border.width: r.selected?2:0
-    border.color: 'red'
+    //border.width: r.selected?2:0
+    //border.color: 'red'
     opacity: r.selected?1.0:0.5
     //visible: isReady
     property int currentIndexSign: -1
@@ -34,7 +34,8 @@ Rectangle{
         let h=d2.getHours()
         let min=d2.getMinutes()
         let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
-        JS.setTitleData(panelZonaMes.currentCity, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 1)
+        let sc='Pronóstico Astrológico para '+app.signos[currentIndexSign]+' '+panelZonaMes.currentCity
+        JS.setTitleData(sc, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 2)
         console.log('jsonCode:'+jsonCode)
         app.currentData=jsonCode
         JS.runJsonTemp()
@@ -80,6 +81,8 @@ Rectangle{
                         r.currentIndexSign=0
                         //r.currentIndex=0
                     }
+                    panelControlsSign.enableLoadSign=false
+                    panelControlsSign.currentIndex=r.currentIndexSign
                 }
                 if((''+playlist.currentItemSource).indexOf('&isFZ=true')>=0){
                     if(panelZonaMes.currentIndex<panelZonaMes.listModel.count-1){
@@ -159,7 +162,7 @@ Rectangle{
             r.isReady=false
             let txtSinDatos='El horóscopo para la región '+json.nom+' aún no está listo.'
             mp.addText(txtSinDatos, 0,2)
-            mp.play()
+            //mp.play()
             return
         }else{
 
@@ -210,7 +213,9 @@ Rectangle{
         let data='<b style="font-size:'+fs1+'px;">'+json['nom']+'</b><br/>'
             +'<b style="font-size:'+fs2+'px;">'+json['des']+'</b>'
         txtData.text=data
-        if(index===0)loadJsonTask()
+        if(index===0&&panelZonaMes.state==='show')loadJsonTask()
+
+        listController.height=r.height
     }
     Rectangle{
         width: infoTXT.contentWidth+4
@@ -253,5 +258,13 @@ Rectangle{
     }
     function play(){
         mp.play()
+    }
+    function stop(){
+       mp.stop()
+    }
+    function detener(){
+        mp.stop()
+        r.currentIndexSign=-1
+        playlist.currentIndex=-1
     }
 }
