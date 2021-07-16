@@ -7,10 +7,7 @@ Rectangle{
     width: parent.width-r.border.width*2
     height: txtData.contentHeight+app.fs//index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
     color: r.selected?'white':'black'
-    //border.width: r.selected?2:0
-    //border.color: 'red'
     opacity: r.selected?1.0:0.5
-    //visible: isReady
     property int currentIndexSign: -1
     property bool isReady: false
     property bool selected: panelZonaMes.currentIndex===index
@@ -33,8 +30,16 @@ Rectangle{
         let a=d2.getFullYear()
         let h=d2.getHours()
         let min=d2.getMinutes()
-        let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
-        let sc='Pronóstico Astrológico para '+app.signos[currentIndexSign]+' '+panelZonaMes.currentCity
+        let signo=app.signos[currentIndexSign]
+        let name=''+json.id+'_'+signo+' '+s.currentQ+' '+s.currentMonth+' '+s.currentYear
+        let fileName=name.replace(/ /g, '_')+'.json'
+        let dms=new Date(Date.now())
+        let jsonCode='{"params":{"tipo":"vn", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
+        let fileNamePath='./jsons/'+fileName
+        if(!unik.fileExist(fileNamePath)){
+              unik.setFile(fileNamePath, jsonCode)
+        }
+        let sc='Pronóstico Astrológico para '+signo+' '+panelZonaMes.currentCity
         JS.setTitleData(sc, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 2)
         console.log('jsonCode:'+jsonCode)
         app.currentData=jsonCode
@@ -135,16 +140,7 @@ Rectangle{
             lv.currentIndex=index
             r.currentIndexSign=-1
             playlist.currentIndex=0
-            //r.state='hide'
-            // xBottomBar.objPanelCmd.makeRS(r.rsDate)
         }
-    }
-    Timer{
-        id: tPlay
-        running: false
-        repeat: false
-        interval: 2000
-        //onTriggered: mp.play()
     }
     function loadJsonTask(){
         panelZonaMes.currentCity=json.nom
@@ -152,17 +148,14 @@ Rectangle{
         panelZonaMes.currentLon=json.lon
         panelZonaMes.currentGmt=json.gmt
         mp.stop()
-        //r.currentIndexSign=-1
-        //playlist.currentIndex=0
         playlist.clear()
-        //playlist.currentIndex=-1
         let fileName='./jsons/hm/'+json.id+'/q'+s.currentQ+'_'+s.currentMonth+'_'+s.currentYear+'.json'
         if(!unik.fileExist(fileName)){
             console.log('El archivo '+fileName+' no está disponible.')
             r.isReady=false
             let txtSinDatos='El horóscopo para la región '+json.nom+' aún no está listo.'
             mp.addText(txtSinDatos, 0,2)
-            //mp.play()
+            mp.play()
             return
         }else{
 
@@ -214,7 +207,6 @@ Rectangle{
             +'<b style="font-size:'+fs2+'px;">'+json['des']+'</b>'
         txtData.text=data
         if(index===0&&panelZonaMes.state==='show')loadJsonTask()
-
         listController.height=r.height
     }
     Rectangle{
