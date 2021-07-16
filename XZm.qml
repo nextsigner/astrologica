@@ -6,7 +6,7 @@ Rectangle{
     id: r
     width: panelZonaMes.width-r.border.width*2
     height: txtData.contentHeight+app.fs//index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
-    color: r.selected?'white':'black'
+    //color: r.selected?'white':'black'
     opacity: r.selected?1.0:0.5
     property int currentIndexSign: -1
     property bool isReady: false
@@ -115,7 +115,7 @@ Rectangle{
             id: txtInfoZona
             width: r.width-app.fs*0.5
             height: txtData.contentHeight+app.fs*0.25
-            color: !r.selected?'white':'black'
+            //color: !r.selected?'white':'black'
             border.width: 1
             border.color: 'white'
             radius: app.fs*0.1
@@ -129,7 +129,7 @@ Rectangle{
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
                 horizontalAlignment: Text.AlignHCenter
-                color:r.selected?'white':'black'
+                //color:r.selected?'white':'black'
                 anchors.centerIn: parent
             }
         }
@@ -204,7 +204,7 @@ Rectangle{
         let fs1=parseInt(app.fs*0.75)
         let fs2=parseInt(fs1*0.6)
         let fs3=parseInt(fs1*1.2)
-        let data='<h1 style="font-size:'+fs1+'px; color: #ff8833; background-color: black;">'+json['nom']+'</h1><br/>'
+        let data='<h1 style="font-size:'+fs1+'px; color: #ff8833; background-color: black;">'+json['nom']+'</h1>'
             +'<h2 style="font-size:'+fs2+'px; color: red;">Pronósticos para estos países o zonas cercanas:</h2>'
         let arrayPaises=json['des'].split(',')
         for(var i=0;i<arrayPaises.length;i++){
@@ -212,7 +212,6 @@ Rectangle{
         }
         txtData.text=data
         if(index===0&&panelZonaMes.state==='show')loadJsonTask()
-        //listController.height=r.height
     }
     Rectangle{
         width: infoTXT.contentWidth+4

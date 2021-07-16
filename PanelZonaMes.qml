@@ -8,7 +8,7 @@ Rectangle {
     id: r
     width: parent.width
     height: parent.height
-    color: 'black'
+    //color: 'black'
     //visible: false
     border.width: 2
     border.color: 'white'
@@ -89,15 +89,6 @@ Rectangle {
                 }
             }
         }
-        /*Flickable {
-            id: listController
-            width: r.width
-            height: r.height
-            contentWidth: r.width*lm.count
-            contentHeight: r.height
-            boundsBehavior: Flickable.StopAtBounds
-
-        }*/
         GridView{
             id: lv
             width: r.width//*lm.count
@@ -162,6 +153,17 @@ Rectangle {
         let j=JSON.parse(fileData)
         for(var i=0;i<Object.keys(j.zonas).length;i++){
             lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))            
+        }
+    }
+    function mkJsonsZonas(){
+        //panelControlsSign.currentIndex=5
+        lm.clear()
+        let fileName='./jsons/hm/zonas.json'
+        let fileData=unik.getFile(fileName)
+        //console.log('json zonas: '+fileData)
+        let j=JSON.parse(fileData)
+        for(var i=0;i<Object.keys(j.zonas).length;i++){
+            //lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))
         }
     }
     function pause(){
