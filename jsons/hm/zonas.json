@@ -1,7 +1,7 @@
 {
     "zonas":{
-        "z1":{"id":"tropcap", "nom":"Regiónes cercanas al Trópico de Capricornio", "des":"Región correspondiente a Bolivia, Chile, Paraguay, Uruguay, Ecuador, Argentina y Sur de Brasil", "lat": -23.43806, "lon":0, "alt":0, "gmt": 0},
-        "z2":{"id":"tropcan", "nom":"Regiónes cercanas al Trópico de Cáncer", "des":"Región correspodiente a Venezuela, México, Cuba, Nicaragua, Guatemala, El Salvador, Puerto Rico, Perú, Colombia", "lat":23.43722, "lon":0, "alt":0, "gmt": 0},
-        "z3":{"id":"tropecu", "nom":"Centro de la Península Ibérica", "des":"Centro geográfico de la Península Ibérica ubicado en Gefafe España", "lat":0, "lon":0, "alt":0, "gmt": 0}
+        "z1":{"id":"tropcap", "nom":"Personas Nacidas cerca del Trópico de Capricornio", "des":"Bolivia, Chile, Paraguay, Uruguay, Ecuador, Argentina y Sur de Brasil", "lat": -23.43806, "lon":0, "alt":0, "gmt": 0},
+        "z2":{"id":"tropcan", "nom":"Personas Nacidas cerca del Trópico de Cáncer", "des":"México, España, Puerto Rico", "lat":23.43722, "lon":0, "alt":0, "gmt": 0},
+        "z3":{"id":"tropecu", "nom":"Personas Nacidas cerca del Trópico de Ecuador", "des":"Venezuela, Cuba, Nicaragua, Guatemala, Perú, Colombia", "lat":0, "lon":0, "alt":0, "gmt": 0}
     }
 }

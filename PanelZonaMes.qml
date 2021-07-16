@@ -89,49 +89,31 @@ Rectangle {
                 }
             }
         }
-        Flickable {
+        /*Flickable {
             id: listController
             width: r.width
-            height: lv.itemAtIndex(0).height//app.fs*4//lm.count>0?itemAtIndex(0).height:0//r.height-xTit.height
+            height: r.height
             contentWidth: r.width*lm.count
             contentHeight: r.height
             boundsBehavior: Flickable.StopAtBounds
-            GridView{
-                id: lv
-                width: r.width//*lm.count
-                height: app.fs*4//lm.count>0?itemAtIndex(0).height:0//r.height-xTit.height
 
-                //anchors.horizontalCenter: parent.horizontalCenter
-                delegate: compItemList
-                model: lm
-                //orientation: ListView.Horizontal
-                cacheBuffer: 10
-                displayMarginBeginning: cacheBuffer*app.fs*3
-                clip: true
-                cellWidth: r.width
-                cellHeight: app.fs*4
-                Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
-                onCurrentIndexChanged: {
-                    //contentY=0-lv.itemAtIndex(currentIndex).y//+r.height//+lv.itemAtIndex(currentIndex).height//-r.height//*0.5
-                }
-            }
-        }
-        Rectangle{
-            width: r.width
-            height: r.height-xTit.height-listController.height
+        }*/
+        GridView{
+            id: lv
+            width: r.width//*lm.count
+            height: r.height-xTit.height
+            //anchors.horizontalCenter: parent.horizontalCenter
+            delegate: compItemList
+            model: lm
+            //orientation: ListView.Horizontal
+            cacheBuffer: 10
+            displayMarginBeginning: cacheBuffer*app.fs*3
             clip: true
-            Repeater{
-                id: repImgsZonas
-                Image {
-                    id: imgZona
-                    source: "file:./resources/imgs/"+modelData+".png"
-                    width: parent.width
-                    fillMode: Image.PreserveAspectFit
-                    anchors.centerIn: parent
-                    //scale: 1.2
-                    opacity: modelData===r.currentIdZona
-                    Behavior on opacity{NumberAnimation{duration: 500}}
-                }
+            cellWidth: r.width
+            cellHeight: lv.height
+            Behavior on contentY{NumberAnimation{duration: app.msDesDuration}}
+            onCurrentIndexChanged: {
+                //contentY=0-lv.itemAtIndex(currentIndex).y//+r.height//+lv.itemAtIndex(currentIndex).height//-r.height//*0.5
             }
         }
     }
@@ -146,6 +128,7 @@ Rectangle {
     Component{
         id: compItemList
         XZm{
+            height: lv.height
             onTaskFinished: {
                 if(itemIndex<lm.count-1){
                     lv.currentIndex++
@@ -177,12 +160,9 @@ Rectangle {
         let fileData=unik.getFile(fileName)
         //console.log('json zonas: '+fileData)
         let j=JSON.parse(fileData)
-        let az=[]
         for(var i=0;i<Object.keys(j.zonas).length;i++){
-            lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))
-            az.push(j['zonas']['z'+parseInt(i+1)]['id'])
+            lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))            
         }
-        repImgsZonas.model=az
     }
     function pause(){
         if(lv.itemAtIndex(lv.currentIndex).pauded){

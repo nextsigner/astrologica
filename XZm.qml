@@ -4,7 +4,7 @@ import "Funcs.js" as JS
 
 Rectangle{
     id: r
-    width: parent.width-r.border.width*2
+    width: panelZonaMes.width-r.border.width*2
     height: txtData.contentHeight+app.fs//index!==lv.currentIndex?app.fs*1.5:app.fs*3.5//txtData.contentHeight+app.fs*0.1
     color: r.selected?'white':'black'
     opacity: r.selected?1.0:0.5
@@ -13,7 +13,7 @@ Rectangle{
     property bool selected: panelZonaMes.currentIndex===index
     property int is: -1
     anchors.horizontalCenter: parent.horizontalCenter
-    onHeightChanged: lv.height=height
+    //onHeightChanged: lv.height=height
     onSelectedChanged: if(selected)loadJsonTask()
     signal taskFinished(int itemIndex)
     Behavior on opacity{NumberAnimation{duration: app.msDesDuration}}
@@ -37,7 +37,7 @@ Rectangle{
         let jsonCode='{"params":{"tipo":"vn", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
         let fileNamePath='./jsons/'+fileName
         if(!unik.fileExist(fileNamePath)){
-              unik.setFile(fileNamePath, jsonCode)
+            unik.setFile(fileNamePath, jsonCode)
         }
         let sc='Pronóstico Astrológico para '+signo+' '+panelZonaMes.currentCity
         JS.setTitleData(sc, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 2)
@@ -169,7 +169,7 @@ Rectangle{
             let j=JSON.parse(jsonData)
             console.log('json task: '+JSON.stringify(j))
             for(var i=0;i<Object.keys(j.signos).length;i++){
-                let title='Horóscopo para las personas nacidas en '+json.nom+' con el signo solar o ascendente '+app.signos[i]+'para el mes de '+app.meses[s.currentMonth - 1]+' de '+s.currentYear
+                let title='Pronóstico Astrológico para '+json.nom+' bajo el signo solar o ascendente '+app.signos[i]+' para el mes de '+app.meses[s.currentMonth - 1]+' de '+s.currentYear
                 mp.addText(title, 0,0)
                 let t=j.signos['s'+parseInt(i + 1)].h
                 let pf=t.split('.')
@@ -187,7 +187,7 @@ Rectangle{
                     txtPie='Próximo signo'
                     mp.addText(txtPie, 0,1)
                 }else{
-                    txtPie='Fin del horóscopo para las personas nacidas en '+json.nom+' con el signo solar o ascendente '+app.signos[i]+'para el mes de '+app.meses[s.currentMonth - 1]+' de '+s.currentYear
+                    txtPie='Fin del Pronóstico Astrológico para '+json.nom+' bajo el signo solar o ascendente '+app.signos[i]+' para el mes de '+app.meses[s.currentMonth - 1]+' de '+s.currentYear
                     mp.addText(txtPie, 2)
                 }
             }
@@ -203,11 +203,16 @@ Rectangle{
         //console.log('index '+index+': '+JSON.stringify(json))
         let fs1=parseInt(app.fs*0.75)
         let fs2=parseInt(fs1*0.6)
-        let data='<b style="font-size:'+fs1+'px;">'+json['nom']+'</b><br/>'
-            +'<b style="font-size:'+fs2+'px;">'+json['des']+'</b>'
+        let fs3=parseInt(fs1*1.2)
+        let data='<h1 style="font-size:'+fs1+'px; color: #ff8833; background-color: black;">'+json['nom']+'</h1><br/>'
+            +'<h2 style="font-size:'+fs2+'px; color: red;">Pronósticos para estos países o zonas cercanas:</h2>'
+        let arrayPaises=json['des'].split(',')
+        for(var i=0;i<arrayPaises.length;i++){
+            data+='<b style="font-size:'+fs3+'px;  color: #ffffff; background-color: black;">'+arrayPaises[i]+'</b> '
+        }
         txtData.text=data
         if(index===0&&panelZonaMes.state==='show')loadJsonTask()
-        listController.height=r.height
+        //listController.height=r.height
     }
     Rectangle{
         width: infoTXT.contentWidth+4
@@ -252,7 +257,7 @@ Rectangle{
         mp.play()
     }
     function stop(){
-       mp.stop()
+        mp.stop()
     }
     function detener(){
         mp.stop()
