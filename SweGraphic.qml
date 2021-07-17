@@ -79,7 +79,17 @@ Item {
         showBorder: false
         v:r.v
         w: r.state==='ps'?r.fs:r.fs*0.5
-        visible: false
+        //visible: false
+    }
+    SignCircleDec2{
+        id:signCircleDec2
+        width: signCircleDec.width-(signCircle.w*0.5)*2+1
+        height: width
+        anchors.centerIn: parent
+        showBorder: false
+        v:r.v
+        w: r.state==='ps'?r.fs:r.fs*0.5
+        //visible: false
     }
     SignCircle{
         id:signCircle
@@ -203,6 +213,7 @@ Item {
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec
         signCircleDec.rot=j.ph.h1.gdec
+        signCircleDec2.rot=j.ph.h1.gdec
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)
