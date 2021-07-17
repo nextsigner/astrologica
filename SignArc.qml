@@ -67,7 +67,7 @@ Item {
             var radius = rad>0?rad:r.width;
 
             var startAngle = 1.0 * Math.PI;
-            var endAngle = 1.17 * Math.PI;
+            var endAngle = 1.1666 * Math.PI;
             var counterClockwise = false;
             ctx.beginPath();
             ctx.arc(x, y, radius, startAngle, endAngle, counterClockwise);

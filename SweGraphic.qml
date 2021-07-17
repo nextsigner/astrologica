@@ -80,6 +80,16 @@ Item {
         w: r.state==='ps'?r.fs:r.fs*0.5
         //visible: false
     }
+    SignCircleDec{
+        id:signCircleDec
+        width: signCircle.width-signCircle.w*0.5+1
+        height: width
+        anchors.centerIn: parent
+        showBorder: false
+        v:r.v
+        w: r.state==='ps'?r.fs:r.fs*0.5
+        //visible: false
+    }
     AspCircle{
         id: aspsCircle
         rotation: signCircle.rot - 90
@@ -191,6 +201,7 @@ Item {
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec
+        signCircleDec.rot=j.ph.h1.gdec
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)

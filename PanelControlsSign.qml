@@ -111,4 +111,16 @@ Rectangle {
        //lv.currentIndex=0
         r.state='show'
     }
+    function copyPlanetsForPron(json){
+        lm.clear()
+        let jo
+        let o
+       for(var i=0;i<12;i++){
+           jo=json.fechas['is'+i]
+           let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
+           lm.append(lm.addItem('a', s))
+       }
+       //lv.currentIndex=0
+        r.state='show'
+    }
 }
