@@ -205,7 +205,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+a'
         onActivated: {
-            xLayerTouch.visible=!xLayerTouch.visible
+            apps.lt=!apps.lt
         }
     }
     //Mostrar / Ocultar Decanatos
