@@ -71,16 +71,6 @@ Item {
         visible: r.v
         //z: ascMcCircle.z+1
     }
-    SignCircleDec2{
-        id:signCircleDec2
-        width: signCircleDec.width-(signCircle.w*0.5)*2+1
-        height: width
-        anchors.centerIn: parent
-        showBorder: false
-        v:r.v
-        w: r.state==='ps'?r.fs:r.fs*0.5
-        visible: signCircleDec.visible
-    }
     SignCircleDec{
         id:signCircleDec
         width: signCircle.width-signCircle.w*0.5+1
@@ -89,8 +79,18 @@ Item {
         showBorder: false
         v:r.v
         w: r.state==='ps'?r.fs:r.fs*0.5
-        visible: false
+        //visible: false
     }
+//    Item{
+//        id: xSignCircleDec
+//        width: signCircle.width-signCircle.w*0.5+1
+//        height: width
+//        anchors.centerIn: parent
+//        Component.objectName: {
+//            let comp=Qt.createComponent("SignCircleDec.qml")
+//            let obj=comp.createObject(xSignCircleDec, {width: signCircle.width-signCircle.w*0.5+1, height:signCircle.width-signCircle.w*0.5+1})
+//        }
+//    }
     SignCircle{
         id:signCircle
         width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
@@ -212,8 +212,7 @@ Item {
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec
-        signCircleDec.rot=j.ph.h1.gdec
-        signCircleDec2.rot=j.ph.h1.gdec
+        signCircleDec.rotation=j.ph.h1.gdec
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)

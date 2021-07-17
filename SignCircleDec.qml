@@ -2,7 +2,9 @@ import QtQuick 2.0
 
 Item {
     id: r
-    width: app.fs*10
+    width: signCircle.width-signCircle.w*0.5+1
+    height: width
+    anchors.centerIn: parent
     property int f: 0
     property int w: sweg.fs
     property bool v: false
@@ -34,16 +36,7 @@ Item {
     ]
 
 
-    //    SignCircleDec2{
-//        id:signCircleDec2
-//        width: signCircleDec.width*0.5//-(signCircle.w*0.5)*2+1
-//        height: width
-//        anchors.centerIn: parent
-//        showBorder: false
-//        v:r.v
-//        w: r.state==='ps'?r.fs:r.fs*0.5
-//        //visible: signCircleDec.visible
-//    }
+
     Item{
         id: xSignArcs
         anchors.fill: r
@@ -55,7 +48,7 @@ Item {
             }
         }
         Repeater{
-            model: [0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11]
+            model: r.parent.objectName!=='sweg'?[0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11]:[]
             SignArcDec{
                 width: r.width
                 height: width
@@ -85,6 +78,17 @@ Item {
             }*/
             }
         }
+    }
+    SignCircleDec2{
+        id:signCircleDec2
+        width: r.width-r.w+1//signCircleDec.width*0.5//-(signCircle.w*0.5)*2+1
+        height: width
+        anchors.centerIn: parent
+        showBorder: false
+        v:r.v
+        rot: r.rot
+        //w: r.state==='ps'?r.fs:r.fs*0.5
+        //visible: signCircleDec.visible
     }
     property int sent: -1
     function subir(){
