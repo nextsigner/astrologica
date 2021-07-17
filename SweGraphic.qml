@@ -13,6 +13,7 @@ Item {
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
     property alias objSignsCircle: signCircle
+    property alias objSignsCircleDec: signCircleDec
     property alias objAscMcCircle: ascMcCircle
     property alias objEclipseCircle: eclipseCircle
     property int speedRotation: 1000
@@ -70,22 +71,22 @@ Item {
         visible: r.v
         //z: ascMcCircle.z+1
     }
-    SignCircle{
-        id:signCircle
-        width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
-        height: width
-        anchors.centerIn: parent
-        showBorder: true
-        v:r.v
-        w: r.state==='ps'?r.fs:r.fs*0.5
-        //visible: false
-    }
     SignCircleDec{
         id:signCircleDec
         width: signCircle.width-signCircle.w*0.5+1
         height: width
         anchors.centerIn: parent
         showBorder: false
+        v:r.v
+        w: r.state==='ps'?r.fs:r.fs*0.5
+        visible: false
+    }
+    SignCircle{
+        id:signCircle
+        width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
+        height: width
+        anchors.centerIn: parent
+        showBorder: true
         v:r.v
         w: r.state==='ps'?r.fs:r.fs*0.5
         //visible: false

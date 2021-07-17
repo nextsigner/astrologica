@@ -208,6 +208,13 @@ ApplicationWindow {
             xLayerTouch.visible=!xLayerTouch.visible
         }
     }
+    //Mostrar / Ocultar Decanatos
+    Shortcut{
+        sequence: 'Ctrl+Shift+d'
+        onActivated: {
+            sweg.objSignsCircleDec.visible=!sweg.objSignsCircleDec.visible
+        }
+    }
     //Mostrar Panel para Cargar Archivos
     Shortcut{
         sequence: 'Ctrl+f'
@@ -273,7 +280,7 @@ ApplicationWindow {
         sequence: 'Ctrl+s'
         onActivated: {
             //img.y+=4
-            showSABIANOS()
+            //showSABIANOS()
         }
     }
     Shortcut{
