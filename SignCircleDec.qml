@@ -32,13 +32,18 @@ Item {
             }
         }
     ]
-    Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
-    Behavior on width {
-        NumberAnimation{
-            duration: 350
-            easing.type: Easing.InOutQuad
-        }
-    }
+
+
+    //    SignCircleDec2{
+//        id:signCircleDec2
+//        width: signCircleDec.width*0.5//-(signCircle.w*0.5)*2+1
+//        height: width
+//        anchors.centerIn: parent
+//        showBorder: false
+//        v:r.v
+//        w: r.state==='ps'?r.fs:r.fs*0.5
+//        //visible: signCircleDec.visible
+//    }
     Item{
         id: xSignArcs
         anchors.fill: r
@@ -62,47 +67,7 @@ Item {
                 //z:36-index
                 //colors: [0,1,2,-1,-1,-1,-1,-1,-1,-1,-1,-1]
             }
-        }
-        /*Repeater{
-            model: 3
-            SignArcDec{
-                width: r.width
-                height: width
-                w: r.w
-                n: index===0?2:(index===1?10:6)
-                c:1
-                gr: xSignArcs.rotation
-                rotation: index*(360/3)-60
-                //colors: [1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-            }
-        }
-        Repeater{
-            model: 3
-            SignArcDec{
-                width: r.width
-                height: width
-                w: r.w
-                n: index===0?3:(index===1?11:7)
-                c:2
-                gr: xSignArcs.rotation
-                rotation: index*(360/3)-90
-                //colors: [1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-            }
-        }
-        Repeater{
-            model: 3
-            SignArcDec{
-                width: r.width
-                height: width
-                w: r.w
-                n: index===0?4:(index===1?12:8)
-                c:3
-                gr: xSignArcs.rotation
-                rotation: index*(360/3)-120
-                //colors: [1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]
-            }
-        }
-        */
+        }       
         Component.onCompleted: {
 
             for(var i=0;i<12;i++){

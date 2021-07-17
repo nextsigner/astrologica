@@ -51,39 +51,65 @@ Item {
             }
             PropertyChanges {
                 target: ejeAsc
-                width: sweg.objSignsCircle.width
+                //width: sweg.objSignsCircle.width
+                width: sweg.width-sweg.fs
             }
             PropertyChanges {
                 target: ejeMC
-                width: sweg.objSignsCircle.width
+                //width: sweg.objSignsCircle.width
+                width: sweg.width-sweg.fs
             }
         }
     ]
     Rectangle{
         id: ejeCard1
-        width: ejeAsc.width+sweg.fs*2
+        width: ejeAsc.width+sweg.fs*0.5
         height: 1//sweg.fs*0.1
         color: 'red'
         anchors.centerIn: r
         anchors.horizontalCenterOffset: 0-sweg.fs
-        //opacity: app.currentPlanetIndex===15?1.0:0.0
-        state: app.currentPlanetIndex===15?'showAsc':'hideAsc'
+        state: sweg.state
         states: [
             State {
-                name: 'showAsc'
+                name: sweg.aStates[0]
                 PropertyChanges {
                     target: ejeCard1
-                    width: ejeAsc.width+sweg.fs*4
+                    width: ejeAsc.width+sweg.fs*0.5
                 }
             },
             State {
-                name: 'hideAsc'
+                name: sweg.aStates[1]
                 PropertyChanges {
                     target: ejeCard1
-                    width: ejeAsc.width+sweg.fs*2
+                    width: ejeAsc.width-sweg.fs
+                }
+            },
+            State {
+                name: sweg.aStates[2]
+                PropertyChanges {
+                    target: ejeCard1
+                    width: ejeAsc.width-sweg.fs*0.5
                 }
             }
         ]
+        //opacity: app.currentPlanetIndex===15?1.0:0.0
+//        state: app.currentPlanetIndex===15?'showAsc':'hideAsc'
+//        states: [
+//            State {
+//                name: 'showAsc'
+//                PropertyChanges {
+//                    target: ejeCard1
+//                    width: ejeAsc.width+sweg.fs*0.5
+//                }
+//            },
+//            State {
+//                name: 'hideAsc'
+//                PropertyChanges {
+//                    target: ejeCard1
+//                    width: ejeAsc.width+sweg.fs*2
+//                }
+//            }
+//        ]
         Behavior on opacity{NumberAnimation{duration: 500}}
         Canvas {
             id:canvas
@@ -250,10 +276,21 @@ Item {
             Rectangle{
                 id: lineSenAsc
                 width: 2
-                height: Math.abs(parent.anchors.verticalCenterOffset)-parent.height*0.5
+                height: Math.abs(parent.anchors.verticalCenterOffset)//-parent.height*0.25
                 color: 'red'
-                anchors.horizontalCenter: parent.horizontalCenter
-                anchors.top: parent.bottom
+                //anchors.horizontalCenter: parent.horizontalCenter
+                anchors.left: parent.right
+                anchors.leftMargin: sweg.state!==sweg.aStates[2]?sweg.fs*0.125:sweg.fs*0.35
+                anchors.top: parent.verticalCenter
+
+            }
+            Rectangle{
+                width: sweg.fs*0.5
+                height: 2
+                color: 'red'
+                anchors.bottom: lineSenAsc.top
+                anchors.right: lineSenAsc.right
+                z:parent.z-1
             }
         }
     }

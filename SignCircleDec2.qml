@@ -32,13 +32,13 @@ Item {
             }
         }
     ]
-    Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
-    Behavior on width {
-        NumberAnimation{
-            duration: 350
-            easing.type: Easing.InOutQuad
-        }
-    }
+    //Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
+//    Behavior on width {
+//        NumberAnimation{
+//            duration: 350
+//            easing.type: Easing.InOutQuad
+//        }
+//    }
     Item{
         id: xSignArcs
         anchors.fill: r
