@@ -71,16 +71,6 @@ Item {
         visible: r.v
         //z: ascMcCircle.z+1
     }
-    SignCircleDec{
-        id:signCircleDec
-        width: signCircle.width-signCircle.w*0.5+1
-        height: width
-        anchors.centerIn: parent
-        showBorder: false
-        v:r.v
-        w: r.state==='ps'?r.fs:r.fs*0.5
-        //visible: false
-    }
     SignCircleDec2{
         id:signCircleDec2
         width: signCircleDec.width-(signCircle.w*0.5)*2+1
@@ -89,7 +79,17 @@ Item {
         showBorder: false
         v:r.v
         w: r.state==='ps'?r.fs:r.fs*0.5
-        //visible: false
+        visible: signCircleDec.visible
+    }
+    SignCircleDec{
+        id:signCircleDec
+        width: signCircle.width-signCircle.w*0.5+1
+        height: width
+        anchors.centerIn: parent
+        showBorder: false
+        v:r.v
+        w: r.state==='ps'?r.fs:r.fs*0.5
+        visible: false
     }
     SignCircle{
         id:signCircle

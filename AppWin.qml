@@ -213,6 +213,7 @@ ApplicationWindow {
         sequence: 'Ctrl+Shift+d'
         onActivated: {
             sweg.objSignsCircleDec.visible=!sweg.objSignsCircleDec.visible
+            swegz.sweg.objSignsCircleDec.visible=sweg.objSignsCircleDec.visible
         }
     }
     //Mostrar Panel para Cargar Archivos
