@@ -10,33 +10,6 @@ Item {
     property bool v: false
     property bool showBorder: false
     property int rot: 0
-    state: sweg.state
-    states: [
-        State {
-            name: sweg.aStates[0]
-            PropertyChanges {
-                target: r
-                //width: sweg.width-sweg.fs*2
-            }
-        },
-        State {
-            name: sweg.aStates[1]
-            PropertyChanges {
-                target: r
-                //width: sweg.width-sweg.fs*6-sweg.fs
-            }
-        },
-        State {
-            name: sweg.aStates[2]
-            PropertyChanges {
-                target: r
-                //width: sweg.width-sweg.fs*2-sweg.fs
-            }
-        }
-    ]
-
-
-
     Item{
         id: xSignArcs
         anchors.fill: r
@@ -62,10 +35,9 @@ Item {
             }
         }       
         Component.onCompleted: {
-
             for(var i=0;i<12;i++){
                 let comp=Qt.createComponent("SignArcDec.qml")
-                let obj=comp.createObject(xSignArcs, {width: r.width,height: width, w: r.w, n:i, c:app.signColors[i], gr: xSignArcs.rotation, rotation: i*10})
+                let obj=comp.createObject(xSignArcs, {width: r.width,height: width, w: r.w, n:i, c:app.signColors[i], rotation: i*10})
                 /*SignArcDec{
                 width: r.width
                 height: width
@@ -86,35 +58,6 @@ Item {
         anchors.centerIn: parent
         showBorder: false
         v:r.v
-        rot: r.rot
-        //w: r.state==='ps'?r.fs:r.fs*0.5
-        //visible: signCircleDec.visible
-    }
-    property int sent: -1
-    function subir(){
-        rotar(1,1)
-    }
-    function bajar(){
-        rotar(0,1)
-    }
-    property int uF: 0
-    function rotar(s,i){
-        let grado=0
-        let currentDate=app.currentDate
-        if(s===0){
-            currentDate.setMinutes(currentDate.getMinutes() + i)
-        }else{
-            currentDate.setMinutes(currentDate.getMinutes() - i)
-        }
-        app.currentDate=currentDate
-    }
-    function rotarSegundos(s){
-        let currentDate=app.currentDate
-        if(s===0){
-            currentDate.setSeconds(currentDate.getSeconds() + 10)
-        }else{
-            currentDate.setSeconds(currentDate.getSeconds() - 10)
-        }
-        app.currentDate=currentDate
+        rotation: xSignArcs.rotation
     }
 }

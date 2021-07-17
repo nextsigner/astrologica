@@ -3,48 +3,13 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: r
-    property int gr: 0
+    property int gr: parent.rotation
     property int n: -1
     property int w: signCircle.w*0.25
     property color c
     property bool showBorder: false
     //Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
     onWidthChanged: canvas.requestPaint()
-
-    //    state: sweg.state
-    //    states: [
-    //        State {
-    //            name: sweg.aStates[0]
-    //            PropertyChanges {
-    //                target: r
-    //                w: sweg.fs*0.25
-    //            }
-    //        },
-    //        State {
-    //            name: sweg.aStates[1]
-    //            PropertyChanges {
-    //                target: r
-    //                w: sweg.fs*0.5
-    //            }
-
-    //        },
-    //        State {
-    //            name: sweg.aStates[2]
-    //            PropertyChanges {
-    //                target: r
-    //                w: sweg.fs*0.5
-    //            }
-    //        }
-    //    ]
-
-    Rectangle{
-        anchors.fill: r
-        color: 'transparent'
-        border.width: 1
-        border.color: 'red'
-        radius: width*0.5
-        visible: r.showBorder
-    }
     Canvas {
         id:canvas
         width: r.width//-sweg.fs
@@ -84,7 +49,7 @@ Item {
             height: width
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.left
-            rotation: 0-r.rotation-5-r.gr//-90
+            rotation: 0-r.rotation-1.666666-r.gr//-90
             antialiasing: true
             property bool resaltado: false//panelDataBodies.currentIndexSign === r.n - 1
             Image {

@@ -1,42 +1,14 @@
 import QtQuick 2.0
-import QtGraphicalEffects 1.0
 
 Item {
     id: r
-    property int gr: 0
+    property int gr: parent.rotation
     property int n: -1
     property int w: signCircle.w*0.25
     property color c
     property bool showBorder: false
     //Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
     onWidthChanged: canvas.requestPaint()
-
-    //    state: sweg.state
-    //    states: [
-    //        State {
-    //            name: sweg.aStates[0]
-    //            PropertyChanges {
-    //                target: r
-    //                w: sweg.fs*0.25
-    //            }
-    //        },
-    //        State {
-    //            name: sweg.aStates[1]
-    //            PropertyChanges {
-    //                target: r
-    //                w: sweg.fs*0.5
-    //            }
-
-    //        },
-    //        State {
-    //            name: sweg.aStates[2]
-    //            PropertyChanges {
-    //                target: r
-    //                w: sweg.fs*0.5
-    //            }
-    //        }
-    //    ]
-
     Rectangle{
         anchors.fill: r
         color: 'transparent'
@@ -69,7 +41,6 @@ Item {
             ctx.stroke();
         }
     }
-
     Rectangle{
         id: ejeIcon
         width: r.width//-((r.w-xImg.width)/2)
