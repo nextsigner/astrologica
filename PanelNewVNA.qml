@@ -30,7 +30,7 @@ Rectangle {
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: app.msDesDuration}}
+    Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='show')tiNombre.t.focus=true
         //xApp.focus=true

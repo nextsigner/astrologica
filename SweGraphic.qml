@@ -131,8 +131,9 @@ Item {
     }
     function loadSign(j){
         console.log('Ejecutando SweGraphic.loadSign()...')
+        //unik.speak('load sign')
         for(var i=0;i<xuqp.children.length;i++){
-            xuqp.children[i].destroy(0)
+            xuqp.children[i].destroy(3000)
         }
         let vd=j.params.d
         let vm=j.params.m
@@ -187,7 +188,7 @@ Item {
         c+='        //console.log(\'JSON: \'+json)\n'
         c+='        loadSweJson(json)\n'
         c+='        swegz.sweg.loadSweJson(json)\n'
-        c+='        uqp'+ms+'.destroy(0)\n'
+        c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         //c+='        console.log(\'sweg.load() python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
@@ -215,6 +216,7 @@ Item {
         eclipseCircle.isEclipse=-1
         if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
         r.v=true
+        app.enableAn=true
     }
     function nextState(){
         let currentIndexState=r.aStates.indexOf(r.state)

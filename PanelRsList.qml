@@ -30,8 +30,8 @@ Rectangle {
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: app.msDesDuration}}
-    Behavior on height{NumberAnimation{duration: app.msDesDuration}}
+    Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
+    Behavior on height{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
         Rectangle{
@@ -91,8 +91,8 @@ Rectangle {
             onIsChanged:{
                 iconoSigno.source="./resources/imgs/signos/"+is+".svg"
             }
-            Behavior on height{NumberAnimation{duration: app.msDesDuration}}
-            Behavior on opacity{NumberAnimation{duration: app.msDesDuration}}
+            Behavior on height{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
+            Behavior on opacity{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
             Timer{
                 running: false//bg.color==='black' || bg.color==='#000000'
                 repeat: true

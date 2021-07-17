@@ -168,6 +168,7 @@ function runCmd(){
 //Astrologica
 function loadJson(file){
     //Global Vars Reset
+    app.enableAn=false
     app.currentPlanetIndex=-1
     app.currentSignIndex= 0
     app.currentNom= ''

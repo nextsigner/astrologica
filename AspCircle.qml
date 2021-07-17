@@ -46,18 +46,21 @@ Rectangle {
         clear_canvasBg()
     }
     Behavior on width {
+        enabled: app.enableAn;
         NumberAnimation{
             duration: sweg.speedRotation
             easing.type: Easing.InOutQuad
         }
     }
     Behavior on opacity {
+        enabled: app.enableAn;
         NumberAnimation{
             duration: sweg.speedRotation
             easing.type: Easing.InOutQuad
         }
     }
     Behavior on rotation {
+        enabled: app.enableAn;
         NumberAnimation{
             duration: sweg.speedRotation
             easing.type: Easing.InOutQuad

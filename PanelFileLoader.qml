@@ -29,7 +29,7 @@ Rectangle {
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: app.msDesDuration}}
+    Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='hide')txtDataSearch.focus=false
         xApp.focus=true

@@ -31,7 +31,7 @@ Item {
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: 250}}
+    Behavior on x{enabled: app.enableAn;NumberAnimation{duration: 250}}
     Rectangle{
         anchors.fill: r
         color: 'black'

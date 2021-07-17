@@ -80,8 +80,10 @@ Item{
             antialiasing: true
             Rectangle{
                 id: lineaATripleCircle
-                width: r.selected?parent.width:0
-                height: 4
+                width: r.selected?parent.width-xIconPlanetSmall.width:0
+                anchors.left: parent.left
+                anchors.leftMargin: xIconPlanetSmall.width-xIconPlanetSmall.border.width*2
+                height: sweg.objectName==='sweg'?2:4
                 antialiasing: true
                 SequentialAnimation on color {
                     running: true
@@ -101,6 +103,7 @@ Item{
                     }
                 }
                 Behavior on width {
+                    enabled: app.enableAn;
                     NumberAnimation{
                         duration: 500
                         easing.type: Easing.InOutQuad
@@ -110,18 +113,19 @@ Item{
         }
     }
     Behavior on width {
+        enabled: app.enableAn;
         NumberAnimation{
             duration: 350
             easing.type: Easing.InOutQuad
         }
     }
     Behavior on rotation {
+        enabled: app.enableAn;
         NumberAnimation{
             duration: sweg.speedRotation
             easing.type: Easing.InOutQuad
         }
     }
-
     Item{
         id: xIcon
         //width: r.fs*0.85
@@ -131,14 +135,15 @@ Item{
         anchors.verticalCenter: parent.verticalCenter
         Rectangle{
             //Circulo que queda mostrando el cuerpo chico.
-            width: parent.width+sweg.fs*0.35
+            id: xIconPlanetSmall
+            width: parent.width+sweg.fs*0.1
             height: width
             anchors.centerIn: parent
             radius: width*0.5
             border.width: 2
             border.color: lineaATripleCircle.color
             opacity: r.selected?1.0:0.0
-            color: 'black'//app.signColors[r.is]
+            color: 'transparent'//app.signColors[r.is]
             antialiasing: true
         }
         MouseArea{
@@ -218,12 +223,14 @@ Item{
             rotation: 0-parent.parent.rotation
             antialiasing: true
             Behavior on width {
+                enabled: app.enableAn;
                 NumberAnimation{
                     duration: 350
                     easing.type: Easing.InOutQuad
                 }
             }
             Behavior on x {
+                enabled: app.enableAn;
                 NumberAnimation{
                     duration: 350
                     easing.type: Easing.InOutQuad

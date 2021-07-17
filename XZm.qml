@@ -16,7 +16,7 @@ Rectangle{
     //onHeightChanged: lv.height=height
     onSelectedChanged: if(selected)loadJsonTask()
     signal taskFinished(int itemIndex)
-    Behavior on opacity{NumberAnimation{duration: app.msDesDuration}}
+    Behavior on opacity{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onCurrentIndexSignChanged: {
         let joPar=app.currentJsonSignData.params
         if(!app.currentJsonSignData.fechas)return
@@ -143,6 +143,7 @@ Rectangle{
         }
     }
     function loadJsonTask(){
+        if(panelZonaMes.state==='hide')return
         panelZonaMes.currentCity=json.nom
         panelZonaMes.currentLat=json.lat
         panelZonaMes.currentLon=json.lon

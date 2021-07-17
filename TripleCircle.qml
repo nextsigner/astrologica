@@ -27,6 +27,7 @@ Item {
         rotation: -120+60
         antialiasing: true
         Behavior on width{
+            enabled: app.enableAn;
             NumberAnimation{duration: 1000}
         }
         Rectangle{
@@ -78,6 +79,7 @@ Item {
         rotation: -240+60
         antialiasing: true
         Behavior on width{
+            enabled: app.enableAn;
             NumberAnimation{duration: 1000}
         }
         Rectangle{
@@ -114,6 +116,7 @@ Item {
         rotation: 0+60
         antialiasing: true
         Behavior on width{
+            enabled: app.enableAn;
             NumberAnimation{duration: 1000}
         }
         Rectangle{

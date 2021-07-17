@@ -13,7 +13,7 @@ Rectangle {
     state: 'hide'
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
-    Behavior on height{NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
+    Behavior on height{enabled: app.enableAn;NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
     onCurrentIndexChanged: {
         if(!r.enabled)return
         sweg.objHousesCircle.currentHouse=currentIndex
@@ -35,7 +35,7 @@ Rectangle {
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: app.msDesDuration}}
+    Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         //if(state==='hide')txtDataSearch.focus=false
         //xApp.focus=true

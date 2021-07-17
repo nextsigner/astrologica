@@ -18,8 +18,8 @@ Item {
     property int extraWidth: 0
     property alias showEjeCentro: ejeCentro.visible
 
-    Behavior on w{NumberAnimation{duration: 500}}
-    Behavior on width{NumberAnimation{duration:500}}
+    Behavior on w{enabled: app.enableAn;NumberAnimation{duration: 500}}
+    Behavior on width{enabled: app.enableAn;NumberAnimation{duration:500}}
     state: sweg.state
     states: [
         State {
@@ -110,7 +110,7 @@ Item {
         interval: 500
         onTriggered: r.opacity=1.0
     }
-    Behavior on opacity{
+    Behavior on opacity{enabled: app.enableAn;
         NumberAnimation{duration: r.opacitySpeed}
     }
     onRotationChanged: {

@@ -29,7 +29,7 @@ Rectangle {
             }
         }
     ]
-    Behavior on y{NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
+    Behavior on y{enabled: app.enableAn;NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
     onStateChanged: {
         //if(state==='show')tHide.restart()
     }

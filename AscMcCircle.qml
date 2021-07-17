@@ -110,7 +110,7 @@ Item {
 //                }
 //            }
 //        ]
-        Behavior on opacity{NumberAnimation{duration: 500}}
+        Behavior on opacity{enabled: app.enableAn;NumberAnimation{duration: 500}}
         Canvas {
             id:canvas
             width: sweg.fs*0.5
@@ -205,8 +205,8 @@ Item {
                     to: 'red'
                 }
             }
-            Behavior on anchors.rightMargin{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
-            Behavior on width{NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
+            Behavior on anchors.rightMargin{enabled: app.enableAn;NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+            Behavior on width{enabled: app.enableAn;NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
             Image {
                 id: img
                 source: "./resources/imgs/signos/"+r.isAsc+".svg"
@@ -314,8 +314,8 @@ Item {
             anchors.right: parent.left
             anchors.rightMargin: 0
             //opacity: app.currentPlanetIndex===16&&anchors.rightMargin!==0?1.0:0.0
-            Behavior on anchors.rightMargin{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
-            Behavior on x{NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+            Behavior on anchors.rightMargin{enabled: app.enableAn;NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
+            Behavior on x{enabled: app.enableAn;NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
             state: sweg.state
             states: [
                 State {
@@ -371,7 +371,7 @@ Item {
                     to: 'red'
                 }
             }
-            Behavior on width{NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
+            Behavior on width{enabled: app.enableAn;NumberAnimation{duration: 250;easing.type: Easing.InOutQuad}}
             Image {
                 id: img2
                 source: "./resources/imgs/signos/"+r.isMC+".svg"

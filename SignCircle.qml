@@ -31,8 +31,9 @@ Item {
             }
         }
     ]
-    Behavior on w{NumberAnimation{duration: sweg.speedRotation}}
+    Behavior on w{enabled: app.enableAn; NumberAnimation{duration: sweg.speedRotation}}
     Behavior on width {
+        enabled: app.enableAn;
         NumberAnimation{
             duration: 350
             easing.type: Easing.InOutQuad

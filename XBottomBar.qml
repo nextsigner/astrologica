@@ -26,7 +26,7 @@ Rectangle {
             }
         }
     ]
-    Behavior on y {NumberAnimation{duration: app.msDesDuration;easing.type: Easing.InOutQuad}}
+    Behavior on y {enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration;easing.type: Easing.InOutQuad}}
     XStatus{id: xStatus}
     PanelCmd{
         id: panelCmd

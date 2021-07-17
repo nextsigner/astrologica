@@ -13,6 +13,7 @@ Item {
         anchors.fill: r
         rotation: r.rot
         Behavior on rotation {
+            enabled: app.enableAn;
             NumberAnimation{
                 duration: sweg.speedRotation
                 easing.type: Easing.InOutQuad
