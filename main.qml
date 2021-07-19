@@ -95,6 +95,7 @@ AppWin {
         JS.runJsonTemp()
     }
     onCurrentDateChanged: {
+        tLoadTemp.stop()
         xDataBar.state='show'
         let a=currentDate.getFullYear()
         let m=currentDate.getMonth()
@@ -106,7 +107,16 @@ AppWin {
         }
         xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
         xDataBar.currentGmtText=''+currentGmt
-        JS.runJsonTemp()
+        tLoadTemp.restart()
+    }
+    Timer{
+        id: tLoadTemp
+        running: false
+        repeat: false
+        interval: 1500
+        onTriggered: {
+            JS.runJsonTemp()
+        }
     }
 
     Settings{
@@ -141,8 +151,7 @@ AppWin {
                 onClicked: parent.visible=false
             }
         }
-        XSabianos{id: xSabianos}
-    }
+        }
     Item{
         id: capa101
         anchors.fill: xApp
@@ -163,6 +172,7 @@ AppWin {
                 PanelRsList{id: panelRsList}
                 PanelFileLoader{id: panelFileLoader}
                 PanelNewVNA{id: panelNewVNA}
+
             }
             Item{
                 id: xMed
@@ -185,14 +195,13 @@ AppWin {
                 xLupa.y=py-xLupa.height*0.5
             }
         }
-
-
         XTools{
             id: xTools
             anchors.bottom: parent.bottom
             anchors.right: parent.right
         }
         XBottomBar{id: xBottomBar}
+        XSabianos{id: xSabianos}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {

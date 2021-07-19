@@ -100,6 +100,8 @@ Rectangle {
         spacing: app.fs*0.5
         height: txtCurrentDate.contentHeight+app.fs*0.5
         y:parent.height
+        anchors.left: parent.left
+        anchors.leftMargin: xLatIzq.width
         visible: app.titleData!==app.currentData
         Rectangle{
             width: txtCurrentDate.contentWidth+app.fs*0.5

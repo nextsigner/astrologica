@@ -13,6 +13,23 @@ Rectangle{
         id: row
         anchors.centerIn: parent
         spacing: app.fs*0.25
+        Column{
+            Text {
+                text: '<b>Sol:</b> '+app.currentGradoSolar
+                font.pixelSize: r.height*0.25
+                color: 'white'
+            }
+            Text {
+                text: '<b>Asc:</b> '+app.uAscDegree
+                font.pixelSize: r.height*0.25
+                color: 'white'
+            }
+            Text {
+                text: '<b>Mc:</b> '+app.uMcDegree
+                font.pixelSize: r.height*0.25
+                color: 'white'
+            }
+        }
         Text {
             text: '<b>Mod:</b> '+app.mod
             font.pixelSize: r.height*0.5

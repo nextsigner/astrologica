@@ -314,6 +314,9 @@ Item {
             anchors.right: parent.left
             anchors.rightMargin: 0
             //opacity: app.currentPlanetIndex===16&&anchors.rightMargin!==0?1.0:0.0
+            onSelectedChanged:{
+                app.uSon='mc_'+app.objSignsNames[r.isMC]+'_10'
+            }
             Behavior on anchors.rightMargin{enabled: app.enableAn;NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
             Behavior on x{enabled: app.enableAn;NumberAnimation{duration: 500;easing.type: Easing.InOutQuad}}
             state: sweg.state

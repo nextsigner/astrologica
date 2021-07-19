@@ -121,7 +121,10 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 return
             }
             if(comando.length<1)return
-            if(parseInt(comando[1])>=1)panelRsList.setRsList(parseInt(comando[1])+ 1)
+            if(parseInt(comando[1])>=1){
+                panelRsList.setRsList(parseInt(comando[1])+ 1)
+                panelRsList.state='show'
+            }
         }
         mkCmd(finalCmd, c)
         r.uCmd=cmd

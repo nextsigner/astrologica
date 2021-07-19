@@ -9,6 +9,7 @@ Rectangle {
     border.color: 'white'
     //anchors.bottom: parent.bottom
     property alias objPanelCmd: panelCmd
+    property alias objXState: xStatus
     state: "hide"
     states: [
         State {
@@ -27,7 +28,7 @@ Rectangle {
         }
     ]
     Behavior on y {enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration;easing.type: Easing.InOutQuad}}
-    XStatus{id: xStatus}
+    XStatus{id: xStatus;}
     PanelCmd{
         id: panelCmd
         width: parent.width-xStatus.width

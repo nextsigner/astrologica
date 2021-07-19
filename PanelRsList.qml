@@ -140,9 +140,12 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         Text {
                             id: txtEdad
-                            text: '<b>'+parseInt(index)+'</b>'
+                            width: app.fs*2
+                            text: 'Desde <b>'+parseInt(index)+'</b> años\nhasta <b>'+parseInt(index +1)+'</b>\n años'
                             color: 'white'
-                            font.pixelSize: app.fs*0.5
+                            font.pixelSize: app.fs*0.35
+                            wrapMode: Text.WordWrap
+                            horizontalAlignment: Text.AlignHCenter
                             anchors.centerIn: parent
                         }
                     }
@@ -234,7 +237,7 @@ Rectangle {
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
         c+='        '+code+'\n'
-        c+='        uqp'+ms+'.destroy(0)\n'
+        c+='        uqp'+ms+'.destroy(3000)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         c+='        run(\''+finalCmd+'\')\n'
