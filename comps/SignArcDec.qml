@@ -48,8 +48,8 @@ Item {
         color: 'transparent'
         rotation: 5
         antialiasing: true
-        border.width: 2
-        border.color: 'red'
+        //border.width: 2
+        //border.color: 'red'
         Item{
             id: xImg
             width: r.w
