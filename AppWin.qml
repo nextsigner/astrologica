@@ -212,8 +212,7 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Ctrl+Shift+d'
         onActivated: {
-            //sweg.objSignsCircleDec.visible=!sweg.objSignsCircleDec.visible
-            swegz.sweg.objSignsCircleDec.visible=!swegz.sweg.objSignsCircleDec.visible
+            swegz.sweg.objSignsCircle.showDec=!swegz.sweg.objSignsCircle.showDec
         }
     }
     //Mostrar Panel para Cargar Archivos

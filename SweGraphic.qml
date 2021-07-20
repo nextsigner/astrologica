@@ -15,7 +15,6 @@ Item {
     property alias objPlanetsCircle: planetsCircle
     property alias objHousesCircle: housesCircle
     property alias objSignsCircle: signCircle
-    property alias objSignsCircleDec: signCircleDec
     property alias objAscMcCircle: ascMcCircle
     property alias objEclipseCircle: eclipseCircle
     property int speedRotation: 1000
@@ -29,20 +28,32 @@ Item {
                 //width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
                 width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
             }
+            PropertyChanges {
+                target: signCircle
+                width: sweg.width-sweg.fs*2
+            }
         },
         State {//PC
             name: aStates[1]
             PropertyChanges {
                 target: r
                 width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height)*2
-            }            
+            }
+            PropertyChanges {
+                target: signCircle
+                width: sweg.width-sweg.fs*6
+            }
         },
         State {//PA
             name: aStates[2]
             PropertyChanges {
                 target: r
                 width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
-            }            
+            }
+            PropertyChanges {
+                target: signCircle
+                width: sweg.width-sweg.fs*2
+            }
         }
     ]
     onStateChanged: swegz.sweg.state=state
@@ -73,27 +84,14 @@ Item {
         visible: r.v
         //z: ascMcCircle.z+1
     }
-    SignCircleDec{
-        id:signCircleDec
-        width: signCircle.width-signCircle.w*0.5+1
-        height: width
-        anchors.centerIn: parent
-        showBorder: false
-        v:r.v
-        w: r.state==='ps'?r.fs:r.fs*0.5
-        rotation: signCircle.rotation
-        rot: signCircle.rot
-        visible: false
-    }
     Comps.SignCircle{
         id:signCircle
-        width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
-        height: width
+        //width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
         anchors.centerIn: parent
         showBorder: true
         v:r.v
-        w: r.w//r.state==='ps'?r.fs:r.fs*0.5
-        //visible: false
+        w: r.w
+        //onShowDecChanged: Qt.quit()
     }
     AspCircle{
         id: aspsCircle
@@ -207,7 +205,6 @@ Item {
         let scorrJson=json.replace(/\n/g, '')
         let j=JSON.parse(scorrJson)
         signCircle.rot=j.ph.h1.gdec
-        signCircleDec.rot=j.ph.h1.gdec
         ascMcCircle.loadJson(j)
         housesCircle.loadHouses(j)
         planetsCircle.loadJson(j)

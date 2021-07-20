@@ -2,10 +2,12 @@ import QtQuick 2.0
 
 Item {
     id: r
+    height: width
     property int f: 0
     property int w: sweg.w
     property bool v: false
     property bool showBorder: false
+    property bool showDec: true
     property int rot: 0
     Behavior on w{enabled: app.enableAn; NumberAnimation{duration: sweg.speedRotation}}
     Behavior on width {
@@ -134,12 +136,13 @@ Item {
                 gr: xSignArcs.rotation
                 rotation: 360-index*10-10
                 anchors.centerIn: parent
+                visible: r.showDec
             }
         }
 
         //36*4 Signos
         Repeater{
-            model:r.parent.parent.objectName!=='sweg'? [0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11]:[]
+            model:r.parent.objectName!=='sweg'? [0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11]:[]
             SignArcDec2{
                 width: r.width-sweg.w*2
                 height: width
@@ -148,12 +151,13 @@ Item {
                 c: app.signColors[modelData]
                 gr: xSignArcs.rotation
                 rotation: 360-index*3.333333-3.333333
-                 anchors.centerIn: parent
+                anchors.centerIn: parent
+                visible: r.showDec
             }
         }
 
     }
-   function subir(){
+    function subir(){
         rotar(1,1)
     }
     function bajar(){
