@@ -3,34 +3,10 @@ import QtQuick 2.0
 Item {
     id: r
     property int f: 0
-    property int w: sweg.fs
+    property int w: sweg.w
     property bool v: false
     property bool showBorder: false
     property int rot: 0
-    state: sweg.state
-    states: [
-        State {
-            name: sweg.aStates[0]
-            PropertyChanges {
-                target: r
-                width: sweg.width-sweg.fs*2
-            }
-        },
-        State {
-            name: sweg.aStates[1]
-            PropertyChanges {
-                target: r
-                width: sweg.width-sweg.fs*6
-            }
-        },
-        State {
-            name: sweg.aStates[2]
-            PropertyChanges {
-                target: r
-                width: sweg.width-sweg.fs*2
-            }
-        }
-    ]
     Behavior on w{enabled: app.enableAn; NumberAnimation{duration: sweg.speedRotation}}
     Behavior on width {
         enabled: app.enableAn;
@@ -94,6 +70,8 @@ Item {
             radius: width*0.5
             visible: r.showBorder
         }
+
+        //12 Signos
         Repeater{
             model: 3
             SignArc{
@@ -142,24 +120,45 @@ Item {
                 rotation: index*(360/3)-120
             }
         }
+
+        //36 Signos
+        Repeater{
+            model: r.parent.objectName!=='sweg'?[0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11]:[]
+            SignArcDec{
+                width: r.width-sweg.w
+                height: width
+                //w: r.w*0.5
+                wparent: r.w
+                n: modelData
+                c: app.signColors[modelData]
+                gr: xSignArcs.rotation
+                rotation: 360-index*10-10
+                anchors.centerIn: parent
+            }
+        }
+
+        //36*4 Signos
+        Repeater{
+            model:r.parent.parent.objectName!=='sweg'? [0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11,0,1,2,3,4,5,6,7,8,9,10,11]:[]
+            SignArcDec2{
+                width: r.width-sweg.w*2
+                height: width
+                w: r.w*0.5
+                n: modelData
+                c: app.signColors[modelData]
+                gr: xSignArcs.rotation
+                rotation: 360-index*3.333333-3.333333
+                 anchors.centerIn: parent
+            }
+        }
+
     }
-    Text {
-        id: t1
-        text: "F:"+r.f
-        font.pixelSize: sweg.fs*3
-        color: 'red'
-        anchors.horizontalCenter: xSignArcs.horizontalCenter
-        rotation: 90
-        visible: false
-    }
-    property int sent: -1
-    function subir(){
+   function subir(){
         rotar(1,1)
     }
     function bajar(){
         rotar(0,1)
     }
-    property int uF: 0
     function rotar(s,i){
         let grado=0
         let currentDate=app.currentDate

@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import "./comps" as Comps
 
 Item {
     id: r
@@ -7,6 +8,7 @@ Item {
     anchors.centerIn: parent
     //anchors.horizontalCenterOffset: r.fs*10
     property int fs: r.objectName==='sweg'?app.fs:app.fs*2
+    property int w: fs
     property bool v: false
     property alias expand: planetsCircle.expand
     property alias objAspsCircle: aspsCircle
@@ -81,16 +83,16 @@ Item {
         w: r.state==='ps'?r.fs:r.fs*0.5
         rotation: signCircle.rotation
         rot: signCircle.rot
-        //visible: false
+        visible: false
     }
-    SignCircle{
+    Comps.SignCircle{
         id:signCircle
         width: planetsCircle.expand?r.width-r.fs*6+r.fs*2:r.width-r.fs*6
         height: width
         anchors.centerIn: parent
         showBorder: true
         v:r.v
-        w: r.state==='ps'?r.fs:r.fs*0.5
+        w: r.w//r.state==='ps'?r.fs:r.fs*0.5
         //visible: false
     }
     AspCircle{
