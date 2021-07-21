@@ -13,6 +13,11 @@ Rectangle{
         id: row
         anchors.centerIn: parent
         spacing: app.fs*0.25
+        Text {
+            text: '<b>State:</b> '+panelDataBodies.state
+            font.pixelSize: r.height*0.25
+            color: 'white'
+        }
         Column{
             Text {
                 text: '<b>Sol:</b> '+app.currentGradoSolar

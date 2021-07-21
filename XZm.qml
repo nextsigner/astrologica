@@ -34,10 +34,11 @@ Rectangle{
         let name=''+json.id+'_'+signo+' '+s.currentQ+' '+s.currentMonth+' '+s.currentYear
         let fileName=name.replace(/ /g, '_')+'.json'
         let dms=new Date(Date.now())
-        let jsonCode='{"params":{"tipo":"vn", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
         let fileNamePath='./jsons/'+fileName
+        let jsonCode='{"params":{"tipo":"vn", "fileNamePath": "'+fileNamePath+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
         if(!unik.fileExist(fileNamePath)){
             unik.setFile(fileNamePath, jsonCode)
+            unik.speak('Grabando...')
         }
         let sc='Pronóstico Astrológico para '+signo+' '+panelZonaMes.currentCity
         JS.setTitleData(sc, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 2)
@@ -78,7 +79,7 @@ Rectangle{
             function checkSource(){
                 //unik.speak('check')
                 if((''+playlist.currentItemSource).indexOf('&isFS=true')>=0){
-                    panelDataBodies.state='hide'
+                    if(panelZonaMes.state==='show')panelDataBodies.state='hide'
                     //r.currentIndexSign++
                     if(r.currentIndexSign<11){
                         r.currentIndexSign++

@@ -6,14 +6,13 @@ Rectangle {
     id: r
     width: parent.width
     height: parent.height
-    anchors.bottom: parent.bottom
     color: 'black'
-    border.width: 1
-    border.color: 'white'
+    //border.width: 2
+    //border.color: 'white'
+    x:r.parent.width
     state: 'hide'
     property alias currentIndex: lv.currentIndex
     property int currentIndexSign: -1
-    Behavior on height{enabled: app.enableAn;NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
     onCurrentIndexChanged: {
         if(!r.enabled)return
         sweg.objHousesCircle.currentHouse=currentIndex
@@ -35,16 +34,20 @@ Rectangle {
             }
         }
     ]
-    Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
+    Behavior on x{NumberAnimation{duration: 250}}
     onStateChanged: {
         //if(state==='hide')txtDataSearch.focus=false
         //xApp.focus=true
     }
     onXChanged: {
         if(x===0){
-            //txtDataSearch.selectAll()
-            //txtDataSearch.focus=true
+            txtDataSearch.selectAll()
+            txtDataSearch.focus=true
         }
+    }
+    Rectangle{
+        width: 1
+        height: parent.height
     }
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
@@ -74,8 +77,6 @@ Rectangle {
             clip: true
             onCurrentIndexChanged: {
                 //console.log('panelbodies currentIndex: '+currentIndex)
-                //let item=lm.get(currentIndex)
-                //app.uSon='_'+app.objSignsNames[item.is]+'_1'
                 if(!r.enabled)return
                 //r.currentIndexSign=lm.get(currentIndex).is
             }
@@ -85,13 +86,9 @@ Rectangle {
 
     ListModel{
         id: lm
-        function addItem(indexSign, indexHouse, grado, minuto, segundo, stringData){
+        function addItem(indexSign, stringData){
             return {
                 is: indexSign,
-                ih: indexHouse,
-                gdeg:grado,
-                mdeg: minuto,
-                sdeg: segundo,
                 sd: stringData
             }
         }
@@ -107,23 +104,12 @@ Rectangle {
             Text {
                 id: txtData
                 text: sd
-                font.pixelSize: app.fs*0.4
-                width: parent.width-app.fs*0.2
+                font.pixelSize: app.fs*0.35
+                width: parent.width-app.fs
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
                 color: index===app.currentPlanetIndex?'black':'white'
                 anchors.centerIn: parent
-            }
-            MouseArea{
-                anchors.fill: parent
-                onClicked: {
-                    app.currentPlanetIndex=index
-                }
-                Rectangle{
-                    anchors.fill: parent
-                    color: 'red'
-                    visible: false
-                }
             }
         }
     }
@@ -135,14 +121,13 @@ Rectangle {
             jo=json.pc['c'+i]
             var s = jo.nom+ ' °' +jo.rsgdeg+ '\'' +jo.mdeg+ '\'\'' +jo.sdeg+ ' ' +app.signos[jo.is]+ '  - Casa ' +jo.ih
             //console.log('--->'+s)
-            lm.append(lm.addItem(jo.is, jo.ih, jo.rsgdeg, jo.mdeg, jo.sdeg, s))
+            lm.append(lm.addItem(jo.is, s))
         }
         let o1=json.ph['h1']
         s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
-        lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
+        lm.append(lm.addItem(o1.is, s))
         o1=json.ph['h10']
         s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
-        lm.append(lm.addItem(o1.is, 10, o1.rsgdeg, o1.mdeg, o1.sdeg, s))
-        if(app.mod!=='rs'&&app.mod!=='pl')r.state='show'
+        lm.append(lm.addItem(o1.is, s))
     }
 }

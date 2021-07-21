@@ -42,8 +42,13 @@ Rectangle {
     onCurrentAspSelectedChanged: setPosCurrentAsp(currentAspSelected)
     onWidthChanged: {
         currentAspSelected=-1
-        clear_canvas()
-        clear_canvasBg()
+        var ctx=canvas.getContext('2d')
+        var ctxbg=canvasBg.getContext('2d')
+        if(ctx&&ctxbg){
+            clear_canvas()
+            clear_canvasBg()
+        }
+
     }
     Behavior on width {
         enabled: app.enableAn;
@@ -91,7 +96,11 @@ Rectangle {
         onPy2Changed: requestPaint()
         onPaint:{
             var ctx = canvasBg.getContext('2d');
-            ctx.reset();
+            if(ctx){
+                ctx.reset();
+            }else{
+                return
+            }
             var x = canvasBg.width*0.5;
             var y = canvasBg.height*0.5;
             var radius=canvasBg.width*0.5-2
@@ -109,7 +118,11 @@ Rectangle {
         onJsonChanged: requestPaint()
         onPaint:{
             var ctx = canvas.getContext('2d');
-            ctx.reset();
+            if(ctx){
+                ctx.reset();
+            }else{
+                return
+            }
             var x = canvas.width*0.5;
             var y = canvas.height*0.5;
             var radius=canvas.width*0.5
@@ -216,13 +229,18 @@ Rectangle {
     }
     function clear_canvas() {
         var ctx = canvas.getContext("2d");
-        ctx.reset();
-        canvas.requestPaint();
+        if(ctx){
+            ctx.reset();
+            canvas.requestPaint();
+        }
     }
+
     function clear_canvasBg() {
         var ctx = canvasBg.getContext("2d");
-        ctx.reset();
-        canvasBg.requestPaint();
+        if(ctx){
+            ctx.reset();
+            canvasBg.requestPaint();
+        }
     }
     function load(jsonData){
         canvas.json=jsonData

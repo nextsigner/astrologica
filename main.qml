@@ -17,6 +17,7 @@ AppWin {
     visibility: "Maximized"
     color: 'black'
     title: 'Astrológica '+version
+    property bool dev: false
     property string version: '1.0'
     property string mainLocation: ''
     property int fs: width*0.031
@@ -95,7 +96,6 @@ AppWin {
         JS.runJsonTemp()
     }
     onCurrentDateChanged: {
-        tLoadTemp.stop()
         xDataBar.state='show'
         let a=currentDate.getFullYear()
         let m=currentDate.getMonth()
@@ -107,16 +107,7 @@ AppWin {
         }
         xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
         xDataBar.currentGmtText=''+currentGmt
-        tLoadTemp.restart()
-    }
-    Timer{
-        id: tLoadTemp
-        running: false
-        repeat: false
-        interval: 1500
-        onTriggered: {
-            JS.runJsonTemp()
-        }
+        JS.runJsonTemp()
     }
 
     Settings{
@@ -124,7 +115,7 @@ AppWin {
         fileName:'astrologica.cfg'
         property string url: ''
         property bool showTimes: false
-        property bool lt: false
+        property bool lt:false
     }
     Item{
         id: xApp
@@ -151,7 +142,8 @@ AppWin {
                 onClicked: parent.visible=false
             }
         }
-        }
+        XSabianos{id: xSabianos}
+    }
     Item{
         id: capa101
         anchors.fill: xApp
@@ -172,7 +164,6 @@ AppWin {
                 PanelRsList{id: panelRsList}
                 PanelFileLoader{id: panelFileLoader}
                 PanelNewVNA{id: panelNewVNA}
-
             }
             Item{
                 id: xMed
@@ -185,6 +176,7 @@ AppWin {
                 height: parent.height
                 PanelControlsSign{id: panelControlsSign}
                 PanelDataBodies{id: panelDataBodies}
+                PanelPronEdit{id: panelPronEdit; state: app.dev?'show':'hide'}
             }
         }
         XLupa{id: xLupa}
@@ -195,16 +187,20 @@ AppWin {
                 xLupa.y=py-xLupa.height*0.5
             }
         }
+
+
         XTools{
             id: xTools
             anchors.bottom: parent.bottom
             anchors.right: parent.right
         }
         XBottomBar{id: xBottomBar}
-        XSabianos{id: xSabianos}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
+        if(Qt.application.arguments.indexOf('-dev')>=0){
+            app.dev=true
+        }
         JS.setFs()
         app.mainLocation=unik.getPath(1)
         console.log('app.mainLocation: '+app.mainLocation)

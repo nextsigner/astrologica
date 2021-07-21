@@ -246,6 +246,7 @@ Rectangle {
         //console.log(c)
         let comp=Qt.createQmlObject(c, item, 'uqpcodecmdrslist')
     }
+
     function loadJson(json){
         lm.clear()
         for(var i=0;i<Object.keys(json).length;i++){

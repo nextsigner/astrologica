@@ -215,7 +215,7 @@ Item{
         }
         Image {
             id: img
-            source: "./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg"
+            source: app.planetasRes[r.numAstro]?"./resources/imgs/planetas/"+app.planetasRes[r.numAstro]+".svg":""
             width: r.parent.parent.objectName==='sweg'?!r.selected?parent.width:parent.width*2:!r.selected?parent.width:parent.width*1.25
             height: width
             x:!r.selected?0:r.parent.width*0.5-img.width*0.5//+sweg.fs*2
