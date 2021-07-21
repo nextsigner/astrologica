@@ -41,8 +41,8 @@ Rectangle {
     }
     onXChanged: {
         if(x===0){
-            txtDataSearch.selectAll()
-            txtDataSearch.focus=true
+            //txtDataSearch.selectAll()
+            //txtDataSearch.focus=true
         }
     }
     Rectangle{
