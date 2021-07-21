@@ -29,7 +29,7 @@ Rectangle {
             }
         }
     ]
-    Behavior on y{enabled: app.enableAn;NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
+    Behavior on y{NumberAnimation{duration:app.msDesDuration;easing.type: Easing.InOutQuad}}
     onStateChanged: {
         //if(state==='show')tHide.restart()
     }
@@ -50,6 +50,7 @@ Rectangle {
         y:(parent.height-height)/2
         x: app.fs*0.25
         Rectangle{
+            id: circuloSave
             width: app.fs*0.5
             height: width
             radius: width*0.5
@@ -102,7 +103,7 @@ Rectangle {
         y:parent.height
         anchors.left: parent.left
         anchors.leftMargin: xLatIzq.width
-        visible: app.titleData!==app.currentData
+        visible: app.fileData!==app.currentData
         Rectangle{
             width: txtCurrentDate.contentWidth+app.fs*0.5
             height: txtCurrentDate.contentHeight+app.fs*0.5
