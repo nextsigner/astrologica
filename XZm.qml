@@ -31,14 +31,15 @@ Rectangle{
         let h=d2.getHours()
         let min=d2.getMinutes()
         let signo=app.signos[currentIndexSign]
-        let name=''+json.id+'_'+signo+' '+s.currentQ+' '+s.currentMonth+' '+s.currentYear
+        let name=''+json.id+'_'+signo+' '+s.currentQ+'_'+s.currentMonth+'_'+s.currentYear
+        let fileNamePathJsonPl='./jsons/hm/'+json.id+'/q'+s.currentQ+'_'+s.currentMonth+'_'+s.currentYear+'.json'
         let fileName=name.replace(/ /g, '_')+'.json'
         let dms=new Date(Date.now())
         let fileNamePath='./jsons/'+fileName
-        let jsonCode='{"params":{"tipo":"vn", "fileNamePath": "'+fileNamePath+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
+        let jsonCode='{"params":{"tipo":"vn", "fileNamePath": "'+fileNamePathJsonPl+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"'+panelZonaMes.currentCity+'"}}'
         if(!unik.fileExist(fileNamePath)){
             unik.setFile(fileNamePath, jsonCode)
-            unik.speak('Grabando...')
+            //unik.speak('Grabando...')
         }
         let sc='Pronóstico Astrológico para '+signo+' '+panelZonaMes.currentCity
         JS.setTitleData(sc, s.currentQ===1?1:15, s.currentMonth, s.currentYear, jo.h, jo.min, joPar.gmt, '', joPar.lat, joPar.lon, 2)

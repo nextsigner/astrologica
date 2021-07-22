@@ -32,7 +32,6 @@ function setFs() {
 
 
 //VNA
-
 function showIW(){
     console.log('uSon: '+app.uSon)
     let m0=app.uSon.split('_')
@@ -200,6 +199,9 @@ function loadJson(file){
         sweg.loadSign(jsonData)
     }else{
         sweg.load(jsonData)
+    }
+    if(jsonData.params.fileNamePath){
+        panelPronEdit.loadJson(jsonData.params.fileNamePath)
     }
     let nom=jsonData.params.n.replace(/_/g, ' ')
     let vd=jsonData.params.d

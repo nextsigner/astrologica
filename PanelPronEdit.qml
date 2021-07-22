@@ -30,12 +30,20 @@ Rectangle {
     Column{
         anchors.horizontalCenter: parent.horizontalCenter
         TextArea{
+            id: ta
             width: r.width
             height: r.height
             font.pixelSize: app.fs*0.5
             color: 'white'
             wrapMode: Text.WordWrap
         }
+    }
+    function loadJson(file){
+        let fd=unik.getFile(file)
+        let j=JSON.parse(fd)
+        //console.log('j:'+JSON.stringify(j))
+        //console.log('j:'+JSON.stringify(j2))
+        ta.text=j.signos['s1'].h
     }
 //    Rectangle{
 //        anchors.fill: r

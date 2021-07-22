@@ -176,7 +176,7 @@ AppWin {
                 height: parent.height
                 PanelControlsSign{id: panelControlsSign}
                 PanelDataBodies{id: panelDataBodies}
-                PanelPronEdit{id: panelPronEdit; state: !app.dev?'show':'hide'}
+                PanelPronEdit{id: panelPronEdit; state: app.dev?'show':'hide'}
             }
         }
         XLupa{id: xLupa}
