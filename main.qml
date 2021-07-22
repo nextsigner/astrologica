@@ -91,11 +91,13 @@ AppWin {
         }
     }
     onCurrentGmtChanged: {
+        if(app.currentData==='')return
         xDataBar.currentGmtText=''+currentGmt
         JS.setNewTimeJsonFileData(app.currentDate)
         JS.runJsonTemp()
     }
     onCurrentDateChanged: {
+        if(app.currentData==='')return
         xDataBar.state='show'
         let a=currentDate.getFullYear()
         let m=currentDate.getMonth()

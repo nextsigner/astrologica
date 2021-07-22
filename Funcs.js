@@ -47,28 +47,10 @@ function showIW(){
     }else{
         let numHome=m0[0]!=='asc'?-1:1
         let vNumRom=['I', 'II', 'III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII']
-        numHome=vNumRom.indexOf(m0[2])+1
-        //console.log('::::Abriendo signo: '+app.objSignsNames.indexOf(m0[1])+' casa: '+numHome+' nomCuerpo: '+nomCuerpo)
+        numHome=parseInt(m0[2])//vNumRom.indexOf(m0[2])+1
+        console.log('::::Abriendo signo: '+app.objSignsNames.indexOf(m0[1])+' casa: '+numHome+' nomCuerpo: '+nomCuerpo)
         getJSON(jsonFileName, comp, app.objSignsNames.indexOf(m0[1])+1, numHome, nomCuerpo)
     }
-}
-function showIWFILES(){
-    console.log('uSon: '+app.uSon)
-    let m0=app.uSon.split('_')
-    let fileLocation='./iwfiles/main.qml'
-    let comp=Qt.createComponent(fileLocation)
-    let obj=comp.createObject(app, {comp: app, width: app.fs*14, fs: app.fs*0.5, title:'Cargar Archivos'})
-}
-function showSABIANOS(numSign, numDegree){
-    xSabianos.numSign=numSign
-    xSabianos.numDegree=numDegree
-    xSabianos.visible=true
-    xSabianos.loadData()
-    /*console.log('uSon: '+app.uSon)
-    let m0=app.uSon.split('_')
-    let fileLocation='./sabianos/main.qml'
-    let comp=Qt.createComponent(fileLocation)
-    let obj=comp.createObject(app, {comp: app, width: app.fs*14, fs: app.fs*0.5, htmlFolder: './sabianos/', numSign: numSign, numDegree:numDegree})*/
 }
 function getJSON(fileLocation, comp, s, c, nomCuerpo) {
     var request = new XMLHttpRequest()
@@ -120,6 +102,12 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
         }
     }
     request.send()
+}
+function showSABIANOS(numSign, numDegree){
+    xSabianos.numSign=numSign
+    xSabianos.numDegree=numDegree
+    xSabianos.visible=true
+    xSabianos.loadData()
 }
 function quitarAcentos(cadena){
     const acentos = {'á':'a','é':'e','í':'i','ó':'o','ú':'u','Á':'A','É':'E','Í':'I','Ó':'O','Ú':'U'};
@@ -187,7 +175,12 @@ function loadJson(file){
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
     app.fileData=jsonFileData
     let jsonData=JSON.parse(jsonFileData)
-    app.mod=jsonData.params.tipo
+    if(jsonData.params.tipo){
+        app.mod=jsonData.params.tipo
+    }else{
+        app.mod='vn'
+    }
+
     if(parseInt(jsonData.params.ms)===0){
         //panelDataBodies.enabled=true
         let d=new Date(Date.now())
@@ -235,7 +228,18 @@ function loadJson(file){
     app.currentData=app.fileData
 }
 function runJsonTemp(){
-    let jsonData=JSON.parse(app.currentData)
+    var jsonData
+    try
+    {
+       jsonData=JSON.parse(app.currentData)
+    }
+    catch (e)
+    {
+       console.log('Json Fallado: '+app.currentData)
+        unik.speak('Error in Json file')
+        return
+    }
+
     let nom=jsonData.params.n.replace(/_/g, ' ')
     let vd=jsonData.params.d
     let vm=jsonData.params.m
@@ -276,6 +280,7 @@ function setNewTimeJsonFileData(date){
     let vCiudad=jsonData.params.ciudad.replace(/_/g, ' ')
     let j='{'
     j+='"params":{'
+    j+='"tipo":"'+app.mod+'",'
     j+='"ms":'+ms+','
     j+='"n":"'+nom+'",'
     j+='"d":'+vd+','
