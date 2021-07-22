@@ -39,11 +39,15 @@ Rectangle {
         }
     }
     function loadJson(file){
+        if(!unik.fileExist(file)){
+            ta.text='El archivo '+file+' no existe.'
+            return
+        }
         let fd=unik.getFile(file)
-        let j=JSON.parse(fd)
+        //let j=JSON.parse(fd)
         //console.log('j:'+JSON.stringify(j))
         //console.log('j:'+JSON.stringify(j2))
-        ta.text=j.signos['s1'].h
+        //ta.text=j.signos['s1'].h
     }
 //    Rectangle{
 //        anchors.fill: r
