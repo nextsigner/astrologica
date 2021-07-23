@@ -180,15 +180,31 @@ function loadJson(file){
     }else{
         app.mod='vn'
     }
-
-    if(parseInt(jsonData.params.ms)===0){
-        //panelDataBodies.enabled=true
-        let d=new Date(Date.now())
-        jsonData.params.d=d.getDate()
-        jsonData.params.m=d.getMonth()+1
-        jsonData.params.a=d.getFullYear()
-        jsonData.params.h=d.getHours()
-        jsonData.params.min=d.getMinutes()
+    if(parseInt(jsonData.params.ms)===0||jsonData.params.tipo==='pron'){
+        if(jsonData.params.tipo==='pron'){
+            let dd = new Date(Date.now())
+            let ms=dd.getTime()
+            let nom=jsonData.params.n
+            let d=jsonData.params.d
+            let m=jsonData.params.m
+            let a=jsonData.params.a
+            let h=0
+            let min=0
+            let lat=jsonData.params.lat
+            let lon=jsonData.params.lon
+            let gmt=jsonData.params.gmt
+            let ciudad=' '
+            let j='{"params":{"tipo": "pl", "ms":'+ms+',"n":"'+nom+'","d":'+d+',"m":'+m+',"a":'+a+',"h":'+h+',"min":'+min+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+ciudad+'"}}'
+            app.fileData=j
+            jsonData=JSON.parse(j)
+        }else{
+            d=new Date(Date.now())
+            jsonData.params.d=d.getDate()
+            jsonData.params.m=d.getMonth()+1
+            jsonData.params.a=d.getFullYear()
+            jsonData.params.h=d.getHours()
+            jsonData.params.min=d.getMinutes()
+        }
         sweg.loadSign(jsonData)
     }else{
         sweg.load(jsonData)
@@ -231,11 +247,11 @@ function runJsonTemp(){
     var jsonData
     try
     {
-       jsonData=JSON.parse(app.currentData)
+        jsonData=JSON.parse(app.currentData)
     }
     catch (e)
     {
-       console.log('Json Fallado: '+app.currentData)
+        console.log('Json Fallado: '+app.currentData)
         unik.speak('Error in Json file')
         return
     }

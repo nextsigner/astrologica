@@ -54,17 +54,22 @@ Rectangle {
             currentIndex: app.currentSignIndex
             clip: true
             onCurrentIndexChanged: {
-                if(!r.enableLoadSign){
+                //if(currentIndex<0)return
+                /*if(!r.enableLoadSign){
                     r.enableLoadSign=true
                     return
-                }
+                }*/
                 if(currentIndex<12&&panelZonaMes.state==='hide'){
                     let joPar=app.currentJsonSignData.params
                     if(!app.currentJsonSignData.fechas)return
                     let jo=app.currentJsonSignData.fechas['is'+currentIndex]
                     //let s = app.signos[i]+ ' '+jo.d+'/'+jo.m+'/'+jo.a+' '+jo.h+':'+jo.min
-                    let jsonCode='{"params":{"ms":100,"n":"Ahora Pampa Argentina","d":'+jo.d+',"m":'+jo.m+',"a":'+jo.a+',"h":'+jo.h+',"min":'+jo.min+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Provincia de La Pampa Argentina"}}'
+                    let d1=new Date(jo.a, jo.m - 1, jo.d, jo.h, jo.min)
+                    d1 = d1.setMinutes(d1.getMinutes() + 4)
+                    let d2=new Date(d1)
+                    let jsonCode='{"params":{"ms":100,"n":"Trópico","d":'+d2.getDate()+',"m":'+parseInt(d2.getMonth() + 1)+',"a":'+d2.getFullYear()+',"h":'+d2.getHours()+',"min":'+d2.getMinutes()+',"gmt":'+joPar.gmt+',"lat":'+joPar.lat+',"lon":'+joPar.lon+',"ciudad":"Ubicación no definida."}}'
                     app.currentData=jsonCode
+                    app.fileData=jsonCode
                     JS.runJsonTemp()
                 }
             }
@@ -100,6 +105,7 @@ Rectangle {
         }
     }
     function loadJson(json){
+        //lv.currentIndex=-1
         lm.clear()
         let jo
         let o
@@ -110,6 +116,7 @@ Rectangle {
        }
        //lv.currentIndex=0
         r.state='show'
+        lv.onCurrentIndexChanged()
     }
     function copyPlanetsForPron(json){
         lm.clear()

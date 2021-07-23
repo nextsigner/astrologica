@@ -224,9 +224,16 @@ ApplicationWindow {
     }
     //Mostrar Panel PL Signos
     Shortcut{
-        sequence: 'Ctrl+Shift+s'
+        sequence: 'Ctrl+w'
         onActivated: {
             panelControlsSign.state=panelControlsSign.state==='show'?'hide':'show'
+        }
+    }
+    //Mostrar Panel Editor de Pronósticos
+    Shortcut{
+        sequence: 'Ctrl+e'
+        onActivated: {
+            panelPronEdit.state=panelPronEdit.state==='show'?'hide':'show'
         }
     }
     //Mostrar Mostrar Reloj
@@ -262,12 +269,6 @@ ApplicationWindow {
         sequence: 'Ctrl+r'
         onActivated: {
             panelRsList.state=panelRsList.state==='show'?'hide':'show'
-        }
-    }
-    Shortcut{
-        sequence: 'Ctrl+e'
-        onActivated: {
-            sweg.expand=!sweg.expand
         }
     }
     Shortcut{

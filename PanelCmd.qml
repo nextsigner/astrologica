@@ -1,51 +1,209 @@
+//import QtQuick 2.7
+//import QtQuick.Controls 2.0
+//import Qt.labs.folderlistmodel 2.12
+//import "comps" as Comps
+//import "Funcs.js" as JS
+
+//Item {
+//    id: r
+//    width: parent.width
+//    height: tiCmd.height
+//    y:r.parent.height
+//    property real lat
+//    property real lon
+//    state: 'hide'
+//    states: [
+//        State {
+//            name: "show"
+//            PropertyChanges {
+//                target: r
+//                y:r.parent.height-r.height
+//                //z:1000
+//            }
+//            //            PropertyChanges {
+//            //                target: sweg.objXAsp
+//            //                visible:false
+//            //            }
+//            PropertyChanges {
+//                target: xStatus
+//                visible:false
+//            }
+//        },
+//        State {
+//            name: "hide"
+//            PropertyChanges {
+//                target: r
+//                y:r.parent.height
+//            }
+//            //            PropertyChanges {
+//            //                target: sweg.objXAsp
+//            //                visible:true
+//            //            }
+//            PropertyChanges {
+//                target: xStatus
+//                visible:true
+//            }
+//        }
+//    ]
+//    Behavior on x{NumberAnimation{duration: 250}}
+//    onStateChanged: {
+//        if(state==='show')tiCmd.t.focus=true
+//    }
+//    onXChanged: {
+//        if(x===0){
+//            //txtDataSearch.selectAll()
+//            //txtDataSearch.focus=true
+//        }
+//    }
+//    Row{
+//        id: row
+//        anchors.centerIn: parent
+//        spacing: app.fs*0.25
+//        Row{
+//            spacing: app.fs*05
+//            anchors.verticalCenter: parent.verticalCenter
+//            Comps.XTextInput{
+//                id: tiCmd
+//                width: r.width
+//                t.font.pixelSize: app.fs*0.65
+//                anchors.verticalCenter: parent.verticalCenter
+//                Keys.onReturnPressed: {
+//                    runCmd(text)
+//                }
+//                //KeyNavigation.tab: tiFecha.t
+//                //t.maximumLength: 30
+//            }
+//        }
+//    }
+//    Item{id: xuqp}
+//    function runCmd(cmd){
+//        for(var i=0;i<xuqp.children.length;i++){
+//            xuqp.children[i].destroy(0)
+//        }
+//        let d = new Date(Date.now())
+//        let ms=d.getTime()
+//        let finalCmd=''
+//        let c=''
+//        let comando=cmd.split(' ')
+//        if(comando.length<1)return
+//        if(comando[0]==='eclipse'){
+//            if(comando.length<5)return
+//            c='let json=JSON.parse(logData)
+//r.state="hide"
+//sweg.objEclipseCircle.setEclipse(json.gdec, json.rsgdeg, json.gdeg, json.mdeg, json.is)
+//sweg.objEclipseCircle.typeEclipse='+comando[4]+''
+//            sweg.objHousesCircle.currentHouse=-1
+
+//            finalCmd=''
+//                    +'python3 ./py/astrologica_swe_search_eclipses.py '+comando[1]+' '+comando[2]+' '+comando[3]+' '+comando[4]+' '+comando[5]+''
+//        }
+//        if(comando[0]==='rs'){
+//            if(comando.length<1)return
+//            c=''
+//                    +'  let s=""+logData\n'
+//                    +'  console.log("RS: "+s)\n'
+//                    +'  r.state="hide"\n'
+//                    +'  sweg.loadSweJson(s)\n'
+//                    +'  swegz.sweg.loadSweJson(s)\n'
+
+//            let cd=app.currentDate
+//            cd = cd.setFullYear(parseInt(comando[1]))
+//            let cd2=new Date(cd)
+//            cd2 = cd2.setDate(cd2.getDate() - 1)
+//            let cd3=new Date(cd2)
+//            finalCmd=''
+//                    +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
+//            //console.log('finalCmd: '+finalCmd)
+//        }
+//        mkCmd(finalCmd, c)
+//    }
+//    function mkCmd(finalCmd, code){
+//        for(var i=0;i<xuqp.children.length;i++){
+//            xuqp.children[i].destroy(0)
+//        }
+//        let d = new Date(Date.now())
+//        let ms=d.getTime()
+//        let c='import QtQuick 2.0\n'
+//        c+='import unik.UnikQProcess 1.0\n'
+//        c+='UnikQProcess{\n'
+//        c+='    id: uqp'+ms+'\n'
+//        c+='    onLogDataChanged:{\n'
+//        c+='        '+code+'\n'
+//        c+='        uqp'+ms+'.destroy(0)\n'
+//        c+='    }\n'
+//        c+='    Component.onCompleted:{\n'
+//        c+='        run(\''+finalCmd+'\')\n'
+//        c+='    }\n'
+//        c+='}\n'
+//        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodecmd')
+//    }
+//    function makeRS(date){
+//        let cd=date
+//        cd = cd.setFullYear(date.getFullYear())
+//        let cd2=new Date(cd)
+//        cd2 = cd2.setDate(cd2.getDate() - 1)
+//        let cd3=new Date(cd2)
+//        let finalCmd=''
+//            +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
+//        //console.log('finalCmd: '+finalCmd)
+//        let c=''
+//        c+=''
+//                +'  let s=""+logData\n'
+//                +'  //console.log("RS: "+s)\n'
+//                +'  r.state="hide"\n'
+//                +'  app.mod="rs"\n'
+//                +'  sweg.loadSweJson(s)\n'
+//                +'  swegz.sweg.loadSweJson(s)\n'
+//                +'  let j=JSON.parse(s)\n'
+//                +'  let o=j.params\n'
+//                +'  let m0=o.sdgmt.split(" ")\n'
+//                +'  let m1=m0[0].split("/")\n'
+//                +'  let m2=m0[1].split(":")\n'
+//                +'  JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+//        mkCmd(finalCmd, c)
+//    }
+//    function enter(){
+//        runCmd(tiCmd.text)
+//    }
+//}
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
 import "comps" as Comps
 import "Funcs.js" as JS
 
-Item {
+Rectangle {
     id: r
     width: parent.width
-    height: tiCmd.height
-    y:r.parent.height
+    height: app.fs
+    border.width: 2
+    border.color: 'white'
+    color: 'black'
+    //y:r.parent.height
     property real lat
     property real lon
+
+    property string uCmd: ''
+
     state: 'hide'
     states: [
         State {
             name: "show"
             PropertyChanges {
                 target: r
-                y:r.parent.height-r.height
+                y:0//r.parent.height-r.height
                 //z:1000
-            }
-            //            PropertyChanges {
-            //                target: sweg.objXAsp
-            //                visible:false
-            //            }
-            PropertyChanges {
-                target: xStatus
-                visible:false
             }
         },
         State {
             name: "hide"
             PropertyChanges {
                 target: r
-                y:r.parent.height
-            }
-            //            PropertyChanges {
-            //                target: sweg.objXAsp
-            //                visible:true
-            //            }
-            PropertyChanges {
-                target: xStatus
-                visible:true
+                y:r.height
             }
         }
     ]
-    Behavior on x{NumberAnimation{duration: 250}}
+    Behavior on y{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='show')tiCmd.t.focus=true
     }
@@ -55,25 +213,19 @@ Item {
             //txtDataSearch.focus=true
         }
     }
-    Row{
-        id: row
+    Comps.XTextInput{
+        id: tiCmd
+        width: r.width
+        height: r.height
+        t.font.pixelSize: app.fs*0.65
+        //bw.width: 0
+        //anchors.verticalCenter: parent.verticalCenter
         anchors.centerIn: parent
-        spacing: app.fs*0.25
-        Row{
-            spacing: app.fs*05
-            anchors.verticalCenter: parent.verticalCenter
-            Comps.XTextInput{
-                id: tiCmd
-                width: r.width
-                t.font.pixelSize: app.fs*0.65
-                anchors.verticalCenter: parent.verticalCenter
-                Keys.onReturnPressed: {
-                    runCmd(text)
-                }
-                //KeyNavigation.tab: tiFecha.t
-                //t.maximumLength: 30
-            }
+        Keys.onReturnPressed: {
+            runCmd(text)
         }
+        //KeyNavigation.tab: tiFecha.t
+        //t.maximumLength: 30
     }
     Item{id: xuqp}
     function runCmd(cmd){
@@ -86,6 +238,15 @@ Item {
         let c=''
         let comando=cmd.split(' ')
         if(comando.length<1)return
+        if(comando[0]==='setzmt'){
+            if(comando.length<4){
+                console.log('Error al setear el panelZonaMes: Faltan argumentos. setCurrentTime(q,m,y)')
+                return
+            }
+            panelZonaMes.setCurrentTime(comando[1], comando[2], comando[3])
+            return
+        }
+
         if(comando[0]==='eclipse'){
             if(comando.length<5)return
             c='let json=JSON.parse(logData)
@@ -99,13 +260,6 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         }
         if(comando[0]==='rs'){
             if(comando.length<1)return
-            c=''
-                    +'  let s=""+logData\n'
-                    +'  console.log("RS: "+s)\n'
-                    +'  r.state="hide"\n'
-                    +'  sweg.loadSweJson(s)\n'
-                    +'  swegz.sweg.loadSweJson(s)\n'
-
             let cd=app.currentDate
             cd = cd.setFullYear(parseInt(comando[1]))
             let cd2=new Date(cd)
@@ -114,8 +268,34 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
             finalCmd=''
                     +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
             //console.log('finalCmd: '+finalCmd)
+            c=''
+            c+=''
+                    +'  let s=""+logData\n'
+                    +'  //console.log("RS: "+s)\n'
+                    +'  r.state="hide"\n'
+                    +'  app.mod="rs"\n'
+                    +'  sweg.loadSweJson(s)\n'
+                    +'  swegz.sweg.loadSweJson(s)\n'
+                    +'  let j=JSON.parse(s)\n'
+                    +'  let o=j.params\n'
+                    +'  let m0=o.sdgmt.split(" ")\n'
+                    +'  let m1=m0[0].split("/")\n'
+                    +'  let m2=m0[1].split(":")\n'
+                    +'  JS.setTitleData("Revolución Solar '+comando[1]+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
+        }
+        if(comando[0]==='rsl'){
+            if(cmd===r.uCmd){
+                panelRsList.state=panelRsList.state==='show'?'hide':'show'
+                return
+            }
+            if(comando.length<1)return
+            if(parseInt(comando[1])>=1){
+                panelRsList.setRsList(parseInt(comando[1])+ 1)
+                panelRsList.state='show'
+            }
         }
         mkCmd(finalCmd, c)
+        r.uCmd=cmd
     }
     function mkCmd(finalCmd, code){
         for(var i=0;i<xuqp.children.length;i++){
@@ -125,6 +305,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         let ms=d.getTime()
         let c='import QtQuick 2.0\n'
         c+='import unik.UnikQProcess 1.0\n'
+        c+='import "Funcs.js" as JS\n'
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
@@ -137,6 +318,9 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodecmd')
     }
+    function enter(){
+        runCmd(tiCmd.text)
+    }
     function makeRS(date){
         let cd=date
         cd = cd.setFullYear(date.getFullYear())
@@ -144,7 +328,7 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
         cd2 = cd2.setDate(cd2.getDate() - 1)
         let cd3=new Date(cd2)
         let finalCmd=''
-            +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
+                +'python3 ./py/astrologica_swe_search_revsol.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+''
         //console.log('finalCmd: '+finalCmd)
         let c=''
         c+=''
@@ -161,8 +345,5 @@ sweg.objEclipseCircle.typeEclipse='+comando[4]+''
                 +'  let m2=m0[1].split(":")\n'
                 +'  JS.setTitleData("Revolución Solar '+date.getFullYear()+' de '+app.currentNom+'",  m1[0],m1[1], m1[2], m2[0], m2[1], '+app.currentGmt+', "'+app.currentLugar+'", '+app.currentLat+','+app.currentLon+', 1)\n'
         mkCmd(finalCmd, c)
-    }
-    function enter(){
-        runCmd(tiCmd.text)
     }
 }

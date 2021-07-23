@@ -143,6 +143,30 @@ Rectangle {
                 break
             }
         }
+
+        //No puede funcionar sin primero obtener las fechas de RS para q m y de zona.
+        /*let fileName='./jsons/hm/zonas.json'
+        let fileData=unik.getFile(fileName)
+        //console.log('json zonas: '+fileData)
+        let j=JSON.parse(fileData)
+        var arrayZonas=[]
+        var arrayLats=[]
+        var arrayLons=[]
+        var arrayGmts=[]
+        for(var i=0;i<Object.keys(j.zonas).length;i++){
+            //console.log('1: '+j['zonas']['z'+parseInt(i+1)]['id'])
+            arrayZonas.push(j['zonas']['z'+parseInt(i+1)]['id'])
+            arrayLats.push(j['zonas']['z'+parseInt(i+1)]['lat'])
+            arrayLons.push(j['zonas']['z'+parseInt(i+1)]['lon'])
+            arrayGmts.push(j['zonas']['z'+parseInt(i+1)]['gmt'])
+        }
+        for(i=0;i<arrayZonas.length;i++){
+            //arrayZonas.push(j['zonas']['z'+parseInt(i+1)])
+
+            for(var i2=0;i2<12;i2++){
+                makePronJsonFiles(arrayZonas[i], i2, q, m, y, arrayLats[i], arrayLons[i], arrayGmts[i])
+            }
+        }*/
     }
     function loadZonas(){
         //panelControlsSign.currentIndex=5
@@ -164,6 +188,21 @@ Rectangle {
         let j=JSON.parse(fileData)
         for(var i=0;i<Object.keys(j.zonas).length;i++){
             //lm.append(lm.addItem(j['zonas']['z'+parseInt(i+1)]))
+        }
+    }
+    function makePronJsonFiles(zona, ns, q, m, y, lat, lon, gmt){
+        let name=''+zona+'_'+app.signos[ns]+' '+q+'_'+m+'_'+y
+        let fileNamePathJsonPl='./jsons/hm/'+zona+'/q'+q+'_'+m+'_'+y+'.json'
+        let fileName=name.replace(/ /g, '_')+'.json'
+        let dms=new Date(Date.now())
+        let fileNamePath='./jsons/'+fileName
+        let jsonCode='{"params":{"tipo":"pl", "fileNamePath": "'+fileNamePathJsonPl+'", "ms":'+dms.getTime()+',"n":"'+name+'","d":'+q+',"m":'+m+',"a":'+y+',"h":'+0+',"min":'+0+',"gmt":'+gmt+',"lat":'+lat+',"lon":'+lon+',"ciudad":"'+zona+'"}}'
+        if(!unik.fileExist(fileNamePath)){
+            unik.setFile(fileNamePath, jsonCode)
+            //console.log('1: '+fileNamePath)
+            //unik.speak('Grabando...')
+        }else{
+            //console.log('2: '+fileNamePath)
         }
     }
     function pause(){
