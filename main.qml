@@ -119,6 +119,17 @@ AppWin {
         property bool showTimes: false
         property bool lt:false
     }
+    Timer{
+        id: tReload
+        running: false
+        repeat: false
+        interval: 2000
+        onTriggered: {
+            //unik.speak('set file')
+            JS.setNewTimeJsonFileData(app.currentDate)
+            JS.runJsonTemp()
+        }
+    }
     Item{
         id: xApp
         anchors.fill: parent

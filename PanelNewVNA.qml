@@ -11,8 +11,14 @@ Rectangle {
     border.width: 2
     border.color: 'white'
     x:0-r.width
-    property real lat
-    property real lon
+    property real lat:-100.00
+    property real lon:-100.00
+
+    property real ulat:-100.00
+    property real ulon:-100.00
+
+    property string uFileNameLoaded: ''
+
     state: 'hide'
     states: [
         State {
@@ -84,11 +90,11 @@ Rectangle {
             //spacing: app.fs*0.5
             anchors.horizontalCenter: parent.horizontalCenter
             Row{
-                spacing: app.fs*0.1
+                spacing: app.fs*0.2
                 Comps.XText{text:'Hora:'; t.font.pixelSize: app.fs*0.35;height: app.fs*0.8}
                 Comps.XTextInput{
                     id: tiHora;
-                    width: app.fs*3;
+                    width: app.fs*2;
                     t.font.pixelSize: app.fs*0.65;
                     c: true
                     KeyNavigation.tab: tiGMT.t
@@ -130,9 +136,46 @@ Rectangle {
                 t.font.pixelSize: app.fs*0.65;
                 KeyNavigation.tab: botCrear
                 t.maximumLength: 50
-                onTextChanged: t.color='white'
+                onTextChanged: {
+                    searchGeoLoc(false)
+                    t.color='white'
+                }
             }
         }
+        Column{
+            id: colLatLon
+            anchors.horizontalCenter: parent.horizontalCenter
+            visible: r.lat===r.ulat&&r.lon===r.ulon
+            Text{
+                text: 'Lat:'+r.lat
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+                opacity: r.lat!==-100.00?1.0:0.0
+            }
+            Text{
+                text: 'Lon:'+r.lon
+                font.pixelSize: app.fs*0.5
+                color: 'white'
+                opacity: r.lon!==-100.00?1.0:0.0
+            }
+        }
+        Column{
+            visible: !colLatLon.visible
+            anchors.horizontalCenter: parent.horizontalCenter
+            Text{
+                text: 'Lat:'+r.ulat
+                font.pixelSize: app.fs*0.5
+                color: 'red'
+                opacity: r.ulat!==-100.00?1.0:0.0
+            }
+            Text{
+                text: 'Lon:'+r.ulon
+                font.pixelSize: app.fs*0.5
+                color: 'red'
+                opacity: r.ulon!==-100.00?1.0:0.0
+            }
+        }
+
         Button{
             id: botCrear
             text: 'Crear'
@@ -140,12 +183,75 @@ Rectangle {
             anchors.horizontalCenter: parent.horizontalCenter
             KeyNavigation.tab: tiNombre.t
             onClicked: {
-                searchGeoLoc()
+                searchGeoLoc(true)
+            }
+            Timer{
+                running: r.state==='show'
+                repeat: true
+                interval: 2000
+                onTriggered: {
+                    let nom=tiNombre.t.text.replace(/ /g, '_')
+                    let fileName=app.mainLocation+'/jsons/'+nom+'.json'
+                    if(unik.fileExist(fileName)){
+                        r.uFileNameLoaded=tiNombre.text
+                        let jsonFileData=unik.getFile(fileName)
+                        let j=JSON.parse(jsonFileData)
+                        if(tiFecha.text.replace(/ /g, '')==='//'){
+                            //unik.speak('set file')
+                            let dia=''+j.params.d
+                            if(parseInt(dia)<=9){
+                                dia='0'+dia
+                            }
+                            let mes=''+j.params.m
+                            if(parseInt(mes)<=9){
+                                mes='0'+mes
+                            }
+                            tiFecha.text=dia+'/'+mes+'/'+j.params.a
+                        }
+                        if(tiHora.text.replace(/ /g, '')===':'){
+                            //unik.speak('set file')
+                            let hora=''+j.params.h
+                            if(parseInt(hora)<=9){
+                                hora='0'+hora
+                            }
+                            let minuto=''+j.params.min
+                            if(parseInt(minuto)<=9){
+                                minuto='0'+minuto
+                            }
+                            tiHora.text=hora+':'+minuto
+                        }
+                        if(tiGMT.text.replace(/ /g, '')===''){
+                            tiGMT.text=j.params.gmt
+                        }
+                        if(tiCiudad.text.replace(/ /g, '')===''){
+                            tiCiudad.text=j.params.ciudad
+                        }
+                        r.lat=j.params.lat
+                        r.lon=j.params.lon
+                        let m0=tiFecha.t.text.split('/')
+                        if(m0.length!==3)return
+                        let vd=parseInt(m0[0])
+                        let vm=parseInt(m0[1])
+                        let va=parseInt(m0[2])
+                        m0=tiHora.t.text.split(':')
+                        let vh=parseInt(m0[0])
+                        let vmin=parseInt(m0[1])
+                        let vgmt=tiGMT.t.text
+                        let vCiudad=tiCiudad.t.text.replace(/_/g, ' ')
+                        if(j.params.d!==vd||j.params.m!==vm||j.params.a!==va||j.params.h!==vh||j.params.min!==vmin||r.lat!==r.ulat||r.lon!==r.ulon){
+                            botCrear.text='Modificar'
+                        }else{
+                            botCrear.text='[Crear]'
+                        }
+                    }else{
+                        botCrear.text='Crear'
+                    }
+                }
             }
         }
     }
     Item{id: xuqp}
-    function searchGeoLoc(){
+    function searchGeoLoc(crear){
         for(var i=0;i<xuqp.children.length;i++){
             xuqp.children[i].destroy(0)
         }
@@ -160,14 +266,20 @@ Rectangle {
         c+='        let json=JSON.parse(result)\n'
         c+='        if(json){\n'
         //c+='            console.log(JSON.stringify(json))\n'
-        c+='                r.lat=json.coords.lat\n'
-        c+='                r.lon=json.coords.lon\n'
+
         c+='                if(r.lat===-1&&r.lon===-1){\n'
         c+='                   tiCiudad.t.color="red"\n'
         c+='                }else{\n'
         c+='                   tiCiudad.t.color="white"\n'
-        c+='                    setNewJsonFileData()\n'
-        c+='                    r.state=\'hide\'\n'
+        if(crear){
+            c+='                r.lat=json.coords.lat\n'
+            c+='                r.lon=json.coords.lon\n'
+            c+='                    setNewJsonFileData()\n'
+            c+='                    r.state=\'hide\'\n'
+        }else{
+            c+='                r.ulat=json.coords.lat\n'
+            c+='                r.ulon=json.coords.lon\n'
+        }
         c+='                }\n'
         c+='        }else{\n'
         c+='            console.log(\'No se encontraron las cordenadas.\')\n'
@@ -179,9 +291,14 @@ Rectangle {
         c+='        run(\'python3 /home/ns/nsp/uda/astrologica/py/geoloc.py "'+tiCiudad.t.text+'"\')\n'
         c+='    }\n'
         c+='}\n'
-        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodesign')
+        let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
     function setNewJsonFileData(){
+        let unom=r.uFileNameLoaded.replace(/ /g, '_')
+        let fileName=app.mainLocation+'/jsons/'+unom+'.json'
+        if(unik.fileExist(fileName)){
+            unik.deleteFile(fileName)
+        }
         let d = new Date(Date.now())
         let ms=d.getTime()
         let nom=tiNombre.t.text.replace(/ /g, '_')
@@ -225,7 +342,7 @@ Rectangle {
     }
     function enter(){
         if(botCrear.focus){
-            searchGeoLoc()
+            searchGeoLoc(true)
         }
     }
 }

@@ -216,6 +216,7 @@ Item {
         if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
         r.v=true
         app.enableAn=true
+        //tReload.restart()
     }
     function nextState(){
         let currentIndexState=r.aStates.indexOf(r.state)
