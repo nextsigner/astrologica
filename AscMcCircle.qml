@@ -3,6 +3,8 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: r
+    //width: housesCircle.width
+    height: width
     anchors.centerIn: parent
     property int isAsc: 0
     property int isMC: 0

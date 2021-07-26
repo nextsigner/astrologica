@@ -163,7 +163,7 @@ function loadJson(file){
     app.currentGradoSolar= -1
     app.currentMinutoSolar= -1
     app.currentSegundoSolar= -1
-    app.currentGmt= 0
+    app.currentGmt= 0.0
     app.currentLon= 0.0
     app.currentLat= 0.0
     app.uSon=''

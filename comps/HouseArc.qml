@@ -3,6 +3,7 @@ import QtQuick 2.0
 Item {
     id: r
     width: housesCircle.currentHouse!==n?xArcs.width:xArcs.width+extraWidth
+    height: width
     anchors.centerIn: parent
     property real wg: 0.0
     property int wb: 3
@@ -36,7 +37,7 @@ Item {
                 target: r
                 colors: ['#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A', '#685E05', '#4B450A']
                 extraWidth: 0
-                 w: (sweg.width-sweg.objAspsCircle.width)/2//housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
+                w: (sweg.width-sweg.objAspsCircle.width)/2//housesCircle.parent.objectName==='sweg'?(!r.selected?sweg.fs*2.5:sweg.fs*6):(!r.selected?sweg.fs*3:sweg.fs*7)
             }
         },
         State {
@@ -145,19 +146,12 @@ Item {
             //console.log('Rad: '+rad)
             var radius = rad>0?rad:r.width;
             ctx.beginPath();
-            /*if(r.n===12){
-                ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * (r.wg-1.5), (2 * Math.PI) / 360 * 180);
-            }else{
-                ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
-            }*/
             ctx.arc(x, y, radius, ((2 * Math.PI) / 360 * 180)-(2 * Math.PI) / 360 * r.wg, (2 * Math.PI) / 360 * 180);
             ctx.lineWidth = r.w;
             ctx.strokeStyle = r.colors[r.c];
             ctx.stroke();
         }
         function clear_canvas() {
-            //var ctx = canvas.getContext("2d");
-            //ctx.reset();
             canvas.requestPaint();
         }
     }
@@ -187,12 +181,10 @@ Item {
     }
     Rectangle{
         id: ejeV
-        //width: r.width+sweg.fs*2.5
         height: r.wb
         color: 'transparent'
         anchors.centerIn: r
-        //opacity: housesCircle.currentHouse===n?canvas.opacity:1.0
-       antialiasing: true
+        antialiasing: true
         Rectangle{
             visible: false//Depurando
             width: parent.width*3
@@ -299,8 +291,6 @@ Item {
             anchors.verticalCenter: parent.verticalCenter
             rotation: 90-r.rotation-parent.rotation
             antialiasing: true
-            //anchors.left: parent.left
-            //anchors.leftMargin: 0-width
             Text {
                 text: '<b>'+parseFloat(r.wg).toFixed(2)+'</b>'
                 font.pixelSize: parent.width*0.3

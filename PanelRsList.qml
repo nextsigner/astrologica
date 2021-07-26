@@ -219,9 +219,15 @@ Rectangle {
         let finalCmd=''
             +'python3 ./py/astrologica_swe_search_revsol_time.py '+cd3.getDate()+' '+parseInt(cd3.getMonth() +1)+' '+cd3.getFullYear()+' '+cd3.getHours()+' '+cd3.getMinutes()+' '+app.currentGmt+' '+app.currentLat+' '+app.currentLon+' '+app.currentGradoSolar+' '+app.currentMinutoSolar+' '+app.currentSegundoSolar+' '+edad
         let c=''
-            +'  let j=JSON.parse(logData)\n'
+            +'  let j\n'
+            +'try {\n'
+            +'  j=JSON.parse(logData)\n'
             +'  loadJson(j)\n'
             +'  logData=""\n'
+            +'} catch(e) {\n'
+            +'  console.log(e);\n'
+            +'  unik.speak("error");\n'
+            +'}\n'
         mkCmd(finalCmd, c, xuqp)
     }
     function mkCmd(finalCmd, code, item){

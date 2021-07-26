@@ -10,9 +10,6 @@ Item {
     property real zoom: 2.0
     property int lupaX: xLupa.image.x
     property int lupaY: xLupa.image.y
-    //property int lupaX: xLupa.x
-    //property int lupaY: xLupa.y
-    //visible: false
     clip: true
     state: 'show'
     states: [

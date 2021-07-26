@@ -73,16 +73,13 @@ Item {
         visible: r.objectName==='sweg'
         //Rectangle{anchors.fill: parent; color: 'red';border.width: 1;border.color: 'white'}
     }
-    HomeCircle{
+    Comps.HouseCircle{rotation: signCircle.rot;//z:signCircle.z+1;
         id:housesCircle
         height: width
         anchors.centerIn: signCircle
-        showBorder: true
-        rotation: -90
         w: r.fs*6
         widthAspCircle: aspsCircle.width
         visible: r.v
-        //z: ascMcCircle.z+1
     }
     Comps.SignCircle{
         id:signCircle
@@ -105,12 +102,7 @@ Item {
         //showBorder: true
         //v:r.v
     }
-    AscMcCircle{
-        id: ascMcCircle
-        width: housesCircle.width
-        height: width
-    }
-
+    AscMcCircle{id: ascMcCircle}
     EclipseCircle{
         id: eclipseCircle
         width: housesCircle.width
@@ -213,7 +205,7 @@ Item {
         aspsCircle.load(j)
         eclipseCircle.arrayWg=housesCircle.arrayWg
         eclipseCircle.isEclipse=-1
-        if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
+        //if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
         r.v=true
         app.enableAn=true
         //tReload.restart()

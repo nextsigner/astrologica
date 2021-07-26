@@ -47,7 +47,7 @@ AppWin {
     property int currentGradoSolar: -1
     property int currentMinutoSolar: -1
     property int currentSegundoSolar: -1
-    property int currentGmt: 0
+    property real currentGmt: 0
     property real currentLon: 0.0
     property real currentLat: 0.0
 
@@ -192,15 +192,7 @@ AppWin {
             }
         }
         XLupa{id: xLupa}
-        Comps.XLayerTouch{
-            id: xLayerTouch
-            onMove: {
-                xLupa.x=px-xLupa.width*0.5
-                xLupa.y=py-xLupa.height*0.5
-            }
-        }
-
-
+        Comps.XLayerTouch{id: xLayerTouch}
         XTools{
             id: xTools
             anchors.bottom: parent.bottom

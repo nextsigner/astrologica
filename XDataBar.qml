@@ -121,7 +121,7 @@ Rectangle {
             }
         }
         Rectangle{
-            width: txtCurrentGmt.contentWidth+app.fs*0.5
+            width: txtCurrentGmt.contentWidth+app.fs//*0.5
             height: txtCurrentGmt.contentHeight+app.fs*0.5
             color: 'black'
             border.width: 1
@@ -143,23 +143,22 @@ Rectangle {
                 property date uDate//: app.currentDate
                 property int f: 0
                 property int uY: 0
-                onWheel: {
-                    let v=[-11,-10,-9,-8,-7, -6, -5,-4,-3,-2,-1,0,1,2,3,4,5,6,7,8,9,10,11,12]
-                    let ci=v.indexOf(app.currentGmt)
+                onWheel: {                    
+                    let cgmt=app.currentGmt
                     if(wheel.angleDelta.y===120){
-                        if(ci<23){
-                            ci++
+                        if(cgmt<12.00){
+                            cgmt+=0.1
                         }else{
-                            ci=0
+                            cgmt=-12.00
                         }
                     }else{
-                        if(ci>0){
-                            ci--
+                        if(cgmt>-12.00){
+                            cgmt-=0.1
                         }else{
-                            ci=23
+                            cgmt=12.00
                         }
                     }
-                    app.currentGmt=v[ci]
+                    app.currentGmt=parseFloat(cgmt).toFixed(1)
                 }
             }
         }

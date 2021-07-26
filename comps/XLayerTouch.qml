@@ -5,6 +5,10 @@ Item {
     anchors.fill: parent
     visible: apps.lt
     signal move(int px, int py)
+    onMove: {
+        xLupa.x=px-xLupa.width*0.5
+        xLupa.y=py-xLupa.height*0.5
+    }
     MouseArea{
         //anchors.fill: r
         width: sweg.width
