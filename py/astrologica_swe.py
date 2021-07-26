@@ -1,6 +1,7 @@
 import swisseph as swe
 import jdutil
 import datetime
+from decimal import Decimal
 import sys
 from subprocess import run, PIPE
 
@@ -88,12 +89,12 @@ gmt = sys.argv[6]
 lat = sys.argv[7]
 lon = sys.argv[8]
 
-if int(gmt) < 0:
+if float(gmt) < 0.0:
         gmtCar='W'
-        gmtNum=abs(int(gmt))
+        gmtNum=abs(float(gmt))
 else:
         gmtCar='E'
-        gmtNum=int(gmt)
+        gmtNum=float(gmt)
 
 if float(lon) < 0:
     lonCar='W'
@@ -141,8 +142,9 @@ min=horaLocal.strftime('%M')
 stringDateSinGmt= str(dia) + '/' + str(mes) + '/' + str(anio) + ' ' + str(hora) + ':' + str(min)+'"'
 
 
-horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
-#horaLocal = horaLocal - datetime.timedelta(minutes=int(30))
+
+
+horaLocal = horaLocal - datetime.timedelta(hours=float(gmt))
 #print(horaLocal)
 
 #Luego de aplicar el GMT

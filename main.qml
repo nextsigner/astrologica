@@ -155,7 +155,6 @@ AppWin {
                 onClicked: parent.visible=false
             }
         }
-        XSabianos{id: xSabianos}
     }
     Item{
         id: capa101
@@ -208,6 +207,7 @@ AppWin {
             anchors.right: parent.right
         }
         XBottomBar{id: xBottomBar}
+        XSabianos{id: xSabianos}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
