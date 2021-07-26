@@ -42,6 +42,14 @@ Rectangle {
                     }
                 }
             }
+            Button{
+                text: 'M'
+                width: app.fs*0.6
+                height: app.fs*0.6
+                onClicked: {
+                        xInfoData.loadData('./resources/astromedicina.html')
+                }
+            }
         }
-    }    
+    }
 }

@@ -75,12 +75,16 @@ ApplicationWindow {
     Shortcut{
         sequence: 'Esc'
         onActivated: {
-            if(xBottomBar.objPanelCmd.state==='show'){
-                xBottomBar.objPanelCmd.state='hide'
-                return
-            }
             if(xSabianos.visible){
                 xSabianos.visible=false
+                return
+            }
+            if(xInfoData.visible){
+                xInfoData.visible=false
+                return
+            }
+            if(xBottomBar.objPanelCmd.state==='show'){
+                xBottomBar.objPanelCmd.state='hide'
                 return
             }
             if(panelFileLoader.state==='show'){

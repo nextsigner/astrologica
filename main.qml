@@ -180,7 +180,7 @@ AppWin {
             Item{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
-                height: parent.height
+                height: parent.height                
             }
             Item{
                 id: xLatDer
@@ -200,6 +200,7 @@ AppWin {
         }
         XBottomBar{id: xBottomBar}
         XSabianos{id: xSabianos}
+        XInfoData{id: xInfoData}
     }
     Init{longAppName: 'Astrológica'; folderName: 'astrologica'}
     Component.onCompleted: {
