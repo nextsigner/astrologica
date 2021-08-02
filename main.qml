@@ -26,9 +26,7 @@ AppWin {
 
     property bool enableAn: false
     property int msDesDuration: 500
-    property var api: [panelNewVNA, panelFileLoader]
-
-
+    //property var api: [panelNewVNA, panelFileLoader]
 
     property string fileData: ''
     property string currentData: ''

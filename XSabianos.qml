@@ -29,10 +29,24 @@ Rectangle {
             font.pixelSize: r.fs*2
             anchors.verticalCenter: parent.verticalCenter
         }
-        XSigno{
+        Item {
             id: xSigno
-            numSign: r.numSign
-            anchors.verticalCenter: parent.verticalCenter
+            width: app.fs*1.8
+            height: width
+            Rectangle{
+                anchors.fill: xSigno
+                radius: app.fs*0.25
+                color: 'white'
+                border.width: 2
+                border.color: 'black'
+                Image {
+                    id: sign
+                    source: "./resources/imgs/signos/"+r.numSign+".svg"
+                    width: xSigno.width*0.8
+                    fillMode: Image.PreserveAspectFit
+                    anchors.centerIn: parent
+                }
+            }
         }
     }
     Text{
