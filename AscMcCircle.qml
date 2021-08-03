@@ -27,7 +27,7 @@ Item {
             }
             PropertyChanges {
                 target: ejeMC
-                width: sweg.objSignsCircle.width+sweg.fs*0.5
+                width: sweg.objSignsCircle.width+sweg.fs*2//*0.5
             }
         },
         State {

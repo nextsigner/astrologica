@@ -17,11 +17,11 @@ Item {
             name: sweg.aStates[0]
             PropertyChanges {
                 target: r
-                w: sweg.fs*0.75
+                w: sweg.fs*0.5
             }
             PropertyChanges {
                 target: xImg
-                width: sweg.fs*0.75
+                width: sweg.fs*0.5
             }
         },
         State {

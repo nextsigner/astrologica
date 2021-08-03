@@ -25,34 +25,45 @@ Item {
             name: aStates[0]
             PropertyChanges {
                 target: r
-                //width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
-                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
+                width: r.fs*12
             }
             PropertyChanges {
                 target: signCircle
                 width: sweg.width-sweg.fs*2
+            }
+            PropertyChanges {
+                target: planetsCircle
+                width: signCircle.width-signCircle.w
             }
         },
         State {//PC
             name: aStates[1]
             PropertyChanges {
                 target: r
-                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height)*2
+                width: r.fs*15
             }
             PropertyChanges {
                 target: signCircle
                 width: sweg.width-sweg.fs*6
+            }
+            PropertyChanges {
+                target: planetsCircle
+                width: signCircle.width-signCircle.w
             }
         },
         State {//PA
             name: aStates[2]
             PropertyChanges {
                 target: r
-                width: r.objectName==='sweg'?(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3):(app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3)*2
+                width: r.fs*12
             }
             PropertyChanges {
                 target: signCircle
                 width: sweg.width-sweg.fs*2
+            }
+            PropertyChanges {
+                target: planetsCircle
+                width: signCircle.width-signCircle.w
             }
         }
     ]

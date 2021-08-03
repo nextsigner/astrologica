@@ -73,6 +73,7 @@ Item {
         color: 'transparent'
         border.width: 3
         border.color: xLayerTouch.visible?'white':'red'
+        visible: !xLayerTouch.visible
     }
     Timer{
         id: tScreenShot
