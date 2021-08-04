@@ -3,10 +3,8 @@ import "./comps" as Comps
 
 Item {
     id: r
-    //width:app.currentPlanetIndex!==16?r.parent.height:r.parent.height-r.fs*3
-    height: width
+    height: parent.height
     anchors.centerIn: parent
-    //anchors.horizontalCenterOffset: r.fs*10
     property int fs: r.objectName==='sweg'?app.fs:app.fs*2
     property int w: fs
     property bool v: false
@@ -76,7 +74,7 @@ Item {
         color: 'transparent'
         visible: signCircle.v
     }
-    AxisCircle{id: axisCircle;width: ascMcCircle.width}
+    AxisCircle{id: axisCircle}
     PanelAspects{
         id: panelAspects
         anchors.bottom: parent.bottom
@@ -120,7 +118,6 @@ Item {
         width: housesCircle.width
         height: width
     }
-
     Rectangle{
         //Este esta en el centro
         visible: false

@@ -16,34 +16,28 @@ Item {
                 target: ssPlanets
                 ds.value: 6
                 ss.value: 2000
-                width: r.width//*2
-                height: r.height//*2
-                //canvas3dX:(r.width*2-r.width)/2
-                //canvas3dY:(r.height*2-r.height)/2
+                width: r.width
+                height: r.height
             }
         },
         State {
             name: sweg.aStates[1]
             PropertyChanges {
                 target: ssPlanets
-                ds.value: -3
-                ss.value: 600
+                ds.value: 6
+                ss.value: 2000
                 width: r.width
                 height: r.height
-                //canvas3dX:0
-                //canvas3dY:0
             }
         },
         State {
             name: sweg.aStates[2]
             PropertyChanges {
                 target: ssPlanets
-                ds.value: -3
-                ss.value: 600
+                ds.value: 6
+                ss.value: 2000
                 width: r.width
                 height: r.height
-                //canvas3dX:0
-                //canvas3dY:0
             }
         },
         State {
@@ -65,9 +59,6 @@ Item {
         width: r.width*2
         height: r.height*2
         anchors.centerIn: parent
-        //scale: 0.5
-        //visible: false
-        //focusedPlanet: 6
         onFocusedPlanetChanged: {
             na1.duration=500
             na2.duration=500
@@ -82,8 +73,8 @@ Item {
                 name: 'descentrado'
                 PropertyChanges {
                     target: ssPlanets
-                    anchors.horizontalCenterOffset: 0-sweg.width*0.47
-                    anchors.verticalCenterOffset: 0-sweg.height*0.35
+                    anchors.horizontalCenterOffset: 0-sweg.width*0.48
+                    anchors.verticalCenterOffset: 0-sweg.height*0.31
                 }
                 PropertyChanges {
                     target: xIconPlanet

@@ -1,5 +1,4 @@
-import QtQuick 2.12
-import QtGraphicalEffects 1.0
+import QtQuick 2.0
 
 Item {
     id: r
@@ -8,7 +7,7 @@ Item {
     Rectangle{
         id: ejeCard1
         width: ejeAsc.width+sweg.fs*0.5
-        height: 1//sweg.fs*0.1
+        height: 1
         color: 'red'
         anchors.centerIn: r
         anchors.horizontalCenterOffset: 0-sweg.fs
