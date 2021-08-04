@@ -3,7 +3,6 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: r
-    //width: housesCircle.width
     height: width
     anchors.centerIn: parent
     property int isAsc: 0
@@ -12,7 +11,7 @@ Item {
     property int mdegAsc: -1
     property int gdegMC: -1
     property int mdegMC: -1
-
+    property alias ejeAscendente: ejeAsc
     state: sweg.state
     states: [
         State {
@@ -63,60 +62,6 @@ Item {
             }
         }
     ]
-    Rectangle{
-        id: ejeCard1
-        width: ejeAsc.width+sweg.fs*0.5
-        height: 1//sweg.fs*0.1
-        color: 'red'
-        anchors.centerIn: r
-        anchors.horizontalCenterOffset: 0-sweg.fs
-        state: sweg.state
-        states: [
-            State {
-                name: sweg.aStates[0]
-                PropertyChanges {
-                    target: ejeCard1
-                    width: ejeAsc.width+sweg.fs*0.5
-                }
-            },
-            State {
-                name: sweg.aStates[1]
-                PropertyChanges {
-                    target: ejeCard1
-                    width: ejeAsc.width-sweg.fs
-                }
-            },
-            State {
-                name: sweg.aStates[2]
-                PropertyChanges {
-                    target: ejeCard1
-                    width: ejeAsc.width-sweg.fs*0.5
-                }
-            }
-        ]
-        Behavior on opacity{enabled: app.enableAn;NumberAnimation{duration: 500}}
-        Canvas {
-            id:canvas
-            width: sweg.fs*0.5
-            height: width
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.left: parent.left
-            antialiasing: true
-            onPaint:{
-                var ctx = canvas.getContext('2d');
-                ctx.beginPath();
-                ctx.moveTo(0, canvas.width*0.5);
-                ctx.lineTo(canvas.width, 0);
-                ctx.lineTo(canvas.width, canvas.width);
-                ctx.lineTo(0, canvas.width*0.5);                               ctx.strokeStyle = canvas.parent.color
-                ctx.lineWidth = canvas.parent.height;
-                ctx.fillStyle = canvas.parent.color
-                ctx.fill();
-                ctx.stroke();
-
-            }
-        }
-    }
     Rectangle{
         id: ejeAsc
         width: sweg.objSignsCircle.width
@@ -310,11 +255,7 @@ Item {
                     PropertyChanges {
                         target: xIconMC
                         anchors.rightMargin: !xIconMC.selected?0:0-sweg.width*0.5-sweg.fs
-                    }
-                    PropertyChanges {
-                        target: xIconMC
-                        //opacity:1.0
-                    }
+                    }                   
                 },
                 State {
                     name: sweg.aStates[1]
@@ -322,20 +263,12 @@ Item {
                         target: xIconMC
                         anchors.rightMargin: !xIconMC.selected?0:0-sweg.width*0.5+sweg.fs*0.5
                     }
-                    PropertyChanges {
-                        target: xIconMC
-                        //opacity:app.currentPlanetIndex===16?1.0:0.0
-                    }
                 },
                 State {
                     name: sweg.aStates[2]
                     PropertyChanges {
                         target: xIconMC
                         anchors.rightMargin: !xIconMC.selected?0+sweg.fs*0.5:0-sweg.width*0.5-sweg.fs*0.5
-                    }
-                    PropertyChanges {
-                        target: xIconMC
-                        //opacity:1.0
                     }
                 }
             ]

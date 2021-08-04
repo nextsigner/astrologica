@@ -76,6 +76,7 @@ Item {
         color: 'transparent'
         visible: signCircle.v
     }
+    AxisCircle{id: axisCircle;width: ascMcCircle.width}
     PanelAspects{
         id: panelAspects
         anchors.bottom: parent.bottom
