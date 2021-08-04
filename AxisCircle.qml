@@ -6,7 +6,7 @@ Item {
     anchors.centerIn: parent
     Rectangle{
         id: ejeCard1
-        width: ejeAsc.width+sweg.fs*0.5
+        width: ascMcCircle.ejeAscendente.width+sweg.fs*0.5
         height: 1
         color: 'red'
         anchors.centerIn: r

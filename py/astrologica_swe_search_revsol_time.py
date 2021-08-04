@@ -52,7 +52,7 @@ def getHour(uHora, grado):
             #print(str(gsol) + '<----->' + str(grado))
             if  gsol >= grado:
                 #print(str(gsol))
-                uHora = uHora + datetime.timedelta(hours=int(gmt))
+                uHora = uHora + datetime.timedelta(hours=float(gmt))
                 encontrado=True
                 tuplaRet=[(uHora,encontrado)]
                 #tuplaRet[1]=uHora
@@ -93,7 +93,7 @@ def getRs(h):
 
 #print('Grado Decimal: '+str(gdec))
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
-horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
+horaLocal = horaLocal - datetime.timedelta(hours=float(gmt))
 horaLocal = horaLocal - datetime.timedelta(days=int(1))
 
 #getRs(horaLocal)

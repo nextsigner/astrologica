@@ -40,7 +40,7 @@ Item {
     ]
     Behavior on rotation{
         enabled: app.enableAn;
-        NumberAnimation{duration:2000;easing.type: Easing.InOutElastic}
+        NumberAnimation{duration:2000;easing.type: Easing.InOutQuad}
     }
     Item{
         id: xHomeArcs

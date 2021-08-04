@@ -27,7 +27,7 @@ segundoArg = int(sys.argv[11])
 #print('Fecha: '+dia+'/'+mes+'/'+anio+' Hora: '+hora+':'+min)
 
 horaLocal = datetime.datetime(int(anio),int(mes),int(dia),int(hora), int(min))
-horaLocal = horaLocal - datetime.timedelta(hours=int(gmt))
+horaLocal = horaLocal - datetime.timedelta(hours=float(gmt))
 
 swe.set_ephe_path('/usr/share/libswe/ephe')
 
@@ -55,7 +55,7 @@ def getHour(uHora, grado):
             #print(str(gsol) + '<----->' + str(grado))
             if  gsol >= grado:
                 #print(str(gsol))
-                uHora = uHora + datetime.timedelta(hours=int(gmt))
+                uHora = uHora + datetime.timedelta(hours=float(gmt))
                 encontrado=True
                 tuplaRet=[(uHora,encontrado)]
                 #tuplaRet[1]=uHora
