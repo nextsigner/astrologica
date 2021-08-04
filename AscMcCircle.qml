@@ -94,24 +94,6 @@ Item {
                 }
             }
         ]
-        //opacity: app.currentPlanetIndex===15?1.0:0.0
-//        state: app.currentPlanetIndex===15?'showAsc':'hideAsc'
-//        states: [
-//            State {
-//                name: 'showAsc'
-//                PropertyChanges {
-//                    target: ejeCard1
-//                    width: ejeAsc.width+sweg.fs*0.5
-//                }
-//            },
-//            State {
-//                name: 'hideAsc'
-//                PropertyChanges {
-//                    target: ejeCard1
-//                    width: ejeAsc.width+sweg.fs*2
-//                }
-//            }
-//        ]
         Behavior on opacity{enabled: app.enableAn;NumberAnimation{duration: 500}}
         Canvas {
             id:canvas
@@ -182,7 +164,7 @@ Item {
                     name: sweg.aStates[2]
                     PropertyChanges {
                         target: xIconAsc
-                        anchors.rightMargin: 0
+                        anchors.rightMargin: !xIconAsc.selected?0:0+sweg.fs//*0.25
                         //anchors.rightMargin: !xIconAsc.selected?0:0-sweg.width*0.5-sweg.fs*0.25
                         anchors.verticalCenterOffset: !xIconAsc.selected?0-sweg.fs*2:0
                     }
@@ -327,7 +309,7 @@ Item {
                     name: sweg.aStates[0]
                     PropertyChanges {
                         target: xIconMC
-                        anchors.rightMargin: 0
+                        anchors.rightMargin: !xIconMC.selected?0:0-sweg.width*0.5-sweg.fs
                     }
                     PropertyChanges {
                         target: xIconMC
@@ -338,7 +320,7 @@ Item {
                     name: sweg.aStates[1]
                     PropertyChanges {
                         target: xIconMC
-                        anchors.rightMargin: app.currentPlanetIndex===16?0- housesCircle.width*0.5-xIconMC.width*0.5-sweg.fs*1.5:0
+                        anchors.rightMargin: !xIconMC.selected?0:0-sweg.width*0.5+sweg.fs*0.5
                     }
                     PropertyChanges {
                         target: xIconMC
@@ -349,7 +331,7 @@ Item {
                     name: sweg.aStates[2]
                     PropertyChanges {
                         target: xIconMC
-                        anchors.rightMargin: 0
+                        anchors.rightMargin: !xIconMC.selected?0+sweg.fs*0.5:0-sweg.width*0.5-sweg.fs*0.5
                     }
                     PropertyChanges {
                         target: xIconMC

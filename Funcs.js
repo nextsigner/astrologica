@@ -93,7 +93,7 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
                             data+='<p>'+dataJson0[i]+'</p>'
                         }
                     }
-                    let obj=comp.createObject(app, {textData:data, width: sweg.width, height: sweg.height, x:(xApp.width-sweg.width)/2, y:0, fs: app.fs*0.5, title: nomCuerpo+' en '+app.signos[s - 1]+' en casa '+c, xOffSet: app.fs*6})
+                    let obj=comp.createObject(app, {textData:data, width: app.width*0.6, height: app.height, x:app.width*0.2, y:0, fs: app.fs*0.5, title: nomCuerpo+' en '+app.signos[s - 1]+' en casa '+c, xOffSet: app.fs*6})
                 }
                 //console.log('Data-->'+JSON.stringify(result))
             } else {
