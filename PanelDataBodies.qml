@@ -189,7 +189,7 @@ Rectangle {
         lm.append(lm.addItem(of.is, of.ih, of.rsg, of.m, of.s,  s))
 
         let o1=json.ph['h1']
-        s = 'Ascendente °' +o1.rsg+ '\'' +o1.m+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
+        s = 'Ascendente °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]
         lm.append(lm.addItem(o1.is, 1, o1.rsgdeg, o1.mdeg, o1.sdeg,  s))
         o1=json.ph['h10']
         s = 'Medio Cielo °' +o1.rsgdeg+ '\'' +o1.mdeg+ '\'\'' +o1.sdeg+ ' ' +app.signos[o1.is]

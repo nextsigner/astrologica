@@ -141,10 +141,10 @@ ApplicationWindow {
                 }
                 return
             }
-            if(currentPlanetIndex>0){
+            if(currentPlanetIndex>-1){
                 currentPlanetIndex--
             }else{
-                currentPlanetIndex=16
+                currentPlanetIndex=17
             }
             //xAreaInteractiva.back()
         }
@@ -180,7 +180,7 @@ ApplicationWindow {
                 }
                 return
             }
-            if(currentPlanetIndex<16){
+            if(currentPlanetIndex<17){
                 currentPlanetIndex++
             }else{
                 currentPlanetIndex=-1
