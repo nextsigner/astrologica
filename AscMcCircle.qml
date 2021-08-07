@@ -71,7 +71,7 @@ Item {
         antialiasing: true
         Rectangle{
             id: xIconAsc
-            property bool selected: app.currentPlanetIndex===15
+            property bool selected: app.currentPlanetIndex===16
             width: selected?sweg.fs*2:sweg.fs
             height: width
             radius: width*0.5
@@ -231,7 +231,7 @@ Item {
         antialiasing: true
         Rectangle{
             id: xIconMC
-            property bool selected: app.currentPlanetIndex===16
+            property bool selected: app.currentPlanetIndex===17
             width: selected?sweg.fs*2:sweg.fs
             height: width
             radius: width*0.5

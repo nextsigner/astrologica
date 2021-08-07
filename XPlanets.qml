@@ -116,7 +116,7 @@ Item {
             Behavior on opacity{enabled: app.enableAn;NumberAnimation{duration: 2000}}
             Image {
                 id: img
-                source: "./resources/imgs/planetas/"+app.planetasRes[app.currentPlanetIndex]+".svg"
+                source: app.currentPlanetIndex>=0?"./resources/imgs/planetas/"+app.planetasRes[app.currentPlanetIndex]+".svg":""
                 anchors.fill: parent
                 visible: false
             }

@@ -15,6 +15,10 @@ def decdeg2dms(dd):
    degrees = degrees if is_positive else -degrees
    return (degrees,minutes,seconds)
 
+#Calculo para Fortuna Diurna Asc + Luna - Sol
+#Calculo para Fortuna Nocturna Asc + Sol - Luna
+
+
 def getIndexSign(grado):
     index=0
     g=0.0

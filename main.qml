@@ -56,7 +56,7 @@ AppWin {
 
     property var signos: ['Aries', 'Tauro', 'Géminis', 'Cáncer', 'Leo', 'Virgo', 'Libra', 'Escorpio', 'Sagitario', 'Capricornio', 'Acuario', 'Piscis']
     property var planetas: ['Sol', 'Luna', 'Mercurio', 'Venus', 'Marte', 'Júpiter', 'Saturno', 'Urano', 'Neptuno', 'Plutón', 'N.Norte', 'N.Sur', 'Quirón', 'Selena', 'Lilith']
-    property var planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith']
+    property var planetasRes: ['sun', 'moon', 'mercury', 'venus', 'mars', 'jupiter', 'saturn', 'uranus', 'neptune', 'pluto', 'n', 's', 'hiron', 'selena', 'lilith', 'fortuna']
     property var objSignsNames: ['ari', 'tau', 'gem', 'cnc', 'leo', 'vir', 'lib', 'sco', 'sgr', 'cap', 'aqr', 'psc']
     property var signColors: ['red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6','red', '#FBE103', '#09F4E2', '#0D9FD6']
     property var meses: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
@@ -78,14 +78,14 @@ AppWin {
         }
         panelDataBodies.currentIndex=currentPlanetIndex
         if(currentPlanetIndex>14){
-            if(currentPlanetIndex===15){
+            /*if(currentPlanetIndex===15){
                 sweg.objHousesCircle.currentHouse=1
                 swegz.sweg.objHousesCircle.currentHouse=1
             }
             if(currentPlanetIndex===16){
                 sweg.objHousesCircle.currentHouse=10
                 swegz.sweg.objHousesCircle.currentHouse=10
-            }
+            }*/
         }
     }
     onCurrentGmtChanged: {
