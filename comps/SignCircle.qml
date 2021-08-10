@@ -7,7 +7,7 @@ Item {
     property int w: sweg.w
     property bool v: false
     property bool showBorder: false
-    property bool showDec: true
+    property bool showDec: apps.showDec
     property int rot: 0
     Behavior on w{enabled: app.enableAn; NumberAnimation{duration: sweg.speedRotation}}
     Behavior on width {

@@ -212,11 +212,19 @@ ApplicationWindow {
             apps.lt=!apps.lt
         }
     }
+    //Mostrar/Ocultar MenuBar
+    Shortcut{
+        sequence: 'Ctrl+m'
+        onActivated: {
+            apps.showMenuBar=!apps.showMenuBar
+        }
+    }
     //Mostrar / Ocultar Decanatos
     Shortcut{
         sequence: 'Ctrl+Shift+d'
         onActivated: {
-            swegz.sweg.objSignsCircle.showDec=!swegz.sweg.objSignsCircle.showDec
+            apps.showDec=!apps.showDec
+            //swegz.sweg.objSignsCircle.showDec=!swegz.sweg.objSignsCircle.showDec
         }
     }
     //Mostrar Panel para Cargar Archivos

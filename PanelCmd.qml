@@ -206,6 +206,7 @@ Rectangle {
     Behavior on y{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='show')tiCmd.t.focus=true
+        JS.raiseItem(r)
     }
     onXChanged: {
         if(x===0){

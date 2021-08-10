@@ -7,8 +7,10 @@ int main(int argc, char *argv[])
     QCoreApplication::setAttribute(Qt::AA_EnableHighDpiScaling);
 
     QGuiApplication app(argc, argv);
-
-    //UnikQProcess uqp;
+    app.setApplicationDisplayName("AstroLogica");
+    app.setApplicationName("AstroLogica");
+    app.setApplicationVersion("0.1");
+    app.setWindowIcon(QIcon("./icon.png"));
 
     QQmlApplicationEngine engine;
     const QUrl url(QStringLiteral("./main.qml"));

@@ -45,6 +45,7 @@ Rectangle {
         }
         if(state==='show'){
             iniciar()
+            JS.raiseItem(r)
             return
         }
     }
@@ -222,7 +223,9 @@ Rectangle {
         lv.itemAtIndex(0).loadJsonTask()
     }
     function detener(){
-        lv.itemAtIndex(0).detener()
-        r.currentIndex=0
+        if(lv.count>=1){
+            lv.itemAtIndex(0).detener()
+            r.currentIndex=0
+        }
     }
 }

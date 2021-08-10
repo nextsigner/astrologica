@@ -1,6 +1,6 @@
 ﻿import QtQuick 2.12
 //import QtGraphicalEffects 1.12
-import QtQuick.Controls 2.0
+import QtQuick.Controls 2.12
 import QtQuick.Window 2.0
 import Qt.labs.folderlistmodel 2.12
 import Qt.labs.settings 1.1
@@ -102,28 +102,29 @@ AppWin {
         let d=currentDate.getDate()
         let h=currentDate.getHours()
         let min=currentDate.getMinutes()
-//        if(app.fileData!=='' && app.currentData!=='' ){
-//            JS.setNewTimeJsonFileData(currentDate)
-//        }
         xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
         xDataBar.currentGmtText=''+currentGmt
         tReload.restart()
     }
-
     Settings{
         id: apps
         fileName:'astrologica.cfg'
         property string url: ''
         property bool showTimes: false
+        property bool showSWEZ: true
+        property bool showDec: true
+
+        property bool showMenuBar: true
+
         property bool lt:false
     }
+    menuBar: Comps.XMenuBar {}
     Timer{
         id: tReload
         running: false
         repeat: false
-        interval: 2000
+        interval: 100
         onTriggered: {
-            //unik.speak('set file')
             JS.setNewTimeJsonFileData(app.currentDate)
             JS.runJsonTemp()
         }
@@ -168,17 +169,22 @@ AppWin {
                 id: xLatIzq
                 width: xApp.width*0.2
                 height: parent.height
-                Rectangle{anchors.fill: parent;color:'red';opacity: 0.5}
-                SweGraphicZoom{id: swegz}
-                PanelZonaMes{id: panelZonaMes}
-                PanelRsList{id: panelRsList}
-                PanelFileLoader{id: panelFileLoader}
-                PanelNewVNA{id: panelNewVNA}
+                Item{
+                    anchors.fill: parent
+                    SweGraphicZoom{id: swegz; visible:apps.showSWEZ}
+                }
+                Item{
+                    anchors.fill: parent
+                    PanelZonaMes{id: panelZonaMes;}
+                    PanelRsList{id: panelRsList}
+                    PanelFileLoader{id: panelFileLoader}
+                    PanelNewVNA{id: panelNewVNA}
+                }
             }
             Item{
                 id: xMed
                 width: xApp.width-xLatIzq.width-xLatDer.width
-                height: parent.height                
+                height: parent.height
             }
             Item{
                 id: xLatDer

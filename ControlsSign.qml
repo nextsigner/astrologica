@@ -1,6 +1,8 @@
 import QtQuick 2.7
 import QtQuick.Controls 2.0
 import Qt.labs.folderlistmodel 2.12
+import "Funcs.js" as JS
+
 
 Rectangle {
     id: r
@@ -29,7 +31,8 @@ Rectangle {
     ]
     Behavior on x{NumberAnimation{duration: 250}}
     onStateChanged: {
-        //if(state==='hide')txtDataSearch.focus=false
+        if(state==='hide')return
+        JS.raiseItem(r)
         //xApp.focus=true
     }
     onXChanged: {

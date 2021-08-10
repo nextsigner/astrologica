@@ -38,7 +38,8 @@ Rectangle {
     ]
     Behavior on x{NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
-        //if(state==='hide')txtDataSearch.focus=false
+        if(state==='hide')return
+        JS.raiseItem(r)
         //xApp.focus=true
     }
     onXChanged: {

@@ -422,3 +422,15 @@ function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
         +'|<b>lat:</b> '+parseFloat(vlat).toFixed(2)+'|<b>lon:</b> '+parseFloat(vlon).toFixed(2)+' '
     xDataBar.titleData=textData
 }
+
+//Funciones de GUI
+function raiseItem(item){
+    let z=0
+    for(let i=0;i<item.parent.children.length;i++){
+        console.log('id:'+item.parent.children[i].objectName)
+        if(item.parent.children[i]!==item){
+            item.parent.children[i].state='hide'
+        }
+    }
+    item.state='show'
+}
