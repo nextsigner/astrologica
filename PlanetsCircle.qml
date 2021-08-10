@@ -105,12 +105,6 @@ Item{
         //console.log('gf: '+JS.deg_to_dms(gf))
         var arrayDMS=JS.deg_to_dms(gf)
         o={}
-        o.p=0
-        if(r.totalPosX<o.p){
-            r.totalPosX=o.p
-        }
-        o.ns=objSignsNames.indexOf(0)
-        //o.ih=0
         o.g=arrayDMS[0]
         o.m=arrayDMS[1]
         var rsDegSign=gf
@@ -118,6 +112,7 @@ Item{
             if(i2*30<gf){
                 objAs.is=i2
                 rsDegSign-=30
+                o.p=objSigns[i2]
             }
 
             if(json.ph['h'+i2].gdec<gf){
@@ -125,6 +120,10 @@ Item{
                 o.ih=i2
             }
         }
+        if(r.totalPosX<o.p){
+            r.totalPosX=o.p
+        }
+        o.ns=objSignsNames.indexOf(o.is)
         o.rsg=rsDegSign
         objAs.objData=o
     }

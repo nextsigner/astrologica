@@ -174,6 +174,7 @@ function deg_to_dms (deg) {
 //Astrologica
 function loadJson(file){
     //Global Vars Reset
+    app.setFromFile=true
     app.enableAn=false
     app.currentPlanetIndex=-1
     app.currentSignIndex= 0
@@ -193,6 +194,7 @@ function loadJson(file){
     let jsonFileName=fn
     let jsonFileData=unik.getFile(jsonFileName).replace(/\n/g, '')
     app.fileData=jsonFileData
+    app.currentData=app.fileData
     let jsonData=JSON.parse(jsonFileData)
     if(jsonData.params.tipo){
         app.mod=jsonData.params.tipo
@@ -260,7 +262,7 @@ function loadJson(file){
     setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, 0)
     //xDataBar.titleData=textData
     xDataBar.state='show'
-    app.currentData=app.fileData
+    app.setFromFile=false
 }
 function runJsonTemp(){
     var jsonData
@@ -271,7 +273,7 @@ function runJsonTemp(){
     catch (e)
     {
         console.log('Json Fallado: '+app.currentData)
-        unik.speak('Error in Json file')
+        //unik.speak('Error in Json file')
         return
     }
 

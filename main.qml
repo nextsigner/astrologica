@@ -30,6 +30,7 @@ AppWin {
 
     property string fileData: ''
     property string currentData: ''
+    property bool setFromFile: false
 
     //Para analizar signos y ascendentes por región
     property int currentIndexSignData: 0
@@ -89,25 +90,24 @@ AppWin {
         }
     }
     onCurrentGmtChanged: {
-        if(app.currentData==='')return
+        if(app.currentData===''||app.setFromFile)return
         xDataBar.currentGmtText=''+currentGmt
-        JS.setNewTimeJsonFileData(app.currentDate)
-        JS.runJsonTemp()
+        tReload.restart()
     }
     onCurrentDateChanged: {
-        if(app.currentData==='')return
+        if(app.currentData===''||app.setFromFile)return
         xDataBar.state='show'
         let a=currentDate.getFullYear()
         let m=currentDate.getMonth()
         let d=currentDate.getDate()
         let h=currentDate.getHours()
         let min=currentDate.getMinutes()
-        if(app.fileData!=='' && app.currentData!=='' ){
-            JS.setNewTimeJsonFileData(currentDate)
-        }
+//        if(app.fileData!=='' && app.currentData!=='' ){
+//            JS.setNewTimeJsonFileData(currentDate)
+//        }
         xDataBar.currentDateText=d+'/'+parseInt(m + 1)+'/'+a+' '+h+':'+min
         xDataBar.currentGmtText=''+currentGmt
-        JS.runJsonTemp()
+        tReload.restart()
     }
 
     Settings{

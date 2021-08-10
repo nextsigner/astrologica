@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.175"
-     inkscape:cx="-797.9821"
-     inkscape:cy="404.07721"
+     inkscape:zoom="0.49497475"
+     inkscape:cx="309.42298"
+     inkscape:cy="223.60962"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -54,21 +54,9 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-452.36216)">
-    <circle
-       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:60;stroke-linejoin:miter;stroke-miterlimit:33.5;stroke-dasharray:none;stroke-opacity:1"
-       id="path4800"
-       cx="300"
-       cy="752.36218"
-       r="269.16751" />
-    <circle
-       style="opacity:1;fill:#000000;fill-opacity:1;stroke:#000000;stroke-width:60;stroke-linejoin:miter;stroke-miterlimit:33.5;stroke-dasharray:none;stroke-opacity:1"
-       id="path4802"
-       cx="300"
-       cy="752.36218"
-       r="41.42857" />
     <g
        id="g839"
-       transform="translate(5.1914667e-6,-8.8320471e-6)">
+       transform="rotate(-45,299.99996,752.36214)">
       <rect
          y="497.80371"
          x="279.79694"
@@ -85,5 +73,11 @@
          x="732.15912"
          y="-554.55841" />
     </g>
+    <circle
+       style="opacity:1;fill:none;fill-opacity:1;stroke:#000000;stroke-width:60;stroke-linejoin:miter;stroke-miterlimit:33.5;stroke-dasharray:none;stroke-opacity:1"
+       id="path4800"
+       cx="300"
+       cy="752.36218"
+       r="269.16751" />
   </g>
 </svg>
