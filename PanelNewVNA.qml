@@ -192,7 +192,7 @@ Rectangle {
                 interval: 2000
                 onTriggered: {
                     let nom=tiNombre.t.text.replace(/ /g, '_')
-                    let fileName=app.mainLocation+'/jsons/'+nom+'.json'
+                    let fileName=apps.jsonsFolder+'/'+nom+'.json'
                     if(unik.fileExist(fileName)){
                         r.uFileNameLoaded=tiNombre.text
                         let jsonFileData=unik.getFile(fileName)
@@ -296,7 +296,7 @@ Rectangle {
     }
     function setNewJsonFileData(){
         let unom=r.uFileNameLoaded.replace(/ /g, '_')
-        let fileName=app.mainLocation+'/jsons/'+unom+'.json'
+        let fileName=apps.jsonsFolder+'/'+unom+'.json'
         if(unik.fileExist(fileName)){
             unik.deleteFile(fileName)
         }
@@ -336,9 +336,9 @@ Rectangle {
         j+='}'
         app.currentData=j
         nom=tiNombre.t.text.replace(/ /g, '_')
-        unik.setFile(app.mainLocation+'/jsons/'+nom+'.json', app.currentData)
+        unik.setFile(apps.jsonsFolder+'/'+nom+'.json', app.currentData)
         //apps.url=app.mainLocation+'/jsons/'+nom+'.json'
-        JS.loadJson(app.mainLocation+'/jsons/'+nom+'.json')
+        JS.loadJson(apps.jsonsFolder+'/'+nom+'.json')
         //runJsonTemp()
     }
     function enter(){

@@ -44,7 +44,11 @@ Item{
         XAs{fs:r.planetSize;astro:modelData;numAstro: index}
     }
     function pressed(o){
-        app.currentPlanetIndex=o.numAstro
+        if(app.currentPlanetIndex!==o.numAstro){
+            app.currentPlanetIndex=o.numAstro
+        }else{
+            app.currentPlanetIndex=-1
+        }
         //unik.speak(''+app.planetas[o.numAstro]+' en '+app.signos[o.objData.ns]+' en el grado '+o.objData.g+' en la casa '+o.objData.h)
     }
     function doublePressed(o){

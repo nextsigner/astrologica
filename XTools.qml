@@ -26,6 +26,43 @@ Rectangle {
                 JS.showIW()
             }
         }
+        Rectangle{
+            width: children[0].width+app.fs*0.25
+            height: children[0].height+app.fs*0.25
+            color: 'transparent'
+            border.width: 1
+            border.color: 'white'
+            anchors.horizontalCenter: parent.horizontalCenter
+            Column{
+                anchors.centerIn: parent
+                spacing: app.fs*0.25
+                Text{
+                    text: 'Ver/Lupa'
+                    font.pixelSize: app.fs*0.25
+                    color: 'white'
+                }
+                Row{
+                    spacing: app.fs*0.25
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    Button{
+                        text: apps.lt?'L':'Z'
+                        width: app.fs*0.6
+                        height: app.fs*0.6
+                        onClicked: {
+                            apps.lt=!apps.lt
+                        }
+                    }
+                    Button{
+                        text: 'MODO'
+                        width: app.fs*1.5
+                        height: app.fs*0.6
+                        onClicked: {
+                            sweg.nextState()
+                        }
+                    }
+                }
+            }
+        }
         Row{
             spacing: app.fs*0.25
             anchors.horizontalCenter: parent.horizontalCenter
@@ -51,7 +88,7 @@ Rectangle {
                 width: app.fs*0.6
                 height: app.fs*0.6
                 onClicked: {
-                        xInfoData.loadData('./resources/astromedicina.html')
+                    xInfoData.loadData('./resources/astromedicina.html')
                 }
             }
             Button{
@@ -59,8 +96,8 @@ Rectangle {
                 width: app.fs
                 height: app.fs*0.6
                 onClicked: {
-                        tAutoMaticPlanets.currentJsonData=app.currentData
-                        tAutoMaticPlanets.running=!tAutoMaticPlanets.running
+                    tAutoMaticPlanets.currentJsonData=app.currentData
+                    tAutoMaticPlanets.running=!tAutoMaticPlanets.running
                 }
                 Timer{
                     id: tAutoMaticPlanets
@@ -74,10 +111,10 @@ Rectangle {
                             return
                         }
                         if(app.currentPlanetIndex<16){
-                                app.currentPlanetIndex++
-                            }else{
-                                app.currentPlanetIndex=-1
-                            }
+                            app.currentPlanetIndex++
+                        }else{
+                            app.currentPlanetIndex=-1
+                        }
                     }
                 }
             }

@@ -91,7 +91,7 @@ Rectangle {
             color: 'black'//index===lv.currentIndex?'white':'black'
             property int is: -1
             property var rsDate
-            anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.horizontalCenter: parent.horizontalCenter
             //opacity: is!==-1?1.0:0.0
             onIsChanged:{
                 iconoSigno.source="./resources/imgs/signos/"+is+".svg"

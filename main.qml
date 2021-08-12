@@ -28,6 +28,7 @@ AppWin {
     property int msDesDuration: 500
     //property var api: [panelNewVNA, panelFileLoader]
 
+
     property string fileData: ''
     property string currentData: ''
     property bool setFromFile: false
@@ -117,6 +118,21 @@ AppWin {
         property bool showMenuBar: true
 
         property bool lt:false
+        property string jsonsFolder
+        Component.onCompleted: {
+            if(!jsonsFolder){
+                console.log('Seteando jsonsFolder...')
+                let docFolder=unik.getPath(3)
+                let jsonsFolderString=docFolder+'/AstroLogica/jsons'
+                if(!unik.folderExist(jsonsFolderString)){
+                    console.log('Creando carpeta '+jsonsFolderString)
+                    unik.mkdir(jsonsFolderString)
+                }else{
+                    console.log('Definiendo carpeta '+jsonsFolderString)
+                }
+                apps.jsonsFolder=jsonsFolderString
+            }
+        }
     }
     menuBar: Comps.XMenuBar {}
     Timer{

@@ -186,7 +186,7 @@ Rectangle {
         }
         of.is=fortuneIndexSign
         of.rsg=rsDegSign
-        s = 'Fortuna °' +parseInt(of.rsg)+ '\'' +of.m+ '\'\'' +of.s+ ' ' +app.signos[of.is]
+        s = 'Fortuna °' +parseInt(of.rsg)+ '\'' +of.m+ '\'\'' +of.s+ ' ' +app.signos[of.is]+' - Casa '+parseInt(of.ih)
         lm.append(lm.addItem(of.is, of.ih, of.rsg, of.m, of.s,  s))
 
         let o1=json.ph['h1']
