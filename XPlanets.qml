@@ -1,6 +1,5 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
-//import QtGraphicalEffects 1.0
 import "./ss" as SS
 Item {
     id: r
@@ -155,7 +154,6 @@ Item {
             }
         }
     }
-
     Rectangle {
         id: bg
         anchors.fill: parent

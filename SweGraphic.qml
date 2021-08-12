@@ -4,6 +4,7 @@ import "./comps" as Comps
 Item {
     id: r
     height: parent.height
+    opacity: 0.0
     anchors.centerIn: parent
     property int fs: r.objectName==='sweg'?app.fs:app.fs*2
     property int w: fs
@@ -66,6 +67,7 @@ Item {
         }
     ]
     onStateChanged: swegz.sweg.state=state
+    Behavior on opacity{NumberAnimation{duration: 1500}}
     Item{id: xuqp}
     Rectangle{
         id: bg
@@ -130,6 +132,13 @@ Item {
         border.color: 'white'
         anchors.centerIn: parent
     }
+    Timer{
+        id: tFirtShow
+        running: false
+        repeat: false
+        interval: 2000
+        onTriggered: r.opacity=1.0
+    }
     function loadSign(j){
         console.log('Ejecutando SweGraphic.loadSign()...')
         //unik.speak('load sign')
@@ -160,7 +169,7 @@ Item {
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         c+='        //console.log(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe_search_asc_aries.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
+        c+='        run(\'python3 '+app.mainLocation+'/py/astrologica_swe_search_asc_aries.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodesign')
@@ -217,6 +226,7 @@ Item {
         //if(app.mod!=='rs'&&app.mod!=='pl'&&panelZonaMes.state!=='show')panelRsList.setRsList(61)
         r.v=true
         app.enableAn=true
+        tFirtShow.start()
         //tReload.restart()
     }
     function nextState(){

@@ -201,6 +201,7 @@ AppWin {
             id: xTools
             anchors.bottom: parent.bottom
             anchors.right: parent.right
+            anchors.rightMargin: app.width*0.2
         }
         XBottomBar{id: xBottomBar}
         XSabianos{id: xSabianos}

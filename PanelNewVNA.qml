@@ -39,7 +39,7 @@ Rectangle {
     Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='show')tiNombre.t.focus=true
-        JS.raiseItem(r)
+        //JS.raiseItem(r)
         //xApp.focus=true
     }
     onXChanged: {
@@ -289,7 +289,7 @@ Rectangle {
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
         //c+='        console.log(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\'python3 /home/ns/nsp/uda/astrologica/py/geoloc.py "'+tiCiudad.t.text+'"\')\n'
+        c+='        run(\'python3 '+app.mainLocation+'/py/geoloc.py "'+tiCiudad.t.text+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')

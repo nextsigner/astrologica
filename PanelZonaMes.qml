@@ -45,7 +45,7 @@ Rectangle {
         }
         if(state==='show'){
             iniciar()
-            JS.raiseItem(r)
+            //JS.raiseItem(r)
             return
         }
     }

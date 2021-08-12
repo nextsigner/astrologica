@@ -32,7 +32,7 @@ Rectangle {
     Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     onStateChanged: {
         if(state==='hide')txtDataSearch.focus=false
-        JS.raiseItem(r)
+        //JS.raiseItem(r)
         xApp.focus=true
     }
     onXChanged: {
@@ -43,7 +43,7 @@ Rectangle {
     }
     FolderListModel{
         id: flm
-        folder: 'file:.//home/ns/nsp/uda/astrologica/jsons'
+        folder: 'file:./'+app.mainLocation+'/jsons'
         showDirs: false
         showFiles: true
         showHidden: false
@@ -136,7 +136,7 @@ Rectangle {
             Text {
                 id: txtData
                 text: dato
-                font.pixelSize: app.fs
+                font.pixelSize: app.fs*0.5
                 width: parent.width-app.fs
                 wrapMode: Text.WordWrap
                 textFormat: Text.RichText
@@ -152,7 +152,7 @@ Rectangle {
                 }
             }
             Rectangle{
-                width: txtDelete.contentWidth+app.fs
+                width: txtDelete.contentWidth+app.fs*0.25
                 height: width
                 radius: app.fs*0.3
                 anchors.right: parent.right
@@ -162,7 +162,7 @@ Rectangle {
                 Text {
                     id: txtDelete
                     text: 'X'
-                    font.pixelSize: app.fs*0.5
+                    font.pixelSize: app.fs*0.25
                     anchors.centerIn: parent
                 }
                 MouseArea{
@@ -196,7 +196,8 @@ Rectangle {
     function updateList(){
         lm.clear()
         for(var i=0;i<flm.count;i++){
-            let file='/home/ns/nsp/uda/astrologica/jsons/'+flm.get(i, 'fileName')
+            //let file='/home/ns/nsp/uda/astrologica/jsons/'+flm.get(i, 'fileName')
+            let file=app.mainLocation+'/jsons/'+flm.get(i, 'fileName')
             let fn=file//.replace('cap_', '').replace('.png', '')
             let jsonFileName=fn
             //console.log('FileName: '+jsonFileName)

@@ -6,12 +6,16 @@ Rectangle {
     id: r
     width: app.fs*6
     height: app.fs*3
-    border.width: 2
+    border.width: 0
     border.color: 'red'
     color: 'transparent'
     Column{
         spacing: app.fs*0.25
-        anchors.centerIn: r
+        //anchors.centerIn: r
+        anchors.right: parent.right
+        anchors.rightMargin: app.fs*0.1
+        anchors.bottom: parent.bottom
+        anchors.bottomMargin: app.fs*0.1
         Button{
             text: app.uSon
             width: app.fs*3

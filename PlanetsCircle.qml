@@ -126,5 +126,55 @@ Item{
         o.ns=objSignsNames.indexOf(o.is)
         o.rsg=rsDegSign
         objAs.objData=o
+        objSigns[o.is]++
+
+        /*
+        //Infortunio
+        //Diurna Ascendente + Marte - Saturno
+        //Nocturna Ascendente + Saturno - Marte
+        //joHouses=json.ph['h1']
+        let joMarte=json.pc['c4']
+        let joSaturno=json.pc['c6']
+        objAs=r.children[15]
+        //var gf
+        if(houseSun>=6){
+            //Fortuna en Carta Diurna
+            //Calculo para Fortuna Diurna Asc + Luna - Sol
+            gf=joHouses.gdec + joMarte.gdec - joSaturno.gdec
+            if(gf>=360)gf=gf-360
+            if(gf<0)gf=360-gf
+            objAs.rotation=signCircle.rot-gf
+        }else{
+            //Fortuna en Carta Nocturna
+            //Calculo para Fortuna Nocturna Asc + Sol - Luna
+            gf=joHouses.gdec + joSaturno.gdec - joMarte.gdec
+            if(gf>=360)gf=gf-360
+            if(gf<0)gf=360-gf
+            objAs.rotation=signCircle.rot-gf
+        }
+        arrayDMS=JS.deg_to_dms(gf)
+        o={}
+        o.g=arrayDMS[0]
+        o.m=arrayDMS[1]
+        rsDegSign=gf
+        for(var i2=1;i2<13;i2++){
+            if(i2*30<gf){
+                objAs.is=i2
+                rsDegSign-=30
+                o.p=objSigns[i2]
+            }
+
+            if(json.ph['h'+i2].gdec<gf){
+                o.h=i2
+                o.ih=i2
+            }
+        }
+        if(r.totalPosX<o.p){
+            r.totalPosX=o.p
+        }
+        o.ns=objSignsNames.indexOf(o.is)
+        o.rsg=rsDegSign
+        objAs.objData=o
+        objSigns[o.is]++*/
     }
 }

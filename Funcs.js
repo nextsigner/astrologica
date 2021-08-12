@@ -61,7 +61,8 @@ function getJSON(fileLocation, comp, s, c, nomCuerpo) {
     //Url File Local Data
     //'file:///home/ns/Documentos/unik/quiron/data/neptuno.json'
 
-    let jsonFileUrl='file:///home/ns/nsp/uda/quiron/data/'+fileLocation
+    //let jsonFileUrl='file:///home/ns/nsp/uda/quiron/data/'+fileLocation
+    let jsonFileUrl='file:./quiron/data/'+fileLocation
     //console.log('jsonFileUrl: '+jsonFileUrl)
     request.open('GET', jsonFileUrl, true);
     //request.open('GET', 'https://github.com/nextsigner/quiron/raw/main/data/'+cbPlanetas.currentText+'.json', true);
@@ -427,8 +428,8 @@ function setTitleData(nom, vd, vm, va, vh, vmin, vgmt, vCiudad, vlat, vlon, mod)
 function raiseItem(item){
     let z=0
     for(let i=0;i<item.parent.children.length;i++){
-        console.log('id:'+item.parent.children[i].objectName)
-        if(item.parent.children[i]!==item){
+        //console.log('id:'+item.parent.children[i].objectName)
+        if(item.parent.children[i]!==item&&item.parent.children[i].objectName!=='swegzcontainer'){
             item.parent.children[i].state='hide'
         }
     }

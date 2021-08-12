@@ -6,6 +6,7 @@ Item {
     id: r
     width: parent.width
     height: parent.height
+    objectName: 'swegzcontainer'
     property alias sweg: objSweGraphinZoom
     property real zoom: 2.0
     property int lupaX: xLupa.image.x

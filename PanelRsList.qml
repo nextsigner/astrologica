@@ -30,6 +30,11 @@ Rectangle {
             }
         }
     ]
+    onStateChanged: {
+        //if(state==='hide')txtDataSearch.focus=false
+        //JS.raiseItem(r)
+        //xApp.focus=true
+    }
     Behavior on x{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     Behavior on height{enabled: app.enableAn;NumberAnimation{duration: app.msDesDuration}}
     Column{
