@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 4.14.0, 2021-08-12T09:25:41. -->
+<!-- Written by QtCreator 4.14.0, 2021-08-13T02:42:22. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -299,8 +299,7 @@
     <value type="bool" key="RunConfiguration.UseLibrarySearchPath">true</value>
     <value type="bool" key="RunConfiguration.UseQmlDebugger">false</value>
     <value type="bool" key="RunConfiguration.UseQmlDebuggerAuto">true</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory">/home/ns/nsp/uda/astrologica</value>
-    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/ns/nsp/uda/build-astrologicav1-Desktop_Qt_5_15_2_GCC_64bit-Release</value>
+    <value type="QString" key="RunConfiguration.WorkingDirectory.default">/home/ns/nsp/uda/astrologica</value>
    </valuemap>
    <value type="int" key="ProjectExplorer.Target.RunConfigurationCount">1</value>
   </valuemap>
