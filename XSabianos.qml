@@ -1,4 +1,5 @@
 import QtQuick 2.7
+import QtQuick.Window 2.0
 import QtQuick.Controls 2.0
 import Qt.labs.settings 1.1
 
@@ -13,6 +14,7 @@ Rectangle {
     property int numSign: 0
     property int numDegree: 0
     property int fs: width*0.025
+    property real factorZoomByRes: 1.5
     property int currentInterpreter: 0
 
     MouseArea{
@@ -101,6 +103,10 @@ Rectangle {
         anchors.bottom: parent.bottom
         visible: false
     }
+    Component.onCompleted: {
+        if(Screen.width===1280&&Screen.height===720)r.factorZoomByRes=2.0
+        if(Screen.width===1920&&Screen.height===1080)r.factorZoomByRes=1.5
+    }
     function ctrlDown(){
         if(r.numSign<11){
             r.numSign++
@@ -187,7 +193,7 @@ Rectangle {
         if(r.fz<0.5){
             r.fz=0.5
         }
-        data.font.pixelSize=r.fs*2*r.fz
+        data.font.pixelSize=r.fs*r.factorZoomByRes*r.fz
         let fileData=''+unik.getFile('./360.html')
         let dataSign=fileData.split('---')
         let stringSplit=''

@@ -15,12 +15,16 @@ AppWin {
     id: app
     visible: true
     visibility: "Maximized"
+    width: Screen.width
+    height: Screen.height
+    minimumWidth: Screen.desktopAvailableWidth-app.fs*4
+    minimumHeight: Screen.desktopAvailableHeight-app.fs*4
     color: 'black'
     title: 'Astrológica '+version
     property bool dev: false
     property string version: '1.0'
     property string mainLocation: ''
-    property int fs: width*0.031
+    property int fs: Qt.platform.os==='linux'?width*0.02:width*0.031
     property string url
     property string mod: 'mi'
 

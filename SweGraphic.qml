@@ -24,7 +24,7 @@ Item {
             name: aStates[0]
             PropertyChanges {
                 target: r
-                width: r.fs*12
+                width: r.fs*(12 +10)
             }
             PropertyChanges {
                 target: signCircle
@@ -39,7 +39,7 @@ Item {
             name: aStates[1]
             PropertyChanges {
                 target: r
-                width: r.fs*15
+                width: r.fs*(15 +10)
             }
             PropertyChanges {
                 target: signCircle
@@ -54,7 +54,7 @@ Item {
             name: aStates[2]
             PropertyChanges {
                 target: r
-                width: r.fs*12
+                width: r.fs*(12 +10)
             }
             PropertyChanges {
                 target: signCircle

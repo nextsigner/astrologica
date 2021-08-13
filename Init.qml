@@ -11,8 +11,9 @@ Item {
                 +"[Desktop Entry]\n"
                 +"Name="+r.longAppName+"\n"
                 +"Comment=Aplicación para Visualizar simbolos de astrología.\n"
-                +"Exec=/usr/local/bin/unik -folder=/home/ns/nsp/uda/"+r.folderName+"\n"
-                +"Icon="+app.mainLocation+"/"+r.folderName+"/icon.png\n"
+                //+"Exec=/usr/local/bin/unik -folder=/home/ns/nsp/uda/"+r.folderName+"\n"
+                +"Exec=/usr/local/bin/astrologica\n"
+                +"Icon="+app.mainLocation+"/"+r.folderName+"/resources/imgs/logo.png\n"
                 +"Terminal=false\nType=Application"
             let desktopPath=unik.getPath(6)
             let fn=desktopPath+'/'+r.folderName+'.desktop'
