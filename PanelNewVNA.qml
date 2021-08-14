@@ -138,7 +138,7 @@ Rectangle {
                 KeyNavigation.tab: botCrear
                 t.maximumLength: 50
                 onTextChanged: {
-                    searchGeoLoc(false)
+                    //searchGeoLoc(false)
                     t.color='white'
                 }
             }
@@ -263,6 +263,7 @@ Rectangle {
         c+='UnikQProcess{\n'
         c+='    id: uqp'+ms+'\n'
         c+='    onLogDataChanged:{\n'
+        c+='            console.log(logData)\n'
         c+='        let result=(\'\'+logData).replace(/\\n/g, \'\')\n'
         c+='        let json=JSON.parse(result)\n'
         c+='        if(json){\n'
@@ -288,15 +289,17 @@ Rectangle {
         c+='        uqp'+ms+'.destroy(0)\n'
         c+='    }\n'
         c+='    Component.onCompleted:{\n'
-        //c+='        console.log(\'python3 /home/ns/nsp/uda/astrologica/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
-        c+='        run(\'python3 '+app.mainLocation+'/py/geoloc.py "'+tiCiudad.t.text+'"\')\n'
+        //c+='        console.log(\''+app.pythonLocation+' '+app.mainLocation+'/py/astrologica_swe.py '+vd+' '+vm+' '+va+' '+vh+' '+vmin+' '+vgmt+' '+vlat+' '+vlon+'\')\n'
+        c+='        run(\''+app.pythonLocation+' '+app.mainLocation+'/py/geoloc.py "'+tiCiudad.t.text+'"\')\n'
         c+='    }\n'
         c+='}\n'
         let comp=Qt.createQmlObject(c, xuqp, 'uqpcodenewvn')
     }
     function setNewJsonFileData(){
+        console.log('setNewJsonFileData...')
         let unom=r.uFileNameLoaded.replace(/ /g, '_')
         let fileName=apps.jsonsFolder+'/'+unom+'.json'
+        console.log('setNewJsonFileData() fileName: '+fileName)
         if(unik.fileExist(fileName)){
             unik.deleteFile(fileName)
         }

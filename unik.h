@@ -24,7 +24,7 @@
 #include <QPainter>
 #include <QProcess>
 #include <QSettings>
-#include <QtWidgets/QDesktopWidget>
+//#include <QtWidgets/QDesktopWidget>
 
 //Librerias Android
 #ifdef Q_OS_ANDROID
@@ -425,7 +425,7 @@ public slots:
 #endif
 
 #ifdef Q_OS_WIN
-    void speak(const QByteArray text, const QByteArray language);
+    //void speak(const QByteArray text, const QByteArray language);
 #endif
 #ifdef Q_OS_MACOS
     void speak(const QByteArray text, const QByteArray language);

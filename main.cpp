@@ -1,10 +1,13 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <QDir>
 #include <QDebug>
+#include <QIcon>
 #include "unikqprocess.h"
 #include "unik.h"
 
 #define VERSION "0.1"
+
 
 int main(int argc, char *argv[])
 {
@@ -78,7 +81,6 @@ int main(int argc, char *argv[])
     }
 #endif
 
-
     QDir::setCurrent(qApp->applicationDirPath());
 
     QString iconPath=qApp->applicationDirPath();
@@ -89,12 +91,16 @@ int main(int argc, char *argv[])
 
 
     QByteArray mainPath;
+#ifdef Q_OS_WIN
+    mainPath.append("file:///");
+#endif
     mainPath.append(qApp->applicationDirPath().toUtf8());
     mainPath.append("/main.qml");
-
     QQmlApplicationEngine engine;
     //const QUrl url(QStringLiteral(mainPath));
     const QUrl url(mainPath);
+
+    //const QUrl url(QStringLiteral("qr.cfgc:/main.qml"));
     QObject::connect(&engine, &QQmlApplicationEngine::objectCreated,
                      &app, [url](QObject *obj, const QUrl &objUrl) {
         if (!obj && url == objUrl)
@@ -103,5 +109,6 @@ int main(int argc, char *argv[])
     qmlRegisterType<UnikQProcess>("unik.UnikQProcess", 1, 0, "UnikQProcess");
     engine.rootContext()->setContextProperty("unik", &u);
     engine.load(url);
+
     return app.exec();
 }

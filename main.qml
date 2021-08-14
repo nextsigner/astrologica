@@ -24,7 +24,8 @@ AppWin {
     property bool dev: false
     property string version: '1.0'
     property string mainLocation: ''
-    property int fs: Qt.platform.os==='linux'?width*0.02:width*0.031
+    property string pythonLocation: Qt.platform.os==='windows'?'./Python/python.exe':'python3'
+    property int fs: Qt.platform.os==='linux'?width*0.02:width*0.02
     property string url
     property string mod: 'mi'
 
@@ -113,7 +114,7 @@ AppWin {
     }
     Settings{
         id: apps
-        fileName:'astrologica.cfg'
+        fileName:'astrologica_'+Qt.platform.os+'.cfg'
         property string url: ''
         property bool showTimes: false
         property bool showSWEZ: true
